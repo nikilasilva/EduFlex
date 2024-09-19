@@ -1,0 +1,45 @@
+.topNav-container {
+    /* display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background-color: #fff; */
+    padding: 0 10px 0 290px;
+    transition: var(--tran-05);
+}
+
+.topNav-container.full-width {
+    padding-left: 95px;
+    transition: var(--tran-04);
+}
+
+.topNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    /* width: 100%; Ensure it takes full width */
+    /* width: 80%; */
+}
+
+.topNav-icons {
+    margin-left: auto; /* Pushes icons to the right */
+    display: flex;
+    align-items: center;
+}
+
+.topNav-icon {
+    margin-left: 20px;
+    font-size: 20px;
+    color: var(--primary-text-color);
+}
+
+.icon {
+    color: var(--icon-color);
+}
+
+.icon:hover {
+    color: var(--primary-color);
+}

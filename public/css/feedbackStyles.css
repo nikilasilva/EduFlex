@@ -1,0 +1,53 @@
+.feedback-set-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px 10px 0 290px;
+    transition: var(--tran-05);
+}
+
+.feedback-set-container.full-width {
+    margin: 20px 10px 0 95px;
+    transition: var(--tran-04);
+}
+
+h1 {
+    margin-top: 0;
+}
+.feedback-card {
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.feedback-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--red-color);
+}
+.feedback-content {
+    margin-bottom: 10px;
+}
+.feedback-date {
+    font-size: 0.8em;
+    color: #888;
+    text-align: right;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination button, .pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+}
+.pagination .active {
+    background-color: var(--red-color);
+    color: white;
+    border-color: var(--red-color);
+}

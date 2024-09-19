@@ -1,0 +1,183 @@
+ul {
+    padding-left: 0;
+}
+
+.sidebar .text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: var(--tran-02);
+    white-space: nowrap;
+    opacity: 1;
+}
+
+.sidebar .image {
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+    padding: 10px 14px;
+    background: var(--sidebar-color);
+    transition: var(--tran-05);
+    z-index: 1000; /* Ensure it stays on top */
+    border-radius: 10px;
+}
+
+.sidebar.close {
+    width: 60px; /* Collapsed sidebar width */
+    transition: var(--tran-04);
+}
+
+.sidebar.close .text {
+    opacity: 0; /* Hide text in collapsed state */
+    transition: var(--tran-04);
+}
+
+.sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    font-size: 20px;
+}
+
+.sidebar li .icon,
+.sidebar li .text {
+    color: var(--icon-color);
+    transition: var(--tran-02);
+}
+
+.sidebar header {
+    position: relative;
+}
+
+.sidebar .image-text img {
+    width: 60px;
+}
+
+.sidebar .image-text .header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar header .image-text {
+    display: flex;
+    align-items: center;
+}
+
+.header-text .name {
+    font-weight: 600;
+    font-size: 30px;
+    padding-left: 24px;
+    color: var(--primary-text-color);
+}
+
+.sidebar header .toggle {
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    /* background-color: var(--primary-color); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0%;
+    color: var(--primary-color);
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1100; /* Keep the toggle button on top */
+}
+
+.sidebar li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: var(--tran-04);
+}
+
+.sidebar li a:hover {
+    background-color: var(--primary-color);
+}
+
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text {
+    color: var(--sidebar-color);
+}
+
+.sidebar .menu-bar {
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Responsive design for smaller devices */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 78px; /* Collapse sidebar for small screens */
+    }
+
+    .sidebar .text {
+        opacity: 0; /* Hide text on small screens */
+    }
+
+    .sidebar.close {
+        width: 60px;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px;
+    }
+
+    .sidebar li a {
+        justify-content: center; /* Center icons */
+    }
+
+    .sidebar li .text {
+        display: none; /* Hide text entirely for smaller screens */
+    }
+
+    .sidebar .toggle {
+        right: -20px; /* Adjust toggle button position */
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 100%; /* Make sidebar cover the full width on very small screens */
+        height: auto;
+        position: relative; /* Change position for mobile layout */
+    }
+
+    .sidebar li {
+        justify-content: center; /* Center items for mobile */
+    }
+
+    .sidebar.close {
+        height: 60px; /* Collapse to a small horizontal bar */
+    }
+
+    .sidebar.close .menu-bar {
+        display: none; /* Hide menu items */
+    }
+}

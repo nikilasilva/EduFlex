@@ -1,0 +1,57 @@
+/* Components */
+@import url('components/sidebarStyles.css');
+@import url('components/topNavbarStyles.css');
+@import url('dashboardStyles.css');
+@import url('components/table01Styles.css');
+@import url('feedbackStyles.css');
+
+:root {
+    /* Colors */
+    --body-color: #E4E9F7;
+    --sidebar-color: #fff;
+    --primary-color: #6472CD;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDD;
+    --primary-text-color: #2d346a;
+    --secondary-text-color: #555;
+    --icon-color: #2d346a;
+    --red-color: #ff0000;
+    /* --icon-color: #3b4380; */
+
+    /* Transitions */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    background: var(--body-color);
+}
+
+p {
+    font-size: 16px;
+    color: var(--secondary-text-color);
+    line-height: 1.6;
+}
+
+footer {
+    padding-left: 290px;
+    margin: 60px 0 0;
+    transition: var(--tran-05);
+}
+
+footer p {
+    margin: 0;
+}
+
+footer.close {
+    padding-left: 95px;
+    transition: var(--tran-04);
+}
+
+h1, h2 {
+    color: var(--primary-text-color);
+}
