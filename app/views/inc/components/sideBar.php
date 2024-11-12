@@ -14,7 +14,7 @@
     // Get the user role from session
     // if (isset($_SESSION['user_role'])) {
     //     $role = $_SESSION['user_role'];
-        $role = 'student';
+        $role = 'parent';
 
         // Dynamically load the sidebar for the specific role
         switch ($role) {
@@ -36,6 +36,10 @@
             case 'non-academic':
                 include APPROOT.'/views/inc/nonAcademic/sidebar_nonAcademic.php';
                 break;
+            case 'parent':
+                    include APPROOT.'/views/inc/Parent/sidebar_parent.php';
+                    break;
+            
             default:
                 // Load a general sidebar or error message if role not recognized
                 echo "<p>Role not recognized</p>";
