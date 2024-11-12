@@ -5,44 +5,44 @@
 
         // View all students.
         public function students() {
-            $this->view('all_students');
+            $this->view('inc/student/all_students');
         }
 
         public function details() {
-            $this->view('details');
+            $this->view('inc/student/details');
         }
 
 
         public function certificate() {
-            $this->view('certificate');
+            $this->view('inc/student/certificate');
         }
 
         public function form() {
-            $this->view('chargesForm');
+            $this->view('inc/student/chargesForm');
         }
 
         public function academic(){
-            $this->view('aca_details');
+            $this->view('inc/student/aca_details');
         }
 
         public function payment(){
-            $this->view('pay_details');
+            $this->view('inc/student/pay_details');
         }
 
         public function library_fine(){
-            $this->view('libry_fine');
+            $this->view('inc/student/libry_fine');
         }
 
         public function f_s(){
-            $this->view('F_S');
+            $this->view('inc/student/F_S');
         }
 
         public function character(){
-            $this->view('character');
+            $this->view('inc/student/character');
         }
 
         public function leaving(){
-            $this->view('leaving');
+            $this->view('inc/student/leaving');
         }
 
 
