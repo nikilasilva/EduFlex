@@ -1,0 +1,47 @@
+<?php require APPROOT.'/views/inc/header.php'; ?>
+<?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Daily Activities</title>
+
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
+
+    <!-- Main content -->
+    <div class="container">
+        <h1>Record Daily Activities</h1>
+
+        <!-- Daily Activities form -->
+        <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST">
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" name="date" id="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Activity Description:</label>
+                <textarea name="description" id="description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Additional Notes:</label>
+                <textarea name="notes" id="notes" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Activity</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<?php require APPROOT.'/views/inc/footer.php'; ?>
+

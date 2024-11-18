@@ -4,6 +4,9 @@
 @import url('dashboardStyles.css');
 @import url('components/table01Styles.css');
 @import url('feedbackStyles.css');
+@import url('components/scheduled_events.css');
+@import url('components/time_table.css');
+@import url('components/daily_activities.css');
 
 :root {
     /* Colors */

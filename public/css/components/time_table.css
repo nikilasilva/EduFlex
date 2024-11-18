@@ -1,0 +1,53 @@
+/* scheduledEvents.css */
+
+/* General container styling */
+.container {
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Table section */
+.timetable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.timetable th, .timetable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.timetable th {
+    background-color: #001d3d; /* Your ZellMart color scheme */
+    color: white;
+}
+
+.timetable td {
+    background-color: #f4f4f4;
+}
+
+.timetable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #001d3d;
+}
+
+/* Layout for the main content and sidebar */
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 250px;
+    background-color: #f7f7f8;
+    height: 100vh;
+}
+
+.container {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+}

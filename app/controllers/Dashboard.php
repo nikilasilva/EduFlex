@@ -11,5 +11,12 @@
         public function index() {
             $this->view('dashboard');
         }
-    }
+
+
+        
+        }
+
+
+        
+    
 ?>
