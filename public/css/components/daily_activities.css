@@ -29,7 +29,7 @@ input[type="date"], textarea {
     border-radius: 5px;
 }
 
-button[type="submit"] {
+button[type="submit"],.btn-primary {
     width: 100%;
     padding: 10px;
     background-color: #001d3d;
@@ -39,6 +39,9 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+
 button[type="submit"]:hover {
     background-color: #003366;
 }
+
+

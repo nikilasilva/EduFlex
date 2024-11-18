@@ -32,11 +32,14 @@
             </div>
 
             <div class="form-group">
-                <label for="notes">Additional Notes:</label>
-                <textarea name="notes" id="notes" rows="4"></textarea>
+                <label for="additional_note">Additional Notes:</label>
+                <textarea name="additional_note" id="additional_note" rows="4"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit Activity</button>
+            <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
+            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button>
+
+            
         </form>
     </div>
 </div>

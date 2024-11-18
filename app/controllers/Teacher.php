@@ -83,10 +83,9 @@
             }
         }
 
-
-
     // Display the daily activities form
     public function dailyActivities() {
+        
         $this->view('inc/teacher/daily_activities');
     }
 
@@ -96,9 +95,12 @@
             $activityData = [
                 'date' => $_POST['date'],
                 'description' => $_POST['description'],
-                'notes' => $_POST['notes']
+                'additional_note' => $_POST['additional_note']
+
             ];
 
+            $activity = new Current_activityModel();
+            $activity->insert($activityData);
             // Here, save the activity data to the database.
             // Example: $this->activityModel->addActivity($activityData);
 
@@ -109,6 +111,55 @@
             $this->view('daily_activities');
         }
     }
+
+    public function viewActivities() {
+    $activityModel = new Current_activityModel();
+    $activities = $activityModel->findAll();
+
+    $this->view('inc/teacher/view_activities', ['activities' => $activities]);
+}
+
+
+public function editActivity($id) {
+    $activityModel = new Current_activityModel();
+
+    // If the request is POST, update the activity
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $data = [
+            'date' => $_POST['date'],
+            'description' => $_POST['description'],
+            'additional_note' => $_POST['additional_note'],
+        ];
+
+        $activityModel->update($id, $data, 'activity_id');
+
+        // Redirect to the view activities page
+        header("Location: " . URLROOT . "/teacher/viewActivities");
+exit();
+    } else {
+        // Get the activity details
+        $activity = $activityModel->first(['activity_id' => $id]);
+
+        if ($activity) {
+            $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+        } else {
+            die('Activity not found.');
+        }
+    }
+}
+
+public function deleteActivity($id) {
+    $activityModel = new Current_activityModel();
+
+    // Delete the activity
+    $activityModel->delete($id, 'activity_id');
+
+    // Redirect to the view activities page
+    header("Location: " . URLROOT . "/teacher/viewActivities");
+    exit();
+}
+
+
 
     }
 ?>
