@@ -9,6 +9,7 @@ class Current_activityModel {
         'activity_id',
         'teacher_id',
         'date',
+        'time',
         'description',
         'additional_note'
     ];

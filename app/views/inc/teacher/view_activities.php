@@ -25,6 +25,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
+                    <th>Time</th>
                     <th>Description</th>
                     <th>Additional Note</th>
                     <th>Actions</th>
@@ -35,10 +36,11 @@
                     <tr>
                         <td><?php echo $activity->activity_id; ?></td>
                         <td><?php echo $activity->date; ?></td>
+                        <td><?php echo $activity->time; ?></td>
                         <td><?php echo $activity->description; ?></td>
                         <td><?php echo $activity->additional_note; ?></td>
                         <td>
-                            <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Edit</a>
+                            <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Edit</a><br></br>
                             <a href="<?php echo URLROOT; ?>/teacher/deleteActivity/<?php echo $activity->activity_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this activity?');">Delete</a>
                         </td>
                     </tr>

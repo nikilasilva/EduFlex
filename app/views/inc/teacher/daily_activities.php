@@ -27,6 +27,11 @@
             </div>
 
             <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" name="time" id="time" required>
+            </div>
+
+            <div class="form-group">
                 <label for="description">Activity Description:</label>
                 <textarea name="description" id="description" rows="4" required></textarea>
             </div>
@@ -37,7 +42,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button>
+            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button><br></br>
+
+            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
 
             
         </form>

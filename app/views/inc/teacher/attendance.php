@@ -48,8 +48,10 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <button type="submit" class="btn btn-primary">Submit Attendance</button>
+            
+            <br></br>
+            <button type="submit" class="btn btn-primary">Submit Attendance</button><br></br>
+            <button type="submit" class="btn btn-primary">View Attendance</button>
         </form>
     </div>
 </div>

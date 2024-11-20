@@ -94,6 +94,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'date' => $_POST['date'],
+                'time' => $_POST['time'],
                 'description' => $_POST['description'],
                 'additional_note' => $_POST['additional_note']
 
@@ -127,6 +128,7 @@ public function editActivity($id) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
             'date' => $_POST['date'],
+            'time' => $_POST['time'],
             'description' => $_POST['description'],
             'additional_note' => $_POST['additional_note'],
         ];
@@ -135,7 +137,7 @@ public function editActivity($id) {
 
         // Redirect to the view activities page
         header("Location: " . URLROOT . "/teacher/viewActivities");
-exit();
+        exit();
     } else {
         // Get the activity details
         $activity = $activityModel->first(['activity_id' => $id]);

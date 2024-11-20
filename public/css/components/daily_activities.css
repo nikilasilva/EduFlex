@@ -1,7 +1,9 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin-top: 30px;
+    max-width: 800px;
+    height: 600px;
+    padding-right: 50px;
+    padding-left: 50px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -41,6 +43,10 @@ button[type="submit"],.btn-primary {
 
 
 button[type="submit"]:hover {
+    background-color: #003366;
+}
+
+button[type="button"]:hover {
     background-color: #003366;
 }
 

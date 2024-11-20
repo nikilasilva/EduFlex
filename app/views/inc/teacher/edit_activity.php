@@ -14,6 +14,11 @@
             </div>
 
             <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" name="time" id="time" value="<?php echo htmlspecialchars($data['activity']->time); ?>" required>
+            </div>
+
+            <div class="form-group">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" required><?php echo htmlspecialchars($data['activity']->description); ?></textarea>
             </div>
