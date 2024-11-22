@@ -1,3 +1,5 @@
+controller
+<!-- // all emty -->
 <?php
     class NonAcademic extends Controller {
         public function __construct() {
@@ -24,13 +26,13 @@
                 
             ];
         
-            $activity = new test();
+            $activity = new issuance_of_booksModel();
             $activity->insert($activityData);
             // Here, save the activity data to the database.
             // Example: $this->activityModel->addActivity($activityData);
 
             // Display a success message or redirect to a success page
-            echo "Activity recorded successfully: " . htmlspecialchars($activityData['description']);
+            echo "Activity recorded successfully: " . htmlspecialchars($activityData['full_name']);
         } else {
             // If not a POST request, reload the daily activities page
             $this->view('daily_activities');

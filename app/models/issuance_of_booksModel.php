@@ -1,7 +1,6 @@
-
 <?php
 
-class test {
+class issuance_of_booksModel {
 
     use Model;
 
