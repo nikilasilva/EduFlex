@@ -13,18 +13,18 @@
             $this->view('/inc/nonAcademic/Issuance_of_books');
         }
 
-        public function Issuance_books_submit() {
+        public function submitActivities() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
-                'Student_full_name' => $_POST['Student_full_name'],                   
-                'Student_ID' => $_POST['Student_ID'],
-                'Name_Of_Book' => $_POST['Name_Of_Book'],
-                'Book_ID' => $_POST['Book_ID'],
-                'date' => $_POST['date'],
+                'student_id' => $_POST['student_id'],                   
+                'book_id' => $_POST['book_id'],
+                'full_name' => $_POST['full_name'],
+                'book_name' => $_POST['book_name'],
+                'issue_date' => $_POST['issue_date'],
                 
             ];
-
-            $activity = new Current_Issuance_books();
+        
+            $activity = new test();
             $activity->insert($activityData);
             // Here, save the activity data to the database.
             // Example: $this->activityModel->addActivity($activityData);

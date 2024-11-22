@@ -5,61 +5,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issuance Books</title>
+    <title>Record Daily Activities</title>
 
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
 </head>
 <body>
-
-
-
-
-<div class= "layout">
+<div class="layout">
     <!-- Sidebar -->
-    <!-- <?php require APPROOT.'/views/inc/components/sideBar.php'; ?> -->
+    <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
     <div class="container">
-        <h1>Issuance Books</h1>
-
-        <div class="search-bar">
-            <input type="text" placeholder="Search by name...">
-            <button>SEARCH</button>
-        </div>
+        <h1>testing</h1>
 
         <!-- Daily Activities form -->
-        <form action="<?php echo URLROOT; ?>/NonAcademic/Issuance_books_submit" method="POST">
+        <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
+            
 
+            <!-- <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" name="time" id="time" required>
+            </div> -->
+            <div class="form-group">
+                <label for="student_id">student id :</label>
+                <textarea name="student_id" id="student_id" rows="4"></textarea>
+            </div>
+
+            
 
             <div class="form-group">
-                <label for="Student_full_name">Student Full Name :</label>
-                <textarea name="Student_full_name" id="Student_full_name" ></textarea>
-            </div>        
-
-            <div class="form-group">
-                <label for="Student_ID">Student ID :</label>
-                <textarea name="Student_ID" id="Student_ID" ></textarea>
+                <label for="book_id">book_id Notes:</label>
+                <textarea name="book_id" id="book_id" rows="4"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="Name_Of_Book ">Name Of Book :</label>
-                <textarea name="Name_Of_Book" id="Name_Of_Book" required></textarea>
+                <label for="full_name">full_name Description:</label>
+                <textarea name="full_name" id="full_name" rows="4" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="Book_ID">Book ID</label>
-                <textarea name="Book_ID" id="Book_ID" ></textarea>
+                <label for="additional_note">book_name Notes:</label>
+                <textarea name="book_name" id="additional_note" rows="4"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="Date_of_issuance">Date of Issuance:</label>
-                <input type="date" name="Date_of_issuance" id="Date_of_issuance" required>
-            </div>
-
-            <div class="form-group">
-                <label for="Date_of_receipt">Date of Receipt:</label>
-                <input type="date" name="Date_of_receipt" id="Date_of_receipt" required>
+                <label for="date">issue date:</label>
+                <input type="date" name="issue_date" id="date" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
@@ -75,3 +67,4 @@
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+

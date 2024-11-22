@@ -1,17 +1,17 @@
+
 <?php
 
-class Current_Issuance_books {
+class test {
 
     use Model;
 
     protected $table = 'library_activities';
     protected $allowedColumns = [
-        'full_name',
         'student_id',
         'book_id',
-        'book_id',
-        'Date_of_issuance',
-        'Date_of_receipt'
+        'full_name',
+        'book_name',
+        'issue_date'
     ];
 
     protected $order_column = 'date'; // Defined here
