@@ -1,6 +1,10 @@
 <?php
     class Student extends Controller {
+        private $StudentModel;
+
         public function __construct() {
+          // $this->StudentModel = $this->model('StudentModel');
+          // $this->model('StudentModel');
         }
 
         // View all students.
@@ -9,7 +13,20 @@
         }
 
         public function details() {
+            //
+            // $Student = $this->StudentModel->getUsers();
+
+            // $data = [
+            //     'Student' => $Student
+            // ];
+
+            //
             $this->view('inc/student/details');
+
+        }
+//
+        public function view($view, $data = []) {
+            require_once "../app/views/{$view}.php";
         }
 
 

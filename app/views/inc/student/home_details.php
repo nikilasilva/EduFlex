@@ -49,6 +49,18 @@
         <p><span>E-mail:</span> danielgrant@gmail.com</p>
         <p><span>Admission Date:</span> 07.08.2019</p>
         <p><span>Class:</span> 2</p>
+
+        <!-- <?php foreach($data['Student'] as $Student): ?>
+        <p><strong>ID Number :</strong> <?php echo $Student->student_id; ?></p>
+        <p><strong>Full Name :</strong> <?php echo $Student->name; ?></p>
+        <p><strong>Gender :</strong> <?php echo $Student->gender; ?></p>
+        <p><strong>Date Of Birth :</strong> <?php echo $Student->dob; ?></p>
+        <p><strong>E-mail :</strong> <?php echo $Student->email; ?></p>
+        <p><strong>Admission Date :</strong> <?php echo $Student->admission_date; ?></p>
+        <p><strong>Class :</strong> <?php echo $Student->class; ?></p>
+    <?php endforeach; ?> -->
+
+
     </div>
 </div>
 

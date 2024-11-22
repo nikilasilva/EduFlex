@@ -5,6 +5,10 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 20px 10px 0 290px;
     transition: var(--tran-05);
+
+    max-height: 500px; /* Set the maximum height for the container */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    overflow-x: hidden;
 }
 
 .feedback-set-container.full-width {
@@ -50,4 +54,143 @@ h1 {
     background-color: var(--red-color);
     color: white;
     border-color: var(--red-color);
+}
+
+.submit-feedback {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.submit-feedback .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.submit-feedback .btn:hover {
+    background-color: #0056b3;
+}
+
+
+.feedback-card {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.feedback-card .feedback-name {
+    font-weight: bold;
+}
+
+.feedback-card .feedback-content {
+    margin: 10px 0;
+}
+
+.submit-feedback {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-feedback-form {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.add-feedback-form h2 {
+    margin-bottom: 15px;
+}
+
+.add-feedback-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-feedback-form input,
+.add-feedback-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-feedback-form .btn {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-feedback-form .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Container for the feedback actions */
+.feedback-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Space between the buttons */
+}
+
+/* Style for the Update button */
+.feedback-actions .btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.feedback-actions .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Style for the Delete button */
+.feedback-actions .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.feedback-actions .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+.colorful-submit {
+    background-color: #24b11f;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.colorful-submit:hover {
+    background: linear-gradient(45deg, #24800f, #ffa726, #ffe082);
+    box-shadow: 0 0 10px rgba(13, 140, 24, 0.6);
+    cursor: pointer;
 }
