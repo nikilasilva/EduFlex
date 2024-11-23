@@ -9,6 +9,10 @@ controller
         // public function nonAcademics() {
         //     $this->view('all_teachers');
         // }
+        // // View all NonAcademics.
+        // public function nonAcademics() {
+        //     $this->view('all_teachers');
+        // }
 
 
         public function Issuance_books() {
@@ -35,11 +39,18 @@ controller
             echo "Activity recorded successfully: " . htmlspecialchars($activityData['full_name']);
         } else {
             // If not a POST request, reload the daily activities page
-            $this->view('daily_activities');
+            $this->view('Issuance_books');
         }
 
         }
 
+
+        public function viewActivities() {
+            $activityModel = new issuance_of_booksModel();
+            $activities = $activityModel->findAll();
+        
+            $this->view('inc/nonAcademic/See_library_activity', ['activities' => $activities]);
+        }
         
 
         

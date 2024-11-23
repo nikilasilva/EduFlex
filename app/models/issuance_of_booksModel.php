@@ -10,8 +10,9 @@ class issuance_of_booksModel {
         'book_id',
         'full_name',
         'book_name',
-        'issue_date'
+        'issue_date',
+        'receipt_date'
     ];
 
-    protected $order_column = 'date'; // Defined here
+    protected $order_column = 'student_id'; // Defined here
 }
