@@ -16,7 +16,7 @@
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
-    <div class="container">
+    <div class="record-container">
         <h1>Record Activity</h1>
 
         <!-- Daily Activities form -->

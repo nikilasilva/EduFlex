@@ -16,7 +16,7 @@
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
-    <div class="container">
+    <div class="timetable-container">
         <h1>Grade 6-A Timetable</h1>
         <div class="timetable">
             <table>

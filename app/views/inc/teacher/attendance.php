@@ -16,7 +16,7 @@
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
-    <div class="container">
+    <div class="attendance-container">
         <h1>Attendance for Grade 6-A</h1>
 
         <!-- Attendance form -->
