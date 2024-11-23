@@ -38,71 +38,63 @@
     </ul>
 </nav>
 
-<!-- Main Content -->
-<div class="container">
-    <h1>All Subjects</h1>
-    <div class="search-bar">
-        <input type="text" placeholder="Search by subject name..." id="searchInput">
-        <button>SEARCH</button>
-    </div>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Subject Name</th>
-                <th>Teacher</th>
-                <th>Grade</th>
-            </tr>
-        </thead>
-        <tbody id="subjectTable">
-            <tr>
-                <td>English</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>Maths</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>French</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>Science</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>Arts</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>French</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>Science</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-            <tr>
-                <td>Arts</td>
-                <td>Daniel Grant</td>
-                <td>View Grade</td>
-            </tr>
-        </tbody>
+
+<div class="attendance-container-unique">
+    <h2 id="monthTitle">January</h2>
+    <table class="attendance-table">
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceData">
+        <tr>
+          <td>Week 1</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+        </tr>
+        <tr>
+          <td>Week 2</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+        </tr>
+        <tr>
+          <td>Week 3</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+        </tr>
+        <tr>
+          <td>Week 4</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-present">&#x2713;</td>
+          <td class="attendance-absent">&#x2717;</td>
+          <td class="attendance-present">&#x2713;</td>
+        </tr>
+      </tbody>
     </table>
+    <div class="attendance-month-navigation">
+      <button id="nextMonth" onclick="changeMonth('next')">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
 
-    
-    
-</div>
-
+  <?php require APPROOT . '/views/inc/footer.php'; ?>
+  <script src="<?php echo URLROOT; ?>/public/js/attendance.js"></script>
 </body>
 </html>
-
-<?php require APPROOT.'/views/inc/footer.php'; ?>

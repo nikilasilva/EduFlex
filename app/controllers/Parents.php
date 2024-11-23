@@ -50,6 +50,12 @@ class Parents extends Controller {
         $this->view('inc/Parent/parent_charges');
     }
 
+    public function attendance() {
+        $this->view('inc/Parent/attendance_parent');
+    }
+
+
+
     // Handle feedback submission
     public function submitFeedback() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

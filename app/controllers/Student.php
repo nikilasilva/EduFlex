@@ -62,6 +62,13 @@
             $this->view('inc/student/leaving');
         }
 
+        public function attendance(){
+            
+            $this->view('inc/student/attendance'); 
+        }
+
+
+
 
 
     }

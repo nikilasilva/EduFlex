@@ -19,7 +19,7 @@
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
         
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/academic_details"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Academic Details</span></a></li>
-            <li class="nav-links"><a href="#attendance"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance Details</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/attendance"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance Details</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/pay_details"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Payment Details</span></a></li>
 
         <li class="nav-links"><a href="#timetable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
