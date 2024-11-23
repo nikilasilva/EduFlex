@@ -4,6 +4,8 @@
 @import url('dashboardStyles.css');
 @import url('components/table01Styles.css');
 @import url('feedbackStyles.css');
+@import url('loginStyles.css');
+@import url('forgotPasswordStyles.css');
 
 :root {
     /* Colors */
@@ -15,7 +17,8 @@
     --primary-text-color: #2d346a;
     --secondary-text-color: #555;
     --icon-color: #2d346a;
-    --red-color: #ff0000;
+    --red-color: #ff4d4d;
+    --hover-red-color: #b91c1c;
     /* --icon-color: #3b4380; */
 
     /* Transitions */

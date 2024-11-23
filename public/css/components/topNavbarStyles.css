@@ -40,6 +40,25 @@
     color: var(--icon-color);
 }
 
-.icon:hover {
+.icon:hover, .login-button:hover {
     color: var(--primary-color);
+}
+
+/* Login button */
+.topNav-login {
+    margin-left: auto;
+}
+
+.login-button {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}
+
+.topNav-logout {
+    padding-left: 20px;
+}
+
+.logout-button {
+    color: var(--primary-text-color);
+    text-decoration: none;
 }
