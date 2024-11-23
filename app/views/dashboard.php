@@ -1,6 +1,6 @@
 <?php require APPROOT.'/views/inc/header.php'; ?>
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
-<img class="school-img" src="<?php echo URLROOT; ?>/public/img/SchoolBg2.png" alt="School Building">
+<img class="school-img" src="<?php echo URLROOT; ?>/public/img/schoolBG.png" alt="School Building">
     <main class="main-content">
         
         <div class="motto-vision-container">
