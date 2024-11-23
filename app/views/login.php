@@ -1,5 +1,5 @@
 <?php require APPROOT.'/views/inc/header.php'; ?>
-<div class="container">
+<div class="l-container">
     <div class="login-container">
         
         <div class="logo-section">
