@@ -19,23 +19,23 @@
         <h2>Library Fine Charges</h2>
         <form id="fineForm" action="#" method="post" onsubmit="showNotification(event)">
             <label for="fullName">1. Full Name</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            <input type="text" class="fine-input" id="fullName" name="fullName" placeholder="Enter your full name" required>
 
             <label for="studentId">2. Student ID</label>
-            <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
+            <input type="text" class="fine-input" id="studentId" name="studentId" placeholder="Enter your student ID" required>
 
             <label for="bookName">3. Name Of the Book</label>
-            <input type="text" id="bookName" name="bookName" placeholder="Enter the book name" required>
+            <input type="text" class="fine-input" id="bookName" name="bookName" placeholder="Enter the book name" required>
 
             <label for="borrowDate">4. Borrow Date</label>
-            <input type="date" id="borrowDate" name="borrowDate" required>
+            <input type="date" class="fine-input" id="borrowDate" name="borrowDate" required>
 
             <label for="returnDate">5. Return Date</label>
-            <input type="date" id="returnDate" name="returnDate" required>
+            <input type="date" class="fine-input" id="returnDate" name="returnDate" required>
 
             <label for="paymentSlip">7. Payment Slip</label>
             <div class="file-upload">
-                <input type="file" id="paymentSlip" name="paymentSlip" required onchange="updateLabel()">
+                <input type="file" class="fine-input" id="paymentSlip" name="paymentSlip" required onchange="updateLabel()">
                 <label for="paymentSlip" id="uploadLabel" class="upload-label">Upload Slip <span class="upload-icon">📤</span></label>
             </div>
 
