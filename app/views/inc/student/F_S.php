@@ -18,17 +18,17 @@
         <h2>Facility & Service Charges</h2>
         <form id="fineForm" action="#" method="post" onsubmit="showNotification(event)">
             <label for="fullName">1. Full Name</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            <input type="text" class="fine-input" id="fullName" name="fullName" placeholder="Enter your full name" required>
 
             <label for="studentId">2. Student ID</label>
-            <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
+            <input type="text" class="fine-input" id="studentId" name="studentId" placeholder="Enter your student ID" required>
 
             <label for="PaymentYear">3. Year Of Payment</label>
             <input type="text" id="payment" name="payment" placeholder="Enter the Year Of Payment" required>
 
             <label for="paymentSlip">4. Payment Slip</label>
             <div class="file-upload">
-                <input type="file" id="paymentSlip" name="paymentSlip" required onchange="updateLabel()">
+                <input type="file" class="fine-input" id="paymentSlip" name="paymentSlip" required onchange="updateLabel()">
                 <label for="paymentSlip" id="uploadLabel" class="upload-label">Upload Slip <span class="upload-icon">📤</span></label>
             </div>
 
