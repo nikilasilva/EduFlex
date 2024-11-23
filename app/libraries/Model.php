@@ -105,7 +105,9 @@ Trait Model{
 
         $data[$id_column] = $id;
 
-        $this->query($query,$data);
+        if ($this->query($query, $data)) {
+            return true; // Return true if query execution succeeds
+        }
         return false;
     }
 
