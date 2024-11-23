@@ -166,13 +166,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* Focus States */
-input:focus {
+.fine-input:focus {
     border-color: #3498db;
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 /* Error State */
-input:invalid {
+.fine-input:invalid {
     border-color: #e74c3c;
 }
 
