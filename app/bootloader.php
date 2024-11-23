@@ -1,4 +1,12 @@
 <?php
+
+spl_autoload_register(function($classname){
+    $filename = "../app/models/".ucfirst($classname). ".php";
+    if(file_exists($filename)){
+        require $filename;    
+    }
+});
+
     // Load configurations
     require_once 'config/config.php';
 

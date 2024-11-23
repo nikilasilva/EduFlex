@@ -1,0 +1,67 @@
+/* Main container styling */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f3f7;
+}
+
+.table-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #271f83;
+    margin-bottom: 20px;
+    position: relative;
+    left: 550px;
+    top: -250px;
+}
+
+/* Table styling */
+.status-table {
+    width: 50%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+}
+
+/* Header styling */
+.table-header {
+    background-color: #4a63e7;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Year and status cell styling */
+.year-cell {
+    background-color: #79a8ff;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.status-paid {
+    background-color: #39d96b;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.status-non-paid {
+    background-color: #e15b5b;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+}
