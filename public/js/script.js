@@ -139,8 +139,7 @@ window.onload = populateTeacherTable;
 //         name: "Name",
 //         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
 //         date: "2023-09-17"
-//     }
-    
+
 // ];
 
 // function displayFeedbacks() {

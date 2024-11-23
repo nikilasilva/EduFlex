@@ -1,0 +1,62 @@
+/* attendance.css */
+
+/* General container styling */
+.attendance-container {
+    margin-top: 30px;
+    width: 73%;
+    margin-left: 290px;
+    padding: 50px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #001d3d; /* Your ZellMart color scheme */
+    color: white;
+    padding: 10px;
+}
+
+tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+button {
+    background-color: #001d3d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #004080;
+}
+
+/* Layout for the main content and sidebar */
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 250px;
+    background-color: #f7f7f8;
+    height: 100vh;
+}
+
+.container {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+}
