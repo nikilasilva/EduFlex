@@ -25,7 +25,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
-                    <th>Time</th>
+                    <th>Time: from</th>
+                    <th>Time: to</th>
+                    <th>Subject</th>
+                    <th>Class</th>
                     <th>Description</th>
                     <th>Additional Note</th>
                     <th>Actions</th>
@@ -38,7 +41,10 @@
                         <tr>
                             <td><?php echo $activity->activity_id; ?></td>
                             <td><?php echo $activity->date; ?></td>
-                            <td><?php echo $activity->time; ?></td>
+                            <td><?php echo $activity->time_from; ?></td>
+                            <td><?php echo $activity->time_to; ?></td>
+                            <td><?php echo $activity->subject; ?></td>
+                            <td><?php echo $activity->class; ?></td>
                             <td><?php echo $activity->description; ?></td>
                             <td><?php echo $activity->additional_note; ?></td>
                             <td>

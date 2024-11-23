@@ -94,7 +94,10 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'date' => $_POST['date'],
-                'time' => $_POST['time'],
+                'time_from' => $_POST['time_from'],
+                'time_to' => $_POST['time_to'],
+                'subject' => $_POST['subject'],
+                'class' => $_POST['class'],
                 'description' => $_POST['description'],
                 'additional_note' => $_POST['additional_note']
 
@@ -127,10 +130,13 @@ public function editActivity($id) {
     // If the request is POST, update the activity
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
-            'date' => $_POST['date'],
-            'time' => $_POST['time'],
-            'description' => $_POST['description'],
-            'additional_note' => $_POST['additional_note'],
+                'date' => $_POST['date'],
+                'time_from' => $_POST['time_from'],
+                'time_to' => $_POST['time_to'],
+                'subject' => $_POST['subject'],
+                'class' => $_POST['class'],
+                'description' => $_POST['description'],
+                'additional_note' => $_POST['additional_note']
         ];
 
         $activityModel->update($id, $data, 'activity_id');

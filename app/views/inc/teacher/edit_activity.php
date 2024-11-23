@@ -14,8 +14,26 @@
             </div>
 
             <div class="form-group">
-                <label for="time">Time</label>
-                <input type="time" name="time" id="time" value="<?php echo htmlspecialchars($data['activity']->time); ?>" required>
+                
+                <label for="time_from">from</label>
+                <input type="time" name="time_from" id="time_from" value="<?php echo htmlspecialchars($data['activity']->time_from); ?>" required>
+                
+            </div>
+
+            <div class="form-group">
+                
+                <label for="time_to">to</label>
+                <input type="time" name="time_to" id="time_to" value="<?php echo htmlspecialchars($data['activity']->time_to); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <textarea name="subject" id="subject" required><?php echo htmlspecialchars($data['activity']->subject); ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="clas">Class</label>
+                <textarea name="class" id="class" required><?php echo htmlspecialchars($data['activity']->class); ?></textarea>
             </div>
 
             <div class="form-group">
