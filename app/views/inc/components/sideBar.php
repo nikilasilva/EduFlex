@@ -1,3 +1,10 @@
+<?php
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <nav class="sidebar">
     <header>
         <div class="image-text">
@@ -11,10 +18,8 @@
         </div>
     </header>
     <?php
-    // Get the user role from session
-    // if (isset($_SESSION['user_role'])) {
-    //     $role = $_SESSION['user_role'];
-        $role = 'parent';
+    if (isset($_SESSION['user']['role'])) {
+        $role = $_SESSION['user']['role'];
 
         // Dynamically load the sidebar for the specific role
         switch ($role) {
@@ -41,15 +46,29 @@
                     break;
             
             default:
-                // Load a general sidebar or error message if role not recognized
-                echo "<p>Role not recognized</p>";
+                // Load a general sidebar
+                echo '
+                <div class="menu-bar">
+                    <div class="menu">
+                        <ul class="menu-links">
+                            <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                ';                
                 break;
         }
-    // } else {
-    //     // Redirect to login or show an error if no session exists
-    //     header('Location: login.php');
-    //     exit();
-    // }
+    }
+     else {
+        echo '
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
+                </ul>
+            </div>
+        </div>
+        ';  
+    }
     ?>
-    <!-- <button class="toggle-btn" onclick="toggleSidebar()">button</button> -->
 </nav>
