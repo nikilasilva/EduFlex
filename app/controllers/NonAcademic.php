@@ -13,6 +13,7 @@ controller
         // public function nonAcademics() {
         //     $this->view('all_teachers');
         // }
+        
 
 
         public function Issuance_books() {
@@ -50,6 +51,27 @@ controller
             $activities = $activityModel->findAll();
         
             $this->view('inc/nonAcademic/See_library_activity', ['activities' => $activities]);
+        }
+
+
+        public function TeachersAttendencee() {
+            
+        
+            $this->view('inc/nonAcademic/record_teachers_attendencee');
+        }
+
+
+        public function ReceipfBooks() {
+            
+        
+            $this->view('inc/nonAcademic/receipt_of_books' );
+        }
+
+
+        public function checkServiceCharges() {
+            
+        
+            $this->view('inc/nonAcademic/check_service_charges');
         }
         
 

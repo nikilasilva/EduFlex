@@ -14,7 +14,7 @@
     // Get the user role from session
     // if (isset($_SESSION['user_role'])) {
     //     $role = $_SESSION['user_role'];
-        $role = 'principal';
+        $role = 'non-academic';
 
         // Dynamically load the sidebar for the specific role
         switch ($role) {
