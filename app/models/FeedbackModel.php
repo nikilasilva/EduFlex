@@ -6,7 +6,8 @@ class FeedbackModel {
     protected $allowedColumns = [
         'feedback_id',
         'content',
-        'date'        
+        'date' ,
+        'is_read'       
     ];
 
     protected $order_column = 'date';
