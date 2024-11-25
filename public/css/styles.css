@@ -11,7 +11,7 @@
 @import url('components/view_activities.css');
 @import url('components/attendance.css');
 
-@import url('details.css');
+/* @import url('details.css');
 @import url('aca_details.css');
 @import url('payment.css');
 @import url('libry_fine.css');
@@ -20,7 +20,7 @@
 @import url('leaving.css');
 @import url('attendance.css');
 @import url('loginStyles.css');
-@import url('forgotPasswordStyles.css');
+@import url('forgotPasswordStyles.css'); */
 
 :root {
     /* Colors */

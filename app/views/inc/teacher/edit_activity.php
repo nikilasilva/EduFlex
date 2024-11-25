@@ -1,10 +1,20 @@
 <?php require APPROOT.'/views/inc/header.php'; ?>
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Activity</title>
 
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+</head>
+<body>
 <div class="layout">
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
-    <div class="container">
+    <div class="record-container">
         <h1>Edit Activity</h1>
 
         <form action="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $data['activity']->activity_id; ?>" method="POST">
@@ -51,6 +61,8 @@
         </form>
     </div>
 </div>
+</body>
+</html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
 
