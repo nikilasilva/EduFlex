@@ -55,9 +55,20 @@ controller
 
 
         public function TeachersAttendencee() {
-            
+            $data = [
+                'teacher' => [
+                    ['id' => 'S001', 'name' => 'John Doe'],
+                    ['id' => 'S002', 'name' => 'Jane Smith'],
+                    ['id' => 'S003', 'name' => 'Michael Johnson'],
+                    ['id' => 'S004', 'name' => 'Emily Davis'],
+                ]
+            ];
+
+            // Load the view and pass Teachers data
+            $this->view('inc/nonAcademic/record_teachers_attendencee', $data);
+
         
-            $this->view('inc/nonAcademic/record_teachers_attendencee');
+            // $this->view('inc/nonAcademic/record_teachers_attendencee');
         }
 
 
