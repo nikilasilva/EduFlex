@@ -102,12 +102,15 @@ class Parents extends Controller {
     public function submitFeedback() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $content = htmlspecialchars($_POST['content'] ?? '');
+            $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
             $date = date('Y-m-d');
 
             if (!empty($content)) {
                 $data = [
                     'content' => $content,
-                    'date' => $date
+                    'recipient' => $recipient,
+                    'date' => $date,
+                
                 ];
                 try {
                     if ($this->FeedbackModel->insert($data)) {
@@ -192,13 +195,15 @@ class Parents extends Controller {
                     // Update the feedback in the database
                     $updateSuccess = $feedbackModel->update($id, $updateData, 'feedback_id');
 
-                    header("location: URLROOT . 'parents/feedback'");
+                    header("location: URLROOT . 'parents/viewFeedbacks'");
                     
                     
     
             }
         }
     }
+
+    
     
 
     
@@ -213,36 +218,47 @@ class Parents extends Controller {
             $this->FeedbackModel->delete($id, 'feedback_id');
 
             // Redirect after successful deletion
-            header('Location: ' . URLROOT . '/parents/feedback');
+            header('Location: ' . URLROOT . '/parents/viewFeedbacks');
             exit;
         } catch (Exception $e) {
             echo "Error deleting feedback: " . $e->getMessage();
         }
     }
 
+   
+    
 
-
-    public function toggleReadStatus($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Get the status from the checkbox (1 if checked, 0 if unchecked)
-            $isRead = isset($_POST['is_read']) ? 1 : 0;
-            
-            // Prepare the data for updating
-            $updateData = [
-                'is_read' => $isRead
-            ];
-            
-            // Update the feedback status in the database
-            $updateSuccess = $this->FeedbackModel->update($id, $updateData, 'feedback_id');
-            
-            if ($updateSuccess) {
-                // Redirect back to the feedbacks page after successful update
-                header('Location: ' . URLROOT . '/parents/feedback');
-                exit;
-            } else {
-                echo "Error updating feedback status.";
-            }
-        }
+    public function viewFeedbacks() {
+        // Get feedbacks from the database
+        $feedbacks = $this->FeedbackModel->findAll();
+        
+        // Pass feedbacks to the view
+        $data = [
+            'feedbacks' => $feedbacks
+        ];
+    
+        $this->view('inc/Parent/viewFeedback_parent', $data);
     }
+
+    public function deleteFeedback_Principal($id) {
+        try {
+            // Use feedback_id as the identifier column
+            $this->FeedbackModel->delete($id, 'feedback_id');
+
+            // Redirect after successful deletion
+            header('Location: ' . URLROOT . '/principal/viewFeedbacks');
+            exit;
+        } catch (Exception $e) {
+            echo "Error deleting feedback: " . $e->getMessage();
+        }
+
+    }
+    
+
+    
+    
+    
+
+
     
 }

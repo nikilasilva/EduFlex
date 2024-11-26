@@ -21,15 +21,32 @@ require APPROOT . '/views/inc/components/sideBar.php';
                 <!-- Feedback Date -->
                 <div class="feedback-date">Submitted on: <?php echo $feedback->date; ?></div>
 
-                <!-- Mark as Read Checkbox -->
-                <form action="<?php echo URLROOT; ?>/parents/toggleReadStatus/<?php echo $feedback->feedback_id; ?>" method="POST">
-                    <label for="is_read_<?php echo $feedback->feedback_id; ?>">Mark as Read:</label>
-                    <input type="checkbox" 
-                           id="is_read_<?php echo $feedback->feedback_id; ?>" 
-                           name="is_read" 
-                           <?php echo $feedback->is_read == 1 ? 'checked' : ''; ?>>
-                    
-                </form>
+                <div class="feedback-read-section">
+                    <form action="<?php echo URLROOT; ?>/Principal/markFeedbackAsRead" method="POST">
+                        <input type="hidden" name="feedback_id" value="<?php echo $feedback->feedback_id; ?>">
+                        <div class="read-checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                id="feedback-<?php echo $feedback->feedback_id; ?>" 
+                                name="is_read" 
+                                <?php echo $feedback->is_read ? 'checked' : ''; ?>
+                                onchange="this.form.submit()"
+                            >
+                            <label for="feedback-<?php echo $feedback->feedback_id; ?>">
+                                Mark as Read
+                            </label>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Delete Button -->
+                <button 
+                    class="btn btn-danger" 
+                    onclick="window.location.href='<?php echo URLROOT; ?>/parents/deleteFeedback_Principal/<?php echo $feedback->feedback_id; ?>';"
+                >
+                    Delete
+                </button>
+                
             </div>
         <?php endforeach; ?>
     <?php else: ?>

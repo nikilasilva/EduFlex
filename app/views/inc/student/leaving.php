@@ -16,6 +16,7 @@
     <h2>Request for Leaving Certificate</h2>
     <form onsubmit="showNotification(event)">
         <div class="form-group">
+        
             <label for="full-name">1. Full Name </label>
             <input type="text" id="full-name" placeholder="Enter full name">
         </div>
