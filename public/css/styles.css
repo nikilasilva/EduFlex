@@ -21,6 +21,7 @@
 @import url('attendance.css');
 @import url('loginStyles.css');
 @import url('forgotPasswordStyles.css');
+@import url('components/scheduled_events.css');
 
 :root {
     /* Colors */
