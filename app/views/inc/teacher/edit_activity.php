@@ -43,11 +43,6 @@
 
             <div class="form-group">
                 <label for="subject">Subject:</label>
-                <textarea name="subject" id="subject" rows="1" required><?php echo htmlspecialchars($data['activity']->subject); ?></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="subject">Subject:</label>
                 <select name="subject" id="subject" class="searchable" required>
                     <option value="">Search or Select a Subject</option>
                     <?php 
