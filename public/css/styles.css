@@ -4,6 +4,13 @@
 @import url('dashboardStyles.css');
 @import url('components/table01Styles.css');
 @import url('feedbackStyles.css');
+
+@import url('components/scheduled_events.css');
+@import url('components/time_table.css');
+@import url('components/daily_activities.css');
+@import url('components/view_activities.css');
+@import url('components/attendance.css');
+
 @import url('details.css');
 @import url('aca_details.css');
 @import url('payment.css');

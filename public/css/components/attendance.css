@@ -1,10 +1,9 @@
-/* scheduledEvents.css */
+/* attendance.css */
 
 /* General container styling */
-.timetable-container {
+.attendance-container {
     margin-top: 30px;
     width: 73%;
-    height: 100%;
     margin-left: 290px;
     padding: 50px;
     background-color: #f9f9f9;
@@ -12,33 +11,37 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Table section */
-.timetable table {
+/* Table styling */
+table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.timetable th, .timetable td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.timetable th {
+thead th {
     background-color: #001d3d; /* Your ZellMart color scheme */
     color: white;
+    padding: 10px;
 }
 
-.timetable td {
+tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
     background-color: #f4f4f4;
 }
 
-.timetable tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+button {
+    background-color: #001d3d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
 
-h1 {
-    color: #001d3d;
+button:hover {
+    background-color: #004080;
 }
 
 /* Layout for the main content and sidebar */
@@ -56,5 +59,4 @@ h1 {
     flex: 1;
     margin-left: 250px;
     padding: 20px;
-
 }
