@@ -69,6 +69,69 @@ controller
         }
 
 
+
+
+
+            public function editActivity($id) {
+            $activityModel = new Current_activityModel();
+        
+            // If the request is POST, update the activity
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $data = [
+                        'book_id' => $_POST['book_id'],
+                        'full_name' => $_POST['full_name'],
+                        'book_name' => $_POST['book_name'],
+                        'issue_date' => $_POST['issue_date'],
+                        'receipt_date' => $_POST['receipt_date']
+                ];
+        
+                $activityModel->update($id, $data, 'activity_id');
+        
+                // Redirect to the view activities page
+                header("Location: " . URLROOT . "/NonAcademic/viewActivities");
+                exit();
+            } else {
+                // Get the activity details
+                $activity = $activityModel->first(['activity_id' => $id]);
+        
+                if ($activity) {
+                    $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+                } else {
+                    die('Activity not found.');
+                }
+            }
+        }
+        
+        public function deleteActivity($id) {
+            $activityModel = new issuance_of_booksModel();
+        
+            // Delete the activity
+            $activityModel->delete($id, 'student_id');
+        
+            // Redirect to the view activities page
+            header("Location: " . URLROOT . "/NonAcademic/viewActivities");
+            exit();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public function TeachersAttendencee() {
             $data = [
                 'teacher' => [
