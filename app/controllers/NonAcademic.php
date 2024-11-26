@@ -17,6 +17,21 @@ controller
 
 
         public function Issuance_books() {
+
+
+            $this->view('/inc/nonAcademic/Issuance_of_books');
+        }
+
+
+        public function Issuance_books_searched() {
+            
+            // if (isset($_POST['search_student_id'])) {
+            //     $search = $conn->real_escape_string($_GET['search_student_id']);
+            //     $searchmodel=new issuance_of_booksModel;
+            //     $result=$searchmodel->search("student_id",search_student_id)
+
+            // }
+            
             $this->view('/inc/nonAcademic/Issuance_of_books');
         }
 

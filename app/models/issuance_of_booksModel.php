@@ -1,6 +1,7 @@
 <?php
 
-class issuance_of_booksModel {
+class issuance_of_booksModel
+{
 
     use Model;
 
@@ -14,5 +15,5 @@ class issuance_of_booksModel {
         'receipt_date'
     ];
 
-    protected $order_column = 'student_id'; // Defined here
+    protected $order_column = 'issue_date'; // Defined here
 }

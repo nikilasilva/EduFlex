@@ -128,5 +128,20 @@ Trait Model{
     
         return $this->query($query);
     }
+
+    
+    public function search($column, $searchTerm) {  // use for sherch part, book issuance part and mor
+        if (!isset($this->order_column)) {
+            throw new Exception('Order column not defined in the model.');
+        }
+    
+        $query = "SELECT * FROM $this->table WHERE $column LIKE :searchTerm ";
+        $query .= "ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+    
+        $data = ['searchTerm' => "%$searchTerm%"];
+    
+        return $this->query($query, $data);
+    }
+    
     
 }
