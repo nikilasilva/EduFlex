@@ -25,8 +25,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
-                    <th>Time: from</th>
-                    <th>Time: to</th>
+                    <th>Period</th>
                     <th>Subject</th>
                     <th>Class</th>
                     <th>Description</th>
@@ -41,14 +40,13 @@
                         <tr>
                             <td><?php echo $activity->activity_id; ?></td>
                             <td><?php echo $activity->date; ?></td>
-                            <td><?php echo $activity->time_from; ?></td>
-                            <td><?php echo $activity->time_to; ?></td>
+                            <td><?php echo $activity->period; ?></td>
                             <td><?php echo $activity->subject; ?></td>
                             <td><?php echo $activity->class; ?></td>
                             <td><?php echo $activity->description; ?></td>
                             <td><?php echo $activity->additional_note; ?></td>
                             <td>
-                                <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Edit</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/teacher/deleteActivity/<?php echo $activity->activity_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this activity?');">Delete</a>
                             </td>
                         </tr>
