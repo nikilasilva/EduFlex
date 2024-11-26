@@ -16,6 +16,7 @@
     <h2>Request for Leaving Certificate</h2>
     <form onsubmit="showNotification(event)">
         <div class="form-group">
+        
             <label for="full-name">1. Full Name </label>
             <input type="text" id="full-name" placeholder="Enter full name">
         </div>
@@ -52,12 +53,14 @@
             </div> 
         </div>
 
-        <div class="checkbox-container">
-            <input type="checkbox" id="declaration">
-            <span>I hereby declare that the information provided is true and correct.</span>
+        <div class="custom-checkbox-container">
+            <input type="checkbox" id="customDeclaration" class="custom-checkbox">
+            <span class="custom-checkbox-label">I hereby declare that the information provided is true and correct.</span>
         </div>
 
-        <button type="submit" class="submit-btn">Submit</button>
+
+        
+    <button type="submit" class="custom-submit-button">Submit</button>
     </form>
 </div>
 

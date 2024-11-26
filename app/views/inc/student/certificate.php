@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/certificate.css">
     <title>Account Details</title>
 </head>
+
+
+
+
 <body>
+    
 
     <!-- Container for the image cards -->
     <div class="certificate-container">
