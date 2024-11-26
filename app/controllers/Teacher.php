@@ -94,8 +94,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'date' => $_POST['date'],
-                'time_from' => $_POST['time_from'],
-                'time_to' => $_POST['time_to'],
+                'period' => $_POST['period'],
                 'subject' => $_POST['subject'],
                 'class' => $_POST['class'],
                 'description' => $_POST['description'],
@@ -131,8 +130,7 @@ public function editActivity($id) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
                 'date' => $_POST['date'],
-                'time_from' => $_POST['time_from'],
-                'time_to' => $_POST['time_to'],
+                'period' => $_POST['period'],
                 'subject' => $_POST['subject'],
                 'class' => $_POST['class'],
                 'description' => $_POST['description'],
