@@ -240,6 +240,31 @@ class Parents extends Controller {
         $this->view('inc/Parent/viewFeedback_parent', $data);
     }
 
+    // public function viewFeedbacks() {
+    //     // Check if user is logged in
+    //     if (!isset($_SESSION['user'])) {
+    //         // Redirect to login if not logged in
+    //         header('Location: ' . URLROOT . '/Login');
+    //         exit();
+    //     }
+    
+    //     // Get the currently logged-in user's ID
+    //     $currentUserId = $_SESSION['user']['id'];
+        
+    //     // Prepare data for filtering
+    //     $data = ['user_id' => $currentUserId];
+        
+    //     // Get feedbacks specific to the current user
+    //     $feedbacks = $this->FeedbackModel->where($data);
+        
+    //     // Pass feedbacks to the view
+    //     $data = [
+    //         'feedbacks' => $feedbacks
+    //     ];
+        
+    //     $this->view('inc/Parent/viewFeedback_parent', $data);
+    //  }
+
     public function deleteFeedback_Principal($id) {
         try {
             // Use feedback_id as the identifier column
