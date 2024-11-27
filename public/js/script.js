@@ -129,32 +129,42 @@ function populateTeacherTable() {
 window.onload = populateTeacherTable;
 
 
-// const feedbacks = [
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-18"
-//     },
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-17"
+const feedbacks = [
+    {
+        name: "Name",
+        content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
+        date: "2023-09-18"
+    },
+    {
+        name: "Name",
+        content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
+        date: "2023-09-17"
+    },
+    {
+        name: "Name",
+        content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
+        date: "2023-09-16"
+    },
+    {
+        name: "Name",
+        content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
+        date: "2023-09-15"
+    }
+];
 
-// ];
+function displayFeedbacks() {
+    const container = document.getElementById('feedback-container');
+    container.innerHTML = '';
+    feedbacks.forEach(feedback => {
+        const card = `
+            <div class="feedback-card">
+                <div class="feedback-name">${feedback.name}</div>
+                <div class="feedback-content">${feedback.content}</div>
+                <div class="feedback-date">${feedback.date}</div>
+            </div>
+        `;
+        container.innerHTML += card;
+    });
+}
 
-// function displayFeedbacks() {
-//     const container = document.getElementById('feedback-container');
-//     container.innerHTML = '';
-//     feedbacks.forEach(feedback => {
-//         const card = `
-//             <div class="feedback-card">
-//                 <div class="feedback-name">${feedback.name}</div>
-//                 <div class="feedback-content">${feedback.content}</div>
-//                 <div class="feedback-date">${feedback.date}</div>
-//             </div>
-//         `;
-//         container.innerHTML += card;
-//     });
-// }
-
-// window.onload = displayFeedbacks;
+window.onload = displayFeedbacks;

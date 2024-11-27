@@ -5,10 +5,6 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 20px 10px 0 290px;
     transition: var(--tran-05);
-
-    max-height: 500px; /* Set the maximum height for the container */
-    overflow-y: auto; /* Allow vertical scrolling if content overflows */
-    overflow-x: hidden;
 }
 
 .feedback-set-container.full-width {
@@ -17,429 +13,41 @@
 }
 
 h1 {
-    /* margin-top: 0; */
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.2rem;
-    font-weight: 600;
-    padding-bottom: 10px;
+    margin-top: 0;
 }
 .feedback-card {
-    /* background-color: #f8f8f8;
+    background-color: #f8f8f8;
     border-radius: 5px;
     padding: 15px;
-    margin-bottom: 15px; */
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    transition: transform 0.2s ease;
+    margin-bottom: 15px;
 }
-.feedback-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
 .feedback-name {
     font-weight: bold;
     margin-bottom: 5px;
     color: var(--red-color);
 }
 .feedback-content {
-    /* margin-bottom: 10px; */
-    width: 97%;
-    min-height: 80px;
-    padding: 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
-    line-height: 1.6;
     margin-bottom: 10px;
-    resize: vertical;
-    background-color: #f8f9fa;
-    
 }
-
-.feedback-content:focus {
-    outline: none;
-    /* border-color: #3498db; */
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-}
-
-.feedback-content:not([readonly]) {
-    background-color: #ffffff;
-}
-
 .feedback-date {
     font-size: 0.8em;
     color: #888;
     text-align: right;
-    margin-bottom: 10px;
-    
 }
-
-
-.submit-feedback {
+.pagination {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
-    text-align: center;
 }
-
-
-
-.submit-feedback .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    text-decoration: none;
-    color: #fff;
-    background-color: #2ebb2e;
-    border-radius: 5px;
-}
-
-.submit-feedback .btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-    
-}
-
-
-.feedback-card {
-    padding: 15px;
-    margin-bottom: 10px;
+.pagination button, .pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.feedback-card .feedback-name {
-    font-weight: bold;
-}
-
-.feedback-card .feedback-content {
-    margin: 10px 0;
-}
-
-.submit-feedback {
-    /* margin-top: 20px;
-    text-align: center; */
-    margin-top: 20px;
-    background: #f8f9fa;
-    /* padding: 20px; */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.submit-feedback textarea {
-   
-    min-height: 80px;
-    padding: 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    resize: vertical;
-    width: 97%;
-    font-size: 14px;
-    line-height: 1.6;
-    background-color: #f8f9fa;
-}
-
-.add-feedback-form {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-}
-
-.add-feedback-form h2 {
-    margin-bottom: 15px;
-}
-
-.add-feedback-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.add-feedback-form input,
-.add-feedback-form textarea {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.add-feedback-form .btn {
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 4px;
+    background-color: white;
     cursor: pointer;
 }
-
-.add-feedback-form .btn-success {
-    background-color: #28a745;
+.pagination .active {
+    background-color: var(--red-color);
     color: white;
-}
-
-/* Container for the feedback actions */
-.feedback-actions {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px; /* Space between the buttons */
-}
-
-/* Style for the Update button */
-.feedback-actions .btn-warning {
-    background-color: #ffc107;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-
-.feedback-actions .btn-warning:hover {
-    background-color: #e0a800;
-}
-
-/* Style for the Delete button */
-.feedback-actions .btn-danger {
-    background-color: #dc3545;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-
-.feedback-actions .btn-danger:hover {
-    background-color: #c82333;
-}
-
-
-.colorful-submit {
-    /* background-color: #24b11f;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease; */
-    background-color: #24b11f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-/* .colorful-submit:hover {
-    background: linear-gradient(45deg, #27ae60, #2980b9);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-} */
-
-
-
-
-/* Ensuring good spacing for checkbox form */
-
-.submit-feedback {
-    max-width: 800px;
-    margin: 30px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.submit-feedback h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 25px;
-}
-
-/* Textarea Styling */
-#content {
-    width: 97%;
-    min-height: 150px;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    resize: vertical;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-#content:focus {
-    outline: none;
-    border-color: #4CAF50;
-}
-
-#content::placeholder {
-    color: #999;
-}
-
-/* Button Styling */
-.colorful-submit {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.colorful-submit:hover {
-    background-color: #0c430f;
-}
-
-.colorful-submit:active {
-    transform: scale(0.98);
-}
-
-/* View Feedbacks Button Container */
-.view-feedbacks {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.view-feedbacks .btn {
-    flex: 1;
-    margin: 0 10px;
-    padding: 10px;
-    background-color: #082639;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    font-size: 14px;
-}
-
-.view-feedbacks .btn:hover {
-    background-color: #103147;
-}
-
-.view-feedbacks .btn:active {
-    transform: scale(0.98);
-}
-
-
-/* Custom container for the form group */
-.form-group-feedback {
-    margin-bottom: 20px; /* Spacing between form fields */
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Custom label styling */
-.label-feedback {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    display: inline-block;
-}
-
-/* Custom select input field */
-.form-control-feedback {
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
-}
-
-/* Focus effect for the select field */
-.form-control-feedback:focus {
-    border-color: #17c041;
-    outline: none;
-}
-
-/* Style for the option elements in the dropdown */
-.form-control-feedback option {
-    padding: 10px;
-    font-size: 14px;
-}
-
-/* Hover effect for the form group */
-.form-group-feedback:hover {
-    background-color: #f1f1f1;
-}
-
-.read-checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding: 5px 0;
-    position: relative;
-    left: 1000px;
-}
-
-
-.read-checkbox-container input[type="checkbox"] {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-.read-checkbox-container label {
-    cursor: pointer;
-    user-select: none;
-    color: #333;
-    font-size: 0.9em;
-    position: relative;
-    top: -5px;
-    
-}
-
-/* .read-checkbox-container input[type="checkbox"]:checked + label {
-    color: #007bff;
-    font-weight: bold;
-} */
-.read-feedback {
-    background-color: #f4f4f4;
-    opacity: 0.7;
-}
-
-.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.read-status {
-    margin-top: 10px;
-    text-align: right;
-}
-
-.badge-info {
-    background-color: #1aba18;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 3px;
+    border-color: var(--red-color);
 }

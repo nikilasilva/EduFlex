@@ -108,6 +108,7 @@ Trait Model{
         if ($this->query($query, $data)) {
             return true; // Return true if query execution succeeds
         }
+    
         return false;
     }
 

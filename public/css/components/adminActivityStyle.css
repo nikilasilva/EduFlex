@@ -1,0 +1,54 @@
+/* Styling for the manage_student_container */
+.manage_by_admin {
+    margin-left: 300px; /* Adjust margin to locate it properly after the sidebar */
+    margin-top: 50px;
+    padding: 50px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 300px; /* Increased height */
+    
+}
+
+/* Styling for the buttons container */
+.manage_buttons {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 15px; /* Add spacing between buttons */
+}
+
+/* Default styling for all buttons */
+.manage_buttons button {
+    background-color: #007bff; /* Default blue color */
+    color: white;
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Hover effect for all buttons */
+.manage_buttons button:hover {
+    background-color: #0056b3; /* Slightly darker blue on hover */
+}
+
+/* Active button effect */
+.manage_buttons button:active {
+    transform: scale(0.98); /* Slightly smaller when clicked */
+}
+
+/* Specific styling for Delete button */
+.manage_buttons button:last-child {
+    background-color: #ff4d4d; /* Red color for Delete button */
+}
+
+.manage_buttons button:last-child:hover {
+    background-color: #cc0000; /* Darker red for hover effect */
+}

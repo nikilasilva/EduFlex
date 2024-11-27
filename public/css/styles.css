@@ -4,27 +4,11 @@
 @import url('dashboardStyles.css');
 @import url('components/table01Styles.css');
 @import url('feedbackStyles.css');
-
-@import url('components/scheduled_events.css');
-@import url('components/time_table.css');
-@import url('components/daily_activities.css');
-@import url('components/view_activities.css');
-@import url('components/attendance.css');
-
-@import url('details.css');
-@import url('aca_details.css');
-@import url('payment.css');
-@import url('libry_fine.css');
-@import url('chargesForm.css');
-@import url('certificate.css');
-@import url('leaving.css');
-@import url('attendance.css');
 @import url('loginStyles.css');
 @import url('forgotPasswordStyles.css');
-@import url('components/scheduled_events.css');
-
-@import url('index.css');
-@import url('landing.css');
+@import url('components/adminActivityStyle.css');
+@import url('components/insert_actor_style.css');
+@import url('components/view_user_table.css');
 
 :root {
     /* Colors */
@@ -63,9 +47,6 @@ footer {
     padding-left: 290px;
     margin: 60px 0 0;
     transition: var(--tran-05);
-    position: absolute;
-    bottom: 10px;
-    left:20px;
 }
 
 footer p {

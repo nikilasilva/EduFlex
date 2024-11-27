@@ -1,12 +1,11 @@
-<div class="menu-bar">
-    <div class="menu">
-        <ul class="menu-links">
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/certificate"><i class="fa-solid fa-certificate icon"></i><span class="text nav-text">Certificates</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/form"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Charges Form</span></a></li>
-        </ul>
-    </div>
-</div>  
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#details">Details</a></li>
+        <li><a href="#timetable">Timetable</a></li>
+        <li><a href="#scheduleEvents">Scheduled Events</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#chargesForm">Charges Form</a></li>
+        <li><a href="#settings">Settings</a></li>
+    </ul>
+</nav>

@@ -8,7 +8,7 @@
             <li class="nav-links"><a href="#scheduleEvents"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
             <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li>
             <li class="nav-links"><a href="#currentActivities"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Current Activities</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/principal/viewFeedbacks"><i class="fa-solid fa-comment icon"></i><span class="text nav-text">Feedbacks</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Feedback/index"><i class="fa-solid fa-comment icon"></i><span class="text nav-text">Feedbacks</span></a></li>
             <li class="nav-links"><a href="#settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
         </ul>
     </div>

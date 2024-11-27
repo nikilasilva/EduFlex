@@ -2,21 +2,24 @@
 class Dashboard extends Controller {
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) {
-            session_start(); // Ensure session is started
+            session_start();
         }
     }
 
-    // Load the appropriate page based on login status
+    // Load the dashboard view
     public function index() {
+        // Pass user data to the dashboard view
         if (!isset($_SESSION['user'])) {
-            // If the user is not logged in, redirect to the landing page
-            $this->view('landing');
-        } else {
-            // If the user is logged in, show the dashboard
+            $data = [
+                'user' => 'guest'
+            ];
+        }
+        else {
             $data = [
                 'user' => $_SESSION['user']
             ];
-            $this->view('dashboard', $data);
         }
+        $this->view('dashboard', $data);
     }
 }
+?>

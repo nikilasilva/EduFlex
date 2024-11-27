@@ -130,7 +130,11 @@ ul {
     flex-direction: column;
     justify-content: space-between;
 }
+/* ##########style student buttons######## */
+/*.admin-buttons-container .student-btn{
 
+}
+*/
 /* Responsive design for smaller devices */
 @media (max-width: 768px) {
     .sidebar {

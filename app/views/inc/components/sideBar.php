@@ -18,10 +18,10 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </header>
     <?php
-  
+    // Get the user role from session
     if (isset($_SESSION['user']['role'])) {
         $role = $_SESSION['user']['role'];
-      
+
         // Dynamically load the sidebar for the specific role
         switch ($role) {
             case 'admin':
@@ -42,10 +42,6 @@ if (session_status() === PHP_SESSION_NONE) {
             case 'non-academic':
                 include APPROOT.'/views/inc/nonAcademic/sidebar_nonAcademic.php';
                 break;
-            case 'parent':
-                    include APPROOT.'/views/inc/Parent/sidebar_parent.php';
-                    break;
-            
             default:
                 // Load a general sidebar
                 echo '

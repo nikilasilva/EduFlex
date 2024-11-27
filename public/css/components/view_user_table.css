@@ -1,0 +1,63 @@
+/* Styling for the container */
+.manage_user_container {
+    margin-left: 250px;
+    padding: 100px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 700px;
+}
+
+/* Styling for the table */
+.user_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user_table th, .user_table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user_table th {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+}
+
+.user_table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.user_table tbody tr td {
+    font-size: 14px;
+}
+
+/* Styling for action buttons */
+.action-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action-button.update {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.action-button.delete {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.action-button:hover {
+    opacity: 0.9;
+}
