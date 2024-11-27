@@ -24,7 +24,8 @@
 
 
             <!-- Daily Activities form -->
-            <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity" method="POST">
+            <!-- <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity" method="POST"> -->
+            <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity/<?php echo $data['activity']->student_id; ?>" method="POST">
 
 
                 <!-- <div class="form-group">
@@ -65,25 +66,25 @@
 
 
                 <div class="form-group">
-                    <label for="description">book_id:</label>
-                    <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($data['activity']->book_id); ?></textarea>
+                    <label for="book_id">book id:</label>
+                    <textarea name="book_id" id="book_id" rows="4" required><?php echo htmlspecialchars($data['activity']->book_id); ?></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="additional_note">full_name :</label>
-                    <textarea name="additional_note" id="additional_note" rows="4"><?php echo htmlspecialchars($data['activity']->full_name); ?></textarea>
+                    <label for="full_name">full name :</label>
+                    <textarea name="full_name" id="full_name" rows="4"><?php echo htmlspecialchars($data['activity']->full_name); ?></textarea>
                 </div>
 
 
 
                 <div class="form-group">
-                    <label for="description">book_name:</label>
-                    <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($data['activity']->book_name); ?></textarea>
+                    <label for="book_name">book name:</label>
+                    <textarea name="book_name" id="book_name" rows="4" required><?php echo htmlspecialchars($data['activity']->book_name); ?></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="additional_note">issue date : </label>
-                    <textarea name="additional_note" id="additional_note" rows="4"><?php echo htmlspecialchars($data['activity']->issue_date); ?></textarea>
+                    <label for="issue_date">issue date : </label>
+                    <textarea name="issue_date" id="issue_date" rows="4"><?php echo htmlspecialchars($data['activity']->issue_date); ?></textarea>
                 </div>
 
 
