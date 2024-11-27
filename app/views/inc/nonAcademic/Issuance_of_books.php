@@ -19,14 +19,6 @@
     <div class="container">
         <h1>Issue Books</h1>
 
-        <form action="<?php echo URLROOT; ?>/NonAcademic/Issuance_books_searched" method="POST" class="search-form">
-            <div class="form-group">
-                <label for="search_student_id">Search Student ID:</label>
-                <input type="text" name="search_student_id" id="search_student_id" required>
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </form>
-
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
             
