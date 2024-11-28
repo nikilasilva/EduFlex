@@ -99,6 +99,35 @@ class Parents extends Controller {
 
 
     // Handle feedback submission
+    // public function submitFeedback() {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $content = htmlspecialchars($_POST['content'] ?? '');
+    //         $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
+    //         $date = date('Y-m-d');
+
+    //         if (!empty($content)) {
+    //             $data = [
+    //                 'content' => $content,
+    //                 'recipient' => $recipient,
+    //                 'date' => $date,
+                
+    //             ];
+    //             try {
+    //                 if ($this->FeedbackModel->insert($data)) {
+    //                     header('Location: ' . URLROOT . '/parents/feedback');
+    //                     exit;
+    //                 } else {
+    //                     echo "Failed to submit feedback.";
+    //                 }
+    //             } catch (Exception $e) {
+    //                 echo "Error submitting feedback: " . $e->getMessage();
+    //             }
+    //         } else {
+    //             echo "Feedback content cannot be empty.";
+    //         }
+    //     }
+    // }
+
     public function submitFeedback() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $content = htmlspecialchars($_POST['content'] ?? '');
@@ -127,6 +156,7 @@ class Parents extends Controller {
             }
         }
     }
+
 
     // public function submitFeedback(){
     //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -240,30 +270,7 @@ class Parents extends Controller {
         $this->view('inc/Parent/viewFeedback_parent', $data);
     }
 
-    // public function viewFeedbacks() {
-    //     // Check if user is logged in
-    //     if (!isset($_SESSION['user'])) {
-    //         // Redirect to login if not logged in
-    //         header('Location: ' . URLROOT . '/Login');
-    //         exit();
-    //     }
     
-    //     // Get the currently logged-in user's ID
-    //     $currentUserId = $_SESSION['user']['id'];
-        
-    //     // Prepare data for filtering
-    //     $data = ['user_id' => $currentUserId];
-        
-    //     // Get feedbacks specific to the current user
-    //     $feedbacks = $this->FeedbackModel->where($data);
-        
-    //     // Pass feedbacks to the view
-    //     $data = [
-    //         'feedbacks' => $feedbacks
-    //     ];
-        
-    //     $this->view('inc/Parent/viewFeedback_parent', $data);
-    //  }
 
     public function deleteFeedback_Principal($id) {
         try {
@@ -278,6 +285,10 @@ class Parents extends Controller {
         }
 
     }
+
+
+    
+    
     
 
     
