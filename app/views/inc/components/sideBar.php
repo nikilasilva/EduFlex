@@ -17,11 +17,10 @@ if (session_status() === PHP_SESSION_NONE) {
             <i class="fa-solid fa-bars toggle"></i>
         </div>
     </header>
-    <?php
-  
+    <?php  
     if (isset($_SESSION['user']['role'])) {
         $role = $_SESSION['user']['role'];
-      
+
         // Dynamically load the sidebar for the specific role
         switch ($role) {
             case 'admin':
