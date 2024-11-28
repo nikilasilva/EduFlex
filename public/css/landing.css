@@ -1,10 +1,13 @@
 /* Global Styles */
 body, html {
-    margin: 0;
+    margin-top: 6px;
     padding: 0;
     font-family: 'Arial', sans-serif;
     color: #333;
+<<<<<<< HEAD
+=======
      /* Background image for the entire page */
+>>>>>>> dc11207bc6b603095ab2634d3a30ca8965b0f7c6
     background-attachment: fixed;
 }
 

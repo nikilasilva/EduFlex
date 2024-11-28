@@ -15,4 +15,5 @@ spl_autoload_register(function($classname){
     require_once '../app/libraries/Controller.php';
     require_once '../app/libraries/Database.php';
     require_once '../app/libraries/Model.php';
+
 ?>
