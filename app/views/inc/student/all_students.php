@@ -19,9 +19,9 @@
     <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/students"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Students</span></a></li>
 
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic</span></a></li>
+            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_attendance"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_payment"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Payment</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_payment"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Payment</span></a></li> -->
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/teachers"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Teachers</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
