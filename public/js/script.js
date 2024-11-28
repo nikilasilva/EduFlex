@@ -3,9 +3,6 @@
 const body = document.querySelector("body");
 const sidebar = document.querySelector(".sidebar");
 const toggle = document.querySelector(".toggle");
-// const dashBoardMainContent = document.querySelector(".main-content");
-// const topNavbarContainer = document.querySelector(".topNav-container");
-// const footer = document.querySelector(".footer");
 
 
 // Function to toggle sidebar
@@ -16,6 +13,10 @@ document.querySelector('.toggle').addEventListener('click', function() {
     const footer = document.querySelector(".footer");
     const table1 = document.querySelector(".table-1-container");
     const feedbackContainer = document.querySelector(".feedback-set-container");
+    const announcementFormContainer = document.querySelector(".announcement-container");
+    const announcementBoxViewContainer = document.querySelector(".announcement-box-container");
+    const userprofileContainer = document.querySelector(".user-profile-container");
+    const userSettingsContainer = document.querySelector(".user-settings-container");
     
     // Toggle sidebar
     if (sidebar) {
@@ -44,6 +45,22 @@ document.querySelector('.toggle').addEventListener('click', function() {
 
     if (feedbackContainer) {
         feedbackContainer.classList.toggle('full-width');
+    }
+
+    if (announcementFormContainer) {
+        announcementFormContainer.classList.toggle('full-width');
+    }
+
+    if (announcementBoxViewContainer) {
+        announcementBoxViewContainer.classList.toggle('full-width');
+    }
+
+    if (userprofileContainer) {
+        userprofileContainer.classList.toggle('full-width');
+    }
+
+    if (userSettingsContainer) {
+        userSettingsContainer.classList.toggle('full-width');
     }
 });
 
@@ -127,34 +144,3 @@ function populateTeacherTable() {
 
 // Call the function to populate the table when the page loads
 window.onload = populateTeacherTable;
-
-
-// const feedbacks = [
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-18"
-//     },
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-17"
-
-// ];
-
-// function displayFeedbacks() {
-//     const container = document.getElementById('feedback-container');
-//     container.innerHTML = '';
-//     feedbacks.forEach(feedback => {
-//         const card = `
-//             <div class="feedback-card">
-//                 <div class="feedback-name">${feedback.name}</div>
-//                 <div class="feedback-content">${feedback.content}</div>
-//                 <div class="feedback-date">${feedback.date}</div>
-//             </div>
-//         `;
-//         container.innerHTML += card;
-//     });
-// }
-
-// window.onload = displayFeedbacks;

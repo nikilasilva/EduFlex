@@ -7,5 +7,6 @@
         <li class="nav-links"><a href="#scheduled events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/charges_form"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Charges Form</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/feedback"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Feedback</span></a></li> 
+        <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
     </ul>
 </nav>

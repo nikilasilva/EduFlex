@@ -3,7 +3,7 @@
 Trait Model{
 
     use Database;
-    protected $limit = 10;
+    protected $limit = 20;
     protected $offset = '0';
     protected $order_type = "desc";
     public $errors = [];
@@ -117,7 +117,8 @@ Trait Model{
         $query="DELETE FROM $this->table WHERE $id_column = :$id_column ";
 
         $this->query($query,$data);
-        
+                
+        return true;        
     }  
     
     public function findAll() {

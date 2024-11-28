@@ -1,12 +1,23 @@
 <?php
-require_once APPROOT . '/libraries/Model.php';
+// require_once APPROOT . '/libraries/Model.php';
 
 class User {
     use Model;
 
     protected $table = 'users';
-    protected $allowedColumns = ['email', 'password', 'username', 'role', 'reset_token', 'token_expiry'];
-    protected $order_column = 'id';
+    protected $allowedColumns = [
+        "regNo",
+        "email",
+        "mobileNo",
+        "address",
+        "username",
+        "password",
+        "dob",
+        "gender",
+        "religion",
+        "role"
+    ];
+    protected $order_column = 'regNo';
 
     public function findUserByEmail($email) {
         return $this->first(['email' => $email]);
@@ -20,6 +31,11 @@ class User {
         ];
 
         return $this->update($userId, $data);
+    }
+
+    public function updatePassword($email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        return $this->update($email, ['password' => $hashedPassword], 'email');
     }
 }
 ?>
