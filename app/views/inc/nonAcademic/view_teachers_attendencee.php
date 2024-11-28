@@ -19,7 +19,7 @@
 
         <!-- Main content -->
         <div class="container">
-            <h1>See Library Activity</h1>
+            <h1>Recode Teachers attendance</h1>
 
             <!-- Activities table -->
             <table class="activities-table">
