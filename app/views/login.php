@@ -4,7 +4,6 @@
         
         <div class="logo-section">
             <div class="logo">
-                <!-- <img src="<?php echo URLROOT; ?>/public/img/logo_noBG1.png" alt="EduFlex Logo"> -->
                 <span>EduFlex</span>
             </div>
         </div>

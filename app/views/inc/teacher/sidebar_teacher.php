@@ -11,6 +11,7 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
             <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/dailyActivities"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Teacher's Record</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
             
             
         </ul>

@@ -26,6 +26,12 @@
 @import url('index.css');
 @import url('landing.css');
 
+@import url('components/announcementFormStyles.css');
+@import url('components/announcementModalStyles.css');
+@import url('profileStyles.css');
+@import url('userSettingsStyles.css');
+@import url('components/createFormStyles.css');
+
 :root {
     /* Colors */
     --body-color: #E4E9F7;
@@ -38,6 +44,9 @@
     --icon-color: #2d346a;
     --red-color: #ff4d4d;
     --hover-red-color: #b91c1c;
+    --input-border-color: #4A90E2;
+    --primary-btn-color: #4759b1;
+    --primary-btn-hover-color: #6976d2;
     /* --icon-color: #3b4380; */
 
     /* Transitions */
@@ -49,7 +58,6 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    height: 100vh;
     background: var(--body-color);
 }
 
@@ -61,11 +69,10 @@ p {
 
 footer {
     padding-left: 290px;
-    margin: 60px 0 0;
+    margin: 40px 0 0;
     transition: var(--tran-05);
-    position: absolute;
-    bottom: 10px;
-    left:20px;
+    position: relative;
+    bottom: 0px;
 }
 
 footer p {

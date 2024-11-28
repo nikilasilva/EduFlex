@@ -1,0 +1,26 @@
+.create-event-container {
+    margin: 20px 0 20px 290px;
+    width: 73.5%;
+    padding: 50px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--tran-05); 
+}
+
+.create-event-container.full-width {
+    margin-left: 95px;
+    width: 86.5%;
+    transition: var(--tran-04);
+}
+
+.create-event-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.create-event-container button[type="submit"] {
+    margin-top: 30px;
+    background-color: var(--primary-btn-color);
+    color: white;
+}
