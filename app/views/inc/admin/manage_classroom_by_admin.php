@@ -8,7 +8,7 @@
     <title>Record Activity</title>
 
     <!-- Link to the CSS file -->
-   <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/insert_actor_style.css">
+   <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/adminActivityStyle.css">
 </head>
 <body>
 <div class="layout">

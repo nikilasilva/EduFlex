@@ -1,8 +1,8 @@
 /* Styling for the container */
-.manage_student_container {
-    margin-left: 100px;
+.manage_actor_container {
+    margin-left: 300px;
     margin-top: 30px;
-    padding: 50px;
+    padding: 100px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,7 @@
 }
 
 /* Styling for the form */
-.student_form {
+.actor_form {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two-column layout */
     gap: 20px;
