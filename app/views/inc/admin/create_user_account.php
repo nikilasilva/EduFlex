@@ -22,36 +22,36 @@
             <h1>Issue Books</h1>
 
             <!-- Daily Activities form -->
-            <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
+            <form action="<?php echo URLROOT; ?>/Admin/enterUser" method="POST">
 
 
 
                 <div class="form-group">
-                    <label for="student_id">user id :</label>
-                    <textarea name="student_id" id="student_id" rows="1"></textarea>
+                    <label for="id">user id :</label>
+                    <textarea name="id" id="id" rows="1"></textarea>
                 </div>
 
 
 
                 <div class="form-group">
-                    <label for="book_id">username :</label>
-                    <textarea name="book_id" id="book_id" rows="1"></textarea>
+                    <label for="username">username :</label>
+                    <textarea name="username" id="username" rows="1"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="full_name">email :</label>
-                    <textarea name="full_name" id="full_name" rows="1" required></textarea>
+                    <label for="email">email :</label>
+                    <textarea name="email" id="email" rows="1" required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="additional_note">password :</label>
-                    <textarea name="book_name" id="additional_note" rows="1"></textarea>
+                    <label for="password">password :</label>
+                    <textarea name="password" id="password" rows="1"></textarea>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="period">role :</label>
-                    <select name="period" id="period" required>
+                    <label for="role">role :</label>
+                    <select name="role" id="role" required>
                         <option value="">Select Period</option>
                         <option value="1">student</option>
                         <option value="2">admin</option>
@@ -61,11 +61,6 @@
                         <option value="6">Period 6</option>
                         <option value="7">Period 7</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="date">created_at:</label>
-                    <input type="date" name="issue_date" id="date" required>
                 </div>
 
 

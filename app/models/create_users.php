@@ -1,6 +1,6 @@
 <?php
 
-class issuance_of_booksModel
+class create_users
 {
 
     use Model;
@@ -11,8 +11,7 @@ class issuance_of_booksModel
         'username',
         'email',
         'password',
-        'role',
-        'created_at'
+        'role'
     ];
 
     protected $order_column = 'issue_date'; // Defined here
