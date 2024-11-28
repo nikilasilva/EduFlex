@@ -1,15 +1,16 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
+<?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issue Books</title>
-
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+    <title>Library Fine Charges</title>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/libry_fine.css">
 
     <style>
         .download-button {
@@ -37,111 +38,72 @@
             background-color: #0056b3;
             /* Darker blue on hover */
         }
-
-
-        /* Style for the search bar */
-        .search-bar {
-            width: 90%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s ease;
-        }
-
-        /* Add hover focus effect on the search bar */
-        .search-bar:focus {
-            border-color: #001d3d;
-            /* Matches button color */
-            outline: none;
-        }
-
-        /* Style for the search button */
-        .search-button {
-            background-color: #001d3d;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Hover effect for the button */
-        .search-button:hover {
-            background-color: #003566;
-        }
     </style>
+
 
 </head>
 
 <body>
+    <!-- Notification div to display the success message -->
+    <div id="notification" class="notification">File uploaded successfully!</div>
+
     <div class="layout">
-        <!-- Sidebar -->
-        <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
+        <h2>Library Fine Charges</h2>
+        <form id="fineForm" action="#" method="post" onsubmit="showNotification(event)">
+            <label for="fullName">Name Of Student </label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
 
-        <!-- Main content -->
-        <div class="container">
-            <h1>Check Service Charges</h1>
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
 
-            <!-- Daily Activities form -->
-            <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
+            <label for="bookName">Date of pay</label>
+            <input type="text" id="bookName" name="bookName" placeholder="Enter the book name" required>
 
-                <div class="search-container">
-                    <input type="text" placeholder="Search..." class="search-bar">
-                    <button class="search-button">Search</button>
-                </div>
-
-
-                <!-- <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="time" name="time" id="time" required>
+            <!-- <label for="paymentSlip">Payment Slip</label>
+            <div class="file-upload">
+                <input type="file" id="paymentSlip" name="paymentSlip" required onchange="updateLabel()">
+                <label for="paymentSlip" id="uploadLabel" class="upload-label">Upload Slip <span class="upload-icon">📤</span></label>
             </div> -->
-                <!-- <div class="form-group">
-                    <label for="student_id">student id :</label>
-                    <textarea name="student_id" id="student_id" rows="1"></textarea>
-                </div>
+            <br>
+            <br>
+
+            <!-- this button clas is difine temparry css inthe styls in this page -->
+            <a href="path-to-payment-slip.pdf" class="download-button" download>
+                Download Payment Slip PDF
+            </a>
+            <br><br>
+
+            <label for="html">peyment is successfully</label>
+            <input type="radio" id="html" name="fav_language" value="HTML">
+            <br><br>
+            <label for="css">peyment is not successfully</label>
+            <input type="radio" id="css" name="fav_language" value="CSS">
 
 
-
-                <div class="form-group">
-                    <label for="book_id">Name Of Student :</label>
-                    <textarea name="book_id" id="book_id" rows="1"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="full_name">Student ID</label>
-                    <textarea name="full_name" id="full_name" rows="1" required></textarea>
-                </div> -->
-
-                <div class="form-group">
-                    <label for="additional_note">Date of pay :</label>
-                    <textarea name="book_name" id="additional_note" rows="1"></textarea>
-                </div>
-
-
-
-                <!-- this button clas is difine temparry css inthe styls in this page -->
-                <a href="path-to-payment-slip.pdf" class="download-button" download>
-                    Download Payment Slip PDF
-                </a>
-                <br><br>
-
-                <label for="html">peyment is successfully</label>
-                <input type="radio" id="html" name="fav_language" value="HTML">
-                <br><br>
-                <label for="css">peyment is not successfully</label>
-                <input type="radio" id="css" name="fav_language" value="CSS">
-
-
-                <button type="submit" class="submit-button">Submit</button>
-
-
-
-            </form>
-        </div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
     </div>
+
+    <script>
+        function updateLabel() {
+            const fileInput = document.getElementById("paymentSlip");
+            const label = document.getElementById("uploadLabel");
+
+            if (fileInput.files.length > 0) {
+                label.innerHTML = "Uploaded <span class='upload-icon'>✅</span>";
+            } else {
+                label.innerHTML = "Upload Slip <span class='upload-icon'>📤</span>";
+            }
+        }
+
+        function showNotification(event) {
+            event.preventDefault(); // Prevents the form from actually submitting
+            document.getElementById("notification").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("notification").style.display = "none";
+            }, 3000); // Hides notification after 3 seconds
+        }
+    </script>
 </body>
 
 </html>
