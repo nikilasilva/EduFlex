@@ -1,4 +1,4 @@
-controller
+
 <!-- // all emty -->
 <?php
 class NonAcademic extends Controller
@@ -152,6 +152,14 @@ class NonAcademic extends Controller
 
 
         // $this->view('inc/nonAcademic/record_teachers_attendencee');
+    }
+
+    public function TeachersRecode()
+    {
+        $activityModel = new Teachers_RecodeModel();
+        $activities = $activityModel->findAll();
+
+        $this->view('inc/nonAcademic/view_teachers_attendencee', ['activities' => $activities]);
     }
 
 
