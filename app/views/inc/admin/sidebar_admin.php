@@ -25,8 +25,8 @@
 
                 -->
 
-            <li class="nav-links"><a href=""><i class="fa-solid fa-id-card icon"></i><span class="text nav-text">MIS-Report</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add Class-Room</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>"><i class="fa-solid fa-id-card icon"></i><span class="text nav-text">MIS-Report</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/inser_class_room"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add Class-Room</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_timetable"><i class="fa-regular fa-calendar-days icon"></i><span class="text nav-text">Manage Time table</span></a></li>
             
         </ul>

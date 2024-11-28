@@ -81,14 +81,14 @@
                 ##*/
 /* For MIS */        
         // manage MIS
-    /*##    public function manage_MIS(){
+       public function manage_MIS(){
             $this->view('inc/admin/manage_MIS_by_admin');
         }
             // Insert MIS details
             public function insert_MIS(){
                 $this->view('inc/admin/add_MIS_by_admin');
                 }
-                #*/
+                
 
 /* For class-rooms */
         // Manage class-room
@@ -97,7 +97,7 @@
             }
 
              // Insert class_room details
-             public function inser_tCLR(){
+             public function inser_class_room(){
                 $this->view('inc/admin/add_class_by_admin');
                 }
             

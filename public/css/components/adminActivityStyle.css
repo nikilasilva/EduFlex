@@ -7,7 +7,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    height: 400px; /* Increased height to fit radio buttons */
+    height: 400px; /* Increased height to fit the select input */
 }
 
 /* Styling for the timetable type section */
@@ -23,15 +23,14 @@
     margin-bottom: 10px;
 }
 
-.timetable_type label {
+/* Styling for the select input */
+.timetable_type select {
     font-size: 16px;
-    font-weight: normal;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-.timetable_type input[type="radio"] {
-    margin-right: 5px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px; /* Width for select dropdown */
+    margin-top: 10px;
 }
 
 /* Styling for the buttons container */
@@ -69,7 +68,7 @@
 
 /* Specific styling for Delete button */
 .manage_buttons button:last-child {
-    background-color: yellowgreen; /* Red color for Delete button *//*#ff4d4d*/
+    background-color: #ff4d4d; /* Red color for Delete button */
 }
 
 .manage_buttons button:last-child:hover {

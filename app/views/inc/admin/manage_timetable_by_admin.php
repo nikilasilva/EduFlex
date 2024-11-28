@@ -21,15 +21,14 @@
 
         <!-- Timetable Type Selection -->
         <div class="timetable_type">
-            <h3>Select Timetable Type</h3>
-            <label>
-                <input type="radio" name="timetableType" value="Academic" id="academic" checked>
-                Academic Timetable
+            <label for="timetableType">
+                <h3>Select Timetable Type</h3>
             </label>
-            <label>
-                <input type="radio" name="timetableType" value="Extracurricular" id="extracurricular">
-                Extracurricular Activities
-            </label>
+            <select name="timetableType" id="timetableType">
+                <option value="">Select Time Table Type</option>
+                <option value="Academic">Academic Timetable</option>
+                <option value="Extracurricular">Extracurricular Activities</option>
+            </select>
         </div>
 
         <!-- Manage Timetable Buttons -->
