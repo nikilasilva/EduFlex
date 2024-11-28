@@ -1,7 +1,17 @@
 <?php require APPROOT.'/views/inc/header.php'; ?>
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
-<?php require APPROOT.'/views/inc/student/all_students_table.php';?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Subjects</title>
+    
+</head>
+<body>
+
+<!-- Sidebar -->
 <nav class="sidebar">
     <header>
         <div class="image-text">
@@ -30,8 +40,74 @@
             <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/dailyActivities"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Teacher's Record</span></a></li>
             
-            
     </ul>
 </nav>
+
+<!-- Main Content -->
+<div class="aca-container">
+    <h1>All Subjects</h1>
+    <div class="search-bar">
+        <input type="text" placeholder="Search by subject name..." id="searchInput">
+        <button>SEARCH</button>
+    </div>
+    
+    <table>
+    <thead class="academic-table-header">
+        <tr>
+            <th class="academic-header-cell">Subject Name</th>
+            <th class="academic-header-cell">Teacher</th>
+            <th class="academic-header-cell">Grade</th>
+        </tr>
+    </thead>
+        <tbody id="subjectTable">
+            <tr>
+                <td>English</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>Maths</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>French</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>Arts</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>French</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+            <tr>
+                <td>Arts</td>
+                <td>Daniel Grant</td>
+                <td>View Grade</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    
+</div>
+
+</body>
+</html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>

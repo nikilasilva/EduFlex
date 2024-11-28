@@ -8,7 +8,9 @@ class FeedbackModel {
         'content',
         'date' ,
         'is_read',
-        'recipient'      
+        'recipient',
+        'user_id',
+           
     ];
 
     protected $order_column = 'date';
