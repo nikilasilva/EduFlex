@@ -31,6 +31,7 @@
 @import url('profileStyles.css');
 @import url('userSettingsStyles.css');
 @import url('components/createFormStyles.css');
+@import url('currentActivitiesStyles.css');
 
 :root {
     /* Colors */
@@ -59,6 +60,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background: var(--body-color);
+    margin-top: 10px;
 }
 
 p {
