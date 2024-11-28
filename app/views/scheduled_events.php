@@ -3,9 +3,7 @@
 
 <div class="layout">
     <!-- Sidebar -->
-    <div class="sidebar">
-        <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
-    </div>
+    <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
     <div class="main-content">
