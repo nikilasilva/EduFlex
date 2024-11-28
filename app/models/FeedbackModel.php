@@ -9,6 +9,7 @@ class FeedbackModel {
         'date' ,
         'is_read',
         'recipient',
+        'user_id',
            
     ];
 
