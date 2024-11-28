@@ -1,9 +1,15 @@
 /* scheduledEvents.css */
 
 /* General container styling */
-.container {
-    margin: 20px auto;
-    max-width: 1200px;
+.timetable-container {
+    margin-top: 30px;
+    width: 73%;
+    height: 100%;
+    margin-left: 290px;
+    padding: 50px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Table section */
@@ -50,4 +56,5 @@ h1 {
     flex: 1;
     margin-left: 250px;
     padding: 20px;
+
 }

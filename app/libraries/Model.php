@@ -3,7 +3,7 @@
 Trait Model{
 
     use Database;
-    protected $limit = 10;
+    protected $limit = 20;
     protected $offset = '0';
     protected $order_type = "desc";
     public $errors = [];
@@ -105,7 +105,9 @@ Trait Model{
 
         $data[$id_column] = $id;
 
-        $this->query($query,$data);
+        if ($this->query($query, $data)) {
+            return true; // Return true if query execution succeeds
+        }
         return false;
     }
 
@@ -115,7 +117,8 @@ Trait Model{
         $query="DELETE FROM $this->table WHERE $id_column = :$id_column ";
 
         $this->query($query,$data);
-        
+                
+        return true;        
     }  
     
     public function findAll() {
@@ -128,20 +131,5 @@ Trait Model{
     
         return $this->query($query);
     }
-
-    
-    public function search($column, $searchTerm) {  // use for sherch part, book issuance part and mor
-        if (!isset($this->order_column)) {
-            throw new Exception('Order column not defined in the model.');
-        }
-    
-        $query = "SELECT * FROM $this->table WHERE $column LIKE :searchTerm ";
-        $query .= "ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
-    
-        $data = ['searchTerm' => "%$searchTerm%"];
-    
-        return $this->query($query, $data);
-    }
-    
     
 }

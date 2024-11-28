@@ -1,8 +1,4 @@
 .topNav-container {
-    /* display: flex;
-    justify-content: flex-end;
-    padding: 10px 20px;
-    background-color: #fff; */
     padding: 0 10px 0 290px;
     transition: var(--tran-05);
 }
@@ -20,12 +16,10 @@
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
-    /* width: 100%; Ensure it takes full width */
-    /* width: 80%; */
 }
 
 .topNav-icons {
-    margin-left: auto; /* Pushes icons to the right */
+    margin-left: auto;
     display: flex;
     align-items: center;
 }
@@ -40,6 +34,25 @@
     color: var(--icon-color);
 }
 
-.icon:hover {
+.icon:hover, .login-button:hover {
     color: var(--primary-color);
+}
+
+/* Login button */
+.topNav-login {
+    margin-left: auto;
+}
+
+.login-button {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}
+
+.topNav-logout {
+    padding-left: 20px;
+}
+
+.logout-button {
+    color: var(--primary-text-color);
+    text-decoration: none;
 }

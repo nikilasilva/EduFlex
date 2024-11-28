@@ -58,7 +58,7 @@ h1 {
     margin: 0 5px;
     border: 1px solid #ddd;
     background-color: white;
-    cursor: pointer;
+    cursor: pointer;  
 }
 .pagination button.active {
     background-color: var(--red-color);
