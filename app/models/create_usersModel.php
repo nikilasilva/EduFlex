@@ -11,7 +11,8 @@ class create_users
         'username',
         'email',
         'password',
-        'role'
+        'role',
+        'created_at'
     ];
 
     protected $order_column = 'issue_date'; // Defined here
