@@ -21,6 +21,10 @@
 @import url('attendance.css');
 @import url('loginStyles.css');
 @import url('forgotPasswordStyles.css');
+@import url('components/scheduled_events.css');
+
+@import url('index.css');
+@import url('landing.css');
 
 @import url('components/announcementFormStyles.css');
 @import url('components/announcementModalStyles.css');

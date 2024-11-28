@@ -26,15 +26,20 @@
     </header>
 
     <ul>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/attendance"><i class="fa-solid fa-clipboard-user icon"></i></i><span class="text nav-text">Attendance Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/payment"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/certificate"><i class="fa-solid fa-certificate icon"></i><span class="text nav-text">Certificates</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/form"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Charges Form</span></a></li>
+    <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/students"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Students</span></a></li>
+
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_attendance"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_payment"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Payment</span></a></li>
+
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/teachers"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Teachers</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/attendance"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Mark attendance</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
+            <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/dailyActivities"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Teacher's Record</span></a></li>
+            
     </ul>
 </nav>
 

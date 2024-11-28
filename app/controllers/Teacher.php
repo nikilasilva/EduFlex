@@ -3,10 +3,27 @@
         public function __construct() {
         }
 
+        public function index() {
+            $this->view('inc/teacher/default');
+        }
         // View all teachers.
         public function teachers() {
             $this->view('all_teachers');
         }
+
+        public function student_academic() {
+            $this->view('inc/teacher/academic_student');
+        }
+
+        public function student_attendance() {
+            $this->view('inc/teacher/attendance_student');
+        }
+
+        public function student_payment() {
+            $this->view('inc/teacher/payment_student');
+        }
+
+
 
         public function events() {
             // Example events array (replace with your actual data)
@@ -94,8 +111,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'date' => $_POST['date'],
-                'time_from' => $_POST['time_from'],
-                'time_to' => $_POST['time_to'],
+                'period' => $_POST['period'],
                 'subject' => $_POST['subject'],
                 'class' => $_POST['class'],
                 'description' => $_POST['description'],
@@ -131,8 +147,7 @@ public function editActivity($id) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
                 'date' => $_POST['date'],
-                'time_from' => $_POST['time_from'],
-                'time_to' => $_POST['time_to'],
+                'period' => $_POST['period'],
                 'subject' => $_POST['subject'],
                 'class' => $_POST['class'],
                 'description' => $_POST['description'],
