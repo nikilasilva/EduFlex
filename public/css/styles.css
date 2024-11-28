@@ -35,7 +35,8 @@
 @import url('profileStyles.css');
 @import url('userSettingsStyles.css');
 @import url('components/createFormStyles.css');
-
+@import url('addUserStyles.css');
+@import url('usersListStyles.css');
 :root {
     /* Colors */
     --body-color: #E4E9F7;
