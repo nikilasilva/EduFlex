@@ -4,10 +4,6 @@ body, html {
     padding: 0;
     font-family: 'Arial', sans-serif;
     color: #333;
-<<<<<<< HEAD
-=======
-     /* Background image for the entire page */
->>>>>>> dc11207bc6b603095ab2634d3a30ca8965b0f7c6
     background-attachment: fixed;
 }
 
@@ -71,6 +67,7 @@ body, html {
     font-size: 1.2rem;
     margin: 20px 0;
     color: #fff;
+    font-style:italic;
 }
 
 .hero-text span {
@@ -161,7 +158,7 @@ body, html {
 }
 
 .card img {
-    max-width: 100px;
+    width: 100%;
     margin-bottom: 15px;
 }
 
@@ -173,7 +170,7 @@ body, html {
 /* Testimonials Section */
 .testimonials {
     padding: 50px 20px;
-    background: rgba(135, 206, 250, 0.8); /* Light blue background */
+    background: rgba(0, 183, 255, 0.8); /* Light blue background */
     color: #fff;
     text-align: center;
 }

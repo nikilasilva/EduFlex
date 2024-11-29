@@ -17,7 +17,8 @@ document.querySelector('.toggle').addEventListener('click', function() {
     const announcementBoxViewContainer = document.querySelector(".announcement-box-container");
     const userprofileContainer = document.querySelector(".user-profile-container");
     const userSettingsContainer = document.querySelector(".user-settings-container");
-    
+    const backgroundContainer = document.querySelector(".background-container");
+
     // Toggle sidebar
     if (sidebar) {
         sidebar.classList.toggle('close');
@@ -61,6 +62,10 @@ document.querySelector('.toggle').addEventListener('click', function() {
 
     if (userSettingsContainer) {
         userSettingsContainer.classList.toggle('full-width');
+    }
+
+    if (backgroundContainer) {
+        backgroundContainer.classList.toggle('full-width');
     }
 });
 

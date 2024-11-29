@@ -19,7 +19,7 @@
 
         <!-- Main content -->
         <div class="attendance-container">
-            <h1>Record Teacher Attendance</h1>
+            <h1>Attendance for Grade 6-A</h1>
 
             <!-- Attendance form -->
             <form action="<?php echo URLROOT; ?>/nonAcademic/submitAttendance" method="POST">
