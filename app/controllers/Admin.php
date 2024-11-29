@@ -33,7 +33,7 @@ class Admin extends Controller {
 
                 // Insert user data
                 if ($this->userModel->insert($data)) {
-                    header("Location: " . URLROOT . "/Admin/addUser");
+                    header("Location: " . URLROOT . "/Admin/listUsers");
                     exit();
                 } else {
                     die('Something went wrong while saving user data.');
