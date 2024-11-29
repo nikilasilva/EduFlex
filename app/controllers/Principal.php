@@ -60,6 +60,10 @@ class Principal extends Controller {
         exit();
     }
 
+    public function msi() {
+        $this->view('inc/principal/msi');
+    }
+
 
 
        
