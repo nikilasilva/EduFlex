@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insert Class Time Table</title>
+    <title>Insert Time Table</title>
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/insert_actor_style.css">
 </head>
@@ -16,7 +16,7 @@
 
     <!-- Main content for manage Student -->
     <div class="manage_actor_container">
-        <h1>Insert Class Time Table</h1>
+        <h1>Insert Academic Time Table</h1>
 
         <!-- Insert Student Details Form -->
         <form action="<?php echo URLROOT; ?>/admin/insertStudentDetails" method="POST" class="actor_form">

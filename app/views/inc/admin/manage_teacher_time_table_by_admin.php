@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Class Timetable</title>
+    <title>Manage Teacher Timetable</title>
 
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/adminActivityStyle.css">
@@ -17,13 +17,13 @@
 
     <!-- Main content for managing Timetable -->
     <div class="manage_by_admin">
-        <h1>Manage Class Time Table</h1>
+        <h1>Manage Teacher Time Table</h1>
 
         <!-- Timetable Type Selection -->
        <br><br><br>
         <!-- Manage Timetable Buttons -->
         <div class="manage_buttons">
-            <button onclick="window.location.href='<?php echo URLROOT; ?>/admin/insert_aca_time_table'">Insert</button>
+            <button onclick="window.location.href='<?php echo URLROOT; ?>/admin/manage_teacher_timetable'">Insert</button>
             <button onclick="window.location.href='<?php echo URLROOT; ?>/students/view'">View</button>
             <button onclick="window.location.href='<?php echo URLROOT; ?>/students/update'">Update</button>
             <button id="delete" onclick="window.location.href='<?php echo URLROOT; ?>/students/delete'">Delete</button>

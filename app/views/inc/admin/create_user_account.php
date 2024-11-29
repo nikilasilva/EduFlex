@@ -19,7 +19,7 @@
 
         <!-- Main content -->
         <div class="container">
-            <h1>createUser Account</h1>
+            <h1>Issue Books</h1>
 
             <!-- Daily Activities form -->
             <form action="<?php echo URLROOT; ?>/Admin/enterUser" method="POST">

@@ -20,7 +20,7 @@
     <div class="manage_by_admin">
         <h1>Manage MIS Reports</h1>
 
-    
+    <br><br><br>
         <!-- Manage MIS button -->
         <div class="manage_buttons">
             <button onclick="window.location.href='<?php echo URLROOT; ?>/students/insert'">Insert</button>
