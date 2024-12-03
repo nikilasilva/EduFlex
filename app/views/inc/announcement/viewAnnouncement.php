@@ -23,7 +23,7 @@
                     <tr>
                         <td><?php echo $index + 1; ?></td>
                         <td><?php echo htmlspecialchars($announcement->title); ?></td>
-                        <td><?php echo htmlspecialchars($announcement->type); ?></td>
+                        <td><?php echo isset($announcement->type) && $announcement->type !== '' ? htmlspecialchars($announcement->type) : 'null'; ?></td>
                         <td><?php echo htmlspecialchars($announcement->target_audience); ?></td>
                         <td><?php echo htmlspecialchars($announcement->date); ?></td>
                         <td><?php echo htmlspecialchars($announcement->time); ?></td>

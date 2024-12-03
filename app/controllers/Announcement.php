@@ -4,6 +4,9 @@ class Announcement extends Controller {
 
     public function __construct() {
         // Load the AnnouncementModel
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start(); // Ensure session is started
+        }
         $this->announcementModel = $this->model('AnnouncementModel');
     }
 
@@ -14,9 +17,19 @@ class Announcement extends Controller {
 
     public function announcements() {
         // Fetch all announcements from the database
-        $announcements = $this->announcementModel->findAll();
+        $userRole = $_SESSION['user']['role'] ?? null;
 
-        // Pass the announcements to the view
+        if (!$userRole) {
+            die('User role not defined.');
+        }
+        elseif ($userRole == 'principal') {
+            $announcements = $this->announcementModel->findAll();
+        }
+
+        else {
+            $announcements = $this->announcementModel->findByRole($userRole);
+        }
+
         $data = [
             'title' => 'Announcements',
             'announcements' => $announcements,
