@@ -12,6 +12,9 @@
             if (isset($url[0]) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
                 $this->currentController = ucwords($url[0]);
                 unset($url[0]);
+            } else {
+                $this->show404();
+                return;
             }
         
             // Require and instantiate the controller
@@ -22,9 +25,11 @@
             if (isset($url[1]) && method_exists($this->currentController, $url[1])) {
                 $this->currentMethod = $url[1];
                 unset($url[1]);
-            } else {
+            } elseif(!isset($url[1]) || $url[1] !== '') {
                 // Fallback to the default method
-                $this->currentMethod = 'index';
+                // $this->currentMethod = 'index';
+                $this->show404();
+                return;
             }
         
             // Get the parameters
@@ -43,6 +48,12 @@
 
                 return $url;
             }
+        }
+
+        private function show404() {
+            // Include a 404 error page
+            require_once '../app/views/404.php';
+            exit; // Stop further execution
         }
     }
 ?>
