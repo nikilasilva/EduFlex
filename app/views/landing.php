@@ -21,7 +21,7 @@
         <img src="<?php echo URLROOT; ?>/public/img/logo_noBG.png" alt="EduFlex Logo" class="logo">
         <h1>Welcome to <span>EduFlex</span></h1>
         <p>Transforming education with modern technology</p>
-        <a href="<?php echo URLROOT; ?>/login" class="btn-primary">Get Started</a>
+        <a href="<?php echo URLROOT; ?>/login/index" class="btn-primary">Get Started</a>
     </div>
 </section>
 
