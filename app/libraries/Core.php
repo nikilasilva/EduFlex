@@ -52,7 +52,7 @@
 
         private function show404() {
             // Include a 404 error page
-            require_once '../app/views/404.php';
+            require_once '../app/views/inc/ErrorPages/404.php';
             exit; // Stop further execution
         }
     }

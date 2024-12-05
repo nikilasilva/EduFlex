@@ -1,4 +1,4 @@
-.error-404-container {
+.error-403-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,43 +11,38 @@
     padding: 50px;
 }
 
-.error-404-content {
-    flex: 1;
+.error-403-content {
+    flex: 1; 
     text-align: left;
 }
 
-.error-404-content h1 {
+.error-403-content h1 {
     font-size: 80px;
     color: var(--primary-color);
     text-align: left;
     margin: 0;
 }
 
-.title-404 {
-    padding: 0;
-}
-
-.error-404-content p {
-    font-size: 16px;
+.error-403-content p {
     margin: 0;
 }
 
-.error-404-icon {
+.error-403-icon {
     flex: 0;
     max-width: 300px;
 }
 
-.error404-img {
+.error403-img {
     width: 340px;
     height: auto;
     margin-top: 50px;
 }
 
-.error-404-button {
+.error-403-button {
     margin-top: 45px;
 }
 
-.error-404-container .error-404-button {
+.error-403-container .error-403-button {
     display: inline-block;
     text-decoration: none;
     padding: 10px 20px;
@@ -58,6 +53,6 @@
     transition: background-color 0.3s ease;
 }
 
-.error-404-container .error-404-button:hover {
+.error-403-container .error-403-button:hover {
     background-color: var(--primary-color);
 }
