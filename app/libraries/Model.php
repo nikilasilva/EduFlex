@@ -131,5 +131,23 @@ Trait Model{
     
         return $this->query($query);
     }
+
+    public function findSimilar($column, $value) {
+        $query = "SELECT * FROM $this->table WHERE $column LIKE :value ";
+    
+        // Prepare the parameter with the value surrounded by wildcards
+        $params = ['value' => '%' . $value . '%'];
+    
+        // Add ordering and limit/offset if defined
+        if (isset($this->order_column)) {
+            $query .= "ORDER BY $this->order_column $this->order_type ";
+        }
+    
+        $query .= "LIMIT $this->limit OFFSET $this->offset";
+    
+        // Execute the query and return the result
+        return $this->query($query, $params);
+    }
+    
     
 }

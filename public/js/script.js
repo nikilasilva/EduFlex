@@ -6,63 +6,58 @@ const toggle = document.querySelector(".toggle");
 
 
 // Function to toggle sidebar
-document.querySelector('.toggle').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Select elements
     const sidebar = document.querySelector('.sidebar');
-    const topNavbarContainer = document.querySelector(".topNav-container");
-    const dashBoardMainContent = document.querySelector(".main-content");
-    const footer = document.querySelector(".footer");
-    const table1 = document.querySelector(".table-1-container");
-    const feedbackContainer = document.querySelector(".feedback-set-container");
-    const announcementFormContainer = document.querySelector(".announcement-container");
-    const announcementBoxViewContainer = document.querySelector(".announcement-box-container");
-    const userprofileContainer = document.querySelector(".user-profile-container");
-    const userSettingsContainer = document.querySelector(".user-settings-container");
-    
-    // Toggle sidebar
-    if (sidebar) {
-        sidebar.classList.toggle('close');
+    const toggleButton = document.querySelector('.toggle');
+    const containers = [
+        document.querySelector(".topNav-container"),
+        document.querySelector(".main-content"),
+        document.querySelector(".footer"),
+        document.querySelector(".table-1-container"),
+        document.querySelector(".feedback-set-container"),
+        document.querySelector(".announcement-container"),
+        document.querySelector(".announcement-box-container"),
+        document.querySelector(".user-profile-container"),
+        document.querySelector(".user-settings-container"),
+        document.querySelector(".background-container")
+
+
+
+
+
+
+        
+    ];
+
+    // Restore sidebar state from localStorage
+    const isSidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
+
+    if (isSidebarClosed && sidebar) {
+        sidebar.classList.add('close'); // Keep sidebar closed
+
+        // Make containers full width
+        containers.forEach(container => {
+            if (container) {
+                container.classList.add('full-width');
+            }
+        });
     }
 
-    // Toggle top navbar container width
-    if (topNavbarContainer) {
-        topNavbarContainer.classList.toggle('full-width');
-    }
+    // Add click event listener to toggle button
+    toggleButton.addEventListener('click', function () {
+        const isNowClosed = sidebar.classList.toggle('close');
+        localStorage.setItem('sidebarClosed', isNowClosed); // Save sidebar state
 
-    // Toggle footer visibility
-    if (footer) {
-        footer.classList.toggle("close");
-    }
-
-    // Toggle table width (if class exists)
-    if (table1) {
-        table1.classList.toggle('full-width');
-    }
-
-    // Toggle dashboard main content width
-    if (dashBoardMainContent) {
-        dashBoardMainContent.classList.toggle('full-width');
-    }
-
-    if (feedbackContainer) {
-        feedbackContainer.classList.toggle('full-width');
-    }
-
-    if (announcementFormContainer) {
-        announcementFormContainer.classList.toggle('full-width');
-    }
-
-    if (announcementBoxViewContainer) {
-        announcementBoxViewContainer.classList.toggle('full-width');
-    }
-
-    if (userprofileContainer) {
-        userprofileContainer.classList.toggle('full-width');
-    }
-
-    if (userSettingsContainer) {
-        userSettingsContainer.classList.toggle('full-width');
-    }
+        // Toggle full-width class for containers
+        containers.forEach(container => {
+            if (container) {
+                container.classList.toggle('full-width');
+            }
+        });
+    });
 });
+
 
 
 

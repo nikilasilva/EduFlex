@@ -125,7 +125,8 @@
             // Example: $this->activityModel->addActivity($activityData);
 
             // Display a success message or redirect to a success page
-            echo "Activity recorded successfully: " . htmlspecialchars($activityData['description']);
+            header("Location: " . URLROOT . "/teacher/viewActivities");
+            exit();
         } else {
             // If not a POST request, reload the daily activities page
             $this->view('daily_activities');
