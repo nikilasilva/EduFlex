@@ -35,7 +35,7 @@ require APPROOT . '/views/inc/components/topNavbar.php';
                     <!-- Update Button -->
                     <button 
                         id="update-btn-<?php echo $feedback->feedback_id; ?>" 
-                        class="btn btn-warning <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
+                        class="btn button-warning <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
                         onclick="<?php echo $feedback->is_read ? '' : "enableEditing({$feedback->feedback_id});"; ?>"
                         <?php echo $feedback->is_read ? 'disabled' : ''; ?>
                     >
@@ -44,7 +44,7 @@ require APPROOT . '/views/inc/components/topNavbar.php';
 
                     <!-- Delete Button -->
                     <button 
-                        class="btn btn-danger <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
+                        class="btn button-danger <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
                         onclick="<?php echo $feedback->is_read ? '' : "showDeletePopup({$feedback->feedback_id});"; ?>"
                         <?php echo $feedback->is_read ? 'disabled' : ''; ?>
                     >
