@@ -93,12 +93,12 @@ h1 {
     font-size: 16px;
     text-decoration: none;
     color: #fff;
-    background-color: #2ebb2e;
+    background-color: #082639;
     border-radius: 5px;
 }
 
 .submit-feedback .btn:hover {
-    background-color: #0056b3;
+    background-color: #082f59;
     transform: translateY(-1px);
     
 }
@@ -120,15 +120,7 @@ h1 {
     margin: 10px 0;
 }
 
-.submit-feedback {
-    /* margin-top: 20px;
-    text-align: center; */
-    margin-top: 20px;
-    background: #f8f9fa;
-    /* padding: 20px; */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+
 
 .submit-feedback textarea {
    
@@ -181,7 +173,7 @@ h1 {
 }
 
 .add-feedback-form .btn-success {
-    background-color: #28a745;
+    background-color: #082639;
     color: white;
 }
 
@@ -193,8 +185,9 @@ h1 {
 }
 
 /* Style for the Update button */
-.feedback-actions .btn-warning {
-    background-color: #ffc107;
+.feedback-actions .button-warning {
+    width: 70px;
+    background-color: #080453;
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -205,13 +198,14 @@ h1 {
     transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-.feedback-actions .btn-warning:hover {
-    background-color: #e0a800;
+.feedback-actions .button-warning:hover {
+    background-color: #0a083b;
 }
 
 /* Style for the Delete button */
-.feedback-actions .btn-danger {
-    background-color: #dc3545;
+.feedback-actions .button-danger {
+    width: 70px;
+    background-color: #921a26;
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -223,7 +217,7 @@ h1 {
 }
 
 .feedback-actions .btn-danger:hover {
-    background-color: #c82333;
+    background-color: #821520;
 }
 
 
@@ -237,7 +231,7 @@ h1 {
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.3s ease; */
-    background-color: #24b11f;
+    background-color: #2d346a;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -259,8 +253,11 @@ h1 {
 /* Ensuring good spacing for checkbox form */
 
 .submit-feedback {
-    max-width: 800px;
-    margin: 30px auto;
+    margin-top: 30px;
+    width: 73%;
+    margin-left: 290px;
+    /* max-width: 800px;
+    margin: 30px auto; */
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
@@ -288,7 +285,7 @@ h1 {
 
 #content:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: #041105;
 }
 
 #content::placeholder {
@@ -299,7 +296,7 @@ h1 {
 .colorful-submit {
     width: 100%;
     padding: 12px;
-    background-color: #4CAF50;
+    background-color: #082639;
     color: white;
     border: none;
     border-radius: 6px;
@@ -443,3 +440,18 @@ h1 {
     padding: 5px 10px;
     border-radius: 3px;
 }
+
+.btn-danger {
+    width: 70px;
+    position: relative;
+    left: 1030px;
+    background-color: #d9534f; /* Default Bootstrap danger color */
+    border-color: #d43f3a;    /* Darker border for contrast */
+    color: #fff;              /* White text for visibility */
+    font-weight: bold;        /* Bold text for emphasis */
+    padding: 5px 10px;       /* Add some padding for a larger clickable area */
+    font-size: 12px;          /* Increase font size for readability */
+    border-radius: 5px;       /* Rounded corners for a modern look */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
