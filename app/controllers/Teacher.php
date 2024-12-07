@@ -1,6 +1,7 @@
 <?php
     class Teacher extends Controller {
         public function __construct() {
+            
         }
 
         public function index() {
@@ -65,6 +66,7 @@
         }
 
         public function attendance() {
+            checkRole('teacher');
             // Example student data (this should be retrieved from your database in a real scenario)
             $data = [
                 'students' => [

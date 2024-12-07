@@ -39,6 +39,8 @@
 @import url('components/msi.css');
 @import url('usersListStyles.css');
 @import url('addUserStyles.css');
+@import url('404Styles.css');
+@import url('403Styles.css');
 
 
 :root {
@@ -89,7 +91,7 @@ footer p {
     margin: 0;
 }
 
-footer.close {
+footer.full-width {
     padding-left: 95px;
     transition: var(--tran-04);
 }
