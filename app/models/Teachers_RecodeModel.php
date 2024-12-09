@@ -8,7 +8,6 @@ class Teachers_RecodeModel
     protected $table = 'Teachers_Recode';
     protected $allowedColumns = [
         'teacher_id',
-        'teacher_name',
         'attendance'
     ];
 

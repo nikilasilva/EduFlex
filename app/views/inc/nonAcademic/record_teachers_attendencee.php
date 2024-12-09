@@ -19,7 +19,7 @@
 
         <!-- Main content -->
         <div class="attendance-container">
-            <h1>Attendance for Grade 6-A</h1>
+            <h1>Record Teachers Attendencee</h1>
 
             <!-- Attendance form -->
             <form action="<?php echo URLROOT; ?>/nonAcademic/submitAttendance" method="POST">
@@ -27,14 +27,23 @@
                     <thead>
                         <tr>
                             <th>teacher ID</th>
-                            <th>teacher Name</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data['teacher'] as $student): ?>
+                        <?php foreach ($data['attendance'] as $recode): ?>
                             <tr>
-                                <td><?= $student['id'] ?></td>
+
+
+                                <td><?php echo $activity->teacher_id; ?></td>
+                                <td><?php echo $activity->sttendance; ?></td>
+
+
+
+
+
+
+                                <!-- <td><?= $student['id'] ?></td>
                                 <td><?= $student['name'] ?></td>
                                 <td>
                                     <label>
@@ -45,7 +54,7 @@
                                         <input type="radio" name="attendance[<?= $student['id'] ?>]" value="Absent">
                                         Absent
                                     </label>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
