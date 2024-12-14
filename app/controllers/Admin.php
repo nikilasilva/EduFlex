@@ -136,28 +136,28 @@ class Admin extends Controller
         $this->view('inc/admin/create_user_account');
     }
 
-    public function enterUser()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $activityData = [
-                'id' => $_POST['id'],
-                'username' => $_POST['username'],
-                'email' => $_POST['email'],
-                'password' => $_POST['password'],
-                'role' => $_POST['role']
+    // public function enterUser()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $activityData = [
+    //             'id' => $_POST['id'],
+    //             'username' => $_POST['username'],
+    //             'email' => $_POST['email'],
+    //             'password' => $_POST['password'],
+    //             'role' => $_POST['role']
 
-            ];
+    //         ];
 
-            $activity = new create_users();
-            $activity->insert($activityData);
-            // Here, save the activity data to the database.
-            // Example: $this->activityModel->addActivity($activityData);
+    //         $activity = new create_users();
+    //         $activity->insert($activityData);
+    //         // Here, save the activity data to the database.
+    //         // Example: $this->activityModel->addActivity($activityData);
 
-            // Display a success message or redirect to a success page
-            echo "Activity recorded successfully: " . htmlspecialchars($activityData['username']);
-        } else {
-            // If not a POST request, reload the daily activities page
-            $this->view('create_user_account');
-        }
-    }
+    //         // Display a success message or redirect to a success page
+    //         echo "Activity recorded successfully: " . htmlspecialchars($activityData['username']);
+    //     } else {
+    //         // If not a POST request, reload the daily activities page
+    //         $this->view('create_user_account');
+    //     }
+    // }
 }
