@@ -28,6 +28,10 @@
                 <label for="fullName">Teacheer Full Name:</label>
                 <input type="text" name="tachfullName" id="tachfullName" required>
             </div>
+            <div class="form-row">
+                <label for="subject">Subject:</label>
+                <input type="text" name="subject" id="subject" required>
+            </div>
            
             <div class="form-row">
                 <label for="teacheraddress">Teacher Addres:</label>
@@ -38,6 +42,11 @@
             <div class="form-row">
                 <label for="teacherdob">Teacher Date of Birth:</label>
                 <input type="date" name="teacherdob" id="teacherdob" required>
+            </div>
+
+            <div class="form-row">
+                <label for="appointeddate">Appointed Date:</label>
+                <input type="date" name="appointeddate" id="appointeddate" required>
             </div>
             
             <div class="form-row">
