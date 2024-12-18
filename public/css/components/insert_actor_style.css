@@ -18,7 +18,7 @@
     grid-template-columns: 1fr 1fr; /* Two-column layout */
     gap: 20px;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
@@ -29,6 +29,8 @@
 .form-row {
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 /* Styling for labels and inputs */
