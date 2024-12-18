@@ -146,9 +146,9 @@ class Admin extends Controller
 
     /* For Teacher */
     // Manage teacher
-    public function manageteacher(){
-        $this->view('inc/admin/manage_teacher_by_admin');
-    }
+    // public function manageteacher(){
+    //     $this->view('inc/admin/manage_teacher_by_admin');
+    // }
 
     // Insert Teacher details
     public function insertteacher(){
