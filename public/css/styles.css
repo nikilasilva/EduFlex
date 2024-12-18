@@ -36,6 +36,9 @@
 @import url('userSettingsStyles.css');
 @import url('components/createFormStyles.css');
 
+/*by admin */
+@import url('components/insert_actor_style.css');
+
 :root {
     /* Colors */
     --body-color: #E4E9F7;
