@@ -8,11 +8,6 @@ class Admin extends Controller
        // $this->teacherModel = $this->model('TeacherModel');
     
 
-
-
-
-
-
 //to practice
 
 
@@ -106,25 +101,6 @@ class Admin extends Controller
 
 
 
-
-
-
-
-
-
-
-    /* ******************* */
-    // public function manageuser()
-    // {
-    //     $this->view('inc/admin/user_registration_by_admin');
-    // }
-    // /* view user details */
-    // public function viewuser()
-    // {
-    //     $this->view('inc/admin/user_recode_view_by_admin');
-    // }
-
-    /* For Student */
     // Manage students
     public function managestudent(){
         $this->view('inc/admin/maneage_student');
@@ -142,67 +118,17 @@ class Admin extends Controller
     
 
 
-    
 
-    /* For Teacher */
-    // Manage teacher
-    // public function manageteacher(){
-    //     $this->view('inc/admin/manage_teacher_by_admin');
-    // }
 
-    // Insert Teacher details
-    public function insertteacher(){
+    // Manage Teacher details
+    public function Manage_teacher(){
         
-        $this->view('inc/admin/add_teacher_by_admin');
+        $this->view('inc/admin/manage_teacher');
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-public function insertteachersubmit(){
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $teacherData = [
-                        'tea_id' => trim($_POST['tea_id']),
-                        'tea_fullName' => trim($_POST['tea_fullName']),
-                        'tea_subject' => trim($_POST['tea_subject']),
-                        'tea_addres' => trim($_POST['tea_addres']),
-                        'tea_dob' => trim($_POST['tea_dob']),
-                        'tea_appointeddate' => trim($_POST['tea_appointeddate']),
-                        'tea_phone' => trim($_POST['tea_phone']),
-                        'tea_email' => trim($_POST['tea_email'])
-        ];
-
-        $teacher = new add_teacher_detailsModel();
-        $teacher->insert($teacherData);
-
-        header("Location: " . URLROOT . "/NonAcademic/viewTeachers");
-        exit();
-    }else{
-        $this->view('insertteacher');
-    }
-
-}
-
-public function viewTeachers()
-{
-    $teacherModel = new add_teacher_detailsModel();
-    $teachers = $teacherModel->findAll();
-
-    $this->view('inc/nonAcademic/See_teacher_deatails', ['teachers' => $teachers]);
-}
 
 
 

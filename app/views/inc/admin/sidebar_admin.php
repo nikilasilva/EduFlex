@@ -34,7 +34,7 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/Issuance_books"><i class="fa-solid fa-book icon" aria-hidden="true"></i></i><span class="text nav-text">Issuance Books</span></a></li>
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manageparent"><i class="fa-solid fa-hands-holding-child icon"></i><span class="text nav-text">Parents</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/insertteacher"><i class="fa-solid fa-person-chalkboard icon"></i><span class="text nav-text">Teachers</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/Manage_teacher"><i class="fa-solid fa-person-chalkboard icon"></i><span class="text nav-text">Teachers</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manageprincipal"><i class="fa-solid fa-person-half-dress icon"></i><span class="text nav-text">Principal</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manageviceprincipal"><i class="fa-solid fa-person-hiking icon"></i><span class="text nav-text">Vice-Principal</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_nonaca"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Non-Academic</span></a></li>

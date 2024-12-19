@@ -17,7 +17,7 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>Issue Books</h1>
+        <h1>Insert Teacher Details</h1>
 
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitActivities" method="POST">
@@ -55,8 +55,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewActivities'" class="btn btn-primary">View All Records</button><br></br>
-
+            <!-- <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button><br></br> -->
 
             <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
 
