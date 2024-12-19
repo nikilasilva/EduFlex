@@ -17,7 +17,7 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>Issue Books</h1>
+        <h1>Insert Parent Details</h1>
 
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitActivities" method="POST">
