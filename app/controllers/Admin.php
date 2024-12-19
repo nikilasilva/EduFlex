@@ -139,10 +139,10 @@ class Admin extends Controller
     public function manageparent(){
         $this->view('inc/admin/manage_parent');
     }
-    // Insert Parents details
-    public function insertparent(){
-        $this->view('inc/admin/add_parents_by_admin');
-    }
+    
+
+
+    
 
     /* For Teacher */
     // Manage teacher
