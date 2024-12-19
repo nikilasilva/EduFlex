@@ -127,7 +127,7 @@ class Admin extends Controller
     /* For Student */
     // Manage students
     public function managestudent(){
-        $this->view('inc/admin/manage_student_by_admin');
+        $this->view('inc/admin/maneage_student');
     }
     // Insert Student details
     public function insertstudent(){
