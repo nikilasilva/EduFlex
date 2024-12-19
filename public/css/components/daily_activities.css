@@ -26,12 +26,18 @@ label {
 
 input[type="date"], textarea {
     width: 100%;
-    padding: 10px;
+    height: 30px; /* Minimized height for textarea */
+    padding: 5px; /* Adjusted padding for alignment */
     border: 1px solid #ddd;
     border-radius: 5px;
+    resize: none; /* Disable resizing of textarea */
+    font-size: 14px; /* Adjust font size for better readability */
+    box-sizing: border-box; /* Include padding and border in dimensions */
 }
 
-button[type="submit"],.btn-primary {
+
+
+button[type="submit"], .btn-primary {
     width: 100%;
     padding: 10px;
     background-color: #001d3d;
@@ -41,7 +47,7 @@ button[type="submit"],.btn-primary {
     cursor: pointer;
 }
 
-button[type="button"],.btn-primary {
+button[type="button"], .btn-primary {
     width: 100%;
     padding: 10px;
     background-color: #001d3d;
@@ -58,5 +64,3 @@ button[type="submit"]:hover {
 button[type="button"]:hover {
     background-color: #003366;
 }
-
-

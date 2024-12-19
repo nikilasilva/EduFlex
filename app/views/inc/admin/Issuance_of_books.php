@@ -29,14 +29,14 @@
             </div> -->
             <div class="form-group">
                 <label for="student_id">student id :</label>
-                <textarea name="student_id" id="student_id" rows="1"></textarea>
+                <textarea name="student_id" id="student_id" rows="1" required></textarea>
             </div>
 
             
 
             <div class="form-group">
                 <label for="book_id">book_id :</label>
-                <textarea name="book_id" id="book_id" rows="1"></textarea>
+                <textarea name="book_id" id="book_id" rows="1" required></textarea>
             </div>
 
             <div class="form-group">

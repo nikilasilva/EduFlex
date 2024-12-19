@@ -17,7 +17,7 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>Insert Parent Details</h1>
+        <h1>Insert Student Details</h1>
 
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitActivities" method="POST">
@@ -28,29 +28,74 @@
                 <input type="time" name="time" id="time" required>
             </div> -->
             <div class="form-group">
-                <label for="student_id">student id :</label>
+                <label for="student_id">Student Reg No:</label>
                 <textarea name="student_id" id="student_id" rows="1"></textarea>
             </div>
 
             
 
             <div class="form-group">
-                <label for="book_id">book_id :</label>
+                <label for="book_id">Full Name :</label>
                 <textarea name="book_id" id="book_id" rows="1"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="full_name">full_name :</label>
+                <label for="full_name">Address :</label>
                 <textarea name="full_name" id="full_name" rows="1" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="additional_note">book_name :</label>
+                <label for="date">Date Of Birth:</label>
+                <input type="date" name="issue_date" id="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Gender :</label>
                 <textarea name="book_name" id="additional_note" rows="1"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="date">issue date:</label>
+                <label for="additional_note">Parent Name :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Relationship to Parent :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Grade :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Bload Group :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Religion</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Nationality :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Email Address :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_note">Phone Number :</label>
+                <textarea name="book_name" id="additional_note" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Admittion Date</label>
                 <input type="date" name="issue_date" id="date" required>
             </div>
 
