@@ -48,7 +48,6 @@
         }
 
         public function attendance() {
-            // Example student data (this should be retrieved from your database in a real scenario)
             $data = [
                 'students' => [
                     ['id' => 'S001', 'name' => 'John Doe'],
@@ -57,32 +56,56 @@
                     ['id' => 'S004', 'name' => 'Emily Davis'],
                 ]
             ];
-
-            // Load the view and pass student data
             $this->view('inc/teacher/attendance', $data);
         }
-
-        // Handle attendance submission
+    
         public function submitAttendance() {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Process the attendance data
-                $attendance = $_POST['attendance'];
-
-                // Example: Save the attendance to the database (implementation depends on your database)
-                foreach ($attendance as $studentId => $status) {
-                    // Save each student's attendance
-                    // Example: $this->attendanceModel->markAttendance($studentId, $status);
-                    echo "Student ID: $studentId, Status: $status <br>";
+                $class = $_POST['class'] ?? null;
+                $attendance = $_POST['attendance'] ?? [];
+                $date = date('Y-m-d');
+    
+                if (empty($class) || empty($attendance)) {
+                    die("Class or attendance data missing");
                 }
-
-                // Redirect to the attendance page or a success page
-                redirect('teacher/attendance');
+    
+                $attendanceModel = new Student_attendanceModel();
+                foreach ($attendance as $studentId => $status) {
+                    $studentData = [
+                        'date' => $date,
+                        'student_id' => $studentId,
+                        'name' => $_POST['student_name'][$studentId],
+                        'class' => $class,
+                        'status' => $status,
+                    ];
+                    $attendanceModel->insert($studentData);
+                }
+    
+                header("Location: " . URLROOT . "/teacher/viewAttendance?date=$date");
+                exit();
             } else {
-                // If not a POST request, redirect to the attendance page
-                redirect('teacher/attendance');
+                header("Location: " . URLROOT . "/teacher/attendance");
+                exit();
             }
         }
-
+    
+        public function viewAttendance() {
+            $date = $_GET['date'] ?? null;
+        
+            if ($date) {
+                $attendanceModel = new Student_attendanceModel();
+                $attendanceRecords = $attendanceModel->where(['date' => $date]);
+        
+                // Convert objects to arrays for array-style access
+                $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
+        
+                $this->view('inc/teacher/view_attendance', ['attendanceRecords' => $attendanceRecords, 'date' => $date]);
+            } else {
+                die("Date not provided");
+            }
+        }
+        
+        
     // Display the daily activities form
     public function dailyActivities() {
         
@@ -165,7 +188,96 @@ public function deleteActivity($id) {
     exit();
 }
 
+public function index() {
+    // Example: redirect to a default page or load a view
+    redirect('Teacher/enterMarks');
+}
 
+// public function enterMarks($classId = null) {
+//     // Example method to handle Enter Marks
+//     $this->view('teacher/enterMarks', ['classId' => $classId]);
+// }
+public function __construct() {
+    $this->reportModel = $this->model('Report'); // Load the Report model
+}
+
+    public function generateReports($classId) {
+        // Get classroom details
+        $classDetails = $this->reportModel->getClassDetails($classId);
+
+        // Get students and their marks
+        $studentReports = $this->reportModel->getStudentReports($classId);
+
+        // Pass data to the view
+        $data = [
+            'classDetails' => $classDetails,
+            'studentReports' => $studentReports
+        ];
+
+        $this->view('inc/teacher/reports', $data);
+    }
+
+    public function saveStudentMarks() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'student_id' => $_POST['student_id'],
+                'subject_id' => $_POST['subject_id'],
+                'marks' => $_POST['marks'],
+            ];
+
+            // Save marks
+            if ($this->reportModel->saveMarks($data)) {
+                flash('report_message', 'Marks saved successfully');
+                redirect('teacher/generateReports/' . $_POST['class_id']);
+            } else {
+                die('Something went wrong');
+            }
+        }
+
+public function viewReports($classId) {
+    $classDetails = $this->reportModel->getClassDetails($classId);
+    $studentReports = $this->reportModel->getStudentReports($classId);
+
+    $data = [
+        'classDetails' => $classDetails,
+        'studentReports' => $studentReports,
+    ];
+
+    $this->view('teacher/Report', $data);
+}
+
+public function enterMarks($classId) {
+    $classDetails = $this->reportModel->getClassDetails($classId);
+    $students = $this->reportModel->getStudentsByClass($classId);
+    $subjects = $this->reportModel->getSubjects();
+
+    $data = [
+        'classDetails' => $classDetails,
+        'students' => $students,
+        'subjects' => $subjects,
+    ];
+
+    $this->view('teacher/enterMarks', $data);
+}
+
+public function saveStudentMarks() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $classId = $_POST['class_id'];
+        foreach ($_POST['marks'] as $studentId => $marks) {
+            $subjectId = $_POST['subject_id'][$studentId];
+            $this->reportModel->saveMarks([
+                'student_id' => $studentId,
+                'subject_id' => $subjectId,
+                'marks' => $marks,
+            ]);
+        }
+        flash('report_message', 'Marks saved successfully');
+        redirect('teacher/viewReports/' . $classId);
+    }
+}
 
     }
 ?>
