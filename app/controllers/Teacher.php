@@ -197,87 +197,87 @@ public function index() {
 //     // Example method to handle Enter Marks
 //     $this->view('teacher/enterMarks', ['classId' => $classId]);
 // }
-public function __construct() {
-    $this->reportModel = $this->model('Report'); // Load the Report model
-}
+// public function __construct() {
+//     $this->reportModel = $this->model('Report'); // Load the Report model
+// }
 
-    public function generateReports($classId) {
-        // Get classroom details
-        $classDetails = $this->reportModel->getClassDetails($classId);
+//     public function generateReports($classId) {
+//         // Get classroom details
+//         $classDetails = $this->reportModel->getClassDetails($classId);
 
-        // Get students and their marks
-        $studentReports = $this->reportModel->getStudentReports($classId);
+//         // Get students and their marks
+//         $studentReports = $this->reportModel->getStudentReports($classId);
 
-        // Pass data to the view
-        $data = [
-            'classDetails' => $classDetails,
-            'studentReports' => $studentReports
-        ];
+//         // Pass data to the view
+//         $data = [
+//             'classDetails' => $classDetails,
+//             'studentReports' => $studentReports
+//         ];
 
-        $this->view('inc/teacher/reports', $data);
-    }
+//         $this->view('inc/teacher/reports', $data);
+//     }
 
-    public function saveStudentMarks() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+//     public function saveStudentMarks() {
+//         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//             // Sanitize POST data
+//             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'student_id' => $_POST['student_id'],
-                'subject_id' => $_POST['subject_id'],
-                'marks' => $_POST['marks'],
-            ];
+//             $data = [
+//                 'student_id' => $_POST['student_id'],
+//                 'subject_id' => $_POST['subject_id'],
+//                 'marks' => $_POST['marks'],
+//             ];
 
-            // Save marks
-            if ($this->reportModel->saveMarks($data)) {
-                flash('report_message', 'Marks saved successfully');
-                redirect('teacher/generateReports/' . $_POST['class_id']);
-            } else {
-                die('Something went wrong');
-            }
-        }
+//             // Save marks
+//             if ($this->reportModel->saveMarks($data)) {
+//                 flash('report_message', 'Marks saved successfully');
+//                 redirect('teacher/generateReports/' . $_POST['class_id']);
+//             } else {
+//                 die('Something went wrong');
+//             }
+//         }
 
-public function viewReports($classId) {
-    $classDetails = $this->reportModel->getClassDetails($classId);
-    $studentReports = $this->reportModel->getStudentReports($classId);
+// public function viewReports($classId) {
+//     $classDetails = $this->reportModel->getClassDetails($classId);
+//     $studentReports = $this->reportModel->getStudentReports($classId);
 
-    $data = [
-        'classDetails' => $classDetails,
-        'studentReports' => $studentReports,
-    ];
+//     $data = [
+//         'classDetails' => $classDetails,
+//         'studentReports' => $studentReports,
+//     ];
 
-    $this->view('teacher/Report', $data);
-}
+//     $this->view('teacher/Report', $data);
+// }
 
-public function enterMarks($classId) {
-    $classDetails = $this->reportModel->getClassDetails($classId);
-    $students = $this->reportModel->getStudentsByClass($classId);
-    $subjects = $this->reportModel->getSubjects();
+// public function enterMarks($classId) {
+//     $classDetails = $this->reportModel->getClassDetails($classId);
+//     $students = $this->reportModel->getStudentsByClass($classId);
+//     $subjects = $this->reportModel->getSubjects();
 
-    $data = [
-        'classDetails' => $classDetails,
-        'students' => $students,
-        'subjects' => $subjects,
-    ];
+//     $data = [
+//         'classDetails' => $classDetails,
+//         'students' => $students,
+//         'subjects' => $subjects,
+//     ];
 
-    $this->view('teacher/enterMarks', $data);
-}
+//     $this->view('teacher/enterMarks', $data);
+// }
 
-public function saveStudentMarks() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $classId = $_POST['class_id'];
-        foreach ($_POST['marks'] as $studentId => $marks) {
-            $subjectId = $_POST['subject_id'][$studentId];
-            $this->reportModel->saveMarks([
-                'student_id' => $studentId,
-                'subject_id' => $subjectId,
-                'marks' => $marks,
-            ]);
-        }
-        flash('report_message', 'Marks saved successfully');
-        redirect('teacher/viewReports/' . $classId);
-    }
-}
+// public function saveStudentMarks() {
+//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//         $classId = $_POST['class_id'];
+//         foreach ($_POST['marks'] as $studentId => $marks) {
+//             $subjectId = $_POST['subject_id'][$studentId];
+//             $this->reportModel->saveMarks([
+//                 'student_id' => $studentId,
+//                 'subject_id' => $subjectId,
+//                 'marks' => $marks,
+//             ]);
+//         }
+//         flash('report_message', 'Marks saved successfully');
+//         redirect('teacher/viewReports/' . $classId);
+//     }
+// }
 
     }
 ?>
