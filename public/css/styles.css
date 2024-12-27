@@ -25,6 +25,10 @@
 @import url('index.css');
 @import url('landing.css');
 
+@import url('components/class_report.css');
+@import url('components/submit_marks.css');
+
+
 :root {
     /* Colors */
     --body-color: #E4E9F7;

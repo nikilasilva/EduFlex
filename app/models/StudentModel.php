@@ -1,14 +1,12 @@
 <?php
-    class StudentModel{
-        private $db;
+class StudentModel {
+    use Database; // Use the Database trait
 
-        public function __construct(){
-            $this->db = new Database;
-        }
-
-        public function getUsers(){
-            $this->db->query('SELECT * FROM Student');
-            return $this->db->resultSet();
-        }
-
+    // Example method to get all students
+    public function getAllStudents() {
+        $query = 'SELECT * FROM students';  // Adjust the table name as needed
+        return $this->query($query); // Using the query method from the Database trait
     }
+}
+?>
+
