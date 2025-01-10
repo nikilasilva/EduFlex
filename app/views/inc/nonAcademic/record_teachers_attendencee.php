@@ -22,7 +22,7 @@
             <h1>Record Teachers Attendencee</h1>
 
             <!-- Attendance form -->
-            <form action="<?php echo URLROOT; ?>/nonAcademic/submitAttendance" method="POST">
+            <form action="<?php echo URLROOT; ?>/nonAcademic/SubmitTeachersAttendenceeForm" method="POST">
                 <table>
                     <thead>
                         <tr>
@@ -30,33 +30,8 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($data['attendance'] as $recode): ?>
-                            <tr>
+                    <tbody id="tableBody">
 
-
-                                <td><?php echo $activity->teacher_id; ?></td>
-                                <td><?php echo $activity->sttendance; ?></td>
-
-
-
-
-
-
-                                <!-- <td><?= $student['id'] ?></td>
-                                <td><?= $student['name'] ?></td>
-                                <td>
-                                    <label>
-                                        <input type="radio" name="attendance[<?= $student['id'] ?>]" value="Present" required>
-                                        Present
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="attendance[<?= $student['id'] ?>]" value="Absent">
-                                        Absent
-                                    </label>
-                                </td> -->
-                            </tr>
-                        <?php endforeach; ?>
                     </tbody>
                 </table>
 
@@ -66,6 +41,80 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // Function to generate table rows with checkboxes
+
+        function generateTable(rows) {
+            const tableBody = document.getElementById('tableBody');
+            for (let i = 1; i <= rows; i++) {
+                const row = document.createElement('tr');
+
+                // Teacher ID column
+                const cellNumber = document.createElement('td');
+                cellNumber.textContent = i;
+                row.appendChild(cellNumber);
+
+                // Attendance column with checkboxes
+                const cellCheckbox = document.createElement('td');
+                cellCheckbox.innerHTML = `
+            <label>
+                <input type="radio" name="attendance[${i}]" value="present" required> Present
+            </label>
+            <label>
+                <input type="radio" name="attendance[${i}]" value="absent" required> Absent
+            </label>
+        `;
+                row.appendChild(cellCheckbox);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            }
+        }
+
+
+
+        // -------------------------
+
+        // function generateTable(rows) {
+        //     const tableBody = document.getElementById('tableBody');
+        //     for (let i = 1; i <= rows; i++) {
+        //         const row = document.createElement('tr');
+
+        //         // Row number column
+        //         const cellNumber = document.createElement('td');
+        //         cellNumber.textContent = i;
+        //         row.appendChild(cellNumber);
+
+        //         // Checkbox column
+        //         const cellCheckbox = document.createElement('td');
+        //         cellCheckbox.innerHTML = `
+        //             <label>
+        //                 <input type="checkbox" id="row${i}checkbox1" onclick="toggleRowCheckbox('row${i}checkbox2', this)"> present
+        //             </label>
+        //             <label>
+        //                 <input type="checkbox" id="row${i}checkbox2" onclick="toggleRowCheckbox('row${i}checkbox1', this)"> absent
+        //             </label>
+        //         `;
+        //         row.appendChild(cellCheckbox);
+
+        //         // Append the row to the table body
+        //         tableBody.appendChild(row);
+        //     }
+        // }
+        // ----------------------------
+        // Function to toggle checkboxes in the same row
+        function toggleRowCheckbox(otherCheckboxId, currentCheckbox) {
+            const otherCheckbox = document.getElementById(otherCheckboxId);
+            if (currentCheckbox.checked) {
+                otherCheckbox.checked = false;
+            }
+        }
+
+        // Generate 5 rows in the table as an example
+        generateTable(10);
+    </script>
+
 </body>
 
 </html>
