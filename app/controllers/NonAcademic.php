@@ -39,7 +39,7 @@ class NonAcademic extends Controller
     public function submitActivities()
     {
 
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'student_id' => $_POST['student_id'],
@@ -118,25 +118,6 @@ class NonAcademic extends Controller
         exit();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function TeachersAttendenceeForm()   // file this form Teachers attendence 
     {
         $recodeModel = new Teachers_RecodeModel();
@@ -149,20 +130,6 @@ class NonAcademic extends Controller
 
         // $this->view('inc/nonAcademic/record_teachers_attendencee');
     }
-
-
-    // public function SubmitTeachersAttendenceeForm()   // file this form Teachers attendence 
-    // {
-    //     $recodeModel = new Teachers_RecodeModel();
-    //     $recode = $recodeModel->findAll();
-
-
-    //     // Load the view and pass Teachers data
-    //     $this->view('inc/nonAcademic/record_teachers_attendencee', ['attendance' => $recode]);
-
-
-    //     // $this->view('inc/nonAcademic/record_teachers_attendencee');
-    // }
 
     public function SubmitTeachersAttendenceeForm()
     {
