@@ -34,10 +34,10 @@ require APPROOT . '/views/inc/components/topNavbar.php';
             View Feedbacks
         </button>
         <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
-            Update Feedback
+            Update Feedbacks
         </button>
         <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
-            Delete Feedback
+            Delete Feedbacks
         </button>
     </div>
 </div>
