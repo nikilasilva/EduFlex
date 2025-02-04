@@ -94,40 +94,6 @@ class Parents extends Controller {
     }
 
 
-
-
-
-
-    // Handle feedback submission
-    // public function submitFeedback() {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $content = htmlspecialchars($_POST['content'] ?? '');
-    //         $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
-    //         $date = date('Y-m-d');
-
-    //         if (!empty($content)) {
-    //             $data = [
-    //                 'content' => $content,
-    //                 'recipient' => $recipient,
-    //                 'date' => $date,
-                
-    //             ];
-    //             try {
-    //                 if ($this->FeedbackModel->insert($data)) {
-    //                     header('Location: ' . URLROOT . '/parents/feedback');
-    //                     exit;
-    //                 } else {
-    //                     echo "Failed to submit feedback.";
-    //                 }
-    //             } catch (Exception $e) {
-    //                 echo "Error submitting feedback: " . $e->getMessage();
-    //             }
-    //         } else {
-    //             echo "Feedback content cannot be empty.";
-    //         }
-    //     }
-    // }
-
     public function submitFeedback() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $content = htmlspecialchars($_POST['content'] ?? '');
@@ -156,52 +122,6 @@ class Parents extends Controller {
             }
         }
     }
-
-
-    // public function submitFeedback(){
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $activityData = [
-                
-    //             'content' => $_POST['content']
-                
-                
-
-    //         ];
-
-    //         $activity = new FeedbackModel();
-    //         $activity->insert($activityData);
-    //         // Here, save the activity data to the database.
-    //         // Example: $this->activityModel->addActivity($activityData);
-
-    //         // Display a success message or redirect to a success page
-    //         echo "Activity recorded successfully: " . htmlspecialchars($activityData['content']);
-    //     } else {
-    //         // If not a POST request, reload the daily activities page
-    //         $this->view('feedbacks');
-    //     }
-    // }
-
-    // Update feedback
-    
-    // public function updateFeedback($id) {
-    //     $FeedbackModel = new FeedbackModel();
-    
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
-    //             $data = [
-    //                 'content' => $_POST['content'],
-    //                 'date' => $_POST['date']
-    //             ];
-    //             echo "hiiii";
-    //             if ($this->FeedbackModel->update($id, $data, 'feedback_id')) {
-    //                 //header("Location: " . URLROOT . "/parents/feedback");
-    //                 echo 'hooo';
-    //             }
-    //             exit();
-                
-    //         }
-
-    //     }
 
     
       
