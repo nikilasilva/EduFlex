@@ -10,10 +10,7 @@ class Principal extends Controller {
         }
     }
 
-    // public function index() {
-    //     $this->view('inc/Principal/default');
-    // }
-
+    
     
      
     public function viewFeedbacks() {
