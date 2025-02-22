@@ -1,14 +1,5 @@
-<?php
-session_start();
 
-// Include header and top navigation bar
-require APPROOT . '/views/inc/header.php'; 
-require APPROOT . '/views/inc/components/topNavbar.php'; 
-?>
-
-<!-- Link to external CSS for styling -->
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/feedbackStyles.css">
-
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/components/view_feedback.css">
 <!-- Include SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -146,6 +137,3 @@ require APPROOT . '/views/inc/components/topNavbar.php';
     }
 </script>
 
-<!-- Include sidebar and footer -->
-<?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
