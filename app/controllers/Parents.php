@@ -50,6 +50,14 @@ class Parents extends Controller {
         $this->view('inc/Parent/parent_charges');
     }
 
+    public function absences(){
+        $this->view('inc/Parent/Absence_Report');
+    }
+
+    public function report(){
+        $this->view('inc/Parent/Parent_Report');
+    }
+
     public function attendance() {
         $this->view('inc/Parent/attendance_parent');
     }
