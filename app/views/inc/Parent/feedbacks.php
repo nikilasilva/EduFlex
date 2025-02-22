@@ -1,13 +1,10 @@
-<?php session_start();  // Include header and top navigation bar
-require APPROOT . '/views/inc/header.php';
-require APPROOT . '/views/inc/components/topNavbar.php';
-?>
 
-<!-- Link to external CSS for styling -->
+
+
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/feedbackStyles.css">
 
 <div class="submit-feedback">
-    <h1>Add Your Feedback</h1>
+    
     
     <!-- Feedback Submission Form -->
     <form method="POST" action="<?php echo URLROOT; ?>/parents/submitFeedback">
@@ -33,16 +30,13 @@ require APPROOT . '/views/inc/components/topNavbar.php';
         <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
             View Feedbacks
         </button>
-        <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
+        <!-- <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
             Update Feedbacks
         </button>
         <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
             Delete Feedbacks
-        </button>
+        </button> -->
     </div>
 </div>
 
-<?php 
-require APPROOT . '/views/inc/components/sideBar.php'; 
-require APPROOT . '/views/inc/footer.php'; 
-?>
+
