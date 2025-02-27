@@ -2,6 +2,10 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
 <div class="report-container">
+
+<?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
+
+
     <h1 class="report-title">Class Report</h1>
 
     <h2 class="report-subtitle">Subject-wise Report</h2>

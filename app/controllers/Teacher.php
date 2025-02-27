@@ -1,6 +1,22 @@
 <?php
+require_once '../app/helpers/url_helper.php';
+require_once '../app/helpers/session_helper.php';
+
 class Teacher extends Controller {
+
+    //new
+    private $marksModel;
+    private $classModel;
+    private $studentModel;
+    private $subjectModel;
+
     public function __construct() {
+
+        //new
+        $this->marksModel = $this->model('MarksModel');
+        $this->classModel = $this->model('ClassModel');
+        $this->studentModel = $this->model('StudentModel');
+        $this->subjectModel = $this->model('SubjectModel');
     }
 
     public function teachers() {
@@ -30,7 +46,7 @@ class Teacher extends Controller {
         $data = [
             'timeTable' => [
                 ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
-                // Add more rows...
+                
             ]
         ];
 
@@ -167,18 +183,25 @@ class Teacher extends Controller {
     }
 
     public function index() {
-        redirect('Teacher/enterMarks');
+        // Ensure that enterMarks does not redirect back to index
+        redirect('teacher/selectClass'); // Change to a safe default page
     }
 
-    
+
+    public function selectClass() {
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/selectClass', ['classes' => $classes]);
+    }
+
+
     public function viewClassReport() {
-        $class = $_GET['class'] ?? null;
-    
-        if ($class) {
-            $marksModel = new MarksModel();
-            $classReport = $marksModel->getClassReport($class);
-            $ranks = $marksModel->getStudentRanks($class);
-    
+        $classId = $_GET['class'] ?? null;
+
+        if ($classId) {
+            $classReport = $this->marksModel->getClassReport($classId);
+            $ranks = $this->marksModel->getStudentRanks($classId);
+
             $this->view('inc/teacher/class_report', [
                 'classReport' => $classReport,
                 'ranks' => $ranks
@@ -188,81 +211,115 @@ class Teacher extends Controller {
         }
     }
 
-    public function classReport() {
-        $marksModel = $this->model('MarksModel');
+    // public function classReport() {
+    //     $marksModel = $this->model('MarksModel');
     
-        $data = [
-            'classReport' => $marksModel->getClassReport(),
-            'ranks' => $marksModel->getClassRanks(),
-        ];
+    //     $data = [
+    //         'classReport' => $marksModel->getClassReport(),
+    //         'ranks' => $marksModel->getClassRanks(),
+    //     ];
     
-        $this->view('inc/teacher/class_report', $data);
-    }
-    
-
-    public function selectClass() {
-        $classModel = $this->model('ClassModel'); // Instantiate the model
-        $classes = $classModel->getAllClasses(); // Fetch classes
-        $this->view('inc/teacher/selectClass', ['classes' => $classes]); // Pass to view
-    }
+    //     $this->view('inc/teacher/class_report', $data);
+    // }
     
 
-    public function getStudentsAndSubjects()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $class = $_POST['class'];
-            $students = $this->studentModel->getStudentsByClass($class);
-            $subjects = $this->subjectModel->getSubjectsByClass($class);
+    // public function selectClass() {
+    //     $classModel = $this->model('ClassModel'); // Instantiate the model
+    //     $classes = $classModel->getAllClasses(); // Fetch classes
 
-            $this->view('inc/teacher/submit_marks', [
-                'class' => $class,
-                'students' => $students,
-                'subjects' => $subjects
-            ]);
-        }
-    }
+    //     // var_dump($classes); 
+    //     // die(); // Stop execution to inspect the output
+
+    //     $this->view('inc/teacher/selectClass', ['classes' => $classes]); // Pass to view
+    // }
+    
+
+    // public function getStudentsAndSubjects()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $class = $_POST['class'];
+    //         $students = $this->studentModel->getStudentsByClass($class);
+    //         $subjects = $this->subjectModel->getSubjectsByClass($class);
+
+    //         $this->view('inc/teacher/submit_marks', [
+    //             'class' => $class,
+    //             'students' => $students,
+    //             'subjects' => $subjects
+    //         ]);
+    //     }
+    // }
 
      
+    //new
     public function submitMarks() {
-        $classModel = $this->model('ClassModel');
-        $studentModel = $this->model('StudentModel');
-        $subjectModel = $this->model('SubjectModel');
-        $marksModel = $this->model('MarksModel');
-    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Save marks
-            $marksData = $_POST['marks'];
-            $totalMarks = $_POST['total_marks'];
-            $subject = $_POST['subject'];
-            $class = $_POST['class'];
-    
-            foreach ($marksData as $studentId => $marks) {
-                $marksModel->insert([
-                    'student_id' => $studentId,
-                    'class' => $class,
-                    'subject' => $subject,
-                    'marks_obtained' => $marks,
-                    'total_marks' => $totalMarks,
-                ]);
+            $classId = $_POST['class_id'];
+            $marksData = $_POST['marks'] ?? [];
+
+            foreach ($marksData as $studentId => $subjects) {
+                foreach ($subjects as $subjectId => $marks) {
+                    $this->marksModel->insertMarks($studentId, $subjectId, $marks);
+                }
             }
-    
+
             flash('marks_success', 'Marks submitted successfully!');
-            redirect('inc/teacher/class_report');
+            // redirect('teacher/viewClassReport?class=' . $classId);
+            redirect('teacher/submitMarks');
+            
         } else {
             $data = [
-                'classes' => $classModel->getAllClasses(),
+                'classes' => $this->model('ClassModel')->getAllClasses(),
                 'students' => [],
                 'subjects' => [],
             ];
-    
+
             if (!empty($_GET['class'])) {
-                $data['students'] = $studentModel->getStudentsByClass($_GET['class']);
-                $data['subjects'] = $subjectModel->getSubjectsByClass($_GET['class']);
+                $data['students'] = $this->studentModel->getStudentsByClass($_GET['class']);
+                $data['subjects'] = $this->subjectModel->getSubjectsByClass($_GET['class']);
             }
-    
+
             $this->view('inc/teacher/submit_marks', $data);
         }
     }
+
+    // public function submitMarks() {
+    //     $classModel = $this->model('ClassModel');
+    //     $studentModel = $this->model('StudentModel');
+    //     $subjectModel = $this->model('SubjectModel');
+    //     $marksModel = $this->model('MarksModel');
+    
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         // Save marks
+    //         $class = $_POST['class_id'];
+    //         echo($class);
+    //         foreach ($marksData as $studentId => $marks) {
+    //             $marksModel->insert([
+    //                 'student_id' => $studentId,
+    //                 'class' => $class,
+    //                 'subject' => $subject,
+    //                 'marks_obtained' => $marks,
+    //                 'total_marks' => $totalMarks,
+    //             ]);
+    //         }
+    
+    //         flash('marks_success', 'Marks submitted successfully!');
+    //         redirect('inc/teacher/class_report');
+    //     } 
+    //     else{
+    //         $data = [
+    //             'classes' => $classModel->getAllClasses(),
+    //             'students' => [],
+    //             'subjects' => [],
+    //         ];
+    
+    //         if (!empty($_GET['class'])) {
+    //             $data['students'] = $studentModel->getStudentsByClass($_GET['class']);
+    //             $data['subjects'] = $subjectModel->getSubjectsByClass($_GET['class']);
+    //         }
+    
+    //         $this->view('inc/teacher/submit_marks', $data);
+    //     }
+    // }
     
 
 // public function enterMarks($classId = null) {

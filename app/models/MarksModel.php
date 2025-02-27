@@ -1,45 +1,54 @@
 <?php
 
 class MarksModel {
-    use Model;
+    use Database;
 
-    public function __construct() {
-        $this->table = 'marks'; // Set the database table name
-        $this->order_column = 'student_id'; // Default order column
-        $this->allowedColumns = ['student_id', 'class', 'subject', 'marks_obtained', 'total_marks', 'date']; // Columns allowed for insert/update
+    public function insertMarks($studentId, $subjectId, $marks) {
+        try {
+            $query = "INSERT INTO marks (student_id, subject_id, marks) VALUES (:student_id, :subject_id, :marks)";
+            return $this->query($query, [
+                ':student_id' => $studentId,
+                ':subject_id' => $subjectId,
+                ':marks' => $marks
+            ]);
+        } catch (PDOException $e) {
+            die("Insert Marks Error: " . $e->getMessage());
+        }
     }
 
-    public function insertMarks($data) {
-        return $this->insert($data);
+    public function getClassReport($classId) {
+        try {
+            $query = "
+                SELECT s.student_id AS student_id, s.name AS student_name, sub.id AS subject_id, sub.name AS subject_name, m.marks 
+                FROM marks m
+                INNER JOIN students s ON m.student_id = s.student_id
+                INNER JOIN subjects sub ON m.subject_id = sub.id
+                WHERE s.class_id = :class_id
+            ";
+            return $this->query($query, [':class_id' => $classId]);
+        } catch (PDOException $e) {
+            die("Class Report Error: " . $e->getMessage());
+        }
     }
 
-    public function getClassReport() {
-        $query = "SELECT student_id, subject, SUM(marks_obtained) AS total_marks_obtained, 
-                         SUM(total_marks) AS total_marks_possible,
-                         AVG(marks_obtained) AS average_marks
-                  FROM marks
-                  GROUP BY student_id, subject";
-        return $this->query($query);
-    }
-    
-    public function getClassRanks() {
-        $query = "SELECT student_id, SUM(marks_obtained) AS total_marks_obtained, 
-                         SUM(total_marks) AS total_marks_possible,
-                         (SUM(marks_obtained) / SUM(total_marks)) * 100 AS percentage
-                  FROM marks
-                  GROUP BY student_id
-                  ORDER BY percentage DESC";
-        return $this->query($query);
-    }
-    
-
-    public function getStudentRanks($class) {
-        $query = "SELECT student_id, SUM(marks_obtained) as total_obtained, 
-                         RANK() OVER (ORDER BY SUM(marks_obtained) DESC) as rank
-                  FROM $this->table
-                  WHERE class = ?
-                  GROUP BY student_id";
-        return $this->query($query, [$class]);
+    public function getStudentRanks($classId) {
+        try {
+            $query = "
+                SELECT s.student_id AS student_id, s.name AS student_name, AVG(m.marks) AS average_marks
+                FROM students s
+                INNER JOIN marks m ON s.student_id = m.student_id
+                WHERE s.class_id = :class_id
+                GROUP BY s.student_id, s.name
+                ORDER BY average_marks DESC
+            ";
+            return $this->query($query, [':class_id' => $classId]);
+        } catch (PDOException $e) {
+            die("Student Ranks Error: " . $e->getMessage());
+        }
     }
 }
+
+?>
+
+
 
