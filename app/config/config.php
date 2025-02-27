@@ -13,4 +13,7 @@
 
     // Website name
     define('SITENAME', 'EduFlex');
+
+    //upload directory
+   // define('UPLOAD_DIR', __DIR__ . '/../../uploads/');
 ?>

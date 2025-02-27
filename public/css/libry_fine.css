@@ -22,6 +22,7 @@
 
 
 form label {
+    padding-left: 20px;
     font-weight: 500;
     color: #2c3e50;
     margin-bottom: 5px;
@@ -50,7 +51,9 @@ input[type="date"]:focus {
 
 
 .file-upload {
+    width: 90%;
     position: relative;
+    left: 35px;
     text-align: left;
     margin-bottom: 20px;
 }
@@ -78,8 +81,8 @@ input[type="date"]:focus {
     font-size: 1.2em;
 }
 
-.submit-button {
-    width: 100%;
+.charges-submit-button {
+    width: 50%;
     padding: 10px;
     margin-top: 15px;
     background-color: #4CAF50;
@@ -118,6 +121,8 @@ input[type="date"] {
     background-color: white;
 }
 
+
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     opacity: 0.6;
@@ -140,3 +145,49 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-color: #2ecc71;
     background-color: #f0fff4;
 }
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    position:relative;
+    left: 10px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #668bb4;
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: #256fc4;
+    border-color: #668bb4;
+}
+
+.checkbox-label input[type="checkbox"]::before {
+    content: '✔';
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left: 2px;
+    top: -1px;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.checkbox-label input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
