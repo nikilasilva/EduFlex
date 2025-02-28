@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
 <div class="container">
-    <h1>Select Class</h1>
+    <h1>Select Class Nimantha</h1>
     <form action="<?php echo URLROOT; ?>/teacher/submitMarks" method="POST">
         <div class="form-group">
             <label for="class">Select Class:</label>

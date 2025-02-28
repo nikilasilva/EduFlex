@@ -251,75 +251,74 @@ class Teacher extends Controller {
 
      
     //new
-    public function submitMarks() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classId = $_POST['class_id'];
-            $marksData = $_POST['marks'] ?? [];
-
-            foreach ($marksData as $studentId => $subjects) {
-                foreach ($subjects as $subjectId => $marks) {
-                    $this->marksModel->insertMarks($studentId, $subjectId, $marks);
-                }
-            }
-
-            flash('marks_success', 'Marks submitted successfully!');
-            // redirect('teacher/viewClassReport?class=' . $classId);
-            redirect('teacher/submitMarks');
-            
-        } else {
-            $data = [
-                'classes' => $this->model('ClassModel')->getAllClasses(),
-                'students' => [],
-                'subjects' => [],
-            ];
-
-            if (!empty($_GET['class'])) {
-                $data['students'] = $this->studentModel->getStudentsByClass($_GET['class']);
-                $data['subjects'] = $this->subjectModel->getSubjectsByClass($_GET['class']);
-            }
-
-            $this->view('inc/teacher/submit_marks', $data);
-        }
-    }
-
     // public function submitMarks() {
-    //     $classModel = $this->model('ClassModel');
-    //     $studentModel = $this->model('StudentModel');
-    //     $subjectModel = $this->model('SubjectModel');
-    //     $marksModel = $this->model('MarksModel');
-    
     //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Save marks
-    //         $class = $_POST['class_id'];
-    //         echo($class);
-    //         foreach ($marksData as $studentId => $marks) {
-    //             $marksModel->insert([
-    //                 'student_id' => $studentId,
-    //                 'class' => $class,
-    //                 'subject' => $subject,
-    //                 'marks_obtained' => $marks,
-    //                 'total_marks' => $totalMarks,
-    //             ]);
+    //         $classId = $_POST['class_id'];
+    //         $marksData = $_POST['marks'] ?? [];
+
+    //         foreach ($marksData as $studentId => $subjects) {
+    //             foreach ($subjects as $subjectId => $marks) {
+    //                 $this->marksModel->insertMarks($studentId, $subjectId, $marks);
+    //             }
     //         }
-    
+
     //         flash('marks_success', 'Marks submitted successfully!');
-    //         redirect('inc/teacher/class_report');
-    //     } 
-    //     else{
+    //         // redirect('teacher/viewClassReport?class=' . $classId);
+    //         redirect('teacher/submitMarks');
+            
+    //     } else {
     //         $data = [
-    //             'classes' => $classModel->getAllClasses(),
+    //             'classes' => $this->model('ClassModel')->getAllClasses(),
     //             'students' => [],
     //             'subjects' => [],
     //         ];
-    
-    //         if (!empty($_GET['class'])) {
-    //             $data['students'] = $studentModel->getStudentsByClass($_GET['class']);
-    //             $data['subjects'] = $subjectModel->getSubjectsByClass($_GET['class']);
+
+    //         if (!empty($_POST['class'])) {
+    //             $data['students'] = $this->studentModel->getStudentsByClass($_POST['class_id']);
+    //             $data['subjects'] = $this->subjectModel->getSubjectsByClass($_POST['class_id']);
     //         }
-    
+
+    //         var_dump($data['students']);
+
     //         $this->view('inc/teacher/submit_marks', $data);
     //     }
     // }
+
+    public function submitMarks() {
+        $classModel = $this->model('ClassModel');
+        $studentModel = $this->model('StudentModel');
+        $subjectModel = $this->model('SubjectModel');
+        $marksModel = $this->model('MarksModel');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $class_id = $_POST['class_id'];
+    
+            // Fetch subjects
+            $results = $subjectModel->query("
+                SELECT s.id, s.name 
+                FROM subject_class sc
+                JOIN subjects s ON sc.subject_id = s.id
+                WHERE sc.class_id = ?", 
+                [$class_id]
+            );
+    
+            // Fetch students
+            $students = $studentModel->where(['class_id' => $class_id]);
+    
+            // Ensure they are arrays to avoid foreach errors
+            $subjects = is_array($results) ? $results : [];
+            $students = is_array($students) ? $students : [];
+    
+            // Debugging output (Remove later)
+    
+            // Pass subjects and students to the view
+            $this->view('inc/teacher/submit_marks', [
+                'subjects' => $subjects,
+                'students' => $students
+            ]);
+        }
+    }
+    
     
 
 // public function enterMarks($classId = null) {
