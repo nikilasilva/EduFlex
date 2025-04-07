@@ -11,23 +11,30 @@
             <input type="text" placeholder="Search by class" id="search-input">
             <button id="search-button">SEARCH</button>
         </div>
+        <?php if (isset($message)): ?>
+                <p><?php echo $message; ?></p>
+        <?php endif; ?>
         <table class="free-classes-table">
             <thead>
             <tr>
                 <th>Class</th>
                 <th>Subject</th>
+                <th>Period</th>
                 <th>Action</th>
             </tr>
             </thead>
+
             <tbody id="table-body">
+            <?php foreach ($data['freeClasses'] as $class): ?>
             <tr>
-                <td>11-B</td>
-                <td>Science</td>
+                <td><?= $class['className'] ?></td>
+                <td><?= $class['subjectName'] ?></td>
+                <td><?= $class['periodName'] ?></td>
                 <td>
-                    <a href="<?php echo URLROOT; ?>/CurrentActivities/allFreeTeachers/?>" class="assign-button">Assign</a>
+                <a href="<?php echo URLROOT ?>/CurrentActivities/showAvailableTeachers?subjectId=<?= $class['subjectId'] ?>&periodId=<?= $class['periodId'] ?>&day=<?= $class['day'] ?>">Assign</a>
                 </td>
             </tr>
-            <!-- Additional rows can be dynamically added here -->
+            <?php endforeach; ?>        
             </tbody>
         </table>
         </div>

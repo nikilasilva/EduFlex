@@ -3,8 +3,8 @@
 Trait Database{
 
     protected function connect(){
-        $string = "mysql:hostname=".DB_HOST.";dbname=".DB_NAME;
-        $conn = new PDO($string,DB_USER,DB_PASSWORD);
+        $string = "mysql:host=".DB_HOST.";dbname=".DB_NAME;
+        $conn = new PDO($string,DB_USER,DB_PASSWORD);        
         return $conn;
     }
 
