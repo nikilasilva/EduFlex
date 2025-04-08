@@ -22,20 +22,9 @@
         <!-- Attendance form -->
         <form action="<?php echo URLROOT; ?>/teacher/submitAttendance" method="POST">
             <!-- Automatically include current date -->
-            <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>"> <!-- Current date -->
-
-            <!-- Dropdown to select class -->
-            <label for="class">Select Class:</label>
-            <select name="class" id="class" required>
-                <option value="">-- Select Class --</option>
-                <option value="Grade 6-A">Grade 6-A</option>
-                <option value="Grade 6-B">Grade 6-B</option>
-                <option value="Grade 7-A">Grade 7-A</option>
-                <option value="Grade 7-B">Grade 7-B</option>
-                <!-- Add more classes as needed -->
-            </select>
-
-            <table>
+            <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
+            <input type="hidden" name="class" value="<?= $class ?? '' ?>">
+            <table border="1" class="attendance-table">
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -43,27 +32,43 @@
                         <th>Status</th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <?php foreach ($data['students'] as $student): ?>
+                <?php if (!empty($students) && is_array($students)): ?>
+                    <?php foreach ($students as $student): ?>
                         <tr>
-                            <td>
-                                <input type="hidden" name="student_name[<?= $student['id'] ?>]" value="<?= $student['name'] ?>">
-                                <?= $student['id'] ?>
-                            </td>
-                            <td><?= $student['name'] ?></td>
+                            
+                            <td><?= htmlspecialchars($student->student_id) ?></td>
+                            <td><?= htmlspecialchars($student->name) ?></td>
+                            <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= $student->name ?>">
                             <td>
                                 <label>
-                                    <input type="radio" name="attendance[<?= $student['id'] ?>]" value="Present" required>
-                                    Present
+                                <input type="radio" 
+                                       name="attendance[<?= $student->student_id ?>]" 
+                                       value="present" 
+                                       required>
+                                Present
                                 </label>
+
+                                &nbsp;&nbsp;
+
                                 <label>
-                                    <input type="radio" name="attendance[<?= $student['id'] ?>]" value="Absent">
-                                    Absent
+                                <input type="radio" 
+                                       name="attendance[<?= $student->student_id ?>]" 
+                                       value="absent">
+                                Absent
                                 </label>
                             </td>
+
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="3">No Students Found</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+
             </table>
             
             <br>
@@ -75,15 +80,8 @@
             <label for="attendance_date">Select Date:</label>
             <input type="date" id="attendance_date" name="attendance_date" required>
             
-            <label for="view_class">Select Class:</label>
-            <select name="view_class" id="view_class" required>
-                <option value="">-- Select Class --</option>
-                <option value="Grade 6-A">Grade 6-A</option>
-                <option value="Grade 6-B">Grade 6-B</option>
-                <option value="Grade 7-A">Grade 7-A</option>
-                <option value="Grade 7-B">Grade 7-B</option>
-                <!-- Add more classes as needed -->
-            </select>
+            <!-- Class will be automatically selected from the previous form -->
+            <input type="hidden" name="view_class" value="<?= $class ?? '' ?>">
 
             <button type="submit" class="btn btn-secondary">View Attendance</button>
         </form>
@@ -93,4 +91,5 @@
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+
 

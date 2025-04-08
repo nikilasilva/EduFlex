@@ -6,7 +6,8 @@
 
     <!-- Debugging output -->
 
-    <form action="<?= URLROOT ?>/marks/submit" method="POST">
+    <form action="<?= URLROOT ?>/teacher/viewClassReport" method="POST">
+        <input type="hidden" name="class" value="<?= $class ?? '' ?>">
         <table border="1" class="marks-table">
             <thead>
                 <tr>

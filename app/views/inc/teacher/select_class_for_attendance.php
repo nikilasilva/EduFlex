@@ -4,7 +4,7 @@
 
 <div class="container">
     <h1>Select Class</h1>
-    <form action="<?php echo URLROOT; ?>/teacher/submitMarks" method="POST">
+    <form action="<?php echo URLROOT; ?>/teacher/attendance" method="POST">
         <div class="form-group">
             <label for="class">Select Class:</label>
             <?php if (!empty($data['classes'])): ?>

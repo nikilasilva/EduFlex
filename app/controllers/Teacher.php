@@ -54,29 +54,34 @@ class Teacher extends Controller {
     }
 
     public function attendance() {
-        $data = [
-            'students' => [
-                ['id' => 'S001', 'name' => 'John Doe'],
-                ['id' => 'S002', 'name' => 'Jane Smith'],
-                ['id' => 'S003', 'name' => 'Michael Johnson'],
-                ['id' => 'S004', 'name' => 'Emily Davis'],
-            ]
-        ];
-        $this->view('inc/teacher/attendance', $data);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $class_id = $_POST['class_id'];
+    
+            $classModel = $this->model('ClassModel');
+            $studentModel = $this->model('StudentModel');
+    
+            $students = $studentModel->where(['class_id' => $class_id]);
+            $students = is_array($students) ? $students : [];
+    
+            $this->view('inc/teacher/attendance', [
+                'students' => $students,
+                'class' => $class_id
+            ]);
+        }
     }
-
+    
     public function submitAttendance() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $class = $_POST['class'] ?? null;
             $attendance = $_POST['attendance'] ?? [];
-            $date = date('Y-m-d');
-
+            $date = date('Y-m-d');    
             if (empty($class) || empty($attendance)) {
                 $_SESSION['error'] = "Class or attendance data missing.";
-                header("Location: " . URLROOT . "/teacher/attendance");
+                // header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+                var_dump($_SESSION['error']);
                 exit();
             }
-
+    
             $attendanceModel = new Student_attendanceModel();
             foreach ($attendance as $studentId => $status) {
                 $studentData = [
@@ -88,31 +93,31 @@ class Teacher extends Controller {
                 ];
                 $attendanceModel->insert($studentData);
             }
-
+    
             $_SESSION['success'] = "Attendance submitted successfully.";
-            header("Location: " . URLROOT . "/teacher/viewAttendance?date=$date&class=$class");
+            header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$date&view_class=$class");
             exit();
         } else {
-            header("Location: " . URLROOT . "/teacher/attendance");
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
             exit();
         }
     }
-
+    
     public function viewAttendance() {
         $date = $_GET['attendance_date'] ?? null;
         $class = $_GET['view_class'] ?? null;
-
+    
         if (!$date || !$class) {
             $_SESSION['error'] = "Date or class not provided.";
-            header("Location: " . URLROOT . "/teacher/attendance");
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
             exit();
         }
-
+    
         $attendanceModel = new Student_attendanceModel();
         $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $class]);
-
+    
         $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
-
+    
         $this->view('inc/teacher/view_attendance', [
             'attendanceRecords' => $attendanceRecords,
             'date' => $date,
@@ -195,9 +200,18 @@ class Teacher extends Controller {
     }
 
 
-    public function viewClassReport() {
-        $classId = $_GET['class'] ?? null;
+    public function selectClassForAttendance() {
+        // var_dump("this is selectClassForAttendance method");
+        // die();
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/select_class_for_attendance', ['classes' => $classes]);
+    }
 
+
+    public function viewClassReport() {
+        $classId = $_POST['class'] ?? null;
+        var_dump($_POST);
         if ($classId) {
             $classReport = $this->marksModel->getClassReport($classId);
             $ranks = $this->marksModel->getStudentRanks($classId);
@@ -314,7 +328,8 @@ class Teacher extends Controller {
             // Pass subjects and students to the view
             $this->view('inc/teacher/submit_marks', [
                 'subjects' => $subjects,
-                'students' => $students
+                'students' => $students,
+                'class'=> $class_id
             ]);
         }
     }

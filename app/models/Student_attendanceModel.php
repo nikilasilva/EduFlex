@@ -1,5 +1,4 @@
 <?php
-
 class Student_attendanceModel {
     use Model;
 
@@ -12,17 +11,23 @@ class Student_attendanceModel {
         'status'
     ];
 
-    // Renamed property
-    protected $attendance_order_column = 'date';
+    public function getClasses() {
+        $sql = "SELECT DISTINCT id, name FROM classes ORDER BY name";
+        return $this->query($sql);
+    }
+
+    public function getStudentsByClass($classId) {
+        $sql = "SELECT student_id, name FROM students WHERE class_id = :class_id";
+        return $this->query($sql, ['class_id' => $classId]);
+    }
 
     public function getAttendance($filters = []) {
         $where = [];
 
-        // Check for filters and build the WHERE clause
-        if (isset($filters['date']) && !empty($filters['date'])) {
+        if (!empty($filters['date'])) {
             $where[] = "date = :date";
         }
-        if (isset($filters['class']) && !empty($filters['class'])) {
+        if (!empty($filters['class'])) {
             $where[] = "class = :class";
         }
 
@@ -30,10 +35,12 @@ class Student_attendanceModel {
         if (!empty($where)) {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
-        $sql .= " ORDER BY {$this->attendance_order_column} DESC";
+        $sql .= " ORDER BY date DESC";
 
         return $this->query($sql, $filters);
     }
 }
+
+
 
 
