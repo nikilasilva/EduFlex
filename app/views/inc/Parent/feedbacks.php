@@ -1,6 +1,4 @@
 
-
-
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/feedbackStyles.css">
 
 <div class="submit-feedback">

@@ -3,10 +3,12 @@ class Parents extends Controller {
 
 
     private $FeedbackModel;
+    private $AbsenceModel;
 
     public function __construct() {
         // Load the FeedbackModel
         $this->FeedbackModel = $this->model('FeedbackModel');
+        $this->AbsenceModel = $this->model('AbsenceModel');
     }
 
     // Default method for this controller
@@ -214,6 +216,36 @@ class Parents extends Controller {
 
     }
 
+
+    public function submitAbsence() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $student_id = htmlspecialchars($_POST['student_id'] ?? '');
+            $content = htmlspecialchars($_POST['content'] ?? '');
+            $date = date('Y-m-d');
+
+            if (!empty($content)) {
+                $data = [
+                    'student_id' => $student_id,
+                    'content' => $content,
+                    'date' => $date,
+
+                
+                ];
+                try {
+                    if ($this->AbsenceModel->insert($data)) {
+                        header('Location: ' . URLROOT . '/parents/absences');
+                        exit;
+                    } else {
+                        echo "Failed to submit the Absence the absence report.";
+                    }
+                } catch (Exception $e) {
+                    echo "Error submitting report: " . $e->getMessage();
+                }
+            } else {
+                echo "content cannot be empty.";
+            }
+        }
+    }
 
     
     
