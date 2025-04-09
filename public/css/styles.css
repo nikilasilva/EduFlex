@@ -31,6 +31,9 @@
 @import url('index.css');
 @import url('landing.css');
 
+
+@import url('components/class_report.css');
+@import url('components/submit_marks.css');
 @import url('components/announcementFormStyles.css');
 @import url('components/announcementModalStyles.css');
 @import url('profileStyles.css');
