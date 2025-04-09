@@ -2,6 +2,7 @@
 require_once APPROOT. '/models/User.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+session_start();
 
 class Users extends Controller {
     private $userModel;
@@ -70,6 +71,52 @@ class Users extends Controller {
         } catch (Exception $e) {
             error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
             return false;
+        }
+    }
+
+    public function viewProfile() {
+        $this->view('userProfile');
+    }
+
+    public function settings() {
+        $email = $_SESSION['user']['email'];
+        $user = $this->userModel->findUserByEmail($email);
+
+        if (!$user) {
+            die('User not found.');
+        }
+
+        $this->view('userSettings', ['user' => $user]);
+    }
+
+    public function updatePassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $regNo = $_SESSION['user']['regNo'];
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+            $confirmPassword = $_POST['confirm_password'];
+
+            $email = $_SESSION['user']['email'];
+            $user = $this->userModel->findUserByEmail($email);
+
+            if (!$user) {
+                die('User not found.');
+            }
+
+            if (!password_verify($currentPassword, $user->password)) {
+                die('Current password is incorrect.');
+            }
+
+            if ($newPassword !== $confirmPassword) {
+                die('Passwords do not match.');
+            }
+
+            if ($this->userModel->updatePassword($regNo, $newPassword)) {
+                header('Location: /users/settings');
+                exit;
+            } else {
+                die('Failed to update password.');
+            }
         }
     }
 }

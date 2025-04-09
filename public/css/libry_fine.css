@@ -1,18 +1,9 @@
 
 .form-container {
-    /* width: 400px;
-   
-    position: relative;
-    left: 600px;
-    top: 20px;
-    padding: 30px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center; */
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
+    margin-top: 30px;
+    width: 73%;
+    margin-left: 290px;
+    padding: 50 px;
     background: white;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -20,12 +11,6 @@
 }
 
 .form-container h2 {
-    /* font-size: 1.5em;
-    font-weight: bold;
-    color: #271f83;
-    margin-bottom: 20px;
-    margin-top: 10px; */
-
     text-align: center;
     color: #2c3e50;
     margin-bottom: 30px;
@@ -35,24 +20,9 @@
     padding-bottom: 10px;
 }
 
-/* .form-container h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(to right, #3498db, #2ecc71);
-    border-radius: 2px;
-} */
 
 form label {
-    /* display: block;
-    font-size: 0.9em;
-    color: #333;
-    text-align: left;
-    margin: 0px 0 5px; */
+    padding-left: 20px;
     font-weight: 500;
     color: #2c3e50;
     margin-bottom: 5px;
@@ -63,15 +33,8 @@ form label {
 
 form input[type="text"],
 form input[type="date"] {
-    /* width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    cursor: pointer; */
-    width: 100%;
-    padding: 12px 15px;
+    width: 90%;
+    padding: 12px 15px ;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 15px;
@@ -88,7 +51,9 @@ input[type="date"]:focus {
 
 
 .file-upload {
+    width: 90%;
     position: relative;
+    left: 35px;
     text-align: left;
     margin-bottom: 20px;
 }
@@ -116,8 +81,8 @@ input[type="date"]:focus {
     font-size: 1.2em;
 }
 
-.submit-button {
-    width: 100%;
+.charges-submit-button {
+    width: 50%;
     padding: 10px;
     margin-top: 15px;
     background-color: #4CAF50;
@@ -156,6 +121,8 @@ input[type="date"] {
     background-color: white;
 }
 
+
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     opacity: 0.6;
@@ -178,3 +145,49 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-color: #2ecc71;
     background-color: #f0fff4;
 }
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    position:relative;
+    left: 10px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #668bb4;
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: #256fc4;
+    border-color: #668bb4;
+}
+
+.checkbox-label input[type="checkbox"]::before {
+    content: '✔';
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left: 2px;
+    top: -1px;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.checkbox-label input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+

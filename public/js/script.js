@@ -3,49 +3,62 @@
 const body = document.querySelector("body");
 const sidebar = document.querySelector(".sidebar");
 const toggle = document.querySelector(".toggle");
-// const dashBoardMainContent = document.querySelector(".main-content");
-// const topNavbarContainer = document.querySelector(".topNav-container");
-// const footer = document.querySelector(".footer");
 
 
 // Function to toggle sidebar
-document.querySelector('.toggle').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Select elements
     const sidebar = document.querySelector('.sidebar');
-    const topNavbarContainer = document.querySelector(".topNav-container");
-    const dashBoardMainContent = document.querySelector(".main-content");
-    const footer = document.querySelector(".footer");
-    const table1 = document.querySelector(".table-1-container");
-    const feedbackContainer = document.querySelector(".feedback-set-container");
-    
-    // Toggle sidebar
-    if (sidebar) {
-        sidebar.classList.toggle('close');
+    const toggleButton = document.querySelector('.toggle');
+    const containers = [
+        document.querySelector(".topNav-container"),
+        document.querySelector(".main-content"),
+        document.querySelector(".footer"),
+        document.querySelector(".table-1-container"),
+        document.querySelector(".feedback-set-container"),
+        document.querySelector(".announcement-container"),
+        document.querySelector(".announcement-box-container"),
+        document.querySelector(".user-profile-container"),
+        document.querySelector(".user-settings-container"),
+        document.querySelector(".background-container"),
+        document.querySelector(".school-contact"),
+        document.querySelector(".current-activities-container")
+
+
+
+
+
+        
+    ];
+
+    // Restore sidebar state from localStorage
+    const isSidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
+
+    if (isSidebarClosed && sidebar) {
+        sidebar.classList.add('close'); // Keep sidebar closed
+
+        // Make containers full width
+        containers.forEach(container => {
+            if (container) {
+                container.classList.add('full-width');
+            }
+        });
     }
 
-    // Toggle top navbar container width
-    if (topNavbarContainer) {
-        topNavbarContainer.classList.toggle('full-width');
-    }
+    // Add click event listener to toggle button
+    toggleButton.addEventListener('click', function () {
+        const isNowClosed = sidebar.classList.toggle('close');
+        localStorage.setItem('sidebarClosed', isNowClosed); // Save sidebar state
 
-    // Toggle footer visibility
-    if (footer) {
-        footer.classList.toggle("close");
-    }
-
-    // Toggle table width (if class exists)
-    if (table1) {
-        table1.classList.toggle('full-width');
-    }
-
-    // Toggle dashboard main content width
-    if (dashBoardMainContent) {
-        dashBoardMainContent.classList.toggle('full-width');
-    }
-
-    if (feedbackContainer) {
-        feedbackContainer.classList.toggle('full-width');
-    }
+        // Toggle full-width class for containers
+        containers.forEach(container => {
+            if (container) {
+                container.classList.toggle('full-width');
+            }
+        });
+    });
 });
+
 
 
 
@@ -127,34 +140,3 @@ function populateTeacherTable() {
 
 // Call the function to populate the table when the page loads
 window.onload = populateTeacherTable;
-
-
-// const feedbacks = [
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-18"
-//     },
-//     {
-//         name: "Name",
-//         content: "There's no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What's more, everything has been broken down in step-by-step detail with real action plans including finding your niche.",
-//         date: "2023-09-17"
-
-// ];
-
-// function displayFeedbacks() {
-//     const container = document.getElementById('feedback-container');
-//     container.innerHTML = '';
-//     feedbacks.forEach(feedback => {
-//         const card = `
-//             <div class="feedback-card">
-//                 <div class="feedback-name">${feedback.name}</div>
-//                 <div class="feedback-content">${feedback.content}</div>
-//                 <div class="feedback-date">${feedback.date}</div>
-//             </div>
-//         `;
-//         container.innerHTML += card;
-//     });
-// }
-
-// window.onload = displayFeedbacks;

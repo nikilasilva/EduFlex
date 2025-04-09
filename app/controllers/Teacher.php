@@ -12,6 +12,7 @@ class Teacher extends Controller {
 
     public function __construct() {
 
+
         //new
         $this->marksModel = $this->model('MarksModel');
         $this->classModel = $this->model('ClassModel');
@@ -142,6 +143,7 @@ class Teacher extends Controller {
 
             $activity = new Current_activityModel();
             $activity->insert($activityData);
+
 
             $_SESSION['success'] = "Activity recorded successfully.";
             header("Location: " . URLROOT . "/teacher/viewActivities");

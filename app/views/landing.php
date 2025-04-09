@@ -21,7 +21,7 @@
         <img src="<?php echo URLROOT; ?>/public/img/logo_noBG.png" alt="EduFlex Logo" class="logo">
         <h1>Welcome to <span>EduFlex</span></h1>
         <p>Transforming education with modern technology</p>
-        <a href="<?php echo URLROOT; ?>/login" class="btn-primary">Get Started</a>
+        <a href="<?php echo URLROOT; ?>/login/index" class="btn-primary">Get Started</a>
     </div>
 </section>
 
@@ -30,17 +30,17 @@
         <h2>Why Choose EduFlex?</h2>
         <div class="feature-cards">
             <div class="card">
-                <img src="<?php echo URLROOT; ?>/public/img/logo_noBG.png" alt="Student Management">
+                <img src="<?php echo URLROOT; ?>/public/img/landing1.png" alt="Student Management">
                 <h3>Student Management</h3>
                 <p>Keep track of student performance and attendance seamlessly.</p>
             </div>
             <div class="card">
-                <img src="<?php echo URLROOT; ?>/public/img/logo_noBG.png" alt="Teacher Management">
+                <img src="<?php echo URLROOT; ?>/public/img/landing2.png" alt="Teacher Management">
                 <h3>Teacher Management</h3>
                 <p>Efficiently manage teacher schedules and records.</p>
             </div>
             <div class="card">
-                <img src="<?php echo URLROOT; ?>/public/img/logo_noBG.png" alt="Reports">
+                <img src="<?php echo URLROOT; ?>/public/img/landing3.png" alt="Reports">
                 <h3>Detailed Reports</h3>
                 <p>Generate insightful reports for informed decision-making.</p>
             </div>
@@ -53,11 +53,11 @@
         <div class="testimonials-container">
             <div class="testimonial">
                 <p>"EduFlex has revolutionized the way we manage our school. It's efficient and easy to use!"</p>
-                <h4>- Principal, ABC School</h4>
+                <h4>- Principal, Rajasinghe College</h4>
             </div>
             <div class="testimonial">
                 <p>"The attendance and report generation features save me so much time."</p>
-                <h4>- Teacher, XYZ School</h4>
+                <h4>- Teacher, Kannangara Vidyalaya</h4>
             </div>
         </div>
     </section>
