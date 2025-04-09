@@ -191,7 +191,7 @@ class NonAcademic extends Controller
     {
 
 
-        $this->view('inc/nonAcademic/check_service_charges');
+        $this->view('inc/nonAcademic/verify_service_charges');
     }
 }
 ?>

@@ -83,7 +83,7 @@
 
         <!-- Main content -->
         <div class="container">
-            <h1>Check Service Charges</h1>
+            <h1>verify Service Charges</h1>
 
             <!-- Daily Activities form -->
             <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
