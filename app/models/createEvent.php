@@ -5,7 +5,8 @@ class createEvent
     use Model;
 
     protected $table = "Event";
-    // protected $order_column = "EventID";
+    protected $order_column = "EventStartDateTime"; // Add this line!
+
     protected $allowedColumns = [
         "EventID",
         "EventName",

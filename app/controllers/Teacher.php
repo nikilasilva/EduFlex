@@ -25,26 +25,26 @@
 
 
 
-        public function events() {
-            // Example events array (replace with your actual data)
-            $data = [
-                'events' => [
-                    '2024-01-19' => 'Event 1',
-                    '2024-01-20' => 'Event 2',
-                ],
-                'upcomingEvents' => [
-                    ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
-                    ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
-                ],
-                'reminders' => [
-                    ['date' => '2024-01-18', 'description' => 'Reminder 1'],
-                    ['date' => '2024-01-19', 'description' => 'Reminder 2'],
-                ]
-            ];
+        // public function events() {
+        //     // Example events array (replace with your actual data)
+        //     $data = [
+        //         'events' => [
+        //             '2024-01-19' => 'Event 1',
+        //             '2024-01-20' => 'Event 2',
+        //         ],
+        //         'upcomingEvents' => [
+        //             ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
+        //             ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
+        //         ],
+        //         'reminders' => [
+        //             ['date' => '2024-01-18', 'description' => 'Reminder 1'],
+        //             ['date' => '2024-01-19', 'description' => 'Reminder 2'],
+        //         ]
+        //     ];
     
-            // Load the view and pass data
-            $this->view('scheduled_events', $data);
-        }
+        //     // Load the view and pass data
+        //     $this->view('scheduled_events', $data);
+        // }
         
         public function timeTable() {
             // Sample timetable data (you can retrieve this from a database in real use cases)
