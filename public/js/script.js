@@ -1,3 +1,4 @@
+import { setupTimetableSearch } from './timetable.js';
 //// table-1 = student table or teacher table.
 
 const body = document.querySelector("body");
@@ -57,6 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+
+    // timetable js
+    setupTimetableSearch();
 });
 
 
