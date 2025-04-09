@@ -41,10 +41,10 @@
 <!-- Main Content -->
 <div class="aca-container">
     <h1>All Subjects</h1>
-    <div class="search-bar">
+    <!-- <div class="search-bar">
         <input type="text" placeholder="Search by subject name..." id="searchInput">
         <button>SEARCH</button>
-    </div>
+    </div> -->
     
     <table>
     <thead class="academic-table-header">
@@ -58,42 +58,42 @@
             <tr>
                 <td>English</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href="<?php echo URLROOT; ?>/Student/viewGrade/English">View Grade</a></td>
             </tr>
             <tr>
                 <td>Maths</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href ="<?php echo URLROOT; ?>/Student/viewGrade/Maths">View Grade</a></td>
             </tr>
             <tr>
                 <td>French</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href="<?php echo URLROOT; ?>/Student/viewGrade/French">View Grade</a></td>
             </tr>
             <tr>
                 <td>Science</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href = "<?php echo URLROOT; ?>/Student/viewGrade/Science">View Grade</a></td>
             </tr>
             <tr>
                 <td>Arts</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href = "<?php echo URLROOT; ?> /Student/viewGrade/Arts">View Grade</a></td>
             </tr>
             <tr>
                 <td>French</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href = "<?php echo URLROOT; ?> /Student/viewGrade/French">View Grade</a></td>
             </tr>
             <tr>
                 <td>Science</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href = "<?php echo URLROOT; ?> /Student/viewGrade/Science">View Grade</a></td>
             </tr>
             <tr>
-                <td>Arts</td>
+                <td>Tamil</td>
                 <td>Daniel Grant</td>
-                <td>View Grade</td>
+                <td><a href = "<?php echo URLROOT; ?> /Student/viewGrade/Tamil">View Grade</a></td>
             </tr>
         </tbody>
     </table>
