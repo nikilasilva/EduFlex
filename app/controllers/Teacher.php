@@ -208,23 +208,201 @@ class Teacher extends Controller {
         $this->view('inc/teacher/select_class_for_attendance', ['classes' => $classes]);
     }
 
+    public function selectClassForViewReport() {
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/view_report_by_term', ['classes' => $classes]);
+    }
+
+
+
+
+    // public function viewClassReport() {
+    //     $classId = $_POST['class'] ?? null;
+    //     var_dump($_POST);
+    //     if ($classId) {
+    //         $classReport = $this->marksModel->getClassReport($classId);
+    //         $ranks = $this->marksModel->getStudentRanks($classId);
+
+    //         $this->view('inc/teacher/class_report', [
+    //             'classReport' => $classReport,
+    //             'ranks' => $ranks
+    //         ]);
+    //     } else {
+    //         die("Class not provided.");
+    //     }
+    // }
+
+
 
     public function viewClassReport() {
-        $classId = $_POST['class'] ?? null;
-        var_dump($_POST);
-        if ($classId) {
-            $classReport = $this->marksModel->getClassReport($classId);
-            $ranks = $this->marksModel->getStudentRanks($classId);
-
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['class'];
+            $marksData = $_POST['marks'] ?? [];
+            $term = $_POST['term'] ?? null;
+    
+            $marksModel = $this->model('MarksModel');
+    
+            // Insert marks
+            foreach ($marksData as $studentId => $subjects) {
+                foreach ($subjects as $subjectId => $marks) {
+                    $marksModel->insertMarks($studentId, $subjectId, $term, $marks, $classId);
+                }
+            }
+    
+            // Get data for the report
+            $subjectWise = $marksModel->getClassReport($classId, $term);
+            $rankData = $marksModel->getStudentRanks($classId, $term);
+    
+            // Group subject-wise marks for each student
+            $classReport = [];
+            foreach ($subjectWise as $row) {
+                $sid = $row->student_id;
+                if (!isset($classReport[$sid])) {
+                    $classReport[$sid] = [
+                        'student_id' => $sid,
+                        'student_name' => $row->student_name,
+                        'subjects' => [],
+                        'total_marks_obtained' => 0,
+                        'average_marks' => 0,
+                    ];
+                }
+                $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
+                $classReport[$sid]['total_marks_obtained'] += $row->marks;
+            }
+    
+            // Calculate average
+            foreach ($classReport as &$student) {
+                $subjectCount = count($student['subjects']);
+                $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
+            }
+    
+            // Prepare ranks
+            $ranks = [];
+            foreach ($rankData as $row) {
+                $ranks[] = [
+                    'student_id' => $row->student_id,
+                    'student_name' => $row->student_name,
+                    'total_marks_obtained' => $classReport[$row->student_id]['total_marks_obtained'],
+                    'percentage' => $classReport[$row->student_id]['average_marks'],
+                ];
+            }
+    
+            // Sort by percentage
+            usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
+    
+            // Load the view
             $this->view('inc/teacher/class_report', [
                 'classReport' => $classReport,
-                'ranks' => $ranks
+                'ranks' => $ranks,
+                'subjects' => array_map(fn($row) => (object)['name' => $row->subject_name], $subjectWise),
+                'term' => $term
             ]);
         } else {
-            die("Class not provided.");
+            header("Location: " . URLROOT . "/teacher");
+        }
+    }
+    
+    public function viewTermReport() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['class'];
+            $term = $_POST['term'];
+    
+            $marksModel = $this->model('MarksModel');
+    
+            $subjectWise = $marksModel->getClassReportByTerm($classId, $term);
+            $rankData = $marksModel->getStudentRanksByTerm($classId, $term);
+    
+            if (!$subjectWise || count($subjectWise) === 0) {
+                $this->view('inc/teacher/class_report', [
+                    'message' => 'No data entered for this term.',
+                    'term' => $term
+                ]);
+                return;
+            }
+    
+            $classReport = [];
+            $subjectIds = [];
+            foreach ($subjectWise as $row) {
+                $sid = $row->student_id;
+                if (!isset($classReport[$sid])) {
+                    $classReport[$sid] = [
+                        'student_id' => $sid,
+                        'student_name' => $row->student_name,
+                        'subjects' => [],
+                        'total_marks_obtained' => 0,
+                        'average_marks' => 0,
+                    ];
+                }
+                $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
+                $classReport[$sid]['total_marks_obtained'] += $row->marks;
+    
+                // Map subject names to IDs
+                $subjectIds[$row->subject_name] = $row->subject_id;
+            }
+    
+            foreach ($classReport as &$student) {
+                $subjectCount = count($student['subjects']);
+                $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
+            }
+    
+            $ranks = [];
+            foreach ($rankData as $row) {
+                $ranks[] = [
+                    'student_id' => $row->student_id,
+                    'student_name' => $row->student_name,
+                    'total_marks_obtained' => $classReport[$row->student_id]['total_marks_obtained'] ?? 0,
+                    'percentage' => $classReport[$row->student_id]['average_marks'] ?? 0,
+                ];
+            }
+    
+            usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
+    
+            $this->view('inc/teacher/class_report', [
+                'classReport' => $classReport,
+                'ranks' => $ranks,
+                'term' => $term,
+                'subjects' => array_map(fn($r) => (object)['name' => $r->subject_name], $subjectWise),
+                'subjectIds' => $subjectIds
+            ]);
+        } else {
+            header("Location: " . URLROOT . "/teacher");
         }
     }
 
+
+    public function updateMarks()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $marksModel = $this->model('MarksModel');
+
+        $classId = $_POST['class'];
+        
+        $term = $_POST['term'];
+        $marksData = $_POST['marks']; // ['student_id']['subject'] => mark
+
+        foreach ($marksData as $studentId => $subjectMarks) {
+            foreach ($subjectMarks as $subjectName => $mark) {
+                $marksModel->updateOrInsertMarks($studentId, $subjectName, $term, $mark, $classId);
+            }
+        }
+
+        // Redirect to updated report
+        echo '<form id="redirectForm" method="POST" action="' . URLROOT . '/teacher/viewTermReport">';
+        echo '<input type="hidden" name="class" value="' . htmlspecialchars($classId) . '">';
+        echo '<input type="hidden" name="term" value="' . htmlspecialchars($term) . '">';
+        echo '</form>';
+        echo '<script>document.getElementById("redirectForm").submit();</script>';
+        exit;
+    } else {
+        header("Location: " . URLROOT . "/teacher");
+    }
+}
+
+    
+    
+
+    
     // public function classReport() {
     //     $marksModel = $this->model('MarksModel');
     
