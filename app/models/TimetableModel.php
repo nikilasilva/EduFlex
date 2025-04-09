@@ -65,4 +65,48 @@ class TimetableModel {
             ]);
         }
     }
+
+
+    // For teacher timetable
+    public function getTimetableByTeacherAndDay($teacherRegNo, $day) {
+        // Handle "All" option
+        if (strtolower($day) === 'all') {
+            $query = "SELECT 
+                    p.periodName, 
+                    p.startTime, 
+                    p.endTime, 
+                    s.subjectName, 
+                    c.className,
+                    tm.roomNumber,
+                    tm.day
+                  FROM timetables tm
+                  JOIN periods p ON tm.periodId = p.periodId
+                  JOIN subjects s ON tm.subjectId = s.subjectId
+                  JOIN classes c ON tm.classId = c.classId
+                  WHERE tm.teacherRegNo = :teacherRegNo
+                  ORDER BY tm.day, p.periodId ASC";
+                  
+            return $this->query($query, ['teacherRegNo' => $teacherRegNo]);
+        } else {
+            // Query for a specific day
+            $query = "SELECT 
+                    p.periodName, 
+                    p.startTime, 
+                    p.endTime, 
+                    s.subjectName, 
+                    c.className,
+                    tm.roomNumber
+                  FROM timetables tm
+                  JOIN periods p ON tm.periodId = p.periodId
+                  JOIN subjects s ON tm.subjectId = s.subjectId
+                  JOIN classes c ON tm.classId = c.classId
+                  WHERE tm.teacherRegNo = :teacherRegNo AND tm.day = :day
+                  ORDER BY p.periodId ASC";
+    
+            return $this->query($query, [
+                'teacherRegNo' => $teacherRegNo,
+                'day' => $day
+            ]);
+        }
+    }
 }

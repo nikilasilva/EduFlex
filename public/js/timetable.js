@@ -1,32 +1,34 @@
 // public/js/timetable.js
 
-export function setupTimetableSearch() {
-    const form = document.querySelector('.class-timetable-form');
-    const button = form.querySelector('.class-timetable-form-btn');
+export function setupTimetableSearch(isTeacher = false) {
+    const formClass = isTeacher ? '.teacher-timetable-form' : '.class-timetable-form';
+    const buttonClass = isTeacher ? '.teacher-timetable-form-btn' : '.class-timetable-form-btn';
+    const selectId = isTeacher ? 'teacherSelect' : 'classSelect';
+    const endpoint = isTeacher ? 'teacherTimetable' : 'classTimetable';
+    
+    const form = document.querySelector(formClass);
+    const button = form.querySelector(buttonClass);
 
     button.addEventListener('click', function (e) {
         e.preventDefault(); // Prevent form from submitting right away
 
-        const classVal = document.getElementById('classSelect').value;
+        const selectVal = document.getElementById(selectId).value;
         const dayVal = document.getElementById('daySelect').value;
         const table = document.getElementById('timetableTable');
-        const pagination = document.getElementById('pagination');
         const message = document.getElementById('selectionMessage');
 
-        if (classVal && dayVal) {
-            // Hide message and show table + pagination
+        if (selectVal && dayVal) {
+            // Hide message and show table
             if (message) message.style.display = 'none';
             if (table) table.style.display = 'table';
-            if (pagination) pagination.style.display = 'flex';
 
             // Call the AJAX function to fetch timetable data
-            fetchTimetableData(classVal, dayVal);
+            fetchTimetableData(selectVal, dayVal, endpoint);
         } else {
-            // Show message and hide table + pagination
+            // Show message and hide table
             if (table) table.style.display = 'none';
-            if (pagination) pagination.style.display = 'none';
             if (message) {
-                message.textContent = 'Please select both Class and Day to view the timetable.';
+                message.textContent = `Please select both ${isTeacher ? 'Teacher' : 'Class'} and Day to view the timetable.`;
                 message.style.display = 'block';
             }
         }
@@ -35,24 +37,30 @@ export function setupTimetableSearch() {
 
 /**
  * Fetch the timetable data from the server via AJAX (using fetch API)
- * @param {string} classVal - The selected class value
+ * @param {string} selectVal - The selected class or teacher value
  * @param {string} dayVal - The selected day value
+ * @param {string} endpoint - The controller endpoint (classTimetable or teacherTimetable)
  */
-function fetchTimetableData(classVal, dayVal) {
+function fetchTimetableData(selectVal, dayVal, endpoint) {
     // Construct the URL for AJAX request
-    const url = `${window.location.origin}/EduFlex/Timetable/classTimetable`;
-    console.log('Class ID:', classVal);
+    const url = `${window.location.origin}/EduFlex/Timetable/${endpoint}`;
+    console.log('Select ID:', selectVal);
     console.log('Day:', dayVal);
     console.log('location:', url);
     
+    // Determine payload based on endpoint
+    const payload = endpoint === 'teacherTimetable' 
+        ? { teacherId: selectVal, day: dayVal }
+        : { classId: selectVal, day: dayVal };
+
     // Make the AJAX request using Fetch API
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'  // Add this to help PHP detect AJAX requests
+            'X-Requested-With': 'XMLHttpRequest'
         },
-        body: JSON.stringify({ classId: classVal, day: dayVal }),
+        body: JSON.stringify(payload),
     })
     .then(response => response.text())
     .then(text => {
@@ -78,7 +86,7 @@ function fetchTimetableData(classVal, dayVal) {
     .then(data => {
         // Process the response and update the table
         console.log('Timetable Data:', data);
-        updateTimetableTable(data);
+        updateTimetableTable(data, endpoint);
     })
     .catch(error => {
         console.error('Error fetching timetable data:', error);
@@ -94,8 +102,9 @@ function fetchTimetableData(classVal, dayVal) {
 /**
  * Update the timetable table with the data received from the server
  * @param {Array} data - Array of timetable entries
+ * @param {string} endpoint - The controller endpoint (classTimetable or teacherTimetable)
  */
-function updateTimetableTable(data) {
+function updateTimetableTable(data, endpoint) {
     const table = document.getElementById('timetableTable');
     const tableBody = document.getElementById('timetableTableBody');
     const message = document.getElementById('selectionMessage');
@@ -108,17 +117,14 @@ function updateTimetableTable(data) {
 
     tableBody.innerHTML = ''; // Clear existing rows
 
-    // Update the header with selected class and day
+    // Update the header with selected value and day
     if (headerElement) {
-        const classSelect = document.getElementById('classSelect');
-        const classText = classSelect.options[classSelect.selectedIndex].text;
+        const selectId = endpoint === 'teacherTimetable' ? 'teacherSelect' : 'classSelect';
+        const selectElement = document.getElementById(selectId);
+        const selectText = selectElement.options[selectElement.selectedIndex].text;
         const dayText = document.getElementById('daySelect').value;
         
-        if (classSelect.value === 'all') {
-            headerElement.textContent = `All Classes ${dayText === 'All' ? 'Weekly' : dayText} Timetable`;
-        } else {
-            headerElement.textContent = `${classText} ${dayText === 'All' ? 'Weekly' : dayText} Timetable`;
-        }
+        headerElement.textContent = `${selectText} ${dayText === 'All' ? 'Weekly' : dayText} Timetable`;
         headerElement.style.display = 'block';
     }
 
@@ -127,25 +133,36 @@ function updateTimetableTable(data) {
         if (table) table.style.display = 'table';
         if (message) message.style.display = 'none';
 
-        // Populate the table with data
+        // Populate the table with data based on endpoint type
         data.forEach(item => {
-            const row = `
-                <tr>
-                    <td>${item.periodName || 'N/A'}</td>
-                    <td>${item.startTime || 'N/A'}</td>
-                    <td>${item.endTime || 'N/A'}</td>
-                    <td>${item.subjectName || 'N/A'}</td>
-                    <td>${item.teacherName || 'N/A'}</td>
-                    <td>${item.roomNumber || 'N/A'}</td>
-                </tr>
-            `;
+            const row = endpoint === 'teacherTimetable' 
+                ? `
+                    <tr>
+                        <td>${item.periodName || 'N/A'}</td>
+                        <td>${item.startTime || 'N/A'}</td>
+                        <td>${item.endTime || 'N/A'}</td>
+                        <td>${item.subjectName || 'N/A'}</td>
+                        <td>${item.className || 'N/A'}</td>
+                        <td>${item.roomNumber || 'N/A'}</td>
+                    </tr>
+                `
+                : `
+                    <tr>
+                        <td>${item.periodName || 'N/A'}</td>
+                        <td>${item.startTime || 'N/A'}</td>
+                        <td>${item.endTime || 'N/A'}</td>
+                        <td>${item.subjectName || 'N/A'}</td>
+                        <td>${item.teacherName || 'N/A'}</td>
+                        <td>${item.roomNumber || 'N/A'}</td>
+                    </tr>
+                `;
             tableBody.innerHTML += row;
         });
     } else {
         // Hide the table and show the message
         if (table) table.style.display = 'none';
         if (message) {
-            message.textContent = 'No timetable available for this class and day.';
+            message.textContent = 'No timetable available for this selection.';
             message.style.display = 'block';
         }
     }

@@ -1,0 +1,9 @@
+.teacher-timetable-form {
+    display: flex;
+    width: 100%;
+}
+
+#timetableHeader {
+    text-align: center;
+    width: 100%;
+}
