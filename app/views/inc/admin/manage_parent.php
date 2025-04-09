@@ -1,11 +1,11 @@
-<?php require APPROOT.'/views/inc/header.php'; ?>
-<?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issue Books</title>
+    <title>Manage Parent</title>
 
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
@@ -13,57 +13,36 @@
 <body>
 <div class="layout">
     <!-- Sidebar -->
-    <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
+    <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
     <div class="container">
         <h1>Insert Parent Details</h1>
 
-        <!-- Daily Activities form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitActivities" method="POST">
-            
-
-            <!-- <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="time" name="time" id="time" required>
-            </div> -->
-            <div class="form-group">
-                <label for="student_id">student id :</label>
-                <textarea name="student_id" id="student_id" rows="1"></textarea>
-            </div>
-
-            
+        <!-- Parent details form -->
+        <form action="<?php echo URLROOT; ?>/Admin/submitParent" method="POST">
 
             <div class="form-group">
-                <label for="book_id">book_id :</label>
-                <textarea name="book_id" id="book_id" rows="1"></textarea>
+                <label for="userID">User ID (Parent):</label>
+                <input type="number" name="userID" id="userID" required>
+                <small class="form-text">This should match an existing user in the Users table.</small>
             </div>
 
             <div class="form-group">
-                <label for="full_name">full_name :</label>
-                <textarea name="full_name" id="full_name" rows="1" required></textarea>
+                <label for="occupation">Occupation:</label>
+                <input type="text" name="occupation" id="occupation" required>
             </div>
 
-            <div class="form-group">
-                <label for="additional_note">book_name :</label>
-                <textarea name="book_name" id="additional_note" rows="1"></textarea>
-            </div>
+            <button type="submit" class="btn btn-primary">Submit Parent</button><br><br>
 
-            <div class="form-group">
-                <label for="date">issue date:</label>
-                <input type="date" name="issue_date" id="date" required>
-            </div>
+            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewParent'" class="btn btn-primary">View All Parents</button><br><br>
 
-            <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
-            <!-- <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button><br></br> -->
+            <a href="<?php echo URLROOT; ?>/Admin/dashboard" class="btn btn-secondary">Cancel</a>
 
-            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
-
-            
         </form>
     </div>
 </div>
 </body>
 </html>
 
-<?php require APPROOT.'/views/inc/footer.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

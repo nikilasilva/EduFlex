@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issue Books</title>
+    <title>Insert Teacher Details</title>
 
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
@@ -19,47 +19,23 @@
     <div class="container">
         <h1>Insert Teacher Details</h1>
 
-        <!-- Daily Activities form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitActivities" method="POST">
+        <form action="<?php echo URLROOT; ?>/Admin/submitTeacher" method="POST">
             
-
-            <!-- <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="time" name="time" id="time" required>
-            </div> -->
             <div class="form-group">
-                <label for="student_id">student id :</label>
-                <textarea name="student_id" id="student_id" rows="1" required></textarea>
-            </div>
-
-            
-
-            <div class="form-group">
-                <label for="book_id">book_id :</label>
-                <textarea name="book_id" id="book_id" rows="1" required></textarea>
+                <label for="userID">User ID:</label>
+                <input type="number" name="userID" id="userID" required>
             </div>
 
             <div class="form-group">
-                <label for="full_name">full_name :</label>
-                <textarea name="full_name" id="full_name" rows="1" required></textarea>
+                <label for="specialization">Specialization:</label>
+                <textarea name="specialization" id="specialization" rows="1" required></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="additional_note">book_name :</label>
-                <textarea name="book_name" id="additional_note" rows="1"></textarea>
-            </div>
+            <button type="submit" class="btn btn-primary">Submit Teacher</button><br><br>
+            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewTeacher'" class="btn btn-primary">View Teachers</button><br><br>
 
-            <div class="form-group">
-                <label for="date">issue date:</label>
-                <input type="date" name="issue_date" id="date" required>
-            </div>
+            <a href="<?php echo URLROOT; ?>/admin/dashboard" class="btn btn-secondary">Cancel</a>
 
-            <button type="submit" class="btn btn-primary">Submit Activity</button><br></br>
-            <!-- <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button><br></br> -->
-
-            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
-
-            
         </form>
     </div>
 </div>

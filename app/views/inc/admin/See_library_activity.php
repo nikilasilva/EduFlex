@@ -25,8 +25,8 @@
             <table class="activities-table">
                 <thead>
                     <tr>
-                        <th>student_id</th>
-                        <th>book_id</th>
+                        <th>Student id</th>
+                        <th>Book id</th>
                         <th>full_name</th>
                         <th>book_name</th>
                         <th>issue_date</th>
