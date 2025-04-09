@@ -8,7 +8,7 @@ class Timetable extends Controller {
         // if (session_status() === PHP_SESSION_NONE) {
         //     session_start();
         // }
-        // $this->timetableModel = $this->model('TimetableModel');
+        $this->timetableModel = $this->model('TimetableModel');
         $this->classModel = $this->model('ClassModel');
     }
 
@@ -17,12 +17,43 @@ class Timetable extends Controller {
     }
 
     public function classTimetable() {
-        $this->classModel->setLimit(50);
-        $classes = $this->classModel->findAll();
-        $data = [
-            'classes' => $classes
-        ];
-        $this->view('inc/timetables/classTimetable', $data);
+        // For regular page load
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $this->classModel->setLimit(50);
+            $classes = $this->classModel->findAll();
+            $data = [
+                'classes' => $classes,
+                'timetable' => []
+            ];
+            $this->view('inc/timetables/classTimetable', $data);
+        } 
+        // For AJAX requests
+        else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if this is an AJAX request
+            $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+                      
+            // Get JSON input data
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            
+            $classId = !empty($data['classId']) ? $data['classId'] : null;
+            $day = !empty($data['day']) ? $data['day'] : null;
+            
+            if ($classId && $day) {
+                $timetable = $this->timetableModel->getTimetableByClassAndDay($classId, $day);
+                
+                // Return JSON response
+                header('Content-Type: application/json');
+                echo json_encode($timetable);
+                exit;
+            } else {
+                // Return empty array if no selection
+                header('Content-Type: application/json');
+                echo json_encode([]);
+                exit;
+            }
+        }
     }
 
     public function teacherTimetable() {

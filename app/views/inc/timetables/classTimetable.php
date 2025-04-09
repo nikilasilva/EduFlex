@@ -5,53 +5,54 @@
 <div class="class-timetable-container timetable-container">
     <h1>Class Timetable</h1>
     <div class="search-bar">
-        <input type="text" placeholder="Search by Class">
-        <select id="classSelect">
-            <option value="">Select Class</option>
-            <?php foreach ($data['classes'] as $class): ?>
-                <option value="<?= $class->classId ?>">
-                    <?= htmlspecialchars($class->className) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <form class="class-timetable-form" action="<?= URLROOT ?>/Timetable/classTimetable" method="POST">
+            <input type="text" placeholder="Search by Class">
+            <select id="classSelect" name="classId">
+                <option value="">Select Class</option>
+                <?php foreach ($data['classes'] as $class): ?>
+                    <option value="<?= $class->classId ?>">
+                        <?= htmlspecialchars($class->className) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-        <select id="daySelect">
-            <option value="">Select Day</option>
-            <option value="1">Monday</option>
-            <option value="2">Tuesday</option>
-            <option value="3">Wednesday</option>
-            <option value="4">Thursday</option>
-            <option value="5">Friday</option>
-            <option value="6">All</option>
-        </select>
+            <select id="daySelect" name="day">
+                <option value="">Select Day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="All">All</option>
+            </select>
 
-        <button>SEARCH</button>
+
+            <button class="class-timetable-form-btn">SEARCH</button>
+        </form>
     </div>
-    <p id="selectionMessage" class="hidden-message">
+
+    <!-- filepath: c:\xampp\htdocs\EduFlex\app\views\inc\timetables\classTimetable.php -->
+    <p id="selectionMessage" class="hidden-message" style="display: none;">
         Please select both a class and a day to view the timetable.
     </p>
-    <table class="timetable" id="timetableTable">
+
+    <h2 id="timetableHeader" style="display: none"></h2>
+
+    <table class="timetable" id="timetableTable" style="display: none;">
         <thead>
             <tr>
-                <th>Time</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
+                <th>Period</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Room</th>
             </tr>
         </thead>
-        <tbody id="studentTableBody">
-            <!-- Student data will be inserted here -->
+        <tbody id="timetableTableBody">
+            <!-- Rows will be dynamically added here -->
         </tbody>
     </table>
-    <div class="pagination" id="pagination">
-        <button>Previous</button>
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>Next</button>
-    </div>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

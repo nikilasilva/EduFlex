@@ -2,12 +2,18 @@
     display: none;
 }
 
-#pagination {
-    display: none;
-}
-
 .hidden-message {
     color: var(--secondary-text-color);
     font-size: 16px;
     margin-top: 10px;
+}
+
+.class-timetable-form {
+    display: flex;
+    width: 100%;
+}
+
+#timetableHeader {
+    text-align: center;
+    width: 100%;
 }
