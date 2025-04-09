@@ -1,3 +1,4 @@
+
 <?php
 class ExtraEvent extends Controller {
     private $extraEventModel;
