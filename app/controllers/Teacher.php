@@ -1,7 +1,8 @@
 <?php
     class Teacher extends Controller {
+        private $teacherModel;
         public function __construct() {
-            
+            $this->teacherModel = $this->model('TeacherModel');
         }
 
         public function index() {
@@ -183,9 +184,35 @@ public function deleteActivity($id) {
     // Redirect to the view activities page
     header("Location: " . URLROOT . "/teacher/viewActivities");
     exit();
-}
+    }
 
 
+    public function showAllTeachers() {
+        // Fetch all teachers from the model
+        $teachers = $this->teacherModel->getAllTeachers();
+        
+        // Prepare data for the view
+        $data = [
+            'teachers' => []
+        ];
 
+        // Check if $teachers is an array and not empty
+        if (is_array($teachers) && !empty($teachers)) {
+            $data['teachers'] = array_map(function ($teacher) {
+                return [
+                    'regNo' => $teacher->regNo,
+                    'fullName' => $teacher->firstName . ' ' . $teacher->lastName,
+                    'email' => $teacher->email,
+                    'mobileNo' => $teacher->mobileNo,
+                    'subjects' => $teacher->subjects
+                ];
+            }, $teachers);
+        } else {
+            $data['message'] = 'No teachers found in the database.';
+        }
+
+        // Pass the data to the view
+        $this->view('inc/teacher/all_teachers', $data);
+        }
     }
 ?>
