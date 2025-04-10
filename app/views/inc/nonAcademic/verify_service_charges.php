@@ -94,26 +94,7 @@
                 </div>
 
 
-                <!-- <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="time" name="time" id="time" required>
-            </div> -->
-                <!-- <div class="form-group">
-                    <label for="student_id">student id :</label>
-                    <textarea name="student_id" id="student_id" rows="1"></textarea>
-                </div>
 
-
-
-                <div class="form-group">
-                    <label for="book_id">Name Of Student :</label>
-                    <textarea name="book_id" id="book_id" rows="1"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="full_name">Student ID</label>
-                    <textarea name="full_name" id="full_name" rows="1" required></textarea>
-                </div> -->
 
                 <div class="form-group">
                     <label for="additional_note">Date of pay :</label>
