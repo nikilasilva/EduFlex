@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
+<?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
 <div class="submit-marks-container">
     <h1 class="form-title">Submit Marks</h1>

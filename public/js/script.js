@@ -16,7 +16,11 @@ document.querySelector('.toggle').addEventListener('click', function() {
     const footer = document.querySelector(".footer");
     const table1 = document.querySelector(".table-1-container");
     const feedbackContainer = document.querySelector(".feedback-set-container");
-    
+    const selectClassContainer = document.querySelector(".select-class-container");
+    const submitMarksContainer = document.querySelector(".submit-marks-container");
+    const classReportContainer = document.querySelector(".class-report-container");
+    const termReportContainer = document.querySelector(".term-report-container");
+    const attendanceContainer = document.querySelector(".attendance-container");
     // Toggle sidebar
     if (sidebar) {
         sidebar.classList.toggle('close');
@@ -44,6 +48,26 @@ document.querySelector('.toggle').addEventListener('click', function() {
 
     if (feedbackContainer) {
         feedbackContainer.classList.toggle('full-width');
+    }
+
+    if (selectClassContainer) {
+        selectClassContainer.classList.toggle('full-width');
+    }
+
+    if (submitMarksContainer) {
+        submitMarksContainer.classList.toggle('full-width');
+    }
+
+    if (classReportContainer) {
+        classReportContainer.classList.toggle('full-width');
+    }
+
+    if (termReportContainer) {
+        termReportContainer.classList.toggle('full-width');
+    }
+
+    if (attendanceContainer) {
+        attendanceContainer.classList.toggle('full-width');
     }
 });
 

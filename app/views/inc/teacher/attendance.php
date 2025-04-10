@@ -42,23 +42,22 @@
                             <td><?= htmlspecialchars($student->name) ?></td>
                             <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= $student->name ?>">
                             <td>
-                                <label>
-                                <input type="radio" 
-                                       name="attendance[<?= $student->student_id ?>]" 
-                                       value="present" 
-                                       required>
-                                Present
-                                </label>
+    <label style="display: inline-block; margin-right: 10px;">
+        <input type="radio" 
+               name="attendance[<?= $student->student_id ?>]" 
+               value="present" 
+               required>
+        Present
+    </label>
 
-                                &nbsp;&nbsp;
+    <label style="display: inline-block;">
+        <input type="radio" 
+               name="attendance[<?= $student->student_id ?>]" 
+               value="absent">
+        Absent
+    </label>
+</td>
 
-                                <label>
-                                <input type="radio" 
-                                       name="attendance[<?= $student->student_id ?>]" 
-                                       value="absent">
-                                Absent
-                                </label>
-                            </td>
 
                         </tr>
                     <?php endforeach; ?>

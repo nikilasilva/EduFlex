@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
-<div class="report-container">
+<div class="class-report-container">
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <h1 class="report-title">Class Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
@@ -43,7 +43,8 @@
                 <?php if (!empty($data['classReport'])): ?>
                     <?php foreach ($data['classReport'] as $report): ?>
                         <tr>
-                            <td><?= htmlspecialchars($report['student_id']) ?></td>
+                        <td><?= htmlspecialchars($report['student_id']) ?> - <?= htmlspecialchars($report['student_name']) ?></td>
+
                             <?php foreach (array_keys($subjectHeaders) as $subjectName): ?>
                                 <td>
                                     <input type="number" name="marks[<?= $report['student_id'] ?>][<?= $subjectName ?>]" value="<?= htmlspecialchars($report['subjects'][$subjectName] ?? '0') ?>" min="0" max="100" required>

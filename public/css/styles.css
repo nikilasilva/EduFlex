@@ -28,6 +28,10 @@
 @import url('components/class_report.css');
 @import url('components/submit_marks.css');
 
+@import url('selectClass.css');
+@import url('submitMarks.css');
+@import url('classReport.css');
+@import url('termReport.css');
 
 :root {
     /* Colors */

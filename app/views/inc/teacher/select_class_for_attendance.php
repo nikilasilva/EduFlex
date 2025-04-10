@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="container">
+<div class="select-class-container">
     <h1>Select Class</h1>
     <form action="<?php echo URLROOT; ?>/teacher/attendance" method="POST">
         <div class="form-group">
