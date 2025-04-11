@@ -1,4 +1,5 @@
 import { setupTimetableSearch } from './timetable.js';
+import { initTeacherSearch } from './teacherSearch.js';
 
 const body = document.querySelector("body");
 const sidebar = document.querySelector(".sidebar");
@@ -68,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (timetableType === 'teacher') {
         setupTimetableSearch(true);
     }
+
+    // Use the imported function
+    initTeacherSearch();
 });
 
 // Student table population

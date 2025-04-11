@@ -13,3 +13,19 @@
     width: 86.5%;
     transition: var(--tran-04);
 }
+
+.teacher-count-wrapper {
+    text-align: right; 
+    margin: 0; 
+}
+
+.teacher-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    display: inline-block;
+}
+
+.all-teachers-search-bar {
+    margin-bottom: 0;
+}

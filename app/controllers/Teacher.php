@@ -193,7 +193,8 @@ public function deleteActivity($id) {
         
         // Prepare data for the view
         $data = [
-            'teachers' => []
+            'teachers' => [],
+            'teacherCount' => 0
         ];
 
         // Check if $teachers is an array and not empty
@@ -207,6 +208,7 @@ public function deleteActivity($id) {
                     'subjects' => $teacher->subjects
                 ];
             }, $teachers);
+            $data['teacherCount'] = count($teachers);
         } else {
             $data['message'] = 'No teachers found in the database.';
         }
