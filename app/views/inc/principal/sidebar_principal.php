@@ -2,7 +2,7 @@
     <div class="menu">
         <ul class="menu-links">
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/students"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Students</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/showAllStudents"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Students</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/showAllTeachers"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Teachers</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/classTimetable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Class Timetable</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/teacherTimetable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Teacher Timetable</span></a></li>

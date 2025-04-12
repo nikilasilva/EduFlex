@@ -11,4 +11,12 @@ class ClassModel {
     ];
 
     protected $order_column = 'classId';
+
+    // Fetch all grades for students
+    public function getAllGrades() {
+        $sql = "SELECT DISTINCT SUBSTRING(className, 7, LOCATE('-', className) - 7) AS grade
+                FROM classes
+                ORDER BY CAST(grade AS UNSIGNED)";
+        return $this->query($sql);
+    }
 }

@@ -1,5 +1,6 @@
 import { setupTimetableSearch } from './timetable.js';
 import { initTeacherSearch } from './teacherSearch.js';
+import { initStudentSearch } from './studentSearch.js';
 
 const body = document.querySelector("body");
 const sidebar = document.querySelector(".sidebar");
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".school-contact"),
         document.querySelector(".current-activities-container"),
         document.querySelector(".all-teachers-container"),
+        document.querySelector(".all-students-container"),
     ];
 
     // Restore sidebar state from localStorage
@@ -72,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Use the imported function
     initTeacherSearch();
+
+    initStudentSearch();
 });
 
 // Student table population
