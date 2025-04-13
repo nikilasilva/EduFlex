@@ -19,4 +19,8 @@ class ClassModel {
                 ORDER BY CAST(grade AS UNSIGNED)";
         return $this->query($sql);
     }
+
+    public function classIdExists($classId) {
+        return $this->first(['classId' => $classId]) !== false;
+    }
 }

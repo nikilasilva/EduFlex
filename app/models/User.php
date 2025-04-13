@@ -37,6 +37,10 @@ class User {
         return $this->update($email, ['password' => $hashedPassword], 'email');
     }
 
+    public function regNoExists($regNo) {
+        return $this->first(['regNo' => $regNo]) !== false;
+    }
+
     public $errors = [];
 
     public function validate($data) {
@@ -78,7 +82,7 @@ class User {
         }
 
         // Role validation
-        if (empty($data['role']) || !in_array($data['role'], ['admin', 'teacher', 'student', 'principal', 'vice-principal', 'non-academic'])) {
+        if (empty($data['role']) || !in_array($data['role'], ['admin', 'teacher', 'student', 'principal', 'vice-principal', 'non-academic', 'parent'])) {
             $this->errors['role'] = 'A valid role is required.';
         }
 

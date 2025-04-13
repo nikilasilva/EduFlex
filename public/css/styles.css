@@ -45,6 +45,7 @@
 @import url('teacherTimetable.css');
 @import url('all_teacher.css');
 @import url('all_students.css');
+@import url('uploadUsers/uploadUsers.css');
 
 
 :root {
@@ -63,6 +64,11 @@
     --primary-btn-color: #4759b1;
     --primary-btn-hover-color: #6976d2;
     /* --icon-color: #3b4380; */
+    --red-color-2: #dc3545;
+    --success-color: #28a745;
+    --secondary-btn-color: #003366;
+    --secondary-btn-hover-color: #001d3d;
+    --black-1: #333;
 
     /* Transitions */
     --tran-02: all 0.2s ease;

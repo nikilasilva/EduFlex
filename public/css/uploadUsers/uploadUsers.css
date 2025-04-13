@@ -1,0 +1,63 @@
+.upload-users-container {
+    margin: 20px 0 20px 290px;
+    width: 73.5%;
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--tran-05);
+}
+
+.upload-users-container.full-width {
+    margin-left: 95px;
+    width: 86.5%;
+    transition: var(--tran-04);
+}
+
+#upload-csv-button {
+    margin-top: 25px;
+}
+
+/* .error-list {
+    color: var(--red-color);
+} */
+
+.upload-form p.error, .upload-result p.error {
+    color: var(--red-color-2);
+}
+
+.upload-form p.success, .upload-result p.success {
+    color: var(--success-color);
+}
+
+.upload-again-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondary-btn-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 25px;
+}
+
+.upload-again-btn:hover {
+    background-color: var(--secondary-btn-hover-color);
+}
+
+.users-csv-headings {
+    background: #e8f0fe;
+    border-left: 4px solid var(--primary-color);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--black-1);
+    border-radius: 4px;
+    word-wrap: break-word; /* Prevent overflow */
+    overflow-x: auto; /* Scroll on small screens */
+}

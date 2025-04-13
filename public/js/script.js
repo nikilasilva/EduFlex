@@ -1,6 +1,7 @@
 import { setupTimetableSearch } from './timetable.js';
 import { initTeacherSearch } from './teacherSearch.js';
 import { initStudentSearch } from './studentSearch.js';
+import { initUploadUsers } from './uploadUsers.js';
 
 const body = document.querySelector("body");
 const sidebar = document.querySelector(".sidebar");
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".current-activities-container"),
         document.querySelector(".all-teachers-container"),
         document.querySelector(".all-students-container"),
+        document.querySelector(".upload-users-container")
     ];
 
     // Restore sidebar state from localStorage
@@ -73,9 +75,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Use the imported function
-    initTeacherSearch();
+    if (document.getElementById('teachers-table')) {
+        initTeacherSearch();
+    }
 
-    initStudentSearch();
+    if (document.getElementById('students-table')) {
+        initStudentSearch();
+    }
+
+    if (document.getElementById('upload-csv-form')) {
+        initUploadUsers();
+    }
 });
 
 // Student table population

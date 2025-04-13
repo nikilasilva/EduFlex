@@ -40,4 +40,14 @@ class AllStudentsModel {
 
         return $this->query($sql);
     }
+
+    // Insert student to table
+    public function insertStudent($data) {
+        return $this->insert($data);
+    }
+
+    // Check duplicate studentId
+    public function studentIdExists($studentId) {
+        return $this->first(['studentId' => $studentId]) !== false;
+    }
 }
