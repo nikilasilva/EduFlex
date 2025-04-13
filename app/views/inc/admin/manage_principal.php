@@ -14,11 +14,19 @@
     <div class="container">
         <h1>Insert Principal Details</h1>
 
+        <?php
+        // Capture the userID from the URL if it's available
+        $userID = isset($_GET['userID']) ? htmlspecialchars($_GET['userID']) : '';
+        ?>
+
         <form action="<?php echo URLROOT; ?>/Admin/submitPrincipal" method="POST">
             <!-- User ID -->
             <div class="form-group">
                 <label for="userID">User ID:</label>
-                <input type="number" name="userID" id="userID" value="<?php echo isset($formData['userID']) ? $formData['userID'] : ''; ?>" required>
+                <div style="display: flex; align-items: center;">
+                    <input type="number" name="userID" id="userID" value="<?php echo $userID; ?>" required readonly>
+                    <span style="margin-left: 10px;">User ID: <strong><?php echo $userID; ?></strong></span>
+                </div>
                 <span class="error"><?php echo isset($errors['userID']) ? $errors['userID'] : ''; ?></span>
             </div>
 

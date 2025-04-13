@@ -13,9 +13,9 @@ class Admin extends Controller
         $this->view('inc/admin/manage_useraccount');
     }
 // Submit User Details
-
 public function submitUser() {
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Sanitize and collect input data
         $userData = [
             'firstName' => trim($_POST['firstName']),
             'lastName' => trim($_POST['lastName']),
@@ -23,7 +23,7 @@ public function submitUser() {
             'email' => trim($_POST['email']),
             'mobileNo' => trim($_POST['mobileNo']),
             'address' => trim($_POST['address']),
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // Hash password
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
             'dob' => $_POST['dob'],
             'gender' => $_POST['gender'],
             'religion' => trim($_POST['religion']),
@@ -31,39 +31,37 @@ public function submitUser() {
         ];
 
         $userModel = new manage_useraccountModel();
-        
-        // Insert and get last inserted ID
-        $regNo = $userModel->insert($userData); // Make sure insert() returns lastInsertId()
 
-        // Redirect based on role
-        switch ($_POST['role']) {
-            case 'parent':
-                header("Location: " . URLROOT . "/admin/manage_parent?userID=" . $regNo);
-                break;
-            case 'student':
-                header("Location: " . URLROOT . "/admin/manage_student?userID=" . $regNo);
-                break;
-            case 'teacher':
-                header("Location: " . URLROOT . "/admin/manage_teacher?userID=" . $regNo);
-                break;
-            case 'principal':
-                header("Location: " . URLROOT . "/admin/manage_principal?userID=" . $regNo);
-                break;
-            case 'vice-principal':
-                header("Location: " . URLROOT . "/admin/manage_vice_principal?userID=" . $regNo);
-                break;
-            case 'non-academic':
-                header("Location: " . URLROOT . "/admin/manage_nonaca?userID=" . $regNo);
-                break;
-            default:
-                // If no special role, go to user list
-                header("Location: " . URLROOT . "/admin/viewUserAccounts");
-                break;
+        // Insert user and retrieve registration number (user ID)
+        $regNo = $userModel->insert($userData);
+
+        if ($regNo) {
+            // Define redirection routes for each role
+            $roleRedirects = [
+                'parent' => 'manage_parent',
+                'student' => 'manage_student',
+                'teacher' => 'manage_teacher',
+                'principal' => 'manage_principal',
+                'vice-principal' => 'manage_vice_principal',
+                'non-academic' => 'manage_nonaca'
+            ];
+
+            $role = $_POST['role'];
+
+            if (array_key_exists($role, $roleRedirects)) {
+                $redirectPath = URLROOT . "/admin/" . $roleRedirects[$role] . "?userID=" . $regNo;
+            } else {
+                $redirectPath = URLROOT . "/admin/viewUserAccounts";
+            }
+
+            header("Location: $redirectPath");
+            exit();
+        } else {
+            // Optional: redirect with error or show message
+            die("User registration failed. Please try again.");
         }
-
-        exit(); // Important to stop execution after redirect
     } else {
-        // Reload the form if not POST
+        // If not POST, show the registration form again
         $this->view('Manage_useraccount');
     }
 }
@@ -356,7 +354,16 @@ public function deleteStudent($studentId)
     /* For Principal */
     // Manage principal
     public function manage_principal(){
-        $this->view('inc/admin/manage_principal');
+
+        $formData = [];
+
+        // Check if userID is passed in the query string
+        if (isset($_GET['userID'])) {
+            $formData['userID'] = $_GET['userID'];
+        }
+    
+
+        $this->view('inc/admin/manage_principal',['formData' => $formData]);
     }
    
 

@@ -47,7 +47,7 @@
 
 
 
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class_timetable"><i class="fa-regular fa-calendar-days icon"></i><span class="text nav-text">Manage-Class-Time-Table</span></a></li>
+            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class_timetable"><i class="fa-regular fa-calendar-days icon"></i><span class="text nav-text">Manage-Class-Time-Table</span></a></li> -->
 
             
 

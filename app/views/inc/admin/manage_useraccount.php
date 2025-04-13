@@ -21,6 +21,8 @@
 
         <!-- User Insert Form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitUser" method="POST">
+
+    
             <div class="form-group">
                 <label for="firstName">First Name :</label>
                 <input type="text" name="firstName" id="firstName" required>
