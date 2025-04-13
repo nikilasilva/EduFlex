@@ -74,15 +74,26 @@ class Teacher extends Controller {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $class = $_POST['class'] ?? null;
             $attendance = $_POST['attendance'] ?? [];
-            $date = date('Y-m-d');    
+            $date = date('Y-m-d');
+    
             if (empty($class) || empty($attendance)) {
                 $_SESSION['error'] = "Class or attendance data missing.";
-                // header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
-                var_dump($_SESSION['error']);
+                header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
                 exit();
             }
     
             $attendanceModel = new Student_attendanceModel();
+    
+            //  Check if attendance already exists
+            $existing = $attendanceModel->where(['class' => $class, 'date' => $date]);
+    
+            if (!empty($existing)) {
+                $_SESSION['error'] = "Attendance for this class has already been entered for today.";
+                header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+                exit();
+            }
+    
+            //  Save new attendance
             foreach ($attendance as $studentId => $status) {
                 $studentData = [
                     'date' => $date,
@@ -102,6 +113,7 @@ class Teacher extends Controller {
             exit();
         }
     }
+    
     
     public function viewAttendance() {
         $date = $_GET['attendance_date'] ?? null;

@@ -1,8 +1,38 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
-<div class="class-report-container">
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-area, .printable-area * {
+            visibility: visible;
+        }
+        .printable-area {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+
+    .download-btn-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="class-report-container printable-area">
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
+
+    <div class="download-btn-container no-print">
+        <button onclick="window.print()" class="btn btn-success">Download as PDF</button>
+    </div>
 
     <h1 class="report-title">Class Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
 
@@ -43,7 +73,7 @@
                 <?php if (!empty($data['classReport'])): ?>
                     <?php foreach ($data['classReport'] as $report): ?>
                         <tr>
-                        <td><?= htmlspecialchars($report['student_id']) ?> - <?= htmlspecialchars($report['student_name']) ?></td>
+                            <td><?= htmlspecialchars($report['student_id']) ?> - <?= htmlspecialchars($report['student_name']) ?></td>
 
                             <?php foreach (array_keys($subjectHeaders) as $subjectName): ?>
                                 <td>
@@ -62,7 +92,7 @@
             </tbody>
         </table>
 
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px;" class="no-print">
             <button type="submit" class="btn btn-primary">Update Marks</button>
         </div>
     </form>

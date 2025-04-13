@@ -14,3 +14,26 @@
     transition: var(--tran-04);
 
 }
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    .printable-area {
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+        .sidebar, .sideBar, .side-nav, .nav-icon {
+            display: none !important;
+        }
+        .class-report-container {
+            margin-left: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        body {
+            margin: 0;
+        }
+    
+}

@@ -19,6 +19,19 @@
     <div class="attendance-container">
         <h1>Attendance</h1>
 
+        <?php if (!empty($_SESSION['error'])): ?>
+    <div class="alert alert-danger">
+        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['success'])): ?>
+    <div class="alert alert-success">
+        <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+
         <!-- Attendance form -->
         <form action="<?php echo URLROOT; ?>/teacher/submitAttendance" method="POST">
             <!-- Automatically include current date -->
