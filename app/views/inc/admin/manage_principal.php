@@ -23,10 +23,7 @@
             <!-- User ID -->
             <div class="form-group">
                 <label for="userID">User ID:</label>
-                <div style="display: flex; align-items: center;">
-                    <input type="number" name="userID" id="userID" value="<?php echo $userID; ?>" required readonly>
-                    <span style="margin-left: 10px;">User ID: <strong><?php echo $userID; ?></strong></span>
-                </div>
+                <input type="number" name="userID" id="userID" value="<?php echo isset($formData['userID']) ? $formData['userID'] : ''; ?>" required>
                 <span class="error"><?php echo isset($errors['userID']) ? $errors['userID'] : ''; ?></span>
             </div>
 
@@ -47,6 +44,48 @@
             <button type="submit" class="btn btn-primary">Submit Principal</button>
             <br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewPrincipal'" class="btn btn-primary">View Principals</button>
+
+            <!-- ################To get users ID ################ -->
+
+        
+            <h1>Show User Accounts</h1>
+
+            <!-- User Accounts Table -->
+            <table class="activities-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data['users'] as $user): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($user->userID); ?></td>
+                            <td><?php echo htmlspecialchars($user->firstName); ?></td>
+                            <td><?php echo htmlspecialchars($user->lastName); ?></td>
+                            <td><?php echo htmlspecialchars($user->username); ?></td>
+                            <td><?php echo htmlspecialchars($user->email); ?></td>
+
+                            <td><?php echo htmlspecialchars($user->role); ?></td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        
+
+
+
+             <!-- ################To get users ID ################ -->
+
+
+
         </form>
     </div>
 </div>
