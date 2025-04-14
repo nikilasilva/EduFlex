@@ -8,6 +8,7 @@
 @import url('components/time_table.css');
 @import url('components/daily_activities.css');
 @import url('components/view_activities.css');
+@import url('components/Parent_Report.css');
 
 @import url('components/scheduled_events.css');
 @import url('components/time_table.css');
@@ -30,6 +31,9 @@
 @import url('index.css');
 @import url('landing.css');
 
+
+@import url('components/class_report.css');
+@import url('components/submit_marks.css');
 @import url('components/announcementFormStyles.css');
 @import url('components/announcementModalStyles.css');
 @import url('profileStyles.css');
