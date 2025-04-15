@@ -9,29 +9,65 @@
     <div class="main-content">
 
         <!-- start calender -->
+        
+    <div class="main-content">
+
+        <!-- start calender -->
         <h1>Event Calendar</h1>
         <div class="calendar">
-            <?php
-            // Checking if events data exists
-            if (isset($data['events'])) {
-                $events = $data['events']; // Assign events data if available
-            } else {
-                $events = []; // Initialize as empty array if not available
-            }
+    <!-- ---------------------- -->
+    
+    
+    
+    <div class="calendar">
+    
 
-            // Calendar generation
-            $daysInMonth = 30; // Set number of days to display
-            echo '<div class="calendar-header"><strong>January 2024</strong></div>'; // Display month heading
-            for ($i = 1; $i <= $daysInMonth; $i++) {
-                $date = '2024-01-' . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the date as YYYY-MM-DD
-                if (array_key_exists($date, $events)) {
-                    echo "<div class='highlighted'>$i</div>";
-                } else {
-                    echo "<div>$i</div>";
-                }
-            }
-            ?>
-        </div>
+    <?php
+    // Event data
+    $events = isset($data['events']) ? $data['events'] : [];
+
+    // Current date info
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+    $todayDate = date('Y-m-d');
+    $monthName = date('F');
+
+    // Days in month and first day of month
+    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+    $firstDayOfMonth = date('w', strtotime("$currentYear-$currentMonth-01")); // 0 (Sun) to 6 (Sat)
+
+    // Calendar heading
+    echo '<div class="calendar-header">' . $monthName . ' ' . $currentYear . '</div>';
+
+    // Day names
+    $dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    foreach ($dayNames as $day) {
+        echo "<div class='calendar-day-name'>$day</div>";
+    }
+
+    // Empty cells before the 1st day
+    for ($i = 0; $i < $firstDayOfMonth; $i++) {
+        echo "<div class='calendar-day'></div>";
+    }
+
+    // Calendar days
+    for ($day = 1; $day <= $daysInMonth; $day++) {
+        $date = "$currentYear-" . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . "-" . str_pad($day, 2, '0', STR_PAD_LEFT);
+        
+        $class = 'calendar-day';
+        if ($date === $todayDate) $class .= ' today';
+        if (array_key_exists($date, $events)) $class .= ' highlighted';
+
+        echo "<div class='$class'>$day</div>";
+    }
+    ?>
+</div>
+
+
+<!-- ----------------------------- -->
+
+</div>
+
 
         <!-- end calender part -->
 

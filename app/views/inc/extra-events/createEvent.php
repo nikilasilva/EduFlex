@@ -16,7 +16,6 @@
             <select id="event_type" name="EventType" required>
                 <option value="sports">Sports</option>
                 <option value="academic">Academic</option>
-                <option value="no">no</option>
                 <option value="cultural">Cultural</option>
                 <option value="exhibition">Exhibition</option>
             </select>
