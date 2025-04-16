@@ -7,23 +7,30 @@
           // $this->model('StudentModel');
         }
 
+        public function index() {
+            echo "This is the Student index page.";
+        }
+        
+
         // View all students.
         public function students() {
             $this->view('inc/student/all_students');
         }
 
-        public function details() {
-            //
-            // $Student = $this->StudentModel->getUsers();
+        // public function details() {
+        // //     //
+        // //     // $Student = $this->StudentModel->getUsers();
 
-            // $data = [
-            //     'Student' => $Student
-            // ];
+        // //     // $data = [
+        // //     //     'Student' => $Student
+        // //     // ];
 
-            //
-            $this->view('inc/student/details');
+        // //     //
+        //     $this->view('inc/student/details');
 
-        }
+        // }
+
+        
 //
         public function view($view, $data = []) {
             require_once "../app/views/{$view}.php";
