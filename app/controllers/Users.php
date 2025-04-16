@@ -77,7 +77,7 @@ class Users extends Controller {
     public function viewProfile() {
         $this->view('userProfile');
     }
-
+    
     public function settings() {
         $email = $_SESSION['user']['email'];
         $user = $this->userModel->findUserByEmail($email);
@@ -87,6 +87,17 @@ class Users extends Controller {
         }
 
         $this->view('userSettings', ['user' => $user]);
+    }
+
+    public function details() {
+        $email = $_SESSION['user']['email'];
+        $user = $this->userModel->findUserByEmail($email);
+
+        if (!$user) {
+            die('User not found.');
+        }
+
+        $this->view('inc/student/userDetails', ['user' => $user]);
     }
 
     public function updatePassword() {
