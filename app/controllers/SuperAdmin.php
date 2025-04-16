@@ -79,7 +79,7 @@ class SuperAdmin extends Controller {
                 'gender' => trim($row[6]),
                 'religion' => trim($row[7]),
                 'role' => trim($row[8]),
-                'must_reset_password' => 1
+                // 'must_reset_password' => 1
             ];
     
             // Generate password

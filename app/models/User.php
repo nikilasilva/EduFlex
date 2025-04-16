@@ -15,7 +15,7 @@ class User {
         "gender",
         "religion",
         "role",
-        "must_reset_password"
+        // "must_reset_password"
     ];
     protected $order_column = 'regNo';
     protected $primaryKey = 'regNo';
@@ -90,9 +90,9 @@ class User {
         return empty($this->errors);
     }
 
-    public function clearResetFlag($regNo) {
-        return $this->update(['regNo' => $regNo], ['must_reset_password' => 0]);
-    }
+    // public function clearResetFlag($regNo) {
+    //     return $this->update(['regNo' => $regNo], ['must_reset_password' => 0]);
+    // }
 
 
     public function update($conditions, $data) {

@@ -156,8 +156,8 @@ class Users extends Controller {
             if (empty($data['errors']) && $user) {
                 $hashedPassword = password_hash($data['new_password'], PASSWORD_BCRYPT);
                 if ($this->userModel->updatePassword($data['regNo'], $hashedPassword)) {
-                    // Clear must_reset_password flag
-                    $this->userModel->clearResetFlag($data['regNo']);
+                    // // Clear must_reset_password flag
+                    // $this->userModel->clearResetFlag($data['regNo']);
                     $_SESSION['message'] = 'Password change successfully';
                     header('Location:' . URLROOT . '/users/settings');
                 } else {
@@ -177,11 +177,11 @@ class Users extends Controller {
                 'message' => ''
             ];
 
-            // Check if reset is required
-            $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
-            if ($user && $user->must_reset_password) {
-                $data['message'] = 'You must change your password before continuing';
-            }
+            // // Check if reset is required
+            // $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
+            // if ($user && $user->must_reset_password) {
+            //     $data['message'] = 'You must change your password before continuing';
+            // }
 
             $this->view('userSettings', $data);
         }
