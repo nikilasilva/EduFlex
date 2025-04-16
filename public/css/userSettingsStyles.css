@@ -105,3 +105,16 @@
     width: 98.5%;
     padding: 5px;
 }
+
+.form-group .error {
+    color: var(--red-color-2);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.message {
+    color: var(--success-color);;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}

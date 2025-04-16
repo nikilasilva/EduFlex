@@ -5,6 +5,7 @@
     define('DB_PASSWORD', '');
     // define('DB_NAME', 'eduflex');
     define('DB_NAME', 'eduflex2');
+    define('SMTP_PASSWORD', 'nlsr pgna gryo bbrz');
 
     // APPROOT
     define('APPROOT', dirname(dirname(__FILE__)));

@@ -1,4 +1,10 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require APPROOT . '/../vendor/autoload.php';
+
 class SuperAdmin extends Controller {
     private $UserModel;
     private $AllStudentsModel;
@@ -29,7 +35,8 @@ class SuperAdmin extends Controller {
         $data = [
             'successCount' => 0,
             'errors' => [],
-            'message' => ''
+            'message' => '',
+            'emailErrors' => []
         ];
     
         // Validate file
@@ -54,6 +61,7 @@ class SuperAdmin extends Controller {
         fgetcsv($handle); // Skip header
         $successCount = 0;
         $errors = [];
+        $emailErrors = [];
     
         while (($row = fgetcsv($handle)) !== false) {
             if (count($row) < 9) {
@@ -70,12 +78,13 @@ class SuperAdmin extends Controller {
                 'dob' => trim($row[5]),
                 'gender' => trim($row[6]),
                 'religion' => trim($row[7]),
-                'role' => trim($row[8])
+                'role' => trim($row[8]),
+                'must_reset_password' => 1
             ];
     
             // Generate password
-            $password = $userData['username'] . '123';
-            $userData['password'] = password_hash($password, PASSWORD_BCRYPT);
+            $plainPassword = strtolower($userData['username']) . '123';
+            $userData['password'] = password_hash($plainPassword, PASSWORD_BCRYPT);
     
             // Validate user data
             $userModel = new User();
@@ -94,6 +103,38 @@ class SuperAdmin extends Controller {
             // Insert user
             if ($this->UserModel->insert($userData)) {
                 $successCount++;
+
+                // Send Email
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'nikilasilva@gmail.com';
+                    $mail->Password = SMTP_PASSWORD;
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
+
+                    $mail->setFrom('nikilasilva@gmail.com', 'Eduflex Admin');
+                    $mail->addAddress($userData['email'], $userData['username']);
+
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Your Eduflex Account Details';
+                    $mail->Body = "
+                        <h2>Welcome to EduFlex!</h2>
+                        <p>Your account has been created. Below are your login details:</p>
+                        <p><strong>Username:</strong> {$userData['username']}</p>
+                        <p><strong>Password:</strong> {$plainPassword}</p>
+                        <p>Please change your password immediately by clicking the link below:</p>
+                        <p><a href='".URLROOT."/Users/updatePassword'>Change Password</a></p>
+                        <p>For security, this is a one-time password. Log in and update it as soon as possible.</p>
+                        <p>Thank you, <br>Eduflex Team</p>
+                    ";
+                    $mail->AltBody = "Welcome to EduFlex!\nYour account details:\nUsername: {$userData['username']}\nPassword: {$plainPassword}\nPlease change your password at " . URLROOT . "/Users/updatePassword\nThis is a one-time password. Log in and update it soon.\nThank you,\nEduflex Team";
+                    $mail->send();
+                } catch (Exception $e) {
+                    $emailErrors[] = "Failed to send email to {$userData['email']}: {$mail->ErrorInfo}";
+                }
     
                 if ($userData['role'] === 'student') {
                     $studentData = [
@@ -116,7 +157,6 @@ class SuperAdmin extends Controller {
                         $errors[] = "Duplicate studentId: {$studentData['studentId']}";
                         continue;
                     }
-    
                     if (!$this->AllStudentsModel->insertStudent($studentData)) {
                         $errors[] = "Failed to insert student regNo: {$userData['regNo']}";
                     }
@@ -154,6 +194,7 @@ class SuperAdmin extends Controller {
     
         $data['successCount'] = $successCount;
         $data['errors'] = $errors;
+        $data['emailErrors'] = $emailErrors;
         if ($successCount === 0 && empty($errors)) {
             $data['message'] = 'No valid data found in the CSV.';
         }

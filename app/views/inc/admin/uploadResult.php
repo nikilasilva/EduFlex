@@ -17,6 +17,14 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
+        <?php endif; ?>
+        <?php if (!empty($data['emailErrors'])): ?>
+            <h3>Email Errors:</h3>
+            <ul class="error-list">
+                <?php foreach ($data['emailErrors'] as $error): ?>
+                    <li><?php echo htmlspecialchars($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
         <?php elseif (isset($data['message'])): ?>
             <p class="error"><?php echo htmlspecialchars($data['message']); ?></p>
         <?php endif; ?>

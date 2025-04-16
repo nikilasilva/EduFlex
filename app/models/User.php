@@ -14,9 +14,11 @@ class User {
         "dob",
         "gender",
         "religion",
-        "role"
+        "role",
+        "must_reset_password"
     ];
     protected $order_column = 'regNo';
+    protected $primaryKey = 'regNo';
 
     public function findUserByEmail($email) {
         return $this->first(['email' => $email]);
@@ -32,9 +34,8 @@ class User {
         return $this->update($userId, $data);
     }
 
-    public function updatePassword($email, $password) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        return $this->update($email, ['password' => $hashedPassword], 'email');
+    public function updatePassword($regNo, $hashedPassword) {
+        return $this->update(['regNo' => $regNo], ['password' => $hashedPassword]);
     }
 
     public function regNoExists($regNo) {
@@ -87,6 +88,39 @@ class User {
         }
 
         return empty($this->errors);
+    }
+
+    public function clearResetFlag($regNo) {
+        return $this->update(['regNo' => $regNo], ['must_reset_password' => 0]);
+    }
+
+
+    public function update($conditions, $data) {
+        if (empty($data) || empty($conditions) || !isset($conditions['regNo'])) {
+            return false;
+        }
+
+        $query = "UPDATE $this->table SET ";
+        $updates = [];
+        $params = [];
+
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->allowedColumns)) {
+                $updates[] = "$key = ?";
+                $params[] = $value; // e.g., $hashedPassword
+            }
+        }
+
+        if (empty($updates)) {
+            return false;
+        }
+
+        $query .= implode(', ', $updates);
+        $query .= " WHERE regNo = ?";
+        $params[] = $conditions['regNo']; // e.g., $regNo
+
+        $result = $this->query($query, $params);
+        return $result !== false;
     }
 }
 ?>
