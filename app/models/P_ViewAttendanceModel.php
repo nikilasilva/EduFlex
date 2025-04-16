@@ -30,6 +30,19 @@ class P_ViewAttendanceModel {
         return $this->query($query, $data);
     }
 
+    public function getAttendanceByStudentIdAndMonth($studentId, $startDate, $endDate) {
+        $data = [
+            'student_id' => $studentId,
+            'start_date' => $startDate,
+            'end_date' => $endDate
+        ];
+        $query = "SELECT * FROM $this->table 
+                  WHERE studentId = :student_id 
+                  AND date BETWEEN :start_date AND :end_date 
+                  ORDER BY date ASC";
+        return $this->query($query, $data);
+    }
+
     public function findAll() {
         $query = "SELECT * FROM $this->table";
         return $this->query($query);
