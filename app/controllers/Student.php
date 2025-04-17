@@ -49,9 +49,9 @@
             $this->view('inc/student/aca_details');
         }
 
-        public function payment(){
-            $this->view('inc/student/pay_details');
-        }
+        // public function payment(){
+        //     $this->view('inc/student/pay_details');
+        // }
 
         public function library_fine(){
             $this->view('inc/student/libry_fine');
