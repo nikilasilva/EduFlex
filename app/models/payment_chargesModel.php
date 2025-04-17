@@ -55,6 +55,13 @@ class Payment_chargesModel {
         $result = $this->query($query, $params);
         return $result[0]->count > 0;
     }
+
+    public function getPaymentsByStudentId($studentId) {
+        $query = "SELECT * FROM $this->table WHERE student_id = :student_id ORDER BY year_of_payment DESC";
+        $params = ['student_id' => $studentId];
+        return $this->query($query, $params);
+    }
+    
 }
 
 
