@@ -1,13 +1,25 @@
+
 <?php
+
+require_once APPROOT . '/models/StudentModel.php'; // Include StudentModel if needed
+
 class Payment_charges extends Controller {
     private $payment_chargesModel;
+    private $studentModel;
+    private $userModel;
 
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+
         }
 
-        $this->payment_chargesModel = new Payment_chargesModel();
+        $this->payment_chargesModel = $this->model('Payment_chargesModel');
+        $this->studentModel = $this->model('StudentModel');
+        $students = $this->studentModel->getUsers();  // This will now work
+
+
+
     }
 
     public function submit() {
@@ -101,5 +113,42 @@ class Payment_charges extends Controller {
         } else {
             throw new Exception("File upload failed.");
         }
+    }
+
+    public function payment() {
+        if ($_SESSION['user']['role'] !== 'student') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+
+
+
+        $regNo = $_SESSION['user']['regNo'];
+
+        // Get student_id from StudentModel
+        $student = $this->studentModel->getStudentByRegNo($regNo);
+
+        
+        if (!$student) {
+            $data = [
+                'payments' => [],
+                'error' => "Student profile not found."
+            ];
+            $this->view('inc/student/pay_details', $data);
+            return;
+        }
+
+        $studentId = $student->student_id;
+        $payments = $this->payment_chargesModel->getPaymentsByStudentId($studentId);
+        
+        $data = [
+            'payments' => $payments
+        ];
+       
+  
+
+
+
+        $this->view('inc/student/pay_details', $data);
     }
 }
