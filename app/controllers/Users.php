@@ -90,6 +90,7 @@ class Users extends Controller {
     }
 
     public function details() {
+        
         $email = $_SESSION['user']['email'];
         $user = $this->userModel->findUserByEmail($email);
 
