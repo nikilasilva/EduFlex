@@ -86,6 +86,12 @@
             <h1>verify Service Charges</h1>
 
             <!-- Daily Activities form -->
+
+            <form action="yourcontroller.php?action=searchStudent" method="POST">
+    <input type="text" name="student_id" placeholder="Enter Student ID" required>
+    <button type="submit">Search</button>
+</form>
+
             <form action="<?php echo URLROOT; ?>/NonAcademic/submitActivities" method="POST">
 
                 <div class="search-container">
