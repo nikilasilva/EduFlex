@@ -45,9 +45,9 @@
             $this->view('inc/student/chargesForm');
         }
 
-        public function academic(){
-            $this->view('inc/student/aca_details');
-        }
+        // public function academic(){
+        //     $this->view('inc/student/aca_details');
+        // }
 
         // public function payment(){
         //     $this->view('inc/student/pay_details');
