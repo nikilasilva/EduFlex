@@ -118,48 +118,47 @@ class NonAcademic extends Controller
         exit();
     }
 
-
-
-    public function viewTeachersAttendenceeForm()
+    public function TeachersAttendenceeForm()   // file this form Teachers attendence 
     {
-        $teacherName = new dev3_Users();
-        $Name = $teacherName->findAll();
-
-        
-        $this->view('inc/nonAcademic/record_teachers_attendencee', ['teachername' => $Name]);
-    }
-    
+        $recodeModel = new Teachers_RecodeModel();
+        $recode = $recodeModel->findAll();
 
 
-
-    // public function SubmitTeachersAttendenceeForm()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $attendanceData = $_POST['attendance']; // [teacherId => 'present'/'absent']
-
-    //         $model = new Teachers_RecodeModel();
-
-    //         foreach ($attendanceData as $teacherId => $status) {
-    //             $model->recordAttendance($teacherId, $status);
-    //         }
-
-    //         // Redirect or load a success view
-    //         redirect('nonAcademic/TeachersAttendenceeForm');
-    //     } else {
-    //         // If not POST, redirect back
-    //         redirect('nonAcademic/TeachersAttendenceeForm');
-    //     }
-    // }
+        // Load the view and pass Teachers data
+        $this->view('inc/nonAcademic/record_teachers_attendencee', ['attendance' => $recode]);
 
 
-    public function recordAttendance($teacherId, $status)
-    {
-        $this->db->query("INSERT INTO TeacherAttendance (teacherId, status, date) VALUES (:teacherId, :status, CURDATE())");
-        $this->db->bind(':teacherId', $teacherId);
-        $this->db->bind(':status', $status);
-        $this->db->execute();
+        // $this->view('inc/nonAcademic/record_teachers_attendencee');
     }
 
+    public function SubmitTeachersAttendenceeForm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $attendanceData = [];
+
+            // Assuming each row in the table corresponds to a teacher
+            foreach ($_POST['attendance'] as $teacherId => $status) {
+                $attendanceData[] = [
+                    'teacher_id' => $teacherId,
+                    'attendance' => $status // 'present' or 'absent'
+                ];
+            }
+
+            // Save attendance data to the database
+            $recodeModel = new Teachers_RecodeModel();
+
+            foreach ($attendanceData as $record) {
+                $recodeModel->insert($record);
+            }
+
+            // Redirect to a success page or show a success message
+            header("Location: " . URLROOT . "/nonAcademic/TeachersRecode");
+            exit();
+        } else {
+            // Reload the attendance form if not POST
+            $this->view('inc/nonAcademic/record_teachers_attendencee');
+        }
+    }
 
 
 
@@ -169,16 +168,15 @@ class NonAcademic extends Controller
 
 
 
-    
 
 
-    // public function TeachersRecode()
-    // {
-    //     $activityModel = new Teachers_RecodeModel();
-    //     $activities = $activityModel->findAll();
+    public function TeachersRecode()
+    {
+        $activityModel = new Teachers_RecodeModel();
+        $activities = $activityModel->findAll();
 
-    //     $this->view('inc/nonAcademic/view_teachers_attendencee', ['activities' => $activities]);
-    // }
+        $this->view('inc/nonAcademic/view_teachers_attendencee', ['activities' => $activities]);
+    }
 
 
     public function ReceipfBooks()

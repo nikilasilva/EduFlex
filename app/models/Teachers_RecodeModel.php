@@ -1,12 +1,15 @@
 <?php
 
-class Teachers_RecodeModel {
-    use Model; //  Correct usage of a trait
+class Teachers_RecodeModel
+{
+    use Model;
 
-    public function __construct() {
-        $this->db = new Database(); // If needed, based on trait functionality
-    }
+    protected $table = 'teachers_recode'; // Correct table name
+    protected $allowedColumns = [
+        'teacher_id',
+        'attendance'
+    ];
 
-    // rest of your methods...
+    // Define the column to order by
+    protected $order_column = 'teacher_id';
 }
-
