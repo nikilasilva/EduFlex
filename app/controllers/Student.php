@@ -69,10 +69,10 @@
             $this->view('inc/student/leaving');
         }
 
-        public function attendance(){
+        // public function attendance(){
             
-            $this->view('inc/student/attendance'); 
-        }
+        //     $this->view('inc/student/attendance'); 
+        // }
 
         public function events() {
             // Example events array (replace with your actual data)
