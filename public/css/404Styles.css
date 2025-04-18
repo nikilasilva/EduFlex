@@ -1,0 +1,63 @@
+.error-404-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    width: 46%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 50px;
+}
+
+.error-404-content {
+    flex: 1;
+    text-align: left;
+}
+
+.error-404-content h1 {
+    font-size: 80px;
+    color: var(--primary-color);
+    text-align: left;
+    margin: 0;
+}
+
+.title-404 {
+    padding: 0;
+}
+
+.error-404-content p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.error-404-icon {
+    flex: 0;
+    max-width: 300px;
+}
+
+.error404-img {
+    width: 340px;
+    height: auto;
+    margin-top: 50px;
+}
+
+.error-404-button {
+    margin-top: 45px;
+}
+
+.error-404-container .error-404-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.error-404-container .error-404-button:hover {
+    background-color: var(--primary-color);
+}
