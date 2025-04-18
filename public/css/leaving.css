@@ -17,15 +17,12 @@
 .form-container {
     background-color: #fff;
     padding: 20px 40px;
-    
+    width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-height: 130vh; /* Limit the height of the form container */
-    
-    margin-top: 30px;
-    width: 73%;
-    margin-left: 290px;
+    max-height: 80vh; /* Limit the height of the form container */
+    overflow-y: auto;
 }
 
 .form-container h2 {

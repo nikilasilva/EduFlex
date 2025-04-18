@@ -10,7 +10,10 @@ class Principal extends Controller {
         }
     }
 
-    
+    // public function index() {
+    //     $this->view('inc/Principal/default');
+    // }
+
     
      
     public function viewFeedbacks() {
@@ -55,10 +58,6 @@ class Principal extends Controller {
         // If something goes wrong, redirect to the feedbacks page
         header('Location: ' . URLROOT . '/Principal/viewFeedbacks');
         exit();
-    }
-
-    public function msi() {
-        $this->view('inc/principal/msi');
     }
 
 

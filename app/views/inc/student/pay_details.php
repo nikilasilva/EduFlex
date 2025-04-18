@@ -39,8 +39,8 @@
 
 <body>
     <div class="table-container">
-         <h1>Facility & Service Charges</h1>
-      
+        <h1>Facility & Service Charges</h1>
+        
         <div class="status-table">
             <!-- Headers -->
             <div class="table-header">Year</div>

@@ -9,8 +9,7 @@
         <div class="announcement-boxes">
             <?php foreach ($data['announcements'] as $announcement): ?>
                 <div class="announcement-box">
-                    <div class="announcement-type"><?php echo ucwords(htmlspecialchars($announcement->type)); ?></div>
-                    <h2 class="announcement-title"><?php echo ucwords(htmlspecialchars($announcement->title)); ?></h2>
+                    <h2 class="announcement-title"><?php echo htmlspecialchars($announcement->title); ?></h2>
                     <p class="announcement-content"><?php echo htmlspecialchars($announcement->content); ?></p>
                     <div class="announcement-meta">
                         <span class="announcement-date"><?php echo htmlspecialchars($announcement->date); ?></span>

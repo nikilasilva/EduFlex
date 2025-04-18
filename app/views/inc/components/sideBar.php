@@ -15,7 +15,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 <span class="name">EduFlex</span>
             </div>
             <i class="fa-solid fa-bars toggle"></i>
-            <!-- <i class="fa-solid fa-angle-right"></i> -->
         </div>
     </header>
     <?php  
