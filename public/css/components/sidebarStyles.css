@@ -70,11 +70,6 @@ ul {
     width: 60px;
 }
 
-.sidebar.close .image-text img {
-    transition: var(--tran-02);
-    visibility: hidden;
-}
-
 .sidebar .image-text .header-text {
     display: flex;
     flex-direction: column;
@@ -83,37 +78,31 @@ ul {
 .sidebar header .image-text {
     display: flex;
     align-items: center;
-    height: 70px;
 }
 
 .header-text .name {
     font-weight: 600;
-    font-size: 26px;
+    font-size: 30px;
     padding-left: 24px;
     color: var(--primary-text-color);
 }
 
 .sidebar header .toggle {
     position: absolute;
-    top: 52%;
-    right: 15px;
-    transform: translateY(-50%) rotate(180deg);
-    width: 28px;
-    height: 28px;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
     /* background-color: var(--primary-color); */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    color: var(--icon-color);
-    font-size: 30px;
+    border-radius: 0%;
+    color: var(--primary-color);
+    font-size: 22px;
     cursor: pointer;
     z-index: 1100; /* Keep the toggle button on top */
-    transition: var(--tran-02);
-}
-
-.sidebar.close header .toggle {
-    transform: translateY(-50%);
 }
 
 .sidebar li a {
@@ -140,10 +129,6 @@ ul {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.menu-links {
-    margin-top: 0;
 }
 
 /* Responsive design for smaller devices */

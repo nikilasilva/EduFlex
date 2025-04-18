@@ -1,4 +1,3 @@
-
 <!-- // all emty -->
 <?php
 class NonAcademic extends Controller
@@ -39,6 +38,8 @@ class NonAcademic extends Controller
 
     public function submitActivities()
     {
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $activityData = [
                 'student_id' => $_POST['student_id'],
@@ -55,8 +56,7 @@ class NonAcademic extends Controller
             // Example: $this->activityModel->addActivity($activityData);
 
             // Display a success message or redirect to a success page
-            header("Location: " . URLROOT . "/NonAcademic/viewActivities");
-            exit();
+            echo "Activity recorded successfully: " . htmlspecialchars($activityData['full_name']);
         } else {
             // If not a POST request, reload the daily activities page
             $this->view('Issuance_books');
@@ -118,42 +118,57 @@ class NonAcademic extends Controller
         exit();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function TeachersAttendencee()
+    public function TeachersAttendenceeForm()   // file this form Teachers attendence 
     {
-        $data = [
-            'teacher' => [
-                ['id' => 'S001', 'name' => 'John Doe'],
-                ['id' => 'S002', 'name' => 'Jane Smith'],
-                ['id' => 'S003', 'name' => 'Michael Johnson'],
-                ['id' => 'S004', 'name' => 'Emily Davis'],
-            ]
-        ];
+        $recodeModel = new Teachers_RecodeModel();
+        $recode = $recodeModel->findAll();
+
 
         // Load the view and pass Teachers data
-        $this->view('inc/nonAcademic/record_teachers_attendencee', $data);
+        $this->view('inc/nonAcademic/record_teachers_attendencee', ['attendance' => $recode]);
 
 
         // $this->view('inc/nonAcademic/record_teachers_attendencee');
     }
+
+    public function SubmitTeachersAttendenceeForm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $attendanceData = [];
+
+            // Assuming each row in the table corresponds to a teacher
+            foreach ($_POST['attendance'] as $teacherId => $status) {
+                $attendanceData[] = [
+                    'teacher_id' => $teacherId,
+                    'attendance' => $status // 'present' or 'absent'
+                ];
+            }
+
+            // Save attendance data to the database
+            $recodeModel = new Teachers_RecodeModel();
+
+            foreach ($attendanceData as $record) {
+                $recodeModel->insert($record);
+            }
+
+            // Redirect to a success page or show a success message
+            header("Location: " . URLROOT . "/nonAcademic/TeachersRecode");
+            exit();
+        } else {
+            // Reload the attendance form if not POST
+            $this->view('inc/nonAcademic/record_teachers_attendencee');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     public function TeachersRecode()
     {
@@ -176,7 +191,7 @@ class NonAcademic extends Controller
     {
 
 
-        $this->view('inc/nonAcademic/check_service_charges');
+        $this->view('inc/nonAcademic/verify_service_charges');
     }
 }
 ?>

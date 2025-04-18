@@ -22,12 +22,6 @@
     <div class="record-container">
         <h1>Record Activity</h1>
 
-        <?php if (!empty($data['error'])): ?>
-            <div class="alert alert-danger">
-                <?php echo $data['error']; ?>
-            </div>
-        <?php endif; ?>
-
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST">
             <div class="form-group">
@@ -37,11 +31,16 @@
 
             <div class="form-group">
                 <label for="period">Period:</label>
-                <select name="period" id="period" class="searchable" required>
+                <select name="period" id="period" required>
                     <option value="">Select Period</option>
-                    <?php for ($i = 1; $i <= 8; $i++): ?>
-                        <option value="<?php echo $i; ?>">Period <?php echo $i; ?></option>
-                    <?php endfor; ?>
+                    <option value="1">Period 1</option>
+                    <option value="2">Period 2</option>
+                    <option value="3">Period 3</option>
+                    <option value="4">Period 4</option>
+                    <option value="5">Period 5</option>
+                    <option value="6">Period 6</option>
+                    <option value="7">Period 7</option>
+                    <option value="8">Period 8</option>
                 </select>
             </div>
 
@@ -49,6 +48,7 @@
                 <label for="subject">Subject:</label>
                 <select name="subject" id="subject" class="searchable" required>
                     <option value="">Search or Select a Subject</option>
+                    <!-- Example subjects, replace these with dynamic options if needed -->
                     <option value="Mathematics">Mathematics</option>
                     <option value="Science">Science</option>
                     <option value="History">History</option>
@@ -62,7 +62,6 @@
                     <option value="Music">Music</option>
                     <option value="ICT">ICT</option>
                     <option value="Dancing">Dancing</option>
-                    
                 </select>
             </div>
 
@@ -70,13 +69,37 @@
                 <label for="class">Class:</label>
                 <select name="class" id="class" class="searchable" required>
                     <option value="">Search or Select a Class</option>
-                    <?php for ($grade = 6; $grade <= 11; $grade++): ?>
-                        <?php foreach (['A', 'B', 'C', 'D'] as $section): ?>
-                            <option value="<?php echo $grade . $section; ?>">
-                                <?php echo $grade . $section; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    <?php endfor; ?>
+                    
+                    <option value="6A">6A</option>
+                    <option value="7A">7A</option>
+                    <option value="8A">8A</option>
+                    <option value="9A">9A</option>
+                    <option value="10A">10A</option>
+                    <option value="11A">11A</option>
+
+                    <option value="6B">6B</option>
+                    <option value="7B">7B</option>
+                    <option value="8B">8B</option>
+                    <option value="9B">9B</option>
+                    <option value="10B">10B</option>
+                    <option value="11B">11B</option>
+
+                    <option value="6C">6C</option>
+                    <option value="7C">7C</option>
+                    <option value="8C">8C</option>
+                    <option value="9C">9C</option>
+                    <option value="10C">10C</option>
+                    <option value="11C">11C</option>
+
+                    <option value="6D">6D</option>
+                    <option value="7D">7D</option>
+                    <option value="8D">8D</option>
+                    <option value="9D">9D</option>
+                    <option value="10D">10D</option>
+                    <option value="11D">11D</option>
+                </select>
+                </select>
+                </select>
                 </select>
             </div>
 
@@ -105,14 +128,9 @@
     // Initialize Select2 for searchable dropdown
     $(document).ready(function() {
         $('.searchable').select2({
-            placeholder: "Search or Select",
+            placeholder: "Search or Select a Subject",
             allowClear: true
         });
-
-        // Restrict date to today or earlier
-        const dateInput = document.getElementById('date');
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('max', today);
     });
 </script>
 </body>

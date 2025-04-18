@@ -1,5 +1,14 @@
+<?php
+session_start();
 
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/components/view_feedback.css">
+// Include header and top navigation bar
+require APPROOT . '/views/inc/header.php'; 
+require APPROOT . '/views/inc/components/topNavbar.php'; 
+?>
+
+<!-- Link to external CSS for styling -->
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/feedbackStyles.css">
+
 <!-- Include SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -26,7 +35,7 @@
                     <!-- Update Button -->
                     <button 
                         id="update-btn-<?php echo $feedback->feedback_id; ?>" 
-                        class="btn button-warning <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
+                        class="btn btn-warning <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
                         onclick="<?php echo $feedback->is_read ? '' : "enableEditing({$feedback->feedback_id});"; ?>"
                         <?php echo $feedback->is_read ? 'disabled' : ''; ?>
                     >
@@ -35,7 +44,7 @@
 
                     <!-- Delete Button -->
                     <button 
-                        class="btn button-danger <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
+                        class="btn btn-danger <?php echo $feedback->is_read ? 'disabled' : ''; ?>"
                         onclick="<?php echo $feedback->is_read ? '' : "showDeletePopup({$feedback->feedback_id});"; ?>"
                         <?php echo $feedback->is_read ? 'disabled' : ''; ?>
                     >
@@ -137,3 +146,6 @@
     }
 </script>
 
+<!-- Include sidebar and footer -->
+<?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
