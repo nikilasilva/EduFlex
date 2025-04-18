@@ -2,8 +2,10 @@
     class StudentModel{
         use Database; // Use the Database trait for database operations
         protected $table = 'students'; // Define the table name
-        public function __construct(){
-            // $this->db = new Database;
+        public function __construct() {
+            if ($this->db === null) {
+                $this->connect(); // Ensure the connection is established here
+            }
         }
 
         public function getUsers() {
@@ -12,9 +14,15 @@
     
 
         public function getStudentByRegNo($regNo) {
+
+            
             // Using a prepared statement with a named placeholder
             $query = 'SELECT * FROM students WHERE regNo = :regNo';
             
+
+            if ($this->db === null) {
+                $this->connect(); // Force database connection if not already established
+            }
             // Prepare the query
             $stmt = $this->db->prepare($query);
             
