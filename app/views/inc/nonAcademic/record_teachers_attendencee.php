@@ -23,14 +23,17 @@
 
             <!-- Attendance form -->
             <form action="<?php echo URLROOT; ?>/nonAcademic/SubmitTeachersAttendenceeForm" method="POST">
+
                 <table>
                     <thead>
                         <tr>
+                            <th>Teacher Name</th>
                             <th>teacher ID</th>
-                            <th>Status</th>
+                            <!-- <th>Status</th> -->
                         </tr>
                     </thead>
                     <tbody id="tableBody">
+                        
 
                     </tbody>
                 </table>
@@ -49,6 +52,8 @@
             const tableBody = document.getElementById('tableBody');
             for (let i = 1; i <= rows; i++) {
                 const row = document.createElement('tr');
+
+                // Teacher NAME column
 
                 // Teacher ID column
                 const cellNumber = document.createElement('td');
