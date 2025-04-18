@@ -19,7 +19,7 @@
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Academic/academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic Details</span></a></li>
-      <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/attendance" class="active"><i class="fa-solid fa-clipboard-user icon"></i><span class="text nav-text">Attendance Details</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/ViewAttendance/attendance" class="active"><i class="fa-solid fa-clipboard-user icon"></i><span class="text nav-text">Attendance Details</span></a></li>
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Payment_charges/payment"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
       <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
@@ -30,73 +30,98 @@
 
   </nav>
 
-  <div class="attendance-container-unique">
-    <h1 id="monthTitle"><?php echo isset($currentMonth) ? $currentMonth : date('F'); ?> Attendance</h1>
-    
-    <!-- Filter Form for Student Attendance -->
-    <form action="<?php echo URLROOT; ?>/Attendance/index" method="GET" class="filter-form">
-      <label for="student_id">Enter Student ID:</label>
-      <input type="text" id="student_id" name="student_id" placeholder="Enter Student ID" 
-             value="<?php echo isset($studentId) ? htmlspecialchars($studentId) : ''; ?>">
-      <button type="submit">Filter</button>
-      <?php if(isset($student_id)): ?>
-        <a href="<?php echo URLROOT; ?>/Student/attendance" class="reset-btn">Reset Filter</a>
-      <?php endif; ?>
-    </form>
-    
-    <?php if (isset($attendanceData) && count($attendanceData) > 0): ?>
-      <!-- Display Attendance Table if data exists -->
-      <div class="table-container">
-        <table class="attendance-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Student Name</th>
-              <th>Class</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($attendanceData as $attendance): ?>
-              <tr class="<?php echo strtolower($attendance->status) === 'absent' ? 'absent-row' : ''; ?>">
-                <td><?php echo htmlspecialchars(date('d M Y', strtotime($attendance->date))); ?></td>
-                <td><?php echo htmlspecialchars($attendance->name); ?></td>
-                <td><?php echo htmlspecialchars($attendance->class); ?></td>
-                <td>
-                  <span class="status-badge status-<?php echo strtolower($attendance->status); ?>">
-                    <?php echo htmlspecialchars($attendance->status); ?>
-                  </span>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    <?php else: ?>
-      <!-- Display message if no records found -->
-      <div class="no-data-message">
-        <?php if(isset($studentId)): ?>
-          <p>No attendance records found for student ID: <?php echo htmlspecialchars($student_id); ?></p>
-        <?php else: ?>
-          <p>No attendance records found.</p>
+  <div class="aca-container">
+        <h1>Your Attendance Details</h1>
+
+        <!-- Month navigation buttons -->
+        <?php
+            $prevMonth = $data['month'] - 1;
+            $nextMonth = $data['month'] + 1;
+            $year = $data['year'];
+
+            if ($prevMonth < 1) {
+                $prevMonth = 12;
+                $prevYear = $year - 1;
+            } else {
+                $prevYear = $year;
+            }
+
+            if ($nextMonth > 12) {
+                $nextMonth = 1;
+                $nextYear = $year + 1;
+            } else {
+                $nextYear = $year;
+            }
+
+            $monthName = date("F", mktime(0, 0, 0, $data['month'], 1));
+        ?>
+
+        <div class="month-nav">
+            <a href="?month=<?= $prevMonth ?>&year=<?= $prevYear ?>" class="nav-btn">←</a>
+            <span class="current-month"><?= $monthName . ' ' . $data['year'] ?></span>
+            <a href="?month=<?= $nextMonth ?>&year=<?= $nextYear ?>" class="nav-btn">→</a>
+        </div>
+
+        <!-- Display attendance -->
+        <?php if (!empty($data['attendance'])) : ?>
+            <table>
+                <thead class="academic-table-header">
+                    <tr>
+                        <th class="academic-header-cell">Date</th>
+                        <th class="academic-header-cell">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data['attendance'] as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row->date) ?></td>
+                            <td><?= htmlspecialchars($row->status) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No attendance records found for this month.</p>
         <?php endif; ?>
-      </div>
-    <?php endif; ?>
-  </div>
+    </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add toggle functionality for sidebar if needed
-    const toggleBtn = document.querySelector('.toggle');
-    const sidebar = document.querySelector('.sidebar');
-    
-    if (toggleBtn && sidebar) {
-      toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('close');
-      });
-    }
-  });
-</script>
+<style>
+  .month-nav {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 18px;
+}
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+.nav-btn {
+    padding: 5px 10px;
+    background-color:rgb(15, 23, 111);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.nav-btn:hover {
+    background-color:rgb(15, 23, 111);
+}
+
+.current-month {
+    font-size: 20px;
+    font-weight: bold;
+    align-self: center;
+}
+
+
+
+.academic-header-cell {
+    padding: 10px;
+    text-align: left;
+}
+
+
+
+</style>
+
+<?php require APPROOT.'/views/inc/footer.php'; ?>
