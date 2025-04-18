@@ -7,13 +7,27 @@
         <h1>Account Setting</h1>
     </div>
     <div class="user-settings-card">
-        <div class="user-settings-banner">
-            <img src="<?php echo URLROOT; ?>/public/img/accountBG.png" alt="Banner" class="user-settings-banner-img">
+        <div class="settings-profile-header">
+            <div class="user-settings-banner">
+                <img src="<?php echo URLROOT; ?>/public/img/accountBG.png" alt="Banner" class="user-settings-banner-img">
+            </div>
+            <div class="user-settings-avatar-section">
+                <!-- <img src="<?php echo URLROOT . '/public/img/profiles/default-profile.jpg'?>" alt="User Photo" class="user-settings-avatar"> -->
+                <img src="<?php echo URLROOT . '/' . $data['profile_picture'] ?>" alt="User Photo" class="user-settings-avatar">
+                <!-- <img src="http://localhost/EduFlex/public/img/Student.jpg" alt="User Photo" class="user-settings-avatar"> -->
+            </div>
         </div>
-        <div class="user-settings-avatar-section">
-            <img src="<?php echo URLROOT; ?>/public/img/profileImg.png" alt="User Photo" class="user-settings-avatar">
-            <h2>Prince Afful Quansah - Admin</h2>
-        </div>
+        <form action="<?php echo URLROOT; ?>/Users/settings" method="POST" enctype="multipart/form-data" class="user-settings-profile-pic-form">
+            <h2><?php echo ucwords(strtolower($_SESSION['user']['username']))?> - <?php echo ucwords(strtolower($_SESSION['user']['role']))?></h2>
+            <div class="form-group">
+                <label for="profile_picture">Upload New Picture (JPEG/PNG, max 2MB):</label>
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/png">
+                <?php if (!empty($data['errors']['profile_picture'])): ?>
+                    <span class="error"><?php echo htmlspecialchars($data['errors']['profile_picture']); ?></span>
+                <?php endif; ?>
+            </div>
+            <button type="submit">Update Picture</button>
+        </form>  
 
         <div>
             <?php if (!empty($data['message'])): ?>

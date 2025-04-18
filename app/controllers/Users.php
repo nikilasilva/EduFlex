@@ -79,25 +79,51 @@ class Users extends Controller {
     }
 
     public function settings() {
-        $email = $_SESSION['user']['email'];
-        $user = $this->userModel->findUserByEmail($email);
-
-        if (!$user) {
-            die('User not found.');
+        // $email = $_SESSION['user']['email'];
+        
+        // if (!$user) {
+            //     die('User not found.');
+            // }
+        if (!isset($_SESSION['user']['regNo']) || !isset($_SESSION['user']['email'])) {
+            $_SESSION['error'] = 'Please log in to access settings';
+            header('Location: ' . URLROOT . '/Login/login');
+            exit;
         }
+        $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
 
         $data = [
             'user' => $user,
             'current_password' => '',
             'new_password' => '',
             'confirm_password' => '',
+            'profile_picture' => $user->profile_picture,
+            'full_name' => '',
+            'role' => '',
             'errors' => [],
             'message' => ''
         ];
-    
+            
         if (isset($_SESSION['message'])) {
             $data['message'] = $_SESSION['message'];
             unset($_SESSION['message']);
+        }
+        if ($user) {
+            $data['profile_picture'] = $user->profile_picture ?: 'public/img/profiles/default-profile.jpg';
+        } else {
+            $data['errors']['general'] = 'User account not found';
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) {
+            if ($user && $this->userModel->updateProfilePicture($_SESSION['user']['regNo'], $_FILES['profile_picture'])) {
+                $data['message'] = 'Profile picture updated successfully';
+                // Refresh user data
+                $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
+                $data['profile_picture'] = $user->profile_picture ?: 'public/images/default_profile.png';
+            } else {
+                $data['errors']['profile_picture'] = !empty($this->userModel->errors) 
+                    ? implode('; ', $this->userModel->errors) 
+                    : 'Failed to update profile picture';
+            }
         }
 
         $this->view('userSettings', $data);

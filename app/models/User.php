@@ -15,7 +15,8 @@ class User {
         "gender",
         "religion",
         "role",
-        // "must_reset_password"
+        // "must_reset_password",
+        "profile_picture"
     ];
     protected $order_column = 'regNo';
     protected $primaryKey = 'regNo';
@@ -121,6 +122,78 @@ class User {
 
         $result = $this->query($query, $params);
         return $result !== false;
+    }
+
+    public function updateProfilePicture($regNo, $file) {
+        if (!is_numeric($regNo) || $regNo <= 0) {
+            $this->errors['regNo'] = 'Invalid registration number';
+            return false;
+        }
+
+        if (empty($file['name']) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+            return true;
+        }
+
+        // validate file
+        $allowedTypes = ['image/jpeg', 'image/png'];
+        $maxSize = 2 * 1024 * 1024; // 2MB
+        if (!in_array($file['type'], $allowedTypes)) {
+            $this->errors['profile_picture'] = 'Only JPEG or PNG files are allowed';
+            return false;
+        }
+        if ($file['size'] > $maxSize) {
+            $this->errors['profile_picture'] = 'File size must be less than 2MB';
+            return false;
+        }
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            $this->errors['profile_picture'] = 'File upload failed';
+            return false;
+        }
+        // Generate file path
+        $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $filename = $regNo . '.' . $extension;
+        $uploadDir = 'public/img/profiles/';
+        $uploadPath = APPROOT . '/../' . $uploadDir . $filename; // Absolute path
+
+        // Ensure upload directory exists
+        if (!is_dir(APPROOT . '/../' . $uploadDir)) {
+            if (!mkdir(APPROOT . '/../' . $uploadDir, 0755, true)) {
+                $this->errors['profile_picture'] = 'Failed to create upload directory';
+                error_log("Failed to create directory: " . APPROOT . '/../' . $uploadDir);
+                return false;
+            }
+        }
+
+        // Check directory permissions
+        if (!is_writable(APPROOT . '/../' . $uploadDir)) {
+            $this->errors['profile_picture'] = 'Upload directory is not writable';
+            error_log("Directory not writable: " . APPROOT . '/../' . $uploadDir);
+            return false;
+        }
+
+        // Move file
+        if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+            $this->errors['profile_picture'] = 'Failed to save profile picture';
+            error_log("Failed to move file to: $uploadPath");
+            return false;
+        }
+
+        // Delete old picture (if exists)
+        $user = $this->first(['regNo' => $regNo]);
+        if ($user && !empty($user->profile_picture) && file_exists(APPROOT . '/../' . $user->profile_picture)) {
+            unlink(APPROOT . '/../' . $user->profile_picture);
+        }
+
+        // Update database with relative path
+        $dbPath = $uploadDir . $filename;
+        if (!$this->update(['regNo' => $regNo], ['profile_picture' => $dbPath])) {
+            $this->errors['profile_picture'] = 'Failed to update database';
+            error_log("Failed to update profile_picture for regNo=$regNo");
+            return false;
+        }
+
+        error_log("Profile picture updated for regNo=$regNo: $dbPath");
+        return true;
     }
 }
 ?>
