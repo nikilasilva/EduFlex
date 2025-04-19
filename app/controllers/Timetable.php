@@ -5,6 +5,7 @@ class Timetable extends Controller {
     private $classModel;
 
     public function __construct() {
+        checkRoles(['principal', 'vice-principal']);
         // if (session_status() === PHP_SESSION_NONE) {
         //     session_start();
         // }

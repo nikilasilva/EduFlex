@@ -13,6 +13,8 @@
         
         // View all students.
         public function showAllStudents() {
+            checkRoles(['principal', 'vice-principal']);
+
             $this->ClassModel->setLimit(50);
 
             // Fetch all students from the model

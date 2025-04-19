@@ -20,11 +20,13 @@ class SuperAdmin extends Controller {
     }
 
     public function uploadUsers() {
+        checkRole('admin');
         $data = [];
         $this->view('inc/admin/uploadUsers', $data);
     }
 
     public function uploadResult() {
+        checkRole('admin');
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_FILES['csv_file'])) {
             $data = ['message' => 'Invalid request.'];
             $this->view('inc/admin/uploadResult', $data);

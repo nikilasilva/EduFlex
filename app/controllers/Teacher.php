@@ -188,6 +188,7 @@ public function deleteActivity($id) {
 
 
     public function showAllTeachers() {
+        checkRoles(['principal', 'vice-principal']);
         // Fetch all teachers from the model
         $teachers = $this->teacherModel->getAllTeachers();
         

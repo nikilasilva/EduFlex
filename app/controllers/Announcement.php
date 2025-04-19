@@ -40,6 +40,7 @@ class Announcement extends Controller {
 
     // Display all announcements
     public function viewAnnouncement() {
+        checkRole('vice-principal');
         // Fetch all announcements from the database
         $announcements = $this->announcementModel->findAll();
     
@@ -55,6 +56,7 @@ class Announcement extends Controller {
 
     // Handle announcement submission
     public function submitAnnouncement() {
+        checkRole('vice-principal');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -121,6 +123,7 @@ class Announcement extends Controller {
 
     // Handle announcement updating
     public function updateAnnouncement($id) {
+        checkRole('vice-principal');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -190,6 +193,7 @@ class Announcement extends Controller {
 
     // Handle announcement deletion
     public function deleteAnnouncement($id) {
+        checkRole('vice-principal');
         if ($this->announcementModel->delete($id)) {
             // Redirect to the announcements page
             header("Location: " . URLROOT . "/Announcement/viewAnnouncement");
