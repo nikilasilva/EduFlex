@@ -29,44 +29,77 @@
         <li class="nav-links"><a href="<?php echo URLROOT ?>/ParentStudent/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Academic/academic_details"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic Details</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/ViewAttendance/attendanceParent"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/pay_details"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
+        <li class="nav-links"><a href="<?php echo URLROOT ?>/Payment_charges/paymentParent"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
         <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/charges_form"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Charges Form</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/feedback"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Feedbacks</span></a></li>
+        <li class="nav-links"><a href="<?php echo URLROOT ?>/Parents/report"><i class="fa-solid fa-comment icon"></i><span class="text nav-text">Report</span></a></li> 
+        <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
+
     </ul>
 </nav>
 
 <body>
-    <div class="table-container">
-        <h2>Facility & Service Charges</h2>
+    <div class="aca-container">
+        <h1>Facility & Service Charges</h1>
         
-        <div class="status-table">
-            <!-- Headers -->
-            <div class="table-header">Year</div>
-            <div class="table-header">Status</div>
+        <form action="<?= URLROOT ?>/payment_charges/paymentParent" method="POST" style="text-align:center; margin-bottom: 30px;">
+        <label for="student_id">Enter Student ID:</label>
+        <input type="text" name="student_id" id="student_id" value="<?= htmlspecialchars($data['studentId'] ?? '') ?>" required>
+        <button type="submit">View Payment Details</button>
+    </form>
 
-            <!-- Year and Status Cells -->
-            <div class="year-cell">2021</div>
-            <div class="status-paid">Paid</div>
+    <?php if (!empty($data['error'])): ?>
+        <p style="color:red; text-align:center;"><?= htmlspecialchars($data['error']) ?></p>
+    <?php endif; ?>
 
-            <div class="year-cell">2022</div>
-            <div class="status-paid">Paid</div>
+    <?php if (!empty($data['payments'])) : ?>
+   <table>
+        <thead class="academic-table-header">
+            <tr>
+                <!-- <th>Payment ID</th>
+                <th>Full Name</th> -->
+                <th>Student ID</th>
+                <th>Year of Payment</th>
+                <th>Status</th>
+                <!-- <th>Payment Slip</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach  ($data['payments'] as $payment) : ?>
+                <tr>
+                    <!-- <td><?= htmlspecialchars($payment->payment_id) ?></td>
+                    <td><?= htmlspecialchars($payment->full_name) ?></td> -->
+                    <td><?= htmlspecialchars($payment->student_id) ?></td>
+                    <td><?= htmlspecialchars($payment->year_of_payment) ?></td>
+                <!-- <td>
+                         <?php if (!empty($payment->payment_slip)) : ?>
+                            <a href="<?= URLROOT ?>/uploads/<?= htmlspecialchars($payment->payment_slip) ?>" target="_blank">View</a>
+                        <?php else : ?> 
+                            No file
+                        <?php endif; ?>
+                    </td>  -->
+                    <td>
+                        <span style="color: green; font-weight: bold;">Paid</span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    </div>
+    <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($data['error'])) : ?>
+            <p style="text-align:center;">No payment records found.</p>
+        <?php endif; ?>
 
-            <div class="year-cell">2023</div>
-            <div class="status-paid">Paid</div>
 
-            <div class="year-cell">2024</div>
-            <div class="status-paid">Paid</div>
-
-            <div class="year-cell">2025</div>
-            <div class="status-non-paid">Non Paid</div>
-
-            <div class="year-cell">2026</div>
-            <div class="status-non-paid">Non Paid</div>
-        </div>
     </div>
 </body>
+
+<style>
+    .table-container {
+    margin-top: 20px; /* Adjust space above the table */
+}
+</style>
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
