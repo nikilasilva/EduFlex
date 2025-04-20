@@ -8,7 +8,7 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/TeachersAttendenceeForm"><i class="fa-solid fa-users icon"></i><span class="text nav-text">Teachers Attendencee</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/ViewTeachersAttendance"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Teacher's Record</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/ExtraEvent/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/checkServiceCharges"><i class="fa-solid fa-usd icon"></i><span class="text nav-text">Service Charges</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/verify_service_charges"><i class="fa-solid fa-usd icon"></i><span class="text nav-text">Service Charges</span></a></li>
             <!-- <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li> -->
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Feedback/index"><i class="fa-solid fa-comment icon"></i><span class="text nav-text">Feedbacks</span></a></li>
 
