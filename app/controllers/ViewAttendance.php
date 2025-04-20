@@ -53,6 +53,8 @@ class ViewAttendance extends Controller {
         ]);
     }
 
+    
+
     public function attendanceParent() {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
             header("Location: " . URLROOT . "/login");
