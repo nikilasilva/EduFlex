@@ -36,7 +36,7 @@ $payments = $data['payments'] ?? [];
   </nav>
 
   <style>
-  .table-container {
+  /* .table-container {
     display: flex;
     justify-content: center;
     margin-top: 70px;
@@ -85,19 +85,18 @@ $payments = $data['payments'] ?? [];
     text-align: center;
     margin-top: 40px;
     color: #003366;
-  }
+  } */
 </style>
 
 
-
-<h1>Payment History</h1>
+<div class="aca-container">
+  <h1>Payment History</h1>
 
 <?php if (empty($payments)) : ?>
     <p>No payment records found.</p>
 <?php else : ?>
-    <div class="table-container">
-        <table border="1" cellpadding="10">
-        <thead>
+    <table>
+        <thead class="academic-table-header">
             <tr>
                 <!-- <th>Payment ID</th>
                 <th>Full Name</th> -->
@@ -129,6 +128,7 @@ $payments = $data['payments'] ?? [];
         </tbody>
     </table>
     </div>
+                        </div>
 <?php endif; ?>
 
 
