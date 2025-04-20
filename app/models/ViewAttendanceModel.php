@@ -29,4 +29,15 @@ class ViewAttendanceModel {
             'endDate' => $endDate
         ]);
     }
+
+    public function getAttendanceByParentRegNo($parentRegNo) {
+
+        $query = "SELECT s.student_id
+        FROM students s 
+        JOIN parent_students ps ON s.regNo = ps.studentRegNo
+        WHERE ps.parentRegNo = :parentRegNo";
+
+        // Execute the query and return the results
+        return $this->query($query, ['parentRegNo' => $parentRegNo]);
+    }
 }
