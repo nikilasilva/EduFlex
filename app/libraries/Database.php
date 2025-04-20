@@ -14,7 +14,7 @@ trait Database {
         }
     }
 
-    // General method to execute a query
+    //General method to execute a query
     public function query($query, $data = []) {
         if ($this->db === null) {
             $this->connect(); // Ensure the connection is made if not already
@@ -28,6 +28,26 @@ trait Database {
         }
         return false;
     }
+
+    // public function query($query,$data = []){
+
+    //     $conn = $this->connect();
+    //     $stm=$conn->prepare($query);
+    //     $check = $stm->execute($data);
+        
+    //     // For SELECT queries
+    //     if (stripos(trim($query), 'select') === 0) {
+    //         $result = $stm->fetchAll(PDO::FETCH_OBJ);
+    //         if (is_array($result) && count($result)) {
+    //             return $result;
+    //         }
+    //         return [];
+    //     }
+
+    //     // For UPDATE/INSERT/DELETE
+    //     return $check; // true or false
+    // }
+
 
     // Helper method to fetch a single row
     public function getRow($query, $data = []) {
