@@ -52,5 +52,41 @@ class ViewAttendance extends Controller {
             'year' => $year
         ]);
     }
+
+    public function attendanceParent() {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
     
-}
+        $studentId = null;
+        $attendance = [];
+        $error = null;
+        $month = date('n');
+        $year = date('Y');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $studentId = trim($_POST['student_id']);
+            $month = isset($_POST['month']) ? (int)$_POST['month'] : $month;
+            $year = isset($_POST['year']) ? (int)$_POST['year'] : $year;
+    
+            $parentRegNo = $_SESSION['user']['regNo'];
+            $students = $this->ViewAttendanceModel->getAttendanceByParentRegNo($parentRegNo);
+            $allowedStudentIds = array_map(fn($s) => $s->student_id, $students);
+    
+            if (!in_array($studentId, $allowedStudentIds)) {
+                $error = 'Invalid Student ID or access denied.';
+            } else {
+                $attendance = $this->ViewAttendanceModel->getAttendanceByMonthYear($studentId, $month, $year);
+            }
+        }
+    
+        $this->view('inc/Parent/attendance_parent', [
+            'attendance' => $attendance,
+            'studentId' => $studentId,
+            'month' => $month,
+            'year' => $year,
+            'error' => $error
+        ]);
+    }
+}    
