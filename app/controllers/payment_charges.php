@@ -145,10 +145,48 @@ class Payment_charges extends Controller {
             'payments' => $payments
         ];
        
-  
+    $this->view('inc/student/pay_details', $data);
+    }
 
 
+    public function paymentParent() {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
 
-        $this->view('inc/student/pay_details', $data);
+        $payments = [];
+        $error = null;
+        $parentRegNo = $_SESSION['user']['regNo'];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $studentId = trim($_POST['student_id']);
+
+            // Get all student_ids related to the parent
+            $allowedStudentIds = $this->payment_chargesModel->getPaymentsByParentRegNo($parentRegNo);
+
+            if ($allowedStudentIds === false) {
+                $error = "There was an issue fetching payment records.";
+            }
+    
+            if (empty($studentId)) {
+                $error = "Please enter a student ID.";
+            } elseif (!in_array($studentId, array_column($allowedStudentIds, 'student_id'))) { // Use array_column to extract student_id values from the result
+                $error = "Invalid student ID or Access Denied.";
+            } else {
+                // Get payments
+                $payments = $this->payment_chargesModel->getPaymentsByStudentId($studentId);
+    
+                if (empty($payments)) {
+                    $error = "No payment records found for this student.";
+                }
+            }
+        }
+    
+        $this->view('inc/Parent/parent_pay', [
+            'payments' => $payments,
+            'studentId' => $studentId ?? '',
+            'error' => $error
+        ]);
     }
 }
