@@ -118,80 +118,82 @@ class NonAcademic extends Controller
         exit();
     }
 
-    public function TeachersAttendenceeForm()   // file this form Teachers attendence 
+    // Start Teachers Attendencee Funtions
+
+    public function TeachersAttendenceeForm()
     {
-        $recodeModel = new Teachers_RecodeModel();
-        $recode = $recodeModel->findAll();
+        $teacherModel = new TeacherModeldev3(); // Make sure this model exists
+        $teachers = $teacherModel->findAll();
 
-
-        // Load the view and pass Teachers data
-        $this->view('inc/nonAcademic/record_teachers_attendencee', ['attendance' => $recode]);
-
-
-        // $this->view('inc/nonAcademic/record_teachers_attendencee');
+        $this->view('inc/nonAcademic/record_teachers_attendance', ['teachers' => $teachers]);
     }
 
-    public function SubmitTeachersAttendenceeForm()
+
+
+    public function SubmitTeachersAttendanceForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $attendanceData = [];
+            $attendanceModel = new TeacherAttendanceModel();
 
-            // Assuming each row in the table corresponds to a teacher
-            foreach ($_POST['attendance'] as $teacherId => $status) {
-                $attendanceData[] = [
-                    'teacher_id' => $teacherId,
-                    'attendance' => $status // 'present' or 'absent'
-                ];
+            $teacherIds = $_POST['teacher_ids'];
+            $attendance = $_POST['attendance'];
+            $currentDate = date('Y-m-d');
+
+            $errors = [];
+
+            foreach ($teacherIds as $teacherId) {
+                if (isset($attendance[$teacherId])) {
+                    // ✅ Check if attendance for this teacher on this date already exists
+                    $existing = $attendanceModel->where([
+                        'teacher_id' => $teacherId,
+                        'attendance_date' => $currentDate
+                    ]);
+
+                    if ($existing) {
+                        $errors[] = "Attendance already marked for Teacher ID $teacherId.";
+                        continue;
+                    }
+
+                    // ✅ Otherwise, insert attendance
+                    $status = $attendance[$teacherId];
+
+                    $attendanceModel->insert([
+                        'teacher_id' => $teacherId,
+                        'status' => $status,
+                        'attendance_date' => $currentDate
+                    ]);
+                }
             }
 
-            // Save attendance data to the database
-            $recodeModel = new Teachers_RecodeModel();
 
-            foreach ($attendanceData as $record) {
-                $recodeModel->insert($record);
+            // ✅ Pass error messages to the view (to show in a popup)
+            if (!empty($errors)) {
+                $_SESSION['attendance_errors'] = $errors;
+            } else {
+                $_SESSION['success_message'] = "Attendance submitted successfully!";
             }
-
-            // Redirect to a success page or show a success message
-            header("Location: " . URLROOT . "/nonAcademic/TeachersRecode");
-            exit();
-        } else {
-            // Reload the attendance form if not POST
-            $this->view('inc/nonAcademic/record_teachers_attendencee');
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-    public function TeachersRecode()
+    public function ViewTeachersAttendance()
     {
-        $activityModel = new Teachers_RecodeModel();
-        $activities = $activityModel->findAll();
+        $attendanceModel = new TeacherAttendanceModel();
+        $records = $attendanceModel->findAll();
+        $teacherModel = new TeacherModeldev3();
 
-        $this->view('inc/nonAcademic/view_teachers_attendencee', ['activities' => $activities]);
-    }
+        $teachersList = $teacherModel->findAll();
 
+        // Re-index teachers by teacher_id
+        $teachers = [];
+        foreach ($teachersList as $teacher) {
+            $teachers[$teacher->teacher_id] = $teacher;
+        }
 
-    public function ReceipfBooks()
-    {
-
-
-        $this->view('inc/nonAcademic/receipt_of_books');
-    }
-
-
-    public function checkServiceCharges()
-    {
-
-
-        $this->view('inc/nonAcademic/verify_service_charges');
+        $this->view('inc/nonAcademic/view_teachers_attendance', [
+            'attendance' => $records,
+            'teachers' => $teachers
+        ]);
     }
 }
 ?>
