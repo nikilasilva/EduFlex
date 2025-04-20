@@ -55,6 +55,27 @@ class Payment_chargesModel {
         $result = $this->query($query, $params);
         return $result[0]->count > 0;
     }
+
+    public function getPaymentsByStudentId($studentId) {
+        $query = "SELECT * FROM $this->table WHERE student_id = :student_id ORDER BY year_of_payment DESC";
+        $params = ['student_id' => $studentId];
+        return $this->query($query, $params);
+    }
+
+    public function getPaymentsByParentRegNo($parentRegNo) {
+        // Query to get payments for all students associated with the parent
+        $query = "SELECT p.*
+                  FROM facility_charges p
+                  WHERE p.student_id IN (
+                      SELECT s.student_id
+                      FROM students s
+                      JOIN parent_students ps ON s.regNo = ps.studentRegNo
+                      WHERE ps.parentRegNo = :parentRegNo
+                  )";
+    
+        return $this->query($query, ['parentRegNo' => $parentRegNo]);
+    }
+    
 }
 
 
