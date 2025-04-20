@@ -27,5 +27,14 @@ class ViewMarksModel {
         $params = ['student_id' => $studentId];
         return $this->query($query, $params);
     }
+
+    public function getStudentsMarksByParentRegNo($parentRegNo) {
+        $query = "SELECT s.student_id
+                  FROM students s
+                  JOIN parent_students ps ON s.regNo = ps.studentRegNo
+                  WHERE ps.parentRegNo = :parentRegNo";
+    
+        return $this->query($query, ['parentRegNo' => $parentRegNo]);
+    }
     
 }
