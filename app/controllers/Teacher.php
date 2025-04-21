@@ -202,10 +202,15 @@ class Teacher extends Controller {
     
     public function viewActivities() {
         $activityModel = new Current_activityModel();
-        $activities = $activityModel->findAll();
+    
+        // Just call query(), no need for fetchAll()
+        $activities = $activityModel->query("SELECT * FROM current_activity ORDER BY date");
     
         $this->view('inc/teacher/view_activities', ['activities' => $activities]);
     }
+    
+    
+
     
     public function editActivity($id) {
         $activityModel = new Current_activityModel();
