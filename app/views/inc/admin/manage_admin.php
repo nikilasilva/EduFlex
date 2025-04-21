@@ -17,13 +17,13 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>Insert Parent Details</h1>
+        <h1>Insert Admin Details</h1>
 
         <!-- Parent details form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitParent" method="POST">
+        <form action="<?php echo URLROOT; ?>/Admin/submitadmin" method="POST">
 
             <div class="form-group">
-                <label for="regNo">User Reg (Parent):</label>
+                <label for="regNo">User Reg (Admin):</label>
                 <input type="number" name="regNo" id="regNo" required>
                 <small class="form-text">This should match an existing user in the Users table.</small>
             </div>
@@ -44,14 +44,11 @@
                 <input type="text" name="lastName" id="lastName" required>
             </div>
 
-            <div class="form-group">
-                <label for="Relationship">Relationship:</label>
-                <input type="text" name="Relationship" id="Relationship" required>
-            </div>
+    
 
-            <button type="submit" class="btn btn-primary">Submit Parent</button><br><br>
+            <button type="submit" class="btn btn-primary">Submit Admin</button><br><br>
 
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewParent'" class="btn btn-primary">View All Parents</button><br><br>
+            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewAdmin'" class="btn btn-primary">View All Admin</button><br><br>
 
             <a href="<?php echo URLROOT; ?>/Admin/dashboard" class="btn btn-secondary">Cancel</a>
 
@@ -65,7 +62,7 @@
                 <table class="activities-table">
                     <thead>
                         <tr>
-                            <th>User ID</th>
+                            <th>User Reg</th>
                             
                             <th>Username</th>
                             <th>Email</th>

@@ -22,8 +22,8 @@
 
             <!-- User ID -->
             <div class="form-group">
-                <label for="userID">User ID:</label>
-                <input type="number" name="userID" id="userID" required>
+                <label for="regNo">User Reg:</label>
+                <input type="number" name="regNo" id="regNo" required>
             </div>
 
             <!-- First Name -->
@@ -40,8 +40,8 @@
 
             <!-- Class ID -->
             <div class="form-group">
-                <label for="classId">Class ID:</label>
-                <input type="number" name="classId" id="classId" required>
+                <label for="classId">Class name:</label>
+                <input type="text" name="classId" id="classId" required>
             </div>
 
             <!-- Guardian (Parent) User ID (Optional) -->
@@ -54,7 +54,47 @@
             <button type="submit" class="btn btn-primary">Submit Student</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewStudent'" class="btn btn-primary">View All Records</button><br><br>
             <a href="<?php echo URLROOT; ?>/admin/dashboard" class="btn btn-secondary">Cancel</a>
+
+
+
+                <!-- ################To get users ID ################ -->
+
+        
+            <h1>Show User Accounts</h1>
+
+<!-- User Accounts Table -->
+<table class="activities-table">
+    <thead>
+        <tr>
+            <th>User Reg</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($data['users'] as $user): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($user->regNo); ?></td>
+              
+                <td><?php echo htmlspecialchars($user->username); ?></td>
+                <td><?php echo htmlspecialchars($user->email); ?></td>
+
+                <td><?php echo htmlspecialchars($user->role); ?></td>
+
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+
+
+
+ <!-- ################To get users ID ################ -->
         </form>
+
+
     </div>
 </div>
 </body>

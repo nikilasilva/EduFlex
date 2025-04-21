@@ -20,14 +20,26 @@
 
                 <!-- User ID (read-only for safety) -->
                 <div class="form-group">
-                    <label for="userID">User ID:</label>
-                    <input type="number" name="userID" id="userID" value="<?php echo $data['nonaca']->userID; ?>" readonly>
+                    <label for="regNo">User ID:</label>
+                    <input type="number" name="regNo" id="regNo" value="<?php echo $data['nonaca']->regNo; ?>" readonly>
                 </div>
 
                 <!-- Position -->
                 <div class="form-group">
                     <label for="position">Position:</label>
                     <input type="text" name="position" id="position" value="<?php echo $data['nonaca']->position; ?>" required>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" name="firstName" id="firstName" value="<?php echo $data['nonaca']->firstName; ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName" value="<?php echo $data['nonaca']->lastName; ?>" required>
                 </div>
 
                 <!-- Department -->

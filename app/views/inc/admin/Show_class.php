@@ -24,7 +24,7 @@ teacher
             <table class="activities-table">
                 <thead>
                     <tr>
-                        <th>classId</th>
+                    
                         <th>className</th>
                         <th>classTeacherId</th>
                         <th>action</th>
@@ -34,7 +34,6 @@ teacher
                     <?php foreach ($data['classes'] as $classe): ?>
                         <tr>
                             <td><?php echo $classe->classId; ?></td>
-                            <td><?php echo $classe->className; ?></td>
                             <td><?php echo $classe->classTeacherId; ?></td>
 
                             <td>

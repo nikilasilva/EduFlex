@@ -7,7 +7,7 @@ class manage_classModel
     protected $table = 'classes';
 
     protected $allowedColumns = [
-        'className',
+        'classId',
         'classTeacherId'
 
     ];

@@ -26,7 +26,10 @@ teacher
                     <tr>
                         <th>Teacher ID</th>
                         <th>User ID</th>
-                        <th>Specialization</th>
+                        <th>Full Name</th>
+                        <th>Subject</th>
+                        <th>Year of Experience</th>
+                        <th>Hire Date</th>
                         <th>action</th>
                         
 
@@ -36,8 +39,11 @@ teacher
                     <?php foreach ($data['teachers'] as $teacher): ?>
                         <tr>
                             <td><?php echo $teacher->teacherId; ?></td>
-                            <td><?php echo $teacher->userID; ?></td>
-                            <td><?php echo $teacher->specialization; ?></td>
+                            <td><?php echo $teacher->regNo; ?></td>
+                            <td><?php echo $teacher->firstName . ' ' . $teacher->lastName; ?></td>
+                            <td><?php echo $teacher->subject; ?></td>
+                            <td><?php echo $teacher->experience; ?></td>
+                            <td><?php echo $teacher->hireDate; ?></td>
 
                             <td>
                                 <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacherId; ?>" class="btn btn-edit">Edit</a><br></br>

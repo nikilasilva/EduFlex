@@ -20,8 +20,8 @@
             <form action="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $data['student']->studentId; ?>" method="POST">
                 
                 <div class="form-group">
-                    <label for="userID">User ID :</label>
-                    <input type="text" name="userID" id="userID" required value="<?php echo htmlspecialchars($data['student']->userID); ?>">
+                    <label for="regNo">User ID :</label>
+                    <input type="text" name="regNo" id="regNo" required value="<?php echo htmlspecialchars($data['student']->regNo); ?>">
                 </div>
 
                 <div class="form-group">
@@ -35,14 +35,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="classId">Class ID :</label>
+                    <label for="classId">Class Name :</label>
                     <input type="text" name="classId" id="classId" required value="<?php echo htmlspecialchars($data['student']->classId); ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="guardianUserID">Guardian User ID :</label>
-                    <input type="text" name="guardianUserID" id="guardianUserID" value="<?php echo htmlspecialchars($data['student']->guardianUserID); ?>">
-                </div>
+             
 
                 <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
                 <a href="<?php echo URLROOT; ?>/Admin/viewStudent" class="btn btn-secondary">Cancel</a>

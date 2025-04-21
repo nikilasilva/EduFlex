@@ -8,11 +8,11 @@ class manage_studentModel
 
     protected $allowedColumns = [
         'studentId',
-        'userID',
+        'regNo',
         'firstName',
         'lastName',
-        'classId',
-        'guardianUserID'
+        'classId'
+    
 
     ];
 

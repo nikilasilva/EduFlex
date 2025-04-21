@@ -1,17 +1,16 @@
 <?php
 
-class manage_parentModel
+class manage_adminModel
 {
 
     use Model;
 
-    protected $table = 'parents';
+    protected $table = 'admins';
     protected $allowedColumns = [
         'regNo',
         'NIC',
         'firstName',
-        'lastName',
-        'Relationship'
+        'lastName'
         
     ];
 

@@ -7,12 +7,10 @@ class manage_useraccountModel
 
     protected $table = 'users';
     protected $allowedColumns = [
-        'userID',
+        'regNo',
         'email',
         'mobileNo',
         'address',
-        'firstName',
-        'lastName',
         'username',
         'password',
         'dob',
@@ -23,7 +21,7 @@ class manage_useraccountModel
         
     ];
 
-     protected $order_column = 'userID'; // Defined here
+     protected $order_column = 'regNo'; // Defined here
 
      
 

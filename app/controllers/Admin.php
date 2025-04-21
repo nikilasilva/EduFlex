@@ -16,8 +16,7 @@ class Admin extends Controller
 public function submitUser() {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $userData = [
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
+          
             'username' => trim($_POST['username']),
             'email' => trim($_POST['email']),
             'mobileNo' => trim($_POST['mobileNo']),
@@ -32,31 +31,36 @@ public function submitUser() {
         $userModel = new manage_useraccountModel();
         
         // Insert and get last inserted ID
-        $regNo = $userModel->insert($userData); // Make sure insert() returns lastInsertId()
+        $reg_No = $userModel->insert($userData); // Make sure insert() returns lastInsertId()
 
         // Redirect based on role
         switch ($_POST['role']) {
             case 'parent':
-                header("Location: " . URLROOT . "/admin/manage_parent?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_parent?regNo=" . $reg_No);
                 break;
             case 'student':
-                header("Location: " . URLROOT . "/admin/manage_student?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_student?regNo=" . $reg_No);
                 break;
             case 'teacher':
-                header("Location: " . URLROOT . "/admin/manage_teacher?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_teacher?regNo=" . $reg_No);
                 break;
             case 'principal':
-                header("Location: " . URLROOT . "/admin/manage_principal?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_principal?regNo=" . $reg_No);
                 break;
             case 'vice-principal':
-                header("Location: " . URLROOT . "/admin/manage_vice_principal?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_vice_principal?regNo=" . $reg_No);
                 break;
             case 'non-academic':
-                header("Location: " . URLROOT . "/admin/manage_nonaca?userID=" . $regNo);
+                header("Location: " . URLROOT . "/admin/manage_nonaca?regNo=" . $reg_No);
                 break;
+            
+            case 'admin':
+                header("Location: " . URLROOT . "/admin/manage_admin?regNo=" . $reg_No);
+                break;
+        
             default:
                 // If no special role, go to user list
-                header("Location: " . URLROOT . "/admin/viewUserAccounts");
+                header("Location: " . URLROOT . "/admin/viewUser");
                 break;
         }
 
@@ -76,13 +80,11 @@ public function viewUser() {
 }
 
 // Edit User Details
-public function editUser($userID) {
+public function editUser($regNo) {
     $userModel = new manage_useraccountModel();
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $data = [
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
             'username' => trim($_POST['username']),
             'email' => trim($_POST['email']),
             'mobileNo' => trim($_POST['mobileNo']),
@@ -94,16 +96,16 @@ public function editUser($userID) {
             'role' => $_POST['role']
         ];
 
-        $userModel->update($userID, $data, 'userID');
+        $userModel->update($regNo, $data, 'regNo');
 
         // Redirect to view users page
         header("Location: " . URLROOT . "/admin/viewUser");
         exit();
     } else {
-        $user = $userModel->first(['userID' => $userID]);
+        $users = $userModel->first(['regNo' => $regNo]);
 
-        if ($user) {
-            $this->view('inc/admin/edit_user_by_admin', ['user' => $user]);
+        if ($users) {
+            $this->view('inc/admin/edit_user_by_admin', ['users' => $users]);
         } else {
             die('User not found.');
         }
@@ -111,27 +113,76 @@ public function editUser($userID) {
 }
 
 //Delete User Details
-public function deleteUser($userID) {
+public function deleteUser($regNo) {
     $userModel = new manage_useraccountModel();
-    $userModel->delete($userID, 'userID');
+    $userModel->delete($regNo, 'regNo');
 
     // Redirect to view users page
     header("Location: " . URLROOT . "/admin/viewUser");
     exit();
 }
 
+/*Manage Addmin */
+
+// public function manage_admin(){
+
+//     $userModel = new manage_useraccountModel();
+//     $users = $userModel->findAll();
+
+//     $this->view('inc/admin/manage_admin',['users' => $users]);
+// }
+
+
+// //for submit admin details
+// public function submitAdmin(){
+//     if($_SERVER['REQUEST_METHOD'] == "POST"){
+//         $adminData = [
+//             'NIC' => trim($_POST['NIC']),
+//             'regNo' => trim($_POST['regNo']),
+//             'firstName' => trim($_POST['firstName']),
+//             'lastName' => trim($_POST['lastName'])
+//         ];
+//         $admin = new manage_adminModel();
+//         $admin ->insert($adminData);
+//         // Here, save the parents to the database.
+
+//         // Display a success message or redirect to a success page
+//         header("Location: " . URLROOT . "/Admin/viewAdmin");
+//         exit();
+//     } else{
+//          // If not a POST request, reload the manage parent page
+//          $this->view('Manage_admin');
+//     }
+// }
+// //view Admin details
+// public function viewAdmin(){
+//     $adminModel = new manage_adminModel();
+//     $admins = $adminModel->findAll();
+
+//     $this->view('inc/Admin/Show_admin', ['admins' => $admins]);
+// }
+
+
+
+
     /* For Parent */
     // Manage parents
     public function Manage_parent(){
-        $this->view('inc/admin/manage_parent');
+
+        $userModel = new manage_useraccountModel();
+        $users = $userModel->findAll();
+
+        $this->view('inc/admin/manage_parent',['users' => $users]);
     }
 //for submit parents details
     public function submitParent(){
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             $parentData = [
-                'parentId' => trim($_POST['parentId']),
-                'userID' => trim($_POST['userID']),
-                'occupation' => trim($_POST['occupation'])
+                'NIC' => trim($_POST['NIC']),
+                'regNo' => trim($_POST['regNo']),
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
+                'Relationship' => trim($_POST['Relationship'])
             ];
             $parent = new manage_parentModel();
             $parent ->insert($parentData);
@@ -154,22 +205,27 @@ public function deleteUser($userID) {
     }
 
 // edit Parent details 
-public function editParent($parentId){
+public function editParent($regNo){
     $parentModel = new manage_parentModel();
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         $data = [
-            'occupation' => trim($_POST['occupation']),
+            'NIC' => trim($_POST['NIC']),
+            'regNo' => trim($_POST['regNo']),
+            'firstName' => trim($_POST['firstName']),
+            'lastName' => trim($_POST['lastName']),
+            'Relationship' => trim($_POST['Relationship'])
+        
         ];
 
         //$teacherModel->update($teacher_id, $data, 'email');
-        $parentModel->update($parentId, $data, 'parentId');
+        $parentModel->update($regNo, $data, 'regNo');
          // Redirect to the view parent page
          header("Location: " . URLROOT . "/admin/viewParent");
          exit();
     } else {
         // Get the parent details
-        $parents = $parentModel->first(['parentId' => $parentId]);
+        $parents = $parentModel->first(['regNo' => $regNo]);
 
         if ($parents) {
             $this->view('inc/admin/edit_parent_by_admin', ['parents' => $parents]);
@@ -181,12 +237,12 @@ public function editParent($parentId){
 }
 
 //Delete Parent recode
-public function deleteParent($parentId)
+public function deleteParent($regNo)
 {
     $parentModel = new manage_parentModel();
 
     // Delete the teacher
-    $parentModel->delete($parentId, 'parentId');
+    $parentModel->delete($regNo, 'regNo');
 
     // Redirect to the view teachers page
     header("Location: " . URLROOT . "/admin/viewParent");
@@ -196,7 +252,12 @@ public function deleteParent($parentId)
 
 /* *Manage students* */
     public function manage_student(){
-        $this->view('inc/admin/manage_student');
+
+        $userModel = new manage_useraccountModel();
+        $users = $userModel->findAll();
+
+        $this->view('inc/admin/manage_student',['users' => $users]);
+        
     }
 //For submit Student details
    
@@ -206,11 +267,10 @@ public function submitStudent()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $studentData = [
-            'userID' => $_POST['userID'],
+            'regNo' => $_POST['regNo'],
             'firstName' => trim($_POST['firstName']),
             'lastName' => trim($_POST['lastName']),
-            'classId' => $_POST['classId'],
-            'guardianUserID' => $_POST['guardianUserID']
+            'classId' => $_POST['classId']
         ];
 
         $studentModel = new manage_studentModel();
@@ -239,11 +299,11 @@ public function editStudent($studentId)
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
-            'userID' => $_POST['userID'],
+            'regNo' => $_POST['regNo'],
             'firstName' => trim($_POST['firstName']),
             'lastName' => trim($_POST['lastName']),
             'classId' => $_POST['classId'],
-            'guardianUserID' => $_POST['guardianUserID']
+            'guardianregNo' => $_POST['guardianregNo']
             
         ];
 
@@ -275,8 +335,12 @@ public function deleteStudent($studentId)
     
 // Manage Teacher details
     public function Manage_teacher(){
+
+        $userModel = new manage_useraccountModel();
+        $users = $userModel->findAll();
+
+        $this->view('inc/admin/manage_teacher',['users' => $users]);
         
-        $this->view('inc/admin/manage_teacher');
     }
 //for submit teacher details form
     public function submitTeacher()
@@ -284,8 +348,12 @@ public function deleteStudent($studentId)
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $teacherData = [
                 'teacherId' => trim($_POST['teacherId']),
-                'userID' => trim($_POST['userID']),
-                'specialization' => trim($_POST['specialization'])
+                'regNo' => trim($_POST['regNo']),
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
+                'subject' => trim($_POST['subject']),
+                'experience' => trim($_POST['experience']),
+                'hireDate' => trim($_POST['hireDate'])
 
             ];
 
@@ -319,7 +387,12 @@ public function deleteStudent($studentId)
         // If the request is POST, update the teacher
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'specialization' => trim($_POST['specialization']),
+
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
+                'subject' => trim($_POST['subject']),
+                'experience' => trim($_POST['experience']),
+                'hireDate' => trim($_POST['hireDate'])
             ];
 
             $teacherModel->update($teacherId, $data, 'teacherId');
@@ -374,7 +447,9 @@ public function deleteStudent($studentId)
             $principalData = [
                
                 'principalId' => trim($_POST['principalId']),
-                'userID' => trim($_POST['userID']),
+                'regNo' => trim($_POST['regNo']),
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
                 'experience' => trim($_POST['experience']),
                 'hireDate' => trim($_POST['hireDate'])
 
@@ -415,6 +490,8 @@ public function deleteStudent($studentId)
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
             
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
                 'experience' => trim($_POST['experience']),
                 'hireDate' => trim($_POST['hireDate'])
                 
@@ -452,7 +529,11 @@ public function deleteStudent($studentId)
 /*For Vice Principle */
 //Manage Vice Principal
 public function manage_vice_principal(){
-    $this->view('inc/admin/manage_vice_principal');
+
+    $userModel = new manage_useraccountModel();
+    $users = $userModel->findAll();
+
+    $this->view('inc/admin/manage_vice_principal',['users' => $users]);
 }
 
 // Submit Vice Principal
@@ -460,8 +541,10 @@ public function submitVicePrincipal()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $vicePrincipalData = [
-            'userID' => trim($_POST['userID']),
+            'regNo' => trim($_POST['regNo']),
             'experience' => trim($_POST['experience']),
+            'firstName' => trim($_POST['firstName']),
+            'lastName' => trim($_POST['lastName']),
             'hireDate' => trim($_POST['hireDate'])
         ];
 
@@ -493,6 +576,9 @@ public function editVicePrincipal($vicePrincipalId)
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
+
+            'firstName' => trim($_POST['firstName']),
+            'lastName' => trim($_POST['lastName']),
             'experience' => trim($_POST['experience']),
             'hireDate' => trim($_POST['hireDate'])
         ];
@@ -525,7 +611,11 @@ public function deleteVicePrincipal($vicePrincipalId)
     /* For Non-academic */
     // Manage non-academic staff
     public function manage_nonaca(){
-        $this->view('inc/admin/manage_nonaca');
+
+        $userModel = new manage_useraccountModel();
+        $users = $userModel->findAll();
+    
+        $this->view('inc/admin/manage_nonaca',['users' => $users]);
     }
 
     //for submit NonAcademic details form
@@ -533,7 +623,9 @@ public function deleteVicePrincipal($vicePrincipalId)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nonacaData = [
-                'userID' => trim($_POST['userID']),
+                'regNo' => trim($_POST['regNo']),
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
                 'position' => trim($_POST['position']),
                 'department' => trim($_POST['department']),
                 'hireDate' => trim($_POST['hireDate'])
@@ -569,7 +661,9 @@ public function deleteVicePrincipal($vicePrincipalId)
         // If the request is POST, update the teacher
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'userID' => trim($_POST['userID']),
+                'regNo' => trim($_POST['regNo']),
+                'firstName' => trim($_POST['firstName']),
+                'lastName' => trim($_POST['lastName']),
                 'position' => trim($_POST['position']),
                 'department' => trim($_POST['department']),
                 'hireDate' => trim($_POST['hireDate'])
@@ -609,7 +703,11 @@ public function deleteVicePrincipal($vicePrincipalId)
     /* For Classroom */
     // Manage classroom
     public function manage_class(){
-        $this->view('inc/admin/manage_class');
+
+        $teacherModel = new manage_teacherModel();
+        $teachers = $teacherModel->findAll();
+
+        $this->view('inc/admin/manage_class', ['teachers' => $teachers]);
     }
 
     /* Insert classroom details */
@@ -618,7 +716,7 @@ public function deleteVicePrincipal($vicePrincipalId)
         {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $classData = [
-                    'className' => trim($_POST['className']),
+                    'classId' => trim($_POST['classId']),
                     'classTeacherId' => trim($_POST['classTeacherId']) // Match DB column name
                 ];
         
@@ -648,7 +746,7 @@ public function deleteVicePrincipal($vicePrincipalId)
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $data = [
-                    'className' => trim($_POST['className']),
+                    'classId' => trim($_POST['classId']),
                     'classTeacherId' => trim($_POST['classTeacherId'])
                 ];
         
@@ -678,30 +776,5 @@ public function deleteVicePrincipal($vicePrincipalId)
 
 
 
-
-
-
-        /* For MIS */
-    // Manage MIS
-    public function manage_MIS(){
-        $this->view('inc/admin/manage_MIS_by_admin');
-    }
-    // Insert MIS details
-    public function insert_MIS(){
-        $this->view('inc/admin/add_MIS_by_admin');
-    }
-        
-
-
-
-    /* For Timetable */
-    // Manage timetable
-    public function manage_class_timetable(){
-        $this->view('inc/admin/manage_timetable_by_admin');
-    }
-    // Insert class timetable
-    public function insert_aca_time_table(){
-        $this->view('inc/admin/add_aca_ttable_by_admin');
-    }
     
 }

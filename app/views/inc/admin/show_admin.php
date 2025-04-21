@@ -19,7 +19,7 @@
 
         <!-- Main content -->
         <div class="container">
-            <h1>Show Parent Details</h1>
+            <h1>Show Admin Details</h1>
 
             <!-- Parent details table -->
             <table class="activities-table">
@@ -29,7 +29,7 @@
                         <th>Reg No</th>
                         <th>Parent NIC</th>
                         <th>Full Name</th>
-                        <th>Relationship</th>
+                
                         <th>Actions</th>
                     </tr>
                 </thead>

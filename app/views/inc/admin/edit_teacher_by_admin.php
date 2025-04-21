@@ -33,9 +33,35 @@
 
 
 
-                <div class="form-group">
+            <div class="form-group">
                 <label for="teacherId">Teacher ID :</label>
-                <textarea name="teacherId" id="teacherId" rows="1" required><?php echo htmlspecialchars($data['teacher']->teacherId); ?></textarea>
+                <input type="number" name="teacherId" id="teacherId" value="<?php echo $data['teacher']->teacherId; ?>" required>
+            </div>
+
+ <!-- First Name -->
+        <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['teacher']->firstName); ?>" required>
+                </div>
+<!-- Last Name -->
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['teacher']->lastName); ?>" required>
+                </div>
+
+            <div class="form-group">
+                    <label for="subject">subject:</label>
+                    <input type="text" name="subject" id="subject" value="<?php echo $data['teacher']->subject; ?>" required>
+            </div>
+
+            <div class="form-group">
+                    <label for="experience">Year of Experience:</label>
+                    <input type="number" name="experience" id="experience" value="<?php echo $data['teacher']->experience; ?>" required>
+            </div>
+
+            <div class="form-group">
+                    <label for="hireDate">Hire Date:</label>
+                    <input type="date" name="hireDate" id="hireDate" value="<?php echo $data['teacher']->hireDate; ?>" required>
             </div>
 
             

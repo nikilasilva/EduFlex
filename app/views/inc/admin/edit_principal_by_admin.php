@@ -30,10 +30,20 @@
 
               <!-- User ID -->
               <div class="form-group">
-                <label for="userID">Principal ID:</label>
-                <input type="number" name="userID" id="userID" value="<?php echo htmlspecialchars($data['principal']->principalId) ; ?>" required>
-                <span class="error"><?php echo isset($errors['userID']) ? $errors['userID'] : ''; ?></span>
+                <label for="regNo">Principal ID:</label>
+                <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['principal']->principalId) ; ?>" required>
+                <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
             </div>
+<!-- First Name -->
+            <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['principal']->firstName); ?>" required>
+                </div>
+<!-- Last Name -->
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['principal']->lastName); ?>" required>
+                </div>
 
             <!-- Experience -->
             <div class="form-group">

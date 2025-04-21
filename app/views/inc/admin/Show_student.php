@@ -24,9 +24,9 @@
             <thead>
                 <tr>
                     <th>Student ID</th>
-                    <th>User ID</th>
+                    <th>User Reg</th>
                     <th>Full Name</th>
-                    <th>Class ID</th>
+                    <th>Class Name</th>
                     <th>Guardian User ID</th>
                     <th>Actions</th>
                 </tr>
@@ -35,10 +35,10 @@
                 <?php foreach ($data['students'] as $student): ?>
                     <tr>
                         <td><?php echo $student->studentId; ?></td>
-                        <td><?php echo $student->userID; ?></td>
+                        <td><?php echo $student->regNo; ?></td>
                         <td><?php echo $student->firstName . ' ' . $student->lastName; ?></td>
                         <td><?php echo $student->classId; ?></td>
-                        <td><?php echo $student->guardianUserID ?? 'N/A'; ?></td>
+                        <td><?php echo $student->guardianregNo ?? 'N/A'; ?></td>
                         <td>
                             <a href="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $student->studentId; ?>" class="btn btn-edit">Edit</a><br><br>
                             <a href="<?php echo URLROOT; ?>/Admin/deleteStudent/<?php echo $student->studentId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>

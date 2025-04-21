@@ -26,6 +26,7 @@ teacher
                     <tr>
                         <th>Principal ID</th>
                         <th>Year Of experience</th>
+                        <th>Full Name</th>
                         <th>Hired Date</th>
         
                         <th>Operation</th>
@@ -38,6 +39,7 @@ teacher
                         <tr>
                             <td><?php echo $principal->principalId; ?></td>
                             <td><?php echo $principal->experience; ?></td>
+                            <td><?php echo $principal->firstName . ' ' . $principal->lastName; ?></td>
                             <td><?php echo $principal->hireDate; ?></td>
 
 

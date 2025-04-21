@@ -8,7 +8,9 @@ class manage_nonacaModel
     protected $table = 'nonacademicstaff';
     protected $allowedColumns = [
         'staffId',
-        'userID',
+        'regNo',
+        'firstName',
+        'lastName',
         'position',
         'department',
         'hireDate'

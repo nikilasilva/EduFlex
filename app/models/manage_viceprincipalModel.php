@@ -8,7 +8,9 @@ class manage_viceprincipalModel
     protected $table = 'viceprincipals';
     protected $allowedColumns = [
         'vicePrincipalId',
-        'userID',
+        'regNo',
+        'firstName',
+        'lastName',
         'experience',
         'hireDate'
     

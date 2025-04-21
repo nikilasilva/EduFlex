@@ -1,28 +1,4 @@
-<!-- <nav>
-    <ul>
-        <li><a href="#students">Students</a></li>
-        <li><a href="#teachers">Teachers</a></li>
-        <li><a href="#principal">Principal</a></li>
-        <li><a href="#vicePrincipal">Vice Principal</a></li>
-        <li><a href="#nonAcademic">Non-Academic</a></li>
-        <li><a href="#addTimetable">Add Timetable</a></li>
-        <li><a href="#addClass">Add Class</a></li>
-    </ul>
-</nav> -->
 
-
-<!--<nav>
-    <ul>
-        <li><a href="#students">Students</a></li>
-        <li><a href="#teachers">Teachers</a></li>
-        <li><a href="#principal">Principal</a></li>
-        <li><a href="#vicePrincipal">Vice Principal</a></li>
-        <li><a href="#nonAcademic">Non-Academic</a></li>
-        <li><a href="#addTimetable">Add Timetable</a></li>
-        <li><a href="#addClass">Add Class</a></li>
-    </ul>
-</nav>
---> 
 <div class="menu-bar">
     <div class="menu">
         <ul class="menu-links">
@@ -41,17 +17,15 @@
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add-Class</span></a></li>
 
-
-
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/ manage_MIS"><i class="fa-solid fa-id-card icon"></i><span class="text nav-text">MIS-Report</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li>
 
 
 
-            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class_timetable"><i class="fa-regular fa-calendar-days icon"></i><span class="text nav-text">Manage-Class-Time-Table</span></a></li> -->
+            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/ manage_MIS"><i class="fa-solid fa-id-card icon"></i><span class="text nav-text">MIS-Report</span></a></li> -->
 
-            
 
-            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/insert_aca_time_table"><i class="fa-regular fa-calendar-days icon"></i><span class="text nav-text">Manage Other Activity</span></a></li> -->
+
+
             
         </ul>
     </div>

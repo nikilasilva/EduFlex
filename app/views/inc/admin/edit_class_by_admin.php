@@ -26,8 +26,8 @@
 
                 <!-- Class Name -->
                 <div class="form-group">
-                    <label for="className">Class Name:</label>
-                    <input type="text" name="className" id="className" value="<?php echo $data['class']->className; ?>" required>
+                    <label for="classId">Class Name:</label>
+                    <input type="text" name="classId" id="classId" value="<?php echo $data['class']->classId; ?>" required>
                 </div>
 
                 <!-- Class Teacher ID -->

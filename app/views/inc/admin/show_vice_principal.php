@@ -25,6 +25,7 @@ teacher
                 <thead>
                     <tr>
                         <th>Vice Principal ID</th>
+                        <th>Full Name</th>
                         <th>Year Of experience</th>
                         <th>Hired Date</th>
         
@@ -37,6 +38,7 @@ teacher
                     <?php foreach ($data['vicePrincipals'] as $vicePrincipal): ?>
                         <tr>
                             <td><?php echo $vicePrincipal->vicePrincipalId; ?></td>
+                            <td><?php echo $vicePrincipal->firstName . ' ' . $vicePrincipal->lastName; ?></td>
                             <td><?php echo $vicePrincipal->experience; ?></td>
                             <td><?php echo $vicePrincipal->hireDate; ?></td>
 

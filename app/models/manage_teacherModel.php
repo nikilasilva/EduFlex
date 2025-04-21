@@ -8,8 +8,12 @@ class manage_teacherModel
     protected $table = 'teachers';
     protected $allowedColumns = [
         'teacherId',
-        'userID',
-        'specialization'
+        'regNo',
+        'firstName',
+        'lastName',
+        'subject',
+        'experience',
+        'hireDate'
 
     ];
 

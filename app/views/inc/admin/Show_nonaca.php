@@ -26,7 +26,8 @@
                 <thead>
                     <tr>
                         <th>Staff ID</th>
-                        <th>User ID</th>
+                        <th>User Reg</th>
+                        <th>Full Name</th>
                         <th>Position</th>
                         <th>Department</th>
                         <th>Hire Date</th>
@@ -37,7 +38,8 @@
                     <?php foreach ($data['nonacas'] as $nonaca): ?>
                         <tr>
                             <td><?php echo $nonaca->staffId; ?></td>
-                            <td><?php echo $nonaca->userID; ?></td>
+                            <td><?php echo $nonaca->regNo; ?></td>
+                            <td><?php echo $nonaca->firstName . ' ' . $nonaca->lastName; ?></td>
                             <td><?php echo $nonaca->position; ?></td>
                             <td><?php echo $nonaca->department; ?></td>
                             <td><?php echo $nonaca->hireDate; ?></td>

@@ -8,7 +8,9 @@ class manage_principalModel
     protected $table = 'principals';
     protected $allowedColumns = [
         'principalId',
-        'userID',
+        'regNo',
+        'firstName',
+        'lastName',
         'experience',
         'hireDate'
     
