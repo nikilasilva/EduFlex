@@ -183,8 +183,10 @@ trait Model {
         return $result ? $result[0] : false;
     }
 
+
     // Fetch multiple rows matching conditions
     public function where($data, $data_not = []) {
+
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $query = "SELECT * FROM $this->table WHERE ";

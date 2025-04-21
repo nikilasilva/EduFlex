@@ -21,8 +21,9 @@ class Login extends Controller {
             $user = $this->userModel->findUserByEmail($email);
 
             if ($user && password_verify($password, $user->password)) {
+
                 $_SESSION['user'] = [
-                    'id' => $user->id,
+                    'regNo' => $user->regNo,
                     'email' => $user->email,
                     'username' => $user->username,
                     'role' => $user->role,
