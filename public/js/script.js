@@ -9,6 +9,19 @@ const toggle = document.querySelector(".toggle");
 document.addEventListener('DOMContentLoaded', function () {
     // Select elements
     const sidebar = document.querySelector('.sidebar');
+    const topNavbarContainer = document.querySelector(".topNav-container");
+    const dashBoardMainContent = document.querySelector(".main-content");
+    const footer = document.querySelector(".footer");
+    const table1 = document.querySelector(".table-1-container");
+    const feedbackContainer = document.querySelector(".feedback-set-container");
+    const selectClassContainer = document.querySelector(".select-class-container");
+    const submitMarksContainer = document.querySelector(".submit-marks-container");
+    const classReportContainer = document.querySelector(".class-report-container");
+    const termReportContainer = document.querySelector(".term-report-container");
+    const attendanceContainer = document.querySelector(".attendance-container");
+    // Toggle sidebar
+    if (sidebar) {
+        sidebar.classList.toggle('close');
     const toggleButton = document.querySelector('.toggle');
     const containers = [
         document.querySelector(".topNav-container"),
@@ -50,6 +63,44 @@ document.addEventListener('DOMContentLoaded', function () {
         const isNowClosed = sidebar.classList.toggle('close');
         localStorage.setItem('sidebarClosed', isNowClosed); // Save sidebar state
 
+    // Toggle footer visibility
+    if (footer) {
+        footer.classList.toggle("close");
+    }
+
+    // Toggle table width (if class exists)
+    if (table1) {
+        table1.classList.toggle('full-width');
+    }
+
+    // Toggle dashboard main content width
+    if (dashBoardMainContent) {
+        dashBoardMainContent.classList.toggle('full-width');
+    }
+
+    if (feedbackContainer) {
+        feedbackContainer.classList.toggle('full-width');
+    }
+
+    if (selectClassContainer) {
+        selectClassContainer.classList.toggle('full-width');
+    }
+
+    if (submitMarksContainer) {
+        submitMarksContainer.classList.toggle('full-width');
+    }
+
+    if (classReportContainer) {
+        classReportContainer.classList.toggle('full-width');
+    }
+
+    if (termReportContainer) {
+        termReportContainer.classList.toggle('full-width');
+    }
+
+    if (attendanceContainer) {
+        attendanceContainer.classList.toggle('full-width');
+    }
         // Toggle full-width class for containers
         containers.forEach(container => {
             if (container) {

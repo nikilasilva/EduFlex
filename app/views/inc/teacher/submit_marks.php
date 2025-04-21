@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
+<?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
 <div class="submit-marks-container">
     <h1 class="form-title">Submit Marks</h1>
@@ -8,6 +9,7 @@
 
     <form action="<?= URLROOT ?>/teacher/viewClassReport" method="POST">
         <input type="hidden" name="class" value="<?= $class ?? '' ?>">
+        
 
         <!-- Select Term -->
     <label for="term">Select Term:</label>
@@ -37,13 +39,16 @@
                 <?php if (!empty($students) && is_array($students)): ?>
                     <?php foreach ($students as $student): ?>
                         <tr>
-                            <td><?= htmlspecialchars($student->name) ?></td>
+                            <td><?= htmlspecialchars($student->firstName) ?></td>
                             <td><?= htmlspecialchars($student->student_id) ?></td>
                             <?php foreach ($subjects as $subject): ?>
                                 <td>
                                     <input type="number" 
                                            name="marks[<?= $student->student_id ?>][<?= $subject->id ?>]" 
-                                           required>
+                                           required
+                                           min="0"
+                                           max="100">
+
                                 </td>
                             <?php endforeach; ?>
                         </tr>

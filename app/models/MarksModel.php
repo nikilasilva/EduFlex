@@ -13,21 +13,21 @@ class MarksModel {
     
         if ($existing) {
             // Update the existing record
-            $this->query("UPDATE marks SET marks = :marks, class_id = :classid WHERE student_id = :sid AND subject_id = :subid AND term = :term", [
+            $this->query("UPDATE marks SET marks = :marks, classId = :classId WHERE student_id = :sid AND subject_id = :subid AND term = :term", [
                 ':sid' => $studentId,
                 ':subid' => $subjectId,
                 ':term' => $term,
                 ':marks' => $marks,
-                ':classid' => $classId
+                ':classId' => $classId
             ]);
         } else {
             // Insert a new record if no existing entry is found
-            $this->query("INSERT INTO marks (student_id, subject_id, term, marks, class_id) VALUES (:sid, :subid, :term, :marks, :classid)", [
+            $this->query("INSERT INTO marks (student_id, subject_id, term, marks, classId) VALUES (:sid, :subid, :term, :marks, :classId)", [
                 ':sid' => $studentId,
                 ':subid' => $subjectId,
                 ':term' => $term,
                 ':marks' => $marks,
-                ':classid' => $classId
+                ':classId' => $classId
             ]);
         }
     }
@@ -36,29 +36,29 @@ class MarksModel {
 
     public function getClassReport($classId, $term) {
         $query = "
-            SELECT s.student_id, s.name AS student_name, sub.name AS subject_name, m.marks
+            SELECT s.student_id, s.firstName AS student_name, sub.name AS subject_name, m.marks
             FROM marks m
             JOIN students s ON m.student_id = s.student_id
             JOIN subjects sub ON m.subject_id = sub.id
-            WHERE s.class_id = :class_id AND m.term = :term
+            WHERE s.classId = :classId AND m.term = :term
         ";
         return $this->query($query, [
-            ':class_id' => $classId,
+            ':classId' => $classId,
             ':term' => $term
         ]);
     }
 
     public function getStudentRanks($classId, $term) {
         $query = "
-            SELECT s.student_id, s.name AS student_name, AVG(m.marks) AS average_marks
+            SELECT s.student_id, s.firstName AS student_name, AVG(m.marks) AS average_marks
             FROM students s
             JOIN marks m ON s.student_id = m.student_id
-            WHERE s.class_id = :class_id AND m.term = :term
+            WHERE s.classId = :classId AND m.term = :term
             GROUP BY s.student_id
             ORDER BY average_marks DESC
         ";
         return $this->query($query, [
-            ':class_id' => $classId,
+            ':classId' => $classId,
             ':term' => $term
         ]);
     }
@@ -66,17 +66,18 @@ class MarksModel {
     public function getClassReportByTerm($classId, $term)
 {
     $sql = "
-        SELECT 
-            m.student_id,
-            s.name AS subject_name,
-            m.marks,
-            st.name AS student_name
-        FROM marks m
-        JOIN subjects s ON m.subject_id = s.id
-        JOIN students st ON m.student_id = st.student_id
-        WHERE m.class_id = :classId AND m.term = :term
-        ORDER BY m.student_id, s.name
-    ";
+    SELECT 
+        m.student_id,
+        s.name AS subject_name,
+        m.marks,
+        CONCAT(st.firstName, ' ', st.lastName) AS student_name
+    FROM marks m
+    JOIN subjects s ON m.subject_id = s.id
+    JOIN students st ON m.student_id = st.student_id
+    WHERE m.classId = :classId AND m.term = :term
+    ORDER BY m.student_id, s.name
+";
+
 
     return $this->query($sql, [
         'classId' => $classId,
@@ -89,14 +90,14 @@ class MarksModel {
     
     public function getStudentRanksByTerm($classId, $term) {
         $query = "
-            SELECT s.student_id, s.name AS student_name, AVG(m.marks) AS average_marks
+            SELECT s.student_id, s.firstName AS student_name, AVG(m.marks) AS average_marks
             FROM students s
             JOIN marks m ON s.student_id = m.student_id
-            WHERE s.class_id = :class_id AND m.term = :term
+            WHERE s.classId = :classId AND m.term = :term
             GROUP BY s.student_id
             ORDER BY average_marks DESC
         ";
-        return $this->query($query, [':class_id' => $classId, ':term' => $term]);
+        return $this->query($query, [':classId' => $classId, ':term' => $term]);
     }
 
     
@@ -124,21 +125,21 @@ class MarksModel {
     
         if ($existing) {
             // If the record exists, update it
-            $this->query("UPDATE marks SET marks = :marks, class_id = :classid WHERE student_id = :sid AND subject_id = :subid AND term = :term", [
+            $this->query("UPDATE marks SET marks = :marks, classId = :classId WHERE student_id = :sid AND subject_id = :subid AND term = :term", [
                 ':sid' => $studentId,
                 ':subid' => $subjectId,
                 ':term' => $term,
                 ':marks' => $marks,
-                ':classid' => $classId
+                ':classId' => $classId
             ]);
         } else {
             // If the record does not exist, insert a new one
-            $this->query("INSERT INTO marks (student_id, subject_id, term, marks, class_id) VALUES (:sid, :subid, :term, :marks, :classid)", [
+            $this->query("INSERT INTO marks (student_id, subject_id, term, marks, classId) VALUES (:sid, :subid, :term, :marks, :classId)", [
                 ':sid' => $studentId,
                 ':subid' => $subjectId,
                 ':term' => $term,
                 ':marks' => $marks,
-                ':classid' => $classId
+                ':classId' => $classId
             ]);
         }
     

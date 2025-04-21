@@ -46,6 +46,10 @@
 @import url('404Styles.css');
 @import url('403Styles.css');
 
+@import url('selectClass.css');
+@import url('submitMarks.css');
+@import url('classReport.css');
+@import url('termReport.css');
 
 :root {
     /* Colors */

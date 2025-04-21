@@ -22,9 +22,22 @@
     <div class="record-container">
         <h1>Record Activity</h1>
 
-        <?php if (!empty($data['error'])): ?>
+        <!-- ✅ Alert messages -->
+        <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger">
-                <?php echo $data['error']; ?>
+                <?php 
+                    echo $_SESSION['error']; 
+                    unset($_SESSION['error']); 
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success">
+                <?php 
+                    echo $_SESSION['success']; 
+                    unset($_SESSION['success']); 
+                ?>
             </div>
         <?php endif; ?>
 
@@ -37,7 +50,7 @@
 
             <div class="form-group">
                 <label for="period">Period:</label>
-                <select name="period" id="period" class="searchable" required>
+                <select name="period" id="period" required>
                     <option value="">Select Period</option>
                     <?php for ($i = 1; $i <= 8; $i++): ?>
                         <option value="<?php echo $i; ?>">Period <?php echo $i; ?></option>
@@ -62,7 +75,6 @@
                     <option value="Music">Music</option>
                     <option value="ICT">ICT</option>
                     <option value="Dancing">Dancing</option>
-                    
                 </select>
             </div>
 
@@ -70,13 +82,16 @@
                 <label for="class">Class:</label>
                 <select name="class" id="class" class="searchable" required>
                     <option value="">Search or Select a Class</option>
-                    <?php for ($grade = 6; $grade <= 11; $grade++): ?>
-                        <?php foreach (['A', 'B', 'C', 'D'] as $section): ?>
-                            <option value="<?php echo $grade . $section; ?>">
-                                <?php echo $grade . $section; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    <?php endfor; ?>
+                    <?php
+                        $grades = ['6', '7', '8', '9', '10', '11'];
+                        $sections = ['A', 'B', 'C', 'D'];
+                        foreach ($grades as $grade) {
+                            foreach ($sections as $sec) {
+                                $classVal = $grade . $sec;
+                                echo "<option value=\"$classVal\">$classVal</option>";
+                            }
+                        }
+                    ?>
                 </select>
             </div>
 
@@ -102,22 +117,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
-    // Initialize Select2 for searchable dropdown
+    // Initialize Select2 for searchable dropdowns
     $(document).ready(function() {
         $('.searchable').select2({
             placeholder: "Search or Select",
             allowClear: true
         });
-
-        // Restrict date to today or earlier
-        const dateInput = document.getElementById('date');
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('max', today);
     });
 </script>
 </body>
 </html>
-
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+
 
 

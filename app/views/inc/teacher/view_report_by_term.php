@@ -12,7 +12,7 @@
             <select name="class" required>
                 <option value="">--Select Class--</option>
                 <?php foreach ($classes as $class): ?>
-                    <option value="<?= $class->id ?>"><?= $class->name ?></option>
+                    <option value="<?= $class->classId ?>"><?= $class->className ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

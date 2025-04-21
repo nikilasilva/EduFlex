@@ -2,17 +2,17 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="container">
+<div class="select-class-container">
     <h1>Select Class</h1>
     <form action="<?php echo URLROOT; ?>/teacher/submitMarks" method="POST">
         <div class="form-group">
             <label for="class">Select Class:</label>
             <?php if (!empty($data['classes'])): ?>
-                <select name="class_id" id="class" class="form-control" required>
+                <select name="classId" id="class" class="form-control" required>
                     <option value="">-- Select Class --</option>
                     <?php foreach ($data['classes'] as $class): ?>
-                        <option value="<?php echo htmlspecialchars($class->id); ?>">
-                            <?php echo htmlspecialchars($class->name); ?>
+                        <option value="<?php echo htmlspecialchars($class->classId); ?>">
+                            <?php echo htmlspecialchars($class->className); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
