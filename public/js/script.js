@@ -9,7 +9,7 @@ const toggle = document.querySelector(".toggle");
 document.addEventListener('DOMContentLoaded', function () {
     // Select elements
     const sidebar = document.querySelector('.sidebar');
-    const topNavbarContainer = document.querySelector(".topNav-container");
+    const toggleButton = document.querySelector('.toggle');
     const dashBoardMainContent = document.querySelector(".main-content");
     const footer = document.querySelector(".footer");
     const table1 = document.querySelector(".table-1-container");
@@ -19,10 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const classReportContainer = document.querySelector(".class-report-container");
     const termReportContainer = document.querySelector(".term-report-container");
     const attendanceContainer = document.querySelector(".attendance-container");
-    // Toggle sidebar
-    if (sidebar) {
-        sidebar.classList.toggle('close');
-    const toggleButton = document.querySelector('.toggle');
+
     const containers = [
         document.querySelector(".topNav-container"),
         document.querySelector(".main-content"),
@@ -36,79 +33,54 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".background-container"),
         document.querySelector(".school-contact"),
         document.querySelector(".current-activities-container")
-
-
-
-
-
-        
     ];
 
     // Restore sidebar state from localStorage
     const isSidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
 
-    if (isSidebarClosed && sidebar) {
-        sidebar.classList.add('close'); // Keep sidebar closed
+    if (sidebar) {
+        if (isSidebarClosed) {
+            sidebar.classList.add('close'); // Keep sidebar closed
 
-        // Make containers full width
-        containers.forEach(container => {
-            if (container) {
-                container.classList.add('full-width');
-            }
-        });
+            // Make containers full width
+            containers.forEach(container => {
+                if (container) {
+                    container.classList.add('full-width');
+                }
+            });
+        }
+
+        // Add click event listener to toggle button
+        if (toggleButton) {
+            toggleButton.addEventListener('click', function () {
+                const isNowClosed = sidebar.classList.toggle('close');
+                localStorage.setItem('sidebarClosed', isNowClosed); // Save sidebar state
+
+                // Toggle footer visibility
+                if (footer) footer.classList.toggle("close");
+
+                // Toggle full-width classes
+                const toggleFullWidth = (el) => { if (el) el.classList.toggle('full-width'); };
+
+                toggleFullWidth(dashBoardMainContent);
+                toggleFullWidth(table1);
+                toggleFullWidth(feedbackContainer);
+                toggleFullWidth(selectClassContainer);
+                toggleFullWidth(submitMarksContainer);
+                toggleFullWidth(classReportContainer);
+                toggleFullWidth(termReportContainer);
+                toggleFullWidth(attendanceContainer);
+
+                containers.forEach(container => {
+                    if (container) {
+                        container.classList.toggle('full-width');
+                    }
+                });
+            });
+        }
     }
-
-    // Add click event listener to toggle button
-    toggleButton.addEventListener('click', function () {
-        const isNowClosed = sidebar.classList.toggle('close');
-        localStorage.setItem('sidebarClosed', isNowClosed); // Save sidebar state
-
-    // Toggle footer visibility
-    if (footer) {
-        footer.classList.toggle("close");
-    }
-
-    // Toggle table width (if class exists)
-    if (table1) {
-        table1.classList.toggle('full-width');
-    }
-
-    // Toggle dashboard main content width
-    if (dashBoardMainContent) {
-        dashBoardMainContent.classList.toggle('full-width');
-    }
-
-    if (feedbackContainer) {
-        feedbackContainer.classList.toggle('full-width');
-    }
-
-    if (selectClassContainer) {
-        selectClassContainer.classList.toggle('full-width');
-    }
-
-    if (submitMarksContainer) {
-        submitMarksContainer.classList.toggle('full-width');
-    }
-
-    if (classReportContainer) {
-        classReportContainer.classList.toggle('full-width');
-    }
-
-    if (termReportContainer) {
-        termReportContainer.classList.toggle('full-width');
-    }
-
-    if (attendanceContainer) {
-        attendanceContainer.classList.toggle('full-width');
-    }
-        // Toggle full-width class for containers
-        containers.forEach(container => {
-            if (container) {
-                container.classList.toggle('full-width');
-            }
-        });
-    });
 });
+
 
 
 
