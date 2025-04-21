@@ -137,9 +137,8 @@
 trait Model {
 
     use Database;
-
-    protected $limit = 10;
-    protected $offset = 0;
+    protected $limit = 20;
+    protected $offset = '0';
     protected $order_type = "desc";
     protected $order_column = "id"; // Default order column
     public $errors = [];
@@ -259,9 +258,29 @@ trait Model {
     //     return $this->query($query);
     // }
 
-    public function findAll()
-{
-    $orderColumn = property_exists($this, 'custom_order_column') ? $this->custom_order_column : 'id';
-    return $this->query("SELECT * FROM $this->table ORDER BY $orderColumn DESC");
-}
+//     public function findAll()
+// {
+//     $orderColumn = property_exists($this, 'custom_order_column') ? $this->custom_order_column : 'id';
+//     return $this->query("SELECT * FROM $this->table ORDER BY $orderColumn DESC");
+// }
+    public function findAll() {
+        $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        return $this->query($query);
+    }
+public function findSimilar($column, $value) {
+        $query = "SELECT * FROM $this->table WHERE $column LIKE :value ";
+    
+        // Prepare the parameter with the value surrounded by wildcards
+        $params = ['value' => '%' . $value . '%'];
+    
+        // Add ordering and limit/offset if defined
+        if (isset($this->order_column)) {
+            $query .= "ORDER BY $this->order_column $this->order_type ";
+        }
+    
+        $query .= "LIMIT $this->limit OFFSET $this->offset";
+    
+        // Execute the query and return the result
+        return $this->query($query, $params);
+    }
 }

@@ -22,14 +22,15 @@
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 80px;
-    width: 100% ;
-    max-width: 600px;
+    width: 69.75%;
     display: flex;
     gap: 2rem;
     align-items: center;
-    position: relative;
+    /* position: relative;
     top: 60px;
-    left: 500px;
+    left: 500px; */
+    margin: 20px 0 20px 290px;
+
 }
 
 .profile-image {
