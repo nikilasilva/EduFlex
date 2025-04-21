@@ -19,6 +19,19 @@
     <div class="attendance-container">
         <h1>Attendance</h1>
 
+        <?php if (!empty($_SESSION['error'])): ?>
+    <div class="alert alert-danger">
+        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['success'])): ?>
+    <div class="alert alert-success">
+        <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+
         <!-- Attendance form -->
         <form action="<?php echo URLROOT; ?>/teacher/submitAttendance" method="POST">
             <!-- Automatically include current date -->
@@ -39,26 +52,27 @@
                         <tr>
                             
                             <td><?= htmlspecialchars($student->student_id) ?></td>
-                            <td><?= htmlspecialchars($student->name) ?></td>
-                            <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= $student->name ?>">
+                            <td><?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></td>
+
+                            <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?>">
+
                             <td>
-                                <label>
-                                <input type="radio" 
-                                       name="attendance[<?= $student->student_id ?>]" 
-                                       value="present" 
-                                       required>
-                                Present
-                                </label>
+    <label style="display: inline-block; margin-right: 10px;">
+        <input type="radio" 
+               name="attendance[<?= $student->student_id ?>]" 
+               value="present" 
+               required>
+        Present
+    </label>
 
-                                &nbsp;&nbsp;
+    <label style="display: inline-block;">
+        <input type="radio" 
+               name="attendance[<?= $student->student_id ?>]" 
+               value="absent">
+        Absent
+    </label>
+</td>
 
-                                <label>
-                                <input type="radio" 
-                                       name="attendance[<?= $student->student_id ?>]" 
-                                       value="absent">
-                                Absent
-                                </label>
-                            </td>
 
                         </tr>
                     <?php endforeach; ?>
@@ -85,6 +99,17 @@
 
             <button type="submit" class="btn btn-secondary">View Attendance</button>
         </form>
+
+        <!-- View Absence Reports form -->
+<form action="<?php echo URLROOT; ?>/teacher/viewAbsences" method="GET">
+    <label for="absence_date">Select Date:</label>
+    <input type="date" id="absence_date" name="absence_date" required>
+
+    <input type="hidden" name="class" value="<?= $class ?? '' ?>">
+
+    <button type="submit" class="btn btn-warning">View Absence Reports</button>
+</form>
+
     </div>
 </div>
 </body>

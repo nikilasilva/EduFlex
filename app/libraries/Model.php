@@ -257,6 +257,16 @@ trait Model {
     }
 
     // Fetch all rows from the table
+    // public function findAll() {
+    //     $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+    //     return $this->query($query);
+    // }
+
+//     public function findAll()
+// {
+//     $orderColumn = property_exists($this, 'custom_order_column') ? $this->custom_order_column : 'id';
+//     return $this->query("SELECT * FROM $this->table ORDER BY $orderColumn DESC");
+// }
     public function findAll() {
         $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
         return $this->query($query);
