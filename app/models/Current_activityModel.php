@@ -16,6 +16,5 @@ class Current_activityModel {
         'additional_note'
     ];
 
-    protected $order_column = 'date'; // Defined here
+    protected $custom_order_column = 'date'; // Renamed to avoid conflict
 }
-

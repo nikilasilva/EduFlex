@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".announcement-box-container"),
         document.querySelector(".user-profile-container"),
         document.querySelector(".user-settings-container"),
-        document.querySelector(".background-container")
-
+        document.querySelector(".background-container"),
+        document.querySelector(".school-contact"),
+        document.querySelector(".current-activities-container")
 
 
 

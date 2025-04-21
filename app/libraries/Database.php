@@ -1,5 +1,6 @@
 <?php
 
+
 trait Database {
     protected $db;
 
@@ -25,9 +26,11 @@ trait Database {
         if ($check) {
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
             return $result ? $result : false;
+
         }
         return false;
     }
+
 
     // public function query($query,$data = []){
 
@@ -60,6 +63,7 @@ trait Database {
         if ($check) {
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
             return $result ? $result[0] : false;
+
         }
         return false;
     }
@@ -71,7 +75,5 @@ trait Database {
 
 
 
-// $string = "mysql:hostname=localhost;dbname=my_db";
-// $con = new PDO($string,'root','');
 
-// show($conn);
+
