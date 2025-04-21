@@ -75,7 +75,7 @@
                                     <td><?php echo $student->student_id; ?></td>
                                     <td><?php echo $student->full_name; ?></td>
                                     <td>
-                                    <?php echo $student->payment_slip; ?>
+                                        <?php echo $student->payment_slip; ?>
                                         <!-- <input type="file" name="payment_slips[<?php echo $student->student_id; ?>]" accept="image/*,application/pdf" required> -->
                                     </td>
                                 </tr>

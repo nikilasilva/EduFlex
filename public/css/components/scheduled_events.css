@@ -1,4 +1,4 @@
-.calendar {
+/* .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
@@ -28,9 +28,84 @@
 
 .highlighted {
     background-color: rgb(255, 0, 0);
-}
+} */
 
 .today {
     background-color: lightgreen;
     font-weight: bold;
+}
+
+
+.calendar-header {
+    grid-column: span 7;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+/* General layout for the page */
+
+
+layout {
+    display: flex;
+    min-height: 100vh; /* Ensures the layout takes full height */
+}
+
+/* Calendar section */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+
+}
+
+.calendar div {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 5px;
+
+
+}
+
+.highlighted {
+    background-color: #ffc107;
+    color: white;
+
+
+}
+
+/* Box styling for events */
+.box {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+.event-item {
+    margin-bottom: 15px;
+}
+
+.event-date {
+
+    font-weight: bold;
+    color: #007bff;
+}
+
+h1, h2 {
+    color: #001d3d; /* ZellMart color scheme */
+}
+
+/* Grid layout for the event boxes */
+.upcoming-events {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
