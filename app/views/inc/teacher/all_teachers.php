@@ -27,6 +27,7 @@
                 <th>Email</th>
                 <th>Mobile No</th>
                 <th>Subjects</th>
+                <th>Class Name</th>
             </tr>
         </thead>
         <tbody id="teachers-table-body">
@@ -37,6 +38,7 @@
                     <td><?php echo $teacher['email']; ?></td>
                     <td><?php echo $teacher['mobileNo']; ?></td>
                     <td><?php echo $teacher['subjects'] ? $teacher['subjects'] : 'None assigned'; ?></td>
+                    <td><?php echo $teacher['className'] ? $teacher['className'] : 'None assigned'; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

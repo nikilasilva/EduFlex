@@ -206,7 +206,8 @@ public function deleteActivity($id) {
                     'fullName' => $teacher->firstName . ' ' . $teacher->lastName,
                     'email' => $teacher->email,
                     'mobileNo' => $teacher->mobileNo,
-                    'subjects' => $teacher->subjects
+                    'subjects' => $teacher->subjects,
+                    'className' => $teacher->className
                 ];
             }, $teachers);
             $data['teacherCount'] = count($teachers);

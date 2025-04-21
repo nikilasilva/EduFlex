@@ -60,6 +60,11 @@
                         <?= in_array('non-academic staff', $targetAudience) ? 'checked' : '' ?>>
                     Non-Academic Staff
                 </label>
+                <label>
+                    <input type="checkbox" name="target_audience[]" value="vice-principals" 
+                        <?= in_array('vice-principals', $targetAudience) ? 'checked' : '' ?>>
+                    Vice-principals
+                </label>
             </div>
         </div>
 

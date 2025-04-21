@@ -2,22 +2,8 @@ import { setupTimetableSearch } from './timetable.js';
 import { initTeacherSearch } from './teacherSearch.js';
 import { initStudentSearch } from './studentSearch.js';
 import { initUploadUsers } from './uploadUsers.js';
+import { initAnnouncements } from './announcement.js'; // Fixed: Changed from announcements.js to announcement.js
 
-const body = document.querySelector("body");
-const sidebar = document.querySelector(".sidebar");
-const toggle = document.querySelector(".toggle");
-
-// Function to determine timetable type based on page content
-function getTimetableType() {
-    if (document.querySelector('.class-timetable-container')) {
-        return 'class';
-    } else if (document.querySelector('.teacher-timetable-container')) {
-        return 'teacher';
-    }
-    return null;
-}
-
-// Function to toggle sidebar
 document.addEventListener('DOMContentLoaded', function () {
     // Select elements
     const sidebar = document.querySelector('.sidebar');
@@ -74,19 +60,38 @@ document.addEventListener('DOMContentLoaded', function () {
         setupTimetableSearch(true);
     }
 
-    // Use the imported function
+    // Initialize teacher search if on teachers page
     if (document.getElementById('teachers-table')) {
         initTeacherSearch();
     }
 
+    // Initialize student search if on students page
     if (document.getElementById('students-table')) {
         initStudentSearch();
     }
 
+    // Initialize upload users if on upload page
     if (document.getElementById('upload-csv-form')) {
         initUploadUsers();
     }
+
+    // Initialize announcements if on announcements page
+    // Check for announcement table or modal to determine if we're on an announcement page
+    if (document.querySelector('.announcement-table') || document.querySelector('#delete-confirmation-modal')) {
+        // The URLROOT variable should be defined in your PHP view, not here in the JS
+        initAnnouncements();
+    }
 });
+
+// Function to determine timetable type based on page content
+function getTimetableType() {
+    if (document.querySelector('.class-timetable-container')) {
+        return 'class';
+    } else if (document.querySelector('.teacher-timetable-container')) {
+        return 'teacher';
+    }
+    return null;
+}
 
 // Student table population
 const students = [
@@ -144,7 +149,7 @@ function populateTeacherTable() {
     }
 }
 
-// Modified window.onload to handle both tables based on page
+// Handle tables based on page type
 window.onload = function() {
     const timetableType = getTimetableType();
     if (timetableType === 'class' && document.getElementById('studentTableBody')) {

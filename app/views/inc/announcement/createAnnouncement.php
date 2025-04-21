@@ -4,7 +4,7 @@
 
 <div class="announcement-container">
     <h1>Create Announcement</h1>
-    <form action="<?= URLROOT ?>/announcement/submitAnnouncement" method="POST">
+    <form action="<?= URLROOT ?>/announcement/submitAnnouncement" method="POST" class="announcement-form" enctype="multipart/form-data" novalidate>
         <div class="form-group">
             <label for="announcement-title">Announcement Title</label>
             <input type="text" id="announcement-title" name="announcement-title" 
@@ -33,7 +33,7 @@
             <label>Target Audience</label>
             <div class="checkbox-group">
                 <?php
-                $audiences = ['Students', 'Teachers', 'Parents', 'Non-academic Staff', 'Vice-Principals'];
+                $audiences = ['students', 'teachers', 'parents', 'non-academic staff', 'vice-principals'];
                 foreach ($audiences as $audience): ?>
                     <label>
                         <input type="checkbox" name="audience[]" value="<?= $audience ?>"
