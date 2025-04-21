@@ -15,4 +15,8 @@ class AnnouncementModel {
     ];
 
     protected $order_column = "CONCAT(date, ' ', time)";
+
+    public function findByRole($role) {
+        return $this->findSimilar('target_audience', $role);
+    }
 }
