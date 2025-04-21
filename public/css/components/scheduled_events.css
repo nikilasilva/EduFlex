@@ -1,51 +1,36 @@
-/* General layout styling */
-.layout {
-    display: flex;
-    min-height: 100vh; /* Ensures the layout takes full height */
-}
-
-/* Calendar section */
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    gap: 5px;
+    max-width: 420px;
 }
 
-.calendar div {
-    padding: 15px;
-    border: 1px solid #ddd;
+.calendar-header {
+    grid-column: span 7;
     text-align: center;
-    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.calendar-day-name {
+    font-weight: bold;
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 5px 0;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 10px 0;
+    border: 1px solid #ccc;
 }
 
 .highlighted {
-    background-color: #ffc107;
-    color: white;
+    background-color: rgb(255, 0, 0);
 }
 
-/* Box styling for events */
-.box {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-}
-
-.event-item {
-    margin-bottom: 15px;
-}
-
-.event-date {
+.today {
+    background-color: lightgreen;
     font-weight: bold;
-    color: #007bff;
 }
-
-h1, h2 {
-    color: #001d3d; /* ZellMart color scheme */
-}
-
-/* Grid layout for the event boxes */
-.upcoming-events {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;

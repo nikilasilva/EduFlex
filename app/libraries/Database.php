@@ -61,12 +61,17 @@ trait Database {
         if ($check) {
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
             return $result ? $result[0] : false;
+
         }
         return false;
-
     }
 }
-?>
+
+
+
+
+
+
 
 
 
