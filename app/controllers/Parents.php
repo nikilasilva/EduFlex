@@ -33,14 +33,14 @@ class Parents extends Controller {
     }
 
     // Display parent details
-    public function details() {
-        $this->view('inc/Parent/details_parent');
-    }
+    // public function details() {
+    //     $this->view('inc/Parent/details_parent');
+    // }
 
     // Display academic details
-    public function academic_details() {
-        $this->view('inc/Parent/aca_parent');
-    }
+    // public function academic_details() {
+    //     $this->view('inc/Parent/aca_parent');
+    // }
 
     // Display payment details
     public function pay_details() {
@@ -60,9 +60,9 @@ class Parents extends Controller {
         $this->view('inc/Parent/Parent_Report');
     }
 
-    public function attendance() {
-        $this->view('inc/Parent/attendance_parent');
-    }
+    // public function attendance() {
+    //     $this->view('inc/Parent/attendance_parent');
+    // }
 
     public function events() {
         // Example events array (replace with your actual data)
