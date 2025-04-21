@@ -46,6 +46,7 @@
 @import url('all_teacher.css');
 @import url('all_students.css');
 @import url('uploadUsers/uploadUsers.css');
+@import url('components/pagination.css');
 
 
 :root {

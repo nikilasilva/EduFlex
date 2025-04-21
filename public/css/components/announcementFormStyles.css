@@ -19,11 +19,9 @@
     margin-bottom: 30px;
 }
 
-/* h1 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-} */
+.announcement-search-bar {
+    margin-bottom: 0;
+}
 
 .form-group {
     margin-bottom: 20px;
@@ -152,6 +150,7 @@ label {
 }
 
 
+/* Delete Confirmation */
 .modal {
     display: none;
     position: fixed;
@@ -161,16 +160,6 @@ label {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
-/* .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    max-width: 90%;
-    text-align: center;
-} */
 
 .modal-actions {
     margin-top: 20px;
@@ -207,6 +196,7 @@ label {
     width: 100%;
     height: 100%;
     z-index: 1000;
+    transition: var(--tran-05);
 }
 .modal-content {
     background-color: white;
@@ -220,4 +210,30 @@ body.modal-open {
     overflow: hidden;
 }
 
+/* Announcement count */
+.announcement-count-wrapper {
+    text-align: right;
+    margin: 0 10px 10px 0;
+}
 
+.announcement-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    display: inline-block;
+}
+
+/* Announcement table */
+/* Target the Date column (5th column) */
+.announcement-table th:nth-child(5),
+.announcement-table td:nth-child(5) {
+    min-width: 82px;
+    width: 82px;
+}
+
+/* Target the Actions column (7th column) */
+.announcement-table th:nth-child(7),
+.announcement-table td:nth-child(7) {
+    min-width: 125px; 
+    width: 125px;
+}

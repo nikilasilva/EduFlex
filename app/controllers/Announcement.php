@@ -73,6 +73,8 @@ class Announcement extends Controller {
             'announcements' => $announcements,
             'page' => $page,
             'totalPages' => ceil($total / $limit),
+            'announcementCount' => count($announcements),
+            'announcementTotal' => $total,
             'message' => $_SESSION['message'] ?? ''
         ];
         unset($_SESSION['message']);

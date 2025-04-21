@@ -147,12 +147,5 @@
             // Load the view and pass the timetable data
             $this->view('inc/student/time_table', $data);
         }
-
-
-
-
     }
-
-
-
 ?>

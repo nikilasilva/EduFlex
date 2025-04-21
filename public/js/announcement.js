@@ -1,6 +1,7 @@
 export function searchAnnouncements(searchInputSelector, tableSelector) {
     const searchInput = document.querySelector(searchInputSelector);
     const table = document.querySelector(tableSelector);
+    const announcementCount = document.querySelector('.announcement-count');
     
     if (!searchInput || !table) {
         console.error('Search elements not found for announcements');
@@ -12,6 +13,7 @@ export function searchAnnouncements(searchInputSelector, tableSelector) {
     searchInput.addEventListener('input', () => {
         const query = searchInput.value.toLowerCase();
         const rows = table.querySelectorAll('tbody tr');
+        let visibleCount = 0;
 
         rows.forEach(row => {
             const title = row.cells[0]?.textContent.toLowerCase() || '';
@@ -19,10 +21,19 @@ export function searchAnnouncements(searchInputSelector, tableSelector) {
             const type = row.cells[2]?.textContent.toLowerCase() || '';
             const audience = row.cells[3]?.textContent.toLowerCase() || '';
 
-            row.style.display = (title.includes(query) || content.includes(query) || 
-                                type.includes(query) || audience.includes(query)) 
-                                ? '' : 'none';
+            if (title.includes(query) || content.includes(query) || type.includes(query) || audience.includes(query)) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
         });
+
+        // Update count display
+        if (announcementCount) {
+            // announcementCount.textContent = `Total Announcements: ${visibleCount}`;
+            announcementCount.textContent = `Showing: ${visibleCount} Result(s) out of ${window.totalAnnouncements} Total`;
+        }
     });
 }
 

@@ -2,7 +2,8 @@ import { setupTimetableSearch } from './timetable.js';
 import { initTeacherSearch } from './teacherSearch.js';
 import { initStudentSearch } from './studentSearch.js';
 import { initUploadUsers } from './uploadUsers.js';
-import { initAnnouncements } from './announcement.js'; // Fixed: Changed from announcements.js to announcement.js
+import { initAnnouncements } from './announcement.js'; 
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Select elements
@@ -75,11 +76,18 @@ document.addEventListener('DOMContentLoaded', function () {
         initUploadUsers();
     }
 
-    // Initialize announcements if on announcements page
-    // Check for announcement table or modal to determine if we're on an announcement page
-    if (document.querySelector('.announcement-table') || document.querySelector('#delete-confirmation-modal')) {
-        // The URLROOT variable should be defined in your PHP view, not here in the JS
-        initAnnouncements();
+    // Initialize announcement delete confirmation
+    if (
+        document.querySelector('.announcement-table') ||
+        document.querySelector('#delete-confirmation-modal') ||
+        document.querySelector('.announcement-container')
+    ) {
+        try {
+            console.log('Initializing announcements from script.js with URLROOT:', window.URLROOT);
+            initAnnouncements();
+        } catch (error) {
+            console.error('Error initializing announcements:', error);
+        }
     }
 });
 

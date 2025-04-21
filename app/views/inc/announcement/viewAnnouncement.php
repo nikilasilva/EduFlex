@@ -20,6 +20,11 @@
     <div class="search-bar announcement-search-bar">
         <input type="text" id="announcement-search" placeholder="Search announcements by title, content, type, or audience" aria-label="Search announcements">
     </div>
+
+    <div class="announcement-count-wrapper">
+        <p class="announcement-count">Showing: <?php echo $data['announcementCount']; ?> Result(s) out of <?php echo $data['announcementTotal']; ?> Total</p>
+        <!-- <p class="announcement-count">Total Announcements: <?php echo $data['announcementCount']; ?></p> -->
+    </div>
     
     <?php if (!empty($data['announcements'])): ?>
         <table class="announcement-table">
@@ -79,23 +84,7 @@
         <p>No announcements found.</p>
     <?php endif; ?>
 </div>
-
-<!-- Set the URLROOT JavaScript variable -->
 <script>
-    window.URLROOT = '<?php echo URLROOT; ?>';
+    window.totalAnnouncements = <?php echo $data['announcementTotal']; ?>;
 </script>
-
-<!-- Import announcement.js directly -->
-<script type="module">
-    import { initAnnouncements } from '<?php echo URLROOT; ?>/js/announcement.js';
-    document.addEventListener('DOMContentLoaded', function() {
-        try {
-            console.log('Initializing announcements from view with URLROOT:', window.URLROOT);
-            initAnnouncements();
-        } catch (error) {
-            console.error('Error initializing announcements:', error);
-        }
-    });
-</script>
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>
