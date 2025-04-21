@@ -8,6 +8,7 @@
 @import url('components/time_table.css');
 @import url('components/daily_activities.css');
 @import url('components/view_activities.css');
+@import url('components/Parent_Report.css');
 
 @import url('components/scheduled_events.css');
 @import url('components/time_table.css');
@@ -30,11 +31,21 @@
 @import url('index.css');
 @import url('landing.css');
 
+
+@import url('components/class_report.css');
+@import url('components/submit_marks.css');
 @import url('components/announcementFormStyles.css');
 @import url('components/announcementModalStyles.css');
 @import url('profileStyles.css');
 @import url('userSettingsStyles.css');
 @import url('components/createFormStyles.css');
+@import url('currentActivitiesStyles.css');
+@import url('components/msi.css');
+@import url('usersListStyles.css');
+@import url('addUserStyles.css');
+@import url('404Styles.css');
+@import url('403Styles.css');
+
 
 :root {
     /* Colors */
@@ -63,6 +74,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background: var(--body-color);
+    margin-top: 10px;
 }
 
 p {
@@ -83,11 +95,21 @@ footer p {
     margin: 0;
 }
 
-footer.close {
+footer.full-width {
     padding-left: 95px;
     transition: var(--tran-04);
 }
 
 h1, h2 {
     color: var(--primary-text-color);
+}
+
+.container {
+    margin: 20px 0 20px 290px;
+    width: 73.5%;
+    padding: 50px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--tran-05);
 }

@@ -1,3 +1,4 @@
+
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
@@ -33,7 +34,7 @@
             <label>Target Audience</label>
             <div class="checkbox-group">
                 <?php
-                $audiences = ['Students', 'Teachers', 'Parents', 'Non-Academic Staff'];
+                $audiences = ['Students', 'Teachers', 'Parents', 'Non-academic Staff', 'Vice-Principals'];
                 foreach ($audiences as $audience): ?>
                     <label>
                         <input type="checkbox" name="audience[]" value="<?= $audience ?>"

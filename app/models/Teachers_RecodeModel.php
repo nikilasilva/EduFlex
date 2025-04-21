@@ -2,14 +2,15 @@
 
 class Teachers_RecodeModel
 {
+
     use Model;
 
-    protected $table = 'teachers_recode'; // Correct table name
+    protected $table = 'Teachers_Recode';
     protected $allowedColumns = [
         'teacher_id',
+        'teacher_name',
         'attendance'
     ];
 
-    // Define the column to order by
-    protected $order_column = 'teacher_id';
+    protected $order_column = 'teacher_id'; // Defined here
 }
