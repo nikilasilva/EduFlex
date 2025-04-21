@@ -8,11 +8,11 @@
         <div class="form-group">
             <label for="class">Select Class:</label>
             <?php if (!empty($data['classes'])): ?>
-                <select name="class_id" id="class" class="form-control" required>
+                <select name="classId" id="class" class="form-control" required>
                     <option value="">-- Select Class --</option>
                     <?php foreach ($data['classes'] as $class): ?>
-                        <option value="<?php echo htmlspecialchars($class->id); ?>">
-                            <?php echo htmlspecialchars($class->name); ?>
+                        <option value="<?php echo htmlspecialchars($class->classId); ?>">
+                            <?php echo htmlspecialchars($class->className); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

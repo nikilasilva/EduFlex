@@ -34,7 +34,7 @@
         <button onclick="window.print()" class="btn btn-success">Download as PDF</button>
     </div>
 
-    <h1 class="report-title">Class Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
+    <h1 class="report-title"><?=htmlspecialchars($class ?? 'N/A') ?>   Class Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
 
     <?php if (!empty($data['message'])): ?>
         <p style="color: red; font-weight: bold; padding: 10px;">

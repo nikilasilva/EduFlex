@@ -12,13 +12,13 @@ class Student_attendanceModel {
     ];
 
     public function getClasses() {
-        $sql = "SELECT DISTINCT id, name FROM classes ORDER BY name";
+        $sql = "SELECT DISTINCT classId, className FROM classes ORDER BY className";
         return $this->query($sql);
     }
 
     public function getStudentsByClass($classId) {
-        $sql = "SELECT student_id, name FROM students WHERE class_id = :class_id";
-        return $this->query($sql, ['class_id' => $classId]);
+        $sql = "SELECT student_id, firstName, lastName FROM students WHERE classId = :classId";
+        return $this->query($sql, ['classId' => $classId]);
     }
 
     public function getAttendance($filters = []) {
@@ -39,6 +39,19 @@ class Student_attendanceModel {
 
         return $this->query($sql, $filters);
     }
+
+
+    public function getAbsencesByDateAndClass($date, $class) {
+        $sql = "SELECT 
+                    a.student_id, 
+                    CONCAT(s.firstName, ' ', s.lastName) AS name, 
+                    a.content
+                FROM absences a
+                JOIN students s ON a.student_id = s.student_id
+                WHERE a.date = :date AND s.classId = :class";
+        return $this->query($sql, ['date' => $date, 'class' => $class]);
+    }
+        
 }
 
 

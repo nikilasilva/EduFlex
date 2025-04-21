@@ -55,17 +55,17 @@ class Teacher extends Controller {
 
     public function attendance() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $class_id = $_POST['class_id'];
+            $classId = $_POST['classId'];
     
             $classModel = $this->model('ClassModel');
             $studentModel = $this->model('StudentModel');
     
-            $students = $studentModel->where(['class_id' => $class_id]);
+            $students = $studentModel->where(['classId' => $classId]);
             $students = is_array($students) ? $students : [];
     
             $this->view('inc/teacher/attendance', [
                 'students' => $students,
-                'class' => $class_id
+                'class' => $classId
             ]);
         }
     }
@@ -137,24 +137,60 @@ class Teacher extends Controller {
         ]);
     }
 
+
+    //absences
+
+    public function viewAbsences() {
+        $date = $_GET['absence_date'] ?? null;
+        $class = $_GET['class'] ?? null;
+    
+        if (!$date || !$class) {
+            $_SESSION['error'] = "Date or class not provided.";
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
+        }
+    
+        $attendanceModel = new Student_attendanceModel();
+        $absences = $attendanceModel->getAbsencesByDateAndClass($date, $class);
+        $absences = json_decode(json_encode($absences), true);
+    
+        $this->view('inc/teacher/view_absences', [
+            'absences' => $absences,
+            'date' => $date,
+            'class' => $class
+        ]);
+    }
+    
+
     public function dailyActivities() {
         $this->view('inc/teacher/daily_activities');
     }
-
+    
     public function submitActivities() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $date = $_POST['date'];
+            $today = date('Y-m-d');
+            $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
+    
+            // Validate date: should not be a future date or older than 7 days
+            if ($date > $today || $date < $oneWeekAgo) {
+                $_SESSION['error'] = "Date must be today or within the last 7 days.";
+                header("Location: " . URLROOT . "/teacher/dailyActivities");
+                exit();
+            }
+    
             $activityData = [
-                'date' => $_POST['date'],
+                'date' => $date,
                 'period' => $_POST['period'],
                 'subject' => $_POST['subject'],
                 'class' => $_POST['class'],
                 'description' => $_POST['description'],
                 'additional_note' => $_POST['additional_note']
             ];
-
+    
             $activity = new Current_activityModel();
             $activity->insert($activityData);
-
+    
             $_SESSION['success'] = "Activity recorded successfully.";
             header("Location: " . URLROOT . "/teacher/viewActivities");
             exit();
@@ -162,17 +198,17 @@ class Teacher extends Controller {
             $this->view('daily_activities');
         }
     }
-
+    
     public function viewActivities() {
         $activityModel = new Current_activityModel();
         $activities = $activityModel->findAll();
-
+    
         $this->view('inc/teacher/view_activities', ['activities' => $activities]);
     }
-
+    
     public function editActivity($id) {
         $activityModel = new Current_activityModel();
-
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'date' => $_POST['date'],
@@ -182,7 +218,7 @@ class Teacher extends Controller {
                 'description' => $_POST['description'],
                 'additional_note' => $_POST['additional_note']
             ];
-
+    
             $activityModel->update($id, $data, 'activity_id');
             header("Location: " . URLROOT . "/teacher/viewActivities");
             exit();
@@ -191,13 +227,14 @@ class Teacher extends Controller {
             $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
         }
     }
-
+    
     public function deleteActivity($id) {
         $activityModel = new Current_activityModel();
         $activityModel->delete($id, 'activity_id');
         header("Location: " . URLROOT . "/teacher/viewActivities");
         exit();
     }
+    
 
     public function index() {
         // Ensure that enterMarks does not redirect back to index
@@ -393,17 +430,17 @@ class Teacher extends Controller {
         $subjectModel = $this->model('SubjectModel');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $class_id = $_POST['class_id'];
+            $classId = $_POST['classId'];
 
             $results = $subjectModel->query("
                 SELECT s.id, s.name 
                 FROM subject_class sc
                 JOIN subjects s ON sc.subject_id = s.id
                 WHERE sc.class_id = ?", 
-                [$class_id]
+                [$classId]
             );
 
-            $students = $studentModel->where(['class_id' => $class_id]);
+            $students = $studentModel->where(['classId' => $classId]);
 
             $subjects = is_array($results) ? $results : [];
             $students = is_array($students) ? $students : [];
@@ -411,7 +448,7 @@ class Teacher extends Controller {
             $this->view('inc/teacher/submit_marks', [
                 'subjects' => $subjects,
                 'students' => $students,
-                'class'=> $class_id
+                'class'=> $classId
             ]);
         }
     }

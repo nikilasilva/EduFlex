@@ -12,6 +12,8 @@
             <!-- New Link for Enter Marks -->
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/selectClass"><i class="fa-solid fa-book icon"></i><span class="text nav-text">Enter Marks</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/selectClassForViewReport"><i class="fa-solid fa-book icon"></i><span class="text nav-text">View Reports</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/selectClassForViewReport"><i class="fa-solid fa-book icon"></i><span class="text nav-text">View Feedbacks</span></a></li>
+            
         </ul>
     </div>
 </div>

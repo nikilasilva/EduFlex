@@ -52,8 +52,10 @@
                         <tr>
                             
                             <td><?= htmlspecialchars($student->student_id) ?></td>
-                            <td><?= htmlspecialchars($student->name) ?></td>
-                            <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= $student->name ?>">
+                            <td><?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></td>
+
+                            <input type="hidden" name="student_name[<?= $student->student_id ?>]" value="<?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?>">
+
                             <td>
     <label style="display: inline-block; margin-right: 10px;">
         <input type="radio" 
@@ -97,6 +99,17 @@
 
             <button type="submit" class="btn btn-secondary">View Attendance</button>
         </form>
+
+        <!-- View Absence Reports form -->
+<form action="<?php echo URLROOT; ?>/teacher/viewAbsences" method="GET">
+    <label for="absence_date">Select Date:</label>
+    <input type="date" id="absence_date" name="absence_date" required>
+
+    <input type="hidden" name="class" value="<?= $class ?? '' ?>">
+
+    <button type="submit" class="btn btn-warning">View Absence Reports</button>
+</form>
+
     </div>
 </div>
 </body>

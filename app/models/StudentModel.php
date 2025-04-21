@@ -4,8 +4,10 @@ class StudentModel {
 
     protected $table = 'students';
     protected $allowedColumns = [
-        'name',
-        'class_id'     
+        'firstName',
+        'lastName',
+        'classId',
+        'guardianRegN0'   
     ];
 
 

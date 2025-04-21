@@ -23,7 +23,7 @@
         <table class="activities-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Record No.</th>
                     <th>Date</th>
                     <th>Period</th>
                     <th>Subject</th>
@@ -38,7 +38,7 @@
                 <?php if (is_array($data['activities']) || is_object($data['activities'])): ?>
                     <?php foreach ($data['activities'] as $activity): ?>
                         <tr>
-                            <td><?php echo $activity->id; ?></td>
+                            <td><?php echo $activity->activity_id; ?></td>
                             <td><?php echo $activity->date; ?></td>
                             <td><?php echo $activity->period; ?></td>
                             <td><?php echo $activity->subject; ?></td>
