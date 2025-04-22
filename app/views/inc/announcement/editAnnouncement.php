@@ -98,7 +98,7 @@
 
         <div class="button-group">
             <button type="submit">Update Announcement</button>
-            <button type="reset">Clear</button>
+            <button class="cancel-ann-btn" type="reset">Cancel</button>
         </div>
     </form>
 </div>

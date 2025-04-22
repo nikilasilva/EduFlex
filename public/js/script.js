@@ -3,6 +3,7 @@ import { initTeacherSearch } from './teacherSearch.js';
 import { initStudentSearch } from './studentSearch.js';
 import { initUploadUsers } from './uploadUsers.js';
 import { initAnnouncements } from './announcement.js'; 
+import { initFlashMessage } from './flashMessage.js';
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -88,6 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error initializing announcements:', error);
         }
+    }
+
+    // Initialize flash message
+    if (document.getElementById('flash-message')) {
+        initFlashMessage();
     }
 });
 

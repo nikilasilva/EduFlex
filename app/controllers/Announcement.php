@@ -96,7 +96,7 @@ class Announcement extends Controller {
                 'target_audience' => isset($_POST['audience']) ? implode(',', $_POST['audience']) : '',
                 'content' => trim($_POST['announcement-content']),
                 'date' => $_POST['announcement-date'],
-                'time' => $_POST['announcement-time'],
+                'time' => isset($_POST['announcement-time']) ? substr($_POST['announcement-time'], 0, 5) : '',
                 'created_by' => $_SESSION['user']['regNo'],
                 'errors' => []
             ];
@@ -160,7 +160,7 @@ class Announcement extends Controller {
                 'target_audience' => isset($_POST['target_audience']) ? implode(',', $_POST['target_audience']) : '',
                 'content' => trim($_POST['announcement-content']),
                 'date' => $_POST['announcement-date'],
-                'time' => $_POST['announcement-time'],
+                'time' => isset($_POST['announcement-time']) ? substr($_POST['announcement-time'], 0, 5) : '',
                 'created_by' => $_SESSION['user']['regNo'],
                 'errors' => []
             ];

@@ -6,16 +6,18 @@
     <h1 class="page-title"><?php echo $data['title']; ?></h1>
     
     <?php if(isset($data['message']) && !empty($data['message'])): ?>
-        <div class="alert alert-success">
+        <div id="flash-message" class="alert alert-success">
             <?php echo $data['message']; ?>
         </div>
     <?php endif; ?>
     
     <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
-        <div class="alert alert-danger">
+        <div id="flash-message" class="alert alert-danger">
             <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
+
+
     
     <div class="search-bar announcement-search-bar">
         <input type="text" id="announcement-search" placeholder="Search announcements by title, content, type, or audience" aria-label="Search announcements">
@@ -47,7 +49,8 @@
                         <td><?php echo isset($announcement->type) && $announcement->type !== '' ? htmlspecialchars($announcement->type) : 'null'; ?></td>
                         <td><?php echo htmlspecialchars($announcement->target_audience); ?></td>
                         <td><?php echo htmlspecialchars($announcement->date); ?></td>
-                        <td><?php echo htmlspecialchars($announcement->time); ?></td>
+                        <td><?php echo htmlspecialchars(date('H:i', strtotime($announcement->time))); ?></td>
+                        <!-- <td><?php echo htmlspecialchars($announcement->time); ?></td> -->
                         <td>
                             <a href="<?php echo URLROOT; ?>/Announcement/updateAnnouncement/<?php echo $announcement->id; ?>" class="btn btn-edit">Edit</a>
                             <a href="#" class="btn btn-delete" data-id="<?php echo $announcement->id; ?>" data-title="<?php echo htmlspecialchars($announcement->title); ?>">Delete</a>

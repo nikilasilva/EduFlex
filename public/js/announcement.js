@@ -31,7 +31,6 @@ export function searchAnnouncements(searchInputSelector, tableSelector) {
 
         // Update count display
         if (announcementCount) {
-            // announcementCount.textContent = `Total Announcements: ${visibleCount}`;
             announcementCount.textContent = `Showing: ${visibleCount} Result(s) out of ${window.totalAnnouncements} Total`;
         }
     });
@@ -54,15 +53,6 @@ export function handleDeleteConfirmation({
     const cancelButton = document.querySelector(cancelBtnSelector);
     const deleteForm = document.querySelector(formSelector);
     const deleteFormIdInput = document.querySelector(formInputIdSelector);
-
-    // Add debugging
-    console.log('Delete buttons found:', deleteButtons.length);
-    console.log('Modal found:', !!modal);
-    console.log('Title span found:', !!titleSpan);
-    console.log('Confirm button found:', !!confirmButton);
-    console.log('Cancel button found:', !!cancelButton);
-    console.log('Delete form found:', !!deleteForm);
-    console.log('Delete form ID input found:', !!deleteFormIdInput);
 
     if (!modal || !titleSpan || !confirmButton || !cancelButton || !deleteForm || !deleteFormIdInput) {
         console.error("One or more delete confirmation elements not found");
@@ -126,13 +116,53 @@ export function handleDeleteConfirmation({
     }
 }
 
+export function restrictPastDateTime() {
+    const dateInput = document.getElementById('announcement-date');
+    const timeInput = document.getElementById('announcement-time');
+
+    if (!dateInput || !timeInput) {
+        console.warn('Date or time input not found');
+        return;
+    }
+
+    const now = new Date();
+    const today = now.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    const currentTime = now.toTimeString().slice(0, 5); // Format: HH:MM
+
+    // Set min date to today
+    dateInput.min = today;
+
+    // Check time on date change
+    dateInput.addEventListener('change', function () {
+        if (dateInput.value === today) {
+            timeInput.min = currentTime;
+        } else {
+            timeInput.removeAttribute('min');
+        }
+    });
+
+    // Apply initial logic in case today is already selected
+    if (dateInput.value === today) {
+        timeInput.min = currentTime;
+    }
+}
+
+
 export function initAnnouncements() {
     console.log('Initializing announcements functionality');
-    
+    const cancelBtn = document.querySelector(".cancel-ann-btn");
+
     // Try to get URLROOT from window if it exists
     const urlRoot = window.URLROOT || '';
     console.log('Using URLROOT:', urlRoot);
     
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function () {
+        window.location.href = `${window.URLROOT}/announcement/viewAnnouncement`;
+    });
+    }
+    
+    restrictPastDateTime();
     // Use the correct selector for the table
     searchAnnouncements('#announcement-search', '.announcement-table');
     
@@ -145,4 +175,4 @@ export function initAnnouncements() {
 }
 
 // For debugging, ensure we can call this from the console
-window.initAnnouncementsDebug = initAnnouncements;
+// window.initAnnouncementsDebug = initAnnouncements;

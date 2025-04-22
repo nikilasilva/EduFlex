@@ -14,7 +14,7 @@
                     <p class="announcement-content"><?php echo htmlspecialchars($announcement->content); ?></p>
                     <div class="announcement-meta">
                         <span class="announcement-date"><?php echo htmlspecialchars($announcement->date); ?></span>
-                        <span class="announcement-time"><?php echo htmlspecialchars($announcement->time); ?></span>
+                        <span class="announcement-time"><?php echo htmlspecialchars(date('H:i', strtotime($announcement->time))); ?></span>
                     </div>
                 </div>
             <?php endforeach; ?>
