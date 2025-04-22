@@ -172,13 +172,10 @@ class Announcement extends Controller {
 
             // Update announcement if there are no errors
             if (empty($data['errors'])) {
-                if ($this->announcementModel->update($id, $data)) {
-                    $_SESSION['message'] = 'Announcement updated successfully';
-                    header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
-                    exit;
-                } else {
-                    $data['errors']['general'] = 'Failed to update announcement';
-                }
+                $this->announcementModel->update($id, $data);
+                $_SESSION['message'] = 'Announcement updated successfully';
+                header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
+                exit;
             }
 
             // Reload the form with errors

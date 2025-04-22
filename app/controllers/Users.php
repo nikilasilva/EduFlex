@@ -79,11 +79,6 @@ class Users extends Controller {
     }
 
     public function settings() {
-        // $email = $_SESSION['user']['email'];
-        
-        // if (!$user) {
-            //     die('User not found.');
-            // }
         if (!isset($_SESSION['user']['regNo']) || !isset($_SESSION['user']['email'])) {
             $_SESSION['error'] = 'Please log in to access settings';
             header('Location: ' . URLROOT . '/Login/login');
@@ -113,18 +108,46 @@ class Users extends Controller {
             $data['errors']['general'] = 'User account not found';
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) {
-            if ($user && $this->userModel->updateProfilePicture($_SESSION['user']['regNo'], $_FILES['profile_picture'])) {
-                $data['message'] = 'Profile picture updated successfully';
-                // Refresh user data
-                $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
-                $data['profile_picture'] = $user->profile_picture ?: 'public/images/default_profile.png';
-            } else {
-                $data['errors']['profile_picture'] = !empty($this->userModel->errors) 
-                    ? implode('; ', $this->userModel->errors) 
-                    : 'Failed to update profile picture';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if a file was uploaded
+            if (
+                isset($_FILES['profile_picture']) &&
+                $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK &&
+                $_FILES['profile_picture']['size'] > 0
+            ) {
+                if ($user) {
+                    $this->userModel->updateProfilePicture($_SESSION['user']['regNo'], $_FILES['profile_picture']);
+                    $data['message'] = 'Profile picture updated successfully';
+                    // Refresh user data
+                    $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
+                    $data['profile_picture'] = $user->profile_picture ?: 'public/images/default_profile.png';
+                } else {
+                    $data['errors']['profile_picture'] = !empty($this->userModel->errors) 
+                        ? implode('; ', $this->userModel->errors) 
+                        : 'Failed to update profile picture';
+                }
+            } 
+
+            // // Handle delete profile picture request
+            // else if (isset($_POST['delete_profile_picture'])) {
+            //     $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
+            //     if ($user && !empty($user->profile_picture)) {
+            //         $picturePath = $_SERVER['DOCUMENT_ROOT'] . '/' . URLROOT . '/' . $user->profile_picture;
+            //         if (file_exists($picturePath) && is_file($picturePath)) {
+            //             unlink($picturePath);
+            //         }
+                    
+            //         // Update database to remove profile picture reference
+            //         $this->userModel->update(['regNo' => $_SESSION['user']['regNo']], ['profile_picture' => null]);
+            //         $data['message'] = 'Profile picture deleted successfully';
+            //         $data['profile_picture'] = 'public/img/profiles/default-profile.jpg';
+            //     }
+            // }          
+            
+            else {
+                $data['errors']['profile_picture'] = 'No file selected for upload';
             }
-        }
+        }        
 
         $this->view('userSettings', $data);
     }
@@ -181,14 +204,11 @@ class Users extends Controller {
             // Process if no errors
             if (empty($data['errors']) && $user) {
                 $hashedPassword = password_hash($data['new_password'], PASSWORD_BCRYPT);
-                if ($this->userModel->updatePassword($data['regNo'], $hashedPassword)) {
-                    // // Clear must_reset_password flag
-                    // $this->userModel->clearResetFlag($data['regNo']);
-                    $_SESSION['message'] = 'Password change successfully';
-                    header('Location:' . URLROOT . '/users/settings');
-                } else {
-                    $data['errors']['general'] = 'Failed to update password. Please try again';
-                }
+                $this->userModel->updatePassword($data['regNo'], $hashedPassword);
+                // // Clear must_reset_password flag
+                // $this->userModel->clearResetFlag($data['regNo']);
+                $_SESSION['message'] = 'Password change successfully';
+                header('Location:' . URLROOT . '/users/settings');
             }
 
             $this->view('userSettings', $data);            
@@ -211,6 +231,55 @@ class Users extends Controller {
 
             $this->view('userSettings', $data);
         }
+    }
+
+    public function deleteProfilePicture() {
+        // Check if user is logged in
+        if (!isset($_SESSION['user']['regNo']) || !isset($_SESSION['user']['email'])) {
+            $_SESSION['error'] = 'Please log in to perform this action';
+            header('Location: ' . URLROOT . '/Login/login');
+            exit;
+        }
+    
+        // Only process POST requests
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . URLROOT . '/Users/settings');
+            exit;
+        }
+    
+        $regNo = $_SESSION['user']['regNo'];
+        $user = $this->userModel->findUserByEmail($_SESSION['user']['email']);
+    
+        if (!$user) {
+            $_SESSION['error'] = 'User account not found';
+            header('Location: ' . URLROOT . '/Users/settings');
+            exit;
+        }
+    
+        // Check if user has a profile picture
+        if (!empty($user->profile_picture)) {
+            // Get the full path to the profile picture
+            $picturePath = APPROOT . '/../' . $user->profile_picture;
+            
+            // Delete the file if it exists
+            if (file_exists($picturePath) && is_file($picturePath)) {
+                if (!unlink($picturePath)) {
+                    $_SESSION['error'] = 'Failed to delete the profile picture file';
+                    header('Location: ' . URLROOT . '/Users/settings');
+                    exit;
+                }
+            }
+            
+            // Update the database to remove the profile picture reference
+            $this->userModel->update(['regNo' => $regNo], ['profile_picture' => null]);
+            $_SESSION['message'] = 'Profile picture deleted successfully';
+        } else {
+            $_SESSION['message'] = 'No profile picture to delete';
+        }
+        
+        // Redirect back to settings page
+        header('Location: ' . URLROOT . '/Users/settings');
+        exit;
     }
 }
 ?>

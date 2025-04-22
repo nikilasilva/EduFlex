@@ -4,6 +4,7 @@ import { initStudentSearch } from './studentSearch.js';
 import { initUploadUsers } from './uploadUsers.js';
 import { initAnnouncements } from './announcement.js'; 
 import { initFlashMessage } from './flashMessage.js';
+import { handleDeletePictureConfirmation } from './user.js';
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -94,6 +95,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize flash message
     if (document.getElementById('flash-message')) {
         initFlashMessage();
+    }
+
+    if (document.querySelector(".user-settings-container")) {
+        handleDeletePictureConfirmation();
     }
 });
 

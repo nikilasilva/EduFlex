@@ -5,6 +5,7 @@
 <div class="announcement-container">
     <h1 class="page-title"><?php echo $data['title']; ?></h1>
     
+    <!-- Flash message  -->
     <?php if(isset($data['message']) && !empty($data['message'])): ?>
         <div id="flash-message" class="alert alert-success">
             <?php echo $data['message']; ?>

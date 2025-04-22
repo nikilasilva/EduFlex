@@ -8,7 +8,17 @@
     </div>
     <div class="user-profile-card">
         <div class="user-profile-image-section">
-            <img src="<?php echo URLROOT; ?>/public/img/profileImg.png" alt="User Photo" class="user-profile-photo">
+            <?php
+                $profilePath = $_SESSION['user']['profile_picture'] ?? $data['user']->profile_picture ?? '';
+                $testPath = APPROOT . '/../' . $profilePath;              
+                
+                if (!empty($profilePath) && file_exists($testPath)) {
+                    $imgSrc = URLROOT . '/' . ltrim($profilePath, '/');
+                } else {
+                    $imgSrc = URLROOT . '/public/img/profiles/default-profile.jpg';
+                }
+            ?>
+            <img src="<?php echo $imgSrc ?>" alt="User Photo" class="user-profile-photo">
         </div>
         <div class="user-profile-info-section">
             <h2 class="user-name"> <?php echo htmlspecialchars(ucwords($data['user']->username)); ?> </h2>

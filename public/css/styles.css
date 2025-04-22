@@ -66,6 +66,7 @@
     --primary-btn-hover-color: #6976d2;
     /* --icon-color: #3b4380; */
     --red-color-2: #dc3545;
+    --btn-red-color: #cc0000;
     --success-color: #155724;
     --danger-color: #721c24;
     --secondary-btn-color: #003366;
@@ -73,6 +74,7 @@
     --black-1: #333;
 
     /* Transitions */
+    --tran-01: all 0.1s ease;
     --tran-02: all 0.2s ease;
     --tran-03: all 0.3s ease;
     --tran-04: all 0.4s ease;

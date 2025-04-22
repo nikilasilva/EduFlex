@@ -89,14 +89,13 @@ label {
     gap: 35px;
 }
 
-.announcement-container .button-group {
+.profile-picture-buttons {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
-    width: 102%;
+    width: 100%;
 }
 
-.announcement-container button {
+.profile-picture-buttons button {
     flex: 1;
     padding: 12px;
     border: none;
@@ -107,22 +106,23 @@ label {
     transition: background-color var(--trans-03);
 }
 
-.announcement-container button[type="submit"] {
+/* .announcement-container button[type="submit"] {
     background-color: var(--primary-btn-color);
     color: white;
 }
 
 .announcement-container button[type="submit"]:hover {
     background-color: var(--primary-btn-hover-color);
+} */
+
+.profile-picture-buttons .btn-delete  {
+    background-color: var(--btn-red-color);
+    color: white;
 }
 
-.announcement-container button[type="reset"] {
-    background-color: #e2e2e2;
-    color: #444;
-}
-
-.announcement-container button[type="reset"]:hover {
-    background-color: #d1d1d1;
+.profile-picture-buttons .btn-delete:hover {
+    background-color: var(--hover-red-color);
+    color: white;
 }
 
 .view-all-container {
