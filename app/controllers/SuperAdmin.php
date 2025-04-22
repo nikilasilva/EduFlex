@@ -15,7 +15,7 @@ class SuperAdmin extends Controller {
         // Initialize the User model
         $this->UserModel = $this->model('User'); 
         $this->AllStudentsModel = $this->model('AllStudentsModel');
-        $this->ClassModel = $this->model('classModel');
+        $this->ClassModel = $this->model('ClassesModel');
         $this->ParentModel = $this->model('ParentModel');
     }
 
