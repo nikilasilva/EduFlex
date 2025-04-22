@@ -23,4 +23,7 @@ class ClassModel {
     public function classIdExists($classId) {
         return $this->first(['classId' => $classId]) !== false;
     }
+
+
+    
 }
