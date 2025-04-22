@@ -19,11 +19,9 @@
     margin-bottom: 30px;
 }
 
-/* h1 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-} */
+.announcement-search-bar {
+    margin-bottom: 0;
+}
 
 .form-group {
     margin-bottom: 20px;
@@ -91,14 +89,13 @@ label {
     gap: 35px;
 }
 
-.announcement-container .button-group {
+.profile-picture-buttons {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
-    width: 102%;
+    width: 100%;
 }
 
-.announcement-container button {
+.profile-picture-buttons button {
     flex: 1;
     padding: 12px;
     border: none;
@@ -109,22 +106,23 @@ label {
     transition: background-color var(--trans-03);
 }
 
-.announcement-container button[type="submit"] {
+/* .announcement-container button[type="submit"] {
     background-color: var(--primary-btn-color);
     color: white;
 }
 
 .announcement-container button[type="submit"]:hover {
     background-color: var(--primary-btn-hover-color);
+} */
+
+.profile-picture-buttons .btn-delete  {
+    background-color: var(--btn-red-color);
+    color: white;
 }
 
-.announcement-container button[type="reset"] {
-    background-color: #e2e2e2;
-    color: #444;
-}
-
-.announcement-container button[type="reset"]:hover {
-    background-color: #d1d1d1;
+.profile-picture-buttons .btn-delete:hover {
+    background-color: var(--hover-red-color);
+    color: white;
 }
 
 .view-all-container {
@@ -151,3 +149,91 @@ label {
     background-color: var(--primary-btn-hover-color);
 }
 
+
+/* Delete Confirmation */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.btn-cancel, .btn-confirm-delete {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.btn-confirm-delete:hover {
+    background-color: #990000;
+}
+
+.btn-cancel {
+    background-color: #ccc;
+}
+
+.btn-confirm-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+
+.modal.show {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    transition: var(--tran-05);
+}
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Announcement count */
+.announcement-count-wrapper {
+    text-align: right;
+    margin: 0 10px 10px 0;
+}
+
+.announcement-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    display: inline-block;
+}
+
+/* Announcement table */
+/* Target the Date column (5th column) */
+.announcement-table th:nth-child(5),
+.announcement-table td:nth-child(5) {
+    min-width: 82px;
+    width: 82px;
+}
+
+/* Target the Actions column (7th column) */
+.announcement-table th:nth-child(7),
+.announcement-table td:nth-child(7) {
+    min-width: 125px; 
+    width: 125px;
+}

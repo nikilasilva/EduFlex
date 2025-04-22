@@ -33,4 +33,16 @@
 .today {
     background-color: lightgreen;
     font-weight: bold;
+    color: #007bff;
+}
+
+h1, h2 {
+    color: #001d3d; /* ZellMart color scheme */
+}
+
+/* Grid layout for the event boxes */
+.upcoming-events {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;}
 }

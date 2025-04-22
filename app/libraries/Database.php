@@ -1,6 +1,7 @@
 <?php
 
 
+
 // Trait Database{
 
 //     protected function connect(){
@@ -30,6 +31,7 @@
 //                 return $result;
 //             }
 //         }
+
 
 //         return false;
 //     }
@@ -119,8 +121,22 @@ trait Database {
 
 
 
+    // public function query($query,$data = []){
 
+    //     $conn = $this->connect();
+    //     $stm=$conn->prepare($query);
+    //     $check = $stm->execute($data);
+        
+    //     // For SELECT queries
+    //     if (stripos(trim($query), 'select') === 0) {
+    //         $result = $stm->fetchAll(PDO::FETCH_OBJ);
+    //         if (is_array($result) && count($result)) {
+    //             return $result;
+    //         }
+    //         return [];
+    //     }
 
-
-
+    //     // For UPDATE/INSERT/DELETE
+    //     return $check; // true or false
+    // }
 

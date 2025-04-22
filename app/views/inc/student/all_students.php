@@ -1,37 +1,86 @@
 <?php require APPROOT.'/views/inc/header.php'; ?>
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
-<?php require APPROOT.'/views/inc/student/all_students_table.php';?>
+<?php require APPROOT.'/views/inc/components/sidebar.php'; ?>
 
-<nav class="sidebar">
-    <header>
-        <div class="image-text">
-            <span class="image">
-                <img src="<?php echo URLROOT; ?>/public/img/logo_noBG1.png" alt="Logo">
-            </span>
-            <div class="text header-text">
-            <span class="name">EduFlex</span>
-            </div>
-            <i class="fa-solid fa-bars toggle"></i>
+<div class="all-students-container">
+
+    <h1>All Students</h1>
+
+    <!-- Search and Filter Section -->
+    <div class="search-filter-bar">
+        <div class="search-bar all-students-search-bar">
+            <input type="text" placeholder="Search by name" id="search-input">
+            <button id="search-button">SEARCH</button>
         </div>
-    </header>
+        
+        <div class="filter-dropdowns">
+            <select id="classSelectStudents">
+            <option value="">All Classes</option>
+            <?php foreach ($data['classes'] as $class): ?>
+                <option value="<?php echo $class->className ?>">
+                    <?php echo $class->className ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+                
+            <select id="gradeSelectStudents">
+            <option value="">All Grades</option>
+            <?php foreach ($data['grades'] as $grade): ?>
+                <option value="<?php echo $grade->grade ?>">
+                    Grade <?php echo $grade->grade ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+                    
+            <select id="religionSelectStudents">
+            <option value="">All Religions</option>
+            <?php foreach ($data['religions'] as $religion): ?>
+                <option value="<?php echo $religion->religion ?>">
+                    <?php echo $religion->religion ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <!-- Display student count -->
+        <div class="student-count-wrapper">
+            <p class="student-count">Total Students: <?php echo $data['studentCount']; ?></p>
+        </div>
+    </div>
+    
+    <?php if (isset($data['message'])): ?>
+        <p><?php echo $data['message']; ?></p>
+    <?php else: ?>
 
-    <ul>
-    <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/students"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Students</span></a></li>
 
-            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_attendance"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Attendance</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/student_payment"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Payment</span></a></li> -->
-
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/teachers"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Teachers</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/attendance"><i class="fa-solid fa-pen icon"></i><span class="text nav-text">Mark attendance</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
-            <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/dailyActivities"><i class="fa-solid fa-business-time icon"></i><span class="text nav-text">Teacher's Record</span></a></li>
-            
-            
-    </ul>
-</nav>
+        <table id="students-table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Full Name</th>
+                    <th>Class</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Religion</th>
+                    <th>Parent</th>
+                    <th>Parent Mobile No</th>
+                </tr>
+            </thead>
+            <tbody id="students-table-body">
+                <?php foreach ($data['students'] as $student): ?>
+                    <tr>
+                        <td><?php echo $student['studentId']; ?></td>
+                        <td><?php echo $student['fullName']; ?></td>
+                        <td><?php echo $student['className']; ?></td>
+                        <td><?php echo $student['email']; ?></td>
+                        <td><?php echo $student['mobileNo']; ?></td>
+                        <td><?php echo $student['religion']; ?></td>
+                        <td><?php echo $student['parentName']; ?></td>
+                        <td><?php echo $student['parentMobileNo']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>

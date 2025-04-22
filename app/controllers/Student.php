@@ -1,20 +1,56 @@
 <?php
     class Student extends Controller {
         private $StudentModel;
+        private $AllStudentsModel;
+        private $ClassModel;
 
         public function __construct() {
           // $this->StudentModel = $this->model('StudentModel');
           // $this->model('StudentModel');
+          $this->AllStudentsModel = $this->model('AllStudentsModel');
+          $this->ClassModel = $this->model('classModel');
         }
-
-        public function index() {
-            echo "This is the Student index page.";
-        }
-        
-
         // View all students.
-        public function students() {
-            $this->view('inc/student/all_students');
+        public function showAllStudents() {
+            checkRoles(['principal', 'vice-principal']);
+
+            $this->ClassModel->setLimit(50);
+
+            // Fetch all students from the model
+            $students = $this-> AllStudentsModel->getAllStudents();
+            $classes = $this->ClassModel->findAll();
+            $grades = $this->ClassModel->getAllGrades();
+            $religions = $this->AllStudentsModel->getAllReligions();
+
+            $studentCount = count($students);
+
+            $data = [
+                'students' => [],
+                'studentCount' => $studentCount,
+                'classes' => $classes,
+                'grades' => $grades,
+                'religions' => $religions
+            ];
+
+            if (is_array($students) && !empty($students)) {
+                $data['students'] = array_map(function ($student) {
+                    return [
+                        'studentId' => $student->studentId,
+                        'fullName' => $student->firstName . ' ' . $student->lastName,
+                        'className' => $student->className,
+                        'email' => $student->email,
+                        'mobileNo' => $student->mobileNo,
+                        'religion' => $student->religion,
+                        'parentName' => ($student->parentFirstName ? $student->parentFirstName . ' ' . $student->parentLastName : 'None'),
+                        'parentMobileNo' => $student->parentMobileNo ?: 'None'
+                    ];
+                }, $students);
+                $data['studentCount'] = count($students);
+            }
+            else {
+                $data['message'] = 'No students found in the database.';
+            }
+            $this->view('inc/student/all_students', $data);
         }
 
         // public function details() {
@@ -95,6 +131,7 @@
             $this->view('scheduled_events', $data);
         }
 
+
         // public function timeTable() {
         //     // Sample timetable data (you can retrieve this from a database in real use cases)
         //     $data = [
@@ -116,8 +153,6 @@
 
 
 
+
     }
-
-
-
 ?>

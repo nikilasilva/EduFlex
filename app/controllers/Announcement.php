@@ -15,46 +15,76 @@ class Announcement extends Controller {
         $this->viewAnnouncement();
     }
 
-    public function announcements() {
+    public function announcements($page = 1) {
         // Fetch all announcements from the database
         $userRole = $_SESSION['user']['role'] ?? null;
+        $regNo = $_SESSION['user']['regNo'] ?? null;
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
 
         if (!$userRole) {
             die('User role not defined.');
         }
-        elseif ($userRole == 'principal') {
-            $announcements = $this->announcementModel->findAll();
+        elseif ($userRole == 'principal' || $userRole == 'vice-principal') {
+            $total = $this->announcementModel->query(
+                "SELECT COUNT(*) as count FROM " . $this->announcementModel->getTableName(),
+                []
+            )[0]->count;
+            $announcements = $this->announcementModel->findAllOrdered($limit, $offset);
         }
-
         else {
+            $total = $this->announcementModel->query(
+                "SELECT COUNT(*) as count FROM " . $this->announcementModel->getTableName() . " WHERE target_audience LIKE ?",
+                ['%' . $userRole . '%']
+            )[0]->count;
             $announcements = $this->announcementModel->findByRole($userRole);
         }
 
         $data = [
             'title' => 'Announcements',
             'announcements' => $announcements,
+            'page' => $page,
+            'totalPages' => ceil($total / $limit),
+            'message' => $_SESSION['message'] ?? ''
         ];
+        unset($_SESSION['message']);
         
         $this->view('inc/announcement/announcementModal', $data);
     }
 
     // Display all announcements
-    public function viewAnnouncement() {
+    public function viewAnnouncement($page = 1) {
+        checkRole('vice-principal');
+
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        $regNo = $_SESSION['user']['regNo'] ?? null;
+
         // Fetch all announcements from the database
-        $announcements = $this->announcementModel->findAll();
+        $total = $this->announcementModel->query(
+            "SELECT COUNT(*) as count FROM " . $this->announcementModel->getTableName() . " WHERE created_by = ?",
+            [$regNo]
+        )[0]->count;
+        $announcements = $this->announcementModel->findByCreator($regNo, $limit, $offset);
     
         // Pass the announcements to the view
         $data = [
             'title' => 'Announcements',
             'announcements' => $announcements,
+            'page' => $page,
+            'totalPages' => ceil($total / $limit),
+            'announcementCount' => count($announcements),
+            'announcementTotal' => $total,
+            'message' => $_SESSION['message'] ?? ''
         ];
+        unset($_SESSION['message']);
     
         $this->view('inc/announcement/viewAnnouncement', $data);
     }
-    
 
     // Handle announcement submission
     public function submitAnnouncement() {
+        checkRole('vice-principal');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -63,47 +93,34 @@ class Announcement extends Controller {
             $data = [
                 'title' => trim($_POST['announcement-title']),
                 'type' => trim($_POST['announcement-type']),
-                'target_audience' => implode(',', $_POST['audience'] ?? []), // Convert array to string
+                'target_audience' => isset($_POST['audience']) ? implode(',', $_POST['audience']) : '',
                 'content' => trim($_POST['announcement-content']),
                 'date' => $_POST['announcement-date'],
-                'time' => $_POST['announcement-time'],
+                'time' => isset($_POST['announcement-time']) ? substr($_POST['announcement-time'], 0, 5) : '',
+                'created_by' => $_SESSION['user']['regNo'],
                 'errors' => []
             ];
 
             // Validate fields
-            if (empty($data['title'])) {
-                $data['errors']['title'] = 'Announcement title is required.';
-            }
-            if (empty($data['type'])) {
-                $data['errors']['type'] = 'Announcement type is required.';
-            }
-            if (empty($data['target_audience'])) {
-                $data['errors']['target_audience'] = 'Target audience is required.';
-            }
-            if (empty($data['content'])) {
-                $data['errors']['content'] = 'Announcement content is required.';
-            }
-            if (empty($data['date'])) {
-                $data['errors']['date'] = 'Announcement date is required.';
-            }
-            if (empty($data['time'])) {
-                $data['errors']['time'] = 'Announcement time is required.';
+            if (!$this->announcementModel->validate($data)) {
+                $data['errors'] = $this->announcementModel->errors;
             }
             
             // Check if there are no errors
             if (empty($data['errors'])) {
                 // Save the announcement
                 if ($this->announcementModel->insert($data)) {
+                    $_SESSION['message'] = 'Announcement created successfully';
                     // Redirect to the announcements page
                     header("Location: " . URLROOT . "/Announcement/viewAnnouncement");
                     exit();
                 } else {
-                    die('Something went wrong.');
+                    $data['errors']['general'] = 'Failed to create announcement';
                 }
-            } else {
-                // Reload the form with errors
-                $this->view('inc/announcement/createAnnouncement', $data);
             }
+            // Reload the form with errors
+            $this->view('inc/announcement/createAnnouncement', $data);
+            
         } else {
             // Load the form view
             $data = [
@@ -121,6 +138,16 @@ class Announcement extends Controller {
 
     // Handle announcement updating
     public function updateAnnouncement($id) {
+        checkRole('vice-principal');
+        
+        // Fetch the existing announcement first to verify ownership
+        $announcement = $this->announcementModel->first(['id' => $id]);
+        if (!$announcement || $announcement->created_by != $_SESSION['user']['regNo']) {
+            $_SESSION['error'] = 'Announcement not found or you are not authorized to edit it';
+            header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
+            exit;
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -130,72 +157,70 @@ class Announcement extends Controller {
                 'id' => $id,
                 'title' => trim($_POST['announcement-title']),
                 'type' => trim($_POST['announcement-type']),
-                'target_audience' => !empty($_POST['target_audience']) ? implode(',', $_POST['target_audience']) : '',
+                'target_audience' => isset($_POST['target_audience']) ? implode(',', $_POST['target_audience']) : '',
                 'content' => trim($_POST['announcement-content']),
                 'date' => $_POST['announcement-date'],
-                'time' => $_POST['announcement-time'],
+                'time' => isset($_POST['announcement-time']) ? substr($_POST['announcement-time'], 0, 5) : '',
+                'created_by' => $_SESSION['user']['regNo'],
                 'errors' => []
             ];
 
-            // Validate fields (similar validation as in submission)
-            if (empty($data['title'])) {
-                $data['errors']['title'] = 'Announcement title is required.';
-            }
-            if (empty($data['type'])) {
-                $data['errors']['type'] = 'Announcement type is required.';
-            }
-            if (empty($data['target_audience'])) {
-                $data['errors']['target_audience'] = 'Target audience is required.';
-            }
-            if (empty($data['content'])) {
-                $data['errors']['content'] = 'Announcement content is required.';
-            }
-            if (empty($data['date'])) {
-                $data['errors']['date'] = 'Announcement date is required.';
-            }
-            if (empty($data['time'])) {
-                $data['errors']['time'] = 'Announcement time is required.';
+            // Validate fields
+            if (!$this->announcementModel->validate($data)) {
+                $data['errors'] = $this->announcementModel->errors;
             }
 
             // Update announcement if there are no errors
             if (empty($data['errors'])) {
                 $this->announcementModel->update($id, $data);
-                header("Location: " . URLROOT . "/Announcement/viewAnnouncement");
-                exit();
-                
-            } else {
-                // Reload the form with errors
-                $this->view('inc/announcement/editAnnouncement', $data);
+                $_SESSION['message'] = 'Announcement updated successfully';
+                header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
+                exit;
             }
+
+            // Reload the form with errors
+            $this->view('inc/announcement/editAnnouncement', $data);
         } else {
-            // Fetch the existing announcement
-            $announcement = $this->announcementModel->first(['id' => $id]);
-            if ($announcement) {
-                $data = [
-                    'id' => $announcement->id,
-                    'title' => $announcement->title,
-                    'type' => $announcement->type,
-                    'target_audience' => explode(',', $announcement->target_audience),
-                    'content' => $announcement->content,
-                    'date' => $announcement->date,
-                    'time' => $announcement->time,
-                    'errors' => []
-                ];
-                $this->view('inc/announcement/editAnnouncement', $data);
-            } else {
-                die('Announcement not found.');
-            }
+            // Prepare data for the edit form
+            $data = [
+                'id' => $announcement->id,
+                'title' => $announcement->title,
+                'type' => $announcement->type,
+                'target_audience' => explode(',', $announcement->target_audience),
+                'content' => $announcement->content,
+                'date' => $announcement->date,
+                'time' => $announcement->time,
+                'errors' => []
+            ];
+            $this->view('inc/announcement/editAnnouncement', $data);
         }
     }
 
     // Handle announcement deletion
-    public function deleteAnnouncement($id) {
-        if ($this->announcementModel->delete($id)) {
-            // Redirect to the announcements page
-            header("Location: " . URLROOT . "/Announcement/viewAnnouncement");
-            exit();
+    public function deleteAnnouncement() {
+        checkRole('vice-principal');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? 0;
+            
+            // Check if the announcement exists and belongs to the current user
+            $announcement = $this->announcementModel->first([
+                'id' => $id,
+                'created_by' => $_SESSION['user']['regNo']
+            ]);
+    
+            if ($announcement && $this->announcementModel->delete($id)) {
+                $_SESSION['message'] = 'Announcement deleted successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to delete announcement or you are not authorized';
+            }
+    
+            header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
+            exit;
         } else {
-            die('Something went wrong delete.');
+            // Redirect if not POST
+            header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
+            exit;
         }
-    }
+    }    
 }
