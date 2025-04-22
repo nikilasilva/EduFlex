@@ -13,6 +13,7 @@
 <body>
 <div class="layout">
     <!-- Sidebar -->
+
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
@@ -28,20 +29,28 @@
                         <th>Wednesday</th>
                         <th>Thursday</th>
                         <th>Friday</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($data['timeTable'] as $row): ?>
-                        <tr>
-                            <td><?= $row['time'] ?></td>
-                            <td><?= $row['monday'] ?></td>
-                            <td><?= $row['tuesday'] ?></td>
-                            <td><?= $row['wednesday'] ?></td>
-                            <td><?= $row['thursday'] ?></td>
-                            <td><?= $row['friday'] ?></td>
-                        </tr>
+            <?php foreach ($timetable as $timeSlot => $days): ?>
+                <tr>
+                    <td><?= htmlspecialchars($timeSlot) ?></td>
+                    <?php foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as $day): ?>
+                        <td>
+                            <?php if (isset($days[$day])): ?>
+                                <?= htmlspecialchars($days[$day]['subject']) ?><br>
+                                <!-- <small><?= htmlspecialchars($days[$day]['teacher']) ?></small> -->
+                                
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
                     <?php endforeach; ?>
-                </tbody>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+
             </table>
         </div>
     </div>
