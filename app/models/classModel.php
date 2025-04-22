@@ -1,29 +1,15 @@
 <?php
-
 class ClassModel {
-    use Model;
+    use Database; // Use the Database trait
 
-    protected $table = 'classes';
-    protected $allowedColumns = [
-        'classId',
-        'className',
-        'classTeacherRegNo'
-    ];
-
-    protected $order_column = 'classId';
-
-    // Fetch all grades for students
-    public function getAllGrades() {
-        $sql = "SELECT DISTINCT SUBSTRING(className, 7, LOCATE('-', className) - 7) AS grade
-                FROM classes
-                ORDER BY CAST(grade AS UNSIGNED)";
-        return $this->query($sql);
+    public function getAllClasses() {
+        $query = 'SELECT * FROM classes'; 
+        $result = $this->query($query); 
+        //var_dump($result); // Debug the query result
+        return $result;
     }
-
-    public function classIdExists($classId) {
-        return $this->first(['classId' => $classId]) !== false;
-    }
-
-
     
 }
+
+
+
