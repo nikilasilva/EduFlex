@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 require_once '../app/helpers/url_helper.php';
 require_once '../app/helpers/session_helper.php';
 
@@ -166,79 +166,109 @@ class Teacher extends Controller {
     public function dailyActivities() {
         $this->view('inc/teacher/daily_activities');
     }
-    
-    public function submitActivities() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $date = $_POST['date'];
-            $today = date('Y-m-d');
-            $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
-    
-            // Validate date: should not be a future date or older than 7 days
-            if ($date > $today || $date < $oneWeekAgo) {
-                $_SESSION['error'] = "Date must be today or within the last 7 days.";
-                header("Location: " . URLROOT . "/teacher/dailyActivities");
-                exit();
-            }
-    
-            $activityData = [
-                'date' => $date,
-                'period' => $_POST['period'],
-                'subject' => $_POST['subject'],
-                'class' => $_POST['class'],
-                'description' => $_POST['description'],
-                'additional_note' => $_POST['additional_note']
-            ];
-    
-            $activity = new Current_activityModel();
-            $activity->insert($activityData);
 
-            $_SESSION['success'] = "Activity recorded successfully.";
-            header("Location: " . URLROOT . "/teacher/viewActivities");
-            exit();
-        } else {
-            $this->view('daily_activities');
+    // Handle form submission
+    public function submitActivities() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->dailyActivities();
         }
-    }
-    
-    public function viewActivities() {
+
+        $date = $_POST['date'];
+        $today = date('Y-m-d');
+        $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
+
+        // Validate date is between one week ago and today
+        if ($date > $today || $date < $oneWeekAgo) {
+            $_SESSION['error'] = "Date must be today or within the last 7 days.";
+            return header("Location: " . URLROOT . "/teacher/dailyActivities");
+        }
+
+        // Build activity record, including teacher_id from session
+        $activityData = [
+            'teacher_id'    => $_SESSION['user']['regNo'],
+            'date'          => $date,
+            'period'        => $_POST['period'],
+            'subject'       => $_POST['subject'],
+            'class'         => $_POST['class'],
+            'description'   => $_POST['description'],
+            'additional_note'=> $_POST['additional_note']
+        ];
+
         $activityModel = new Current_activityModel();
-    
-        // Just call query(), no need for fetchAll()
-        $activities = $activityModel->query("SELECT * FROM current_activity ORDER BY date");
-    
+        $activityModel->insert($activityData);
+
+        $_SESSION['success'] = "Activity recorded successfully.";
+        header("Location: " . URLROOT . "/teacher/viewActivities");
+        exit;
+    }
+
+    // List only this teacher's activities
+    public function viewActivities() {
+        $teacherId = $_SESSION['user']['regNo'];
+        
+        $activityModel = new Current_activityModel();
+        $activities = $activityModel->getTeacherActivities($teacherId);
+
         $this->view('inc/teacher/view_activities', ['activities' => $activities]);
     }
-    
-    
 
-    
+    // Edit existing activity (only if it belongs to this teacher)
     public function editActivity($id) {
+        $teacherId = $_SESSION['user']['regNo'];
         $activityModel = new Current_activityModel();
-    
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = [
-                'date' => $_POST['date'],
-                'period' => $_POST['period'],
-                'subject' => $_POST['subject'],
-                'class' => $_POST['class'],
-                'description' => $_POST['description'],
-                'additional_note' => $_POST['additional_note']
-            ];
-    
-            $activityModel->update($id, $data, 'activity_id');
-            header("Location: " . URLROOT . "/teacher/viewActivities");
-            exit();
-        } else {
-            $activity = $activityModel->first(['activity_id' => $id]);
-            $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+
+        // Fetch the record and ensure it belongs to this teacher
+        $activity = $activityModel->first([
+            'activity_id' => $id,
+            'teacher_id'  => $teacherId
+        ]);
+
+        if (! $activity) {
+            $_SESSION['error'] = "You are not authorized to edit that activity.";
+            return header("Location: " . URLROOT . "/teacher/viewActivities");
         }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate date again if needed, omitted here for brevity
+
+            $updateData = [
+                'date'            => $_POST['date'],
+                'period'          => $_POST['period'],
+                'subject'         => $_POST['subject'],
+                'class'           => $_POST['class'],
+                'description'     => $_POST['description'],
+                'additional_note' => $_POST['additional_note'],
+            ];
+
+            $activityModel->update($id, $updateData, 'activity_id');
+            $_SESSION['success'] = "Activity updated successfully.";
+            header("Location: " . URLROOT . "/teacher/viewActivities");
+            exit;
+        }
+
+        $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
     }
-    
+
+    // Delete an activity (only if it belongs to this teacher)
     public function deleteActivity($id) {
+        $teacherId = $_SESSION['user']['regNo'];
         $activityModel = new Current_activityModel();
-        $activityModel->delete($id, 'activity_id');
+
+        // Ensure it's really this teacher's record
+        $activity = $activityModel->first([
+            'activity_id' => $id,
+            'teacher_id'  => $teacherId
+        ]);
+
+        if (! $activity) {
+            $_SESSION['error'] = "You are not authorized to delete that activity.";
+        } else {
+            $activityModel->delete($id, 'activity_id');
+            $_SESSION['success'] = "Activity deleted successfully.";
+        }
+
         header("Location: " . URLROOT . "/teacher/viewActivities");
-        exit();
+        exit;
     }
     
 
@@ -434,10 +464,19 @@ class Teacher extends Controller {
         $classModel = $this->model('ClassModel');
         $studentModel = $this->model('StudentModel');
         $subjectModel = $this->model('SubjectModel');
-
+        $marksModel = $this->model('MarksModel');
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classId = $_POST['classId'];
-
+            $term = $_POST['term'] ?? null;
+    
+            // Check if marks already exist for this class and term
+            if ($marksModel->marksExistForClassTerm($classId, $term)) {
+                $_SESSION['error'] = "Marks have already been submitted for this class and term.";
+                header("Location: " . URLROOT . "/teacher/selectClass"); // or wherever your form starts
+                exit();
+            }
+    
             $results = $subjectModel->query("
                 SELECT s.id, s.name 
                 FROM subject_class sc
@@ -445,19 +484,51 @@ class Teacher extends Controller {
                 WHERE sc.class_id = ?", 
                 [$classId]
             );
-
+    
             $students = $studentModel->where(['classId' => $classId]);
-
             $subjects = is_array($results) ? $results : [];
             $students = is_array($students) ? $students : [];
-
+    
             $this->view('inc/teacher/submit_marks', [
                 'subjects' => $subjects,
                 'students' => $students,
-                'class'=> $classId
+                'class'=> $classId,
+                'term' => $term
             ]);
         }
     }
+    
+    public function processMarks() {
+        $marksModel = $this->model('MarksModel');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['class'];
+            $term = $_POST['term'];
+            $marksData = $_POST['marks'];
+    
+            if ($marksModel->marksExistForClassTerm($classId, $term)) {
+                $_SESSION['error'] = "Marks already submitted for this class and term.";
+                header("Location: " . URLROOT . "/teacher/selectClass");
+                exit();
+            }
+    
+            foreach ($marksData as $studentId => $subjectMarks) {
+                foreach ($subjectMarks as $subjectId => $mark) {
+                    $marksModel->insertMarks($studentId, $subjectId, $term, $mark, $classId);
+                }
+            }
+    
+            // Redirect to report page using POST to avoid "Page Not Found" from GET
+            echo '<form id="redirectForm" method="POST" action="' . URLROOT . '/teacher/viewClassReport">';
+            echo '<input type="hidden" name="class" value="' . htmlspecialchars($classId) . '">';
+            echo '<input type="hidden" name="term" value="' . htmlspecialchars($term) . '">';
+            echo '</form>';
+            echo '<script>document.getElementById("redirectForm").submit();</script>';
+            exit();
+        }
+    }
+    
+    
     
 
  }

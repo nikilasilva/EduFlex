@@ -11,6 +11,12 @@ class Student_attendanceModel {
         'status'
     ];
 
+
+    public function __construct() {
+        $this->order_column = 'student_id'; // ✅ safely override here
+    }
+
+    
     public function getClasses() {
         $sql = "SELECT DISTINCT classId, className FROM classes ORDER BY className";
         return $this->query($sql);

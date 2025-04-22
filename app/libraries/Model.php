@@ -140,7 +140,7 @@ trait Model {
     protected $limit = 20;
     protected $offset = '0';
     protected $order_type = "desc";
-    protected $order_column = "id"; // Default order column
+    protected $order_column = "regNo"; // Default order column
     public $errors = [];
 
     // Set the limit for queries
