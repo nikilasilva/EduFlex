@@ -1,9 +1,23 @@
 .teacher-timetable-form {
     display: flex;
     width: 100%;
+    gap: 10px;
 }
 
 #timetableHeader {
     text-align: center;
     width: 100%;
+}
+
+.teacher-timetable-form input[type="text"] {
+    margin: 10px 0;
+}
+
+.teacher-timetable-form button {
+    padding: 0;
+    margin: 10px 0;
+}
+
+.teacher-timetable-form select {
+    margin: 10px 0;
 }
