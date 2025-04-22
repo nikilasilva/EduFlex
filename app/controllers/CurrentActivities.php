@@ -3,6 +3,7 @@ class CurrentActivities extends Controller {
     private $currentActModel;
 
     public function __construct() {
+        checkRole('principal');
         // Load the currrentActModel
         $this->currentActModel = $this->model('CurrentActModel');
     }

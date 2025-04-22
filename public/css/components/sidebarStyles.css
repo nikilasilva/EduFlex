@@ -37,7 +37,7 @@ ul {
 
 .sidebar.close .text {
     opacity: 0; /* Hide text in collapsed state */
-    transition: var(--tran-04);
+    transition: var(--tran-03);
 }
 
 .sidebar li {

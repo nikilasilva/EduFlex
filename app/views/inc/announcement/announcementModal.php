@@ -14,13 +14,20 @@
                     <p class="announcement-content"><?php echo htmlspecialchars($announcement->content); ?></p>
                     <div class="announcement-meta">
                         <span class="announcement-date"><?php echo htmlspecialchars($announcement->date); ?></span>
-                        <span class="announcement-time"><?php echo htmlspecialchars($announcement->time); ?></span>
+                        <span class="announcement-time"><?php echo htmlspecialchars(date('H:i', strtotime($announcement->time))); ?></span>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
         <p class="no-announcements">No announcements found.</p>
+    <?php endif; ?>
+    <?php if ($data['totalPages'] > 1): ?>
+        <div class="pagination">
+            <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
+                <a href="<?php echo URLROOT; ?>/Announcement/announcements/<?php echo $i; ?>" class="<?php echo $i == $data['page'] ? 'active' : ''; ?>" aria-label="Page <?php echo $i; ?>"><?php echo $i; ?></a>
+            <?php endfor; ?>
+        </div>
     <?php endif; ?>
 </div>
 
