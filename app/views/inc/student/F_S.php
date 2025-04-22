@@ -22,7 +22,7 @@
 
     <div class="form-container">
         <h2>Facility & Service Charges</h2>
-        <form id="fineForm" method="post" action="<?= URLROOT ?>/payment_charges/submit" 
+        <form id="fineForm" method="post" action="<?= URLROOT ?>/Payment_charges/submit" 
                
               enctype="multipart/form-data">
             
