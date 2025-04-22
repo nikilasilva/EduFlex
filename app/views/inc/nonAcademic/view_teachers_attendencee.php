@@ -1,55 +1,80 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-<?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Activity</title>
+    <title>Checkbox Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
 
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/view_activities.css">
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="layout">
-        <!-- Sidebar -->
-        <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
+    <h2 style="text-align: center;">Checkbox Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Row</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Rows will be dynamically generated -->
+        </tbody>
+    </table>
 
-        <!-- Main content -->
-        <div class="container">
-            <h1>Recode Teachers attendance</h1>
+    <script>
+        // Function to generate table rows with checkboxes
+        function generateTable(rows) {
+            const tableBody = document.getElementById('tableBody');
+            for (let i = 1; i <= rows; i++) {
+                const row = document.createElement('tr');
 
-            <!-- Activities table -->
-            <table class="activities-table">
-                <thead>
-                    <tr>
-                        <th>student_id</th>
-                        <th>book_id</th>
-                        <th>full_name</th>
+                // Row number column
+                const cellNumber = document.createElement('td');
+                cellNumber.textContent = i;
+                row.appendChild(cellNumber);
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($data['activities'] as $activity): ?>
-                        <tr>
-                            <td><?php echo $activity->teacher_id; ?></td>
-                            <td><?php echo $activity->teacher_name; ?></td>
-                            <td><?php echo $activity->attendance; ?></td>
+                // Checkbox column
+                const cellCheckbox = document.createElement('td');
+                cellCheckbox.innerHTML = `
+                    <label>
+                        <input type="checkbox" id="row${i}checkbox1" onclick="toggleRowCheckbox('row${i}checkbox2', this)"> Option 1
+                    </label>
+                    <label style="margin-left: 20px;">
+                        <input type="checkbox" id="row${i}checkbox2" onclick="toggleRowCheckbox('row${i}checkbox1', this)"> Option 2
+                    </label>
+                `;
+                row.appendChild(cellCheckbox);
 
-                            <td>
-                                <!-- <a href="<?php echo URLROOT; ?>/Nonacademic/editActivity/<?php echo $activity->student_id; ?>" class="btn btn-edit">Edit</a><br></br> -->
-                                <!-- <a href="<?php echo URLROOT; ?>/Nonacademic/deleteActivity/<?php echo $activity->student_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this activity?');">Delete</a> -->
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Function to toggle checkboxes in the same row
+        function toggleRowCheckbox(otherCheckboxId, currentCheckbox) {
+            const otherCheckbox = document.getElementById(otherCheckboxId);
+            if (currentCheckbox.checked) {
+                otherCheckbox.checked = false;
+            }
+        }
+
+        // Generate 5 rows in the table as an example
+        generateTable(5);
+    </script>
 </body>
 
 </html>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>

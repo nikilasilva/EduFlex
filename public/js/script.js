@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Select elements
     const sidebar = document.querySelector('.sidebar');
     const toggleButton = document.querySelector('.toggle');
+    const dashBoardMainContent = document.querySelector(".main-content");
+    const footer = document.querySelector(".footer");
+    const table1 = document.querySelector(".table-1-container");
+    const feedbackContainer = document.querySelector(".feedback-set-container");
+    const selectClassContainer = document.querySelector(".select-class-container");
+    const submitMarksContainer = document.querySelector(".submit-marks-container");
+    const classReportContainer = document.querySelector(".class-report-container");
+    const termReportContainer = document.querySelector(".term-report-container");
+    const attendanceContainer = document.querySelector(".attendance-container");
+
     const containers = [
         document.querySelector(".topNav-container"),
         document.querySelector(".main-content"),
@@ -31,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Restore sidebar state from localStorage
     const isSidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
+
 
     if (isSidebarClosed && sidebar) {
         sidebar.classList.add('close');

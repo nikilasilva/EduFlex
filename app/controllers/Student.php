@@ -10,7 +10,6 @@
           $this->AllStudentsModel = $this->model('AllStudentsModel');
           $this->ClassModel = $this->model('classModel');
         }
-        
         // View all students.
         public function showAllStudents() {
             checkRoles(['principal', 'vice-principal']);
@@ -54,18 +53,20 @@
             $this->view('inc/student/all_students', $data);
         }
 
-        public function details() {
-            //
-            // $Student = $this->StudentModel->getUsers();
+        // public function details() {
+        // //     //
+        // //     // $Student = $this->StudentModel->getUsers();
 
-            // $data = [
-            //     'Student' => $Student
-            // ];
+        // //     // $data = [
+        // //     //     'Student' => $Student
+        // //     // ];
 
-            //
-            $this->view('inc/student/details');
+        // //     //
+        //     $this->view('inc/student/details');
 
-        }
+        // }
+
+        
 //
         public function view($view, $data = []) {
             require_once "../app/views/{$view}.php";
@@ -80,13 +81,13 @@
             $this->view('inc/student/chargesForm');
         }
 
-        public function academic(){
-            $this->view('inc/student/aca_details');
-        }
+        // public function academic(){
+        //     $this->view('inc/student/aca_details');
+        // }
 
-        public function payment(){
-            $this->view('inc/student/pay_details');
-        }
+        // public function payment(){
+        //     $this->view('inc/student/pay_details');
+        // }
 
         public function library_fine(){
             $this->view('inc/student/libry_fine');
@@ -104,10 +105,10 @@
             $this->view('inc/student/leaving');
         }
 
-        public function attendance(){
+        // public function attendance(){
             
-            $this->view('inc/student/attendance'); 
-        }
+        //     $this->view('inc/student/attendance'); 
+        // }
 
         public function events() {
             // Example events array (replace with your actual data)

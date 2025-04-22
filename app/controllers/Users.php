@@ -77,7 +77,7 @@ class Users extends Controller {
     public function viewProfile() {
         $this->view('userProfile');
     }
-
+    
     public function settings() {
         if (!isset($_SESSION['user']['regNo']) || !isset($_SESSION['user']['email'])) {
             $_SESSION['error'] = 'Please log in to access settings';
@@ -150,6 +150,18 @@ class Users extends Controller {
         }        
 
         $this->view('userSettings', $data);
+    }
+
+    public function details() {
+        
+        $email = $_SESSION['user']['email'];
+        $user = $this->userModel->findUserByEmail($email);
+
+        if (!$user) {
+            die('User not found.');
+        }
+
+        $this->view('inc/student/userDetails', ['user' => $user]);
     }
 
     public function updatePassword() {

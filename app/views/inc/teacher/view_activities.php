@@ -23,7 +23,7 @@
         <table class="activities-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Record No.</th>
                     <th>Date</th>
                     <th>Period</th>
                     <th>Subject</th>
