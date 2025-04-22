@@ -48,7 +48,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="form-group">
+        <div class="form-group announcement-content-form-group">
             <label for="announcement-content">Announcement Content</label>
             <textarea id="announcement-content" name="announcement-content" 
                       placeholder="Enter announcement content" required><?= $data['content'] ?></textarea>
@@ -76,9 +76,9 @@
             </div>
         </div>
 
-        <div class="button-group">
+        <div class="button-group-announcement">
             <button type="submit">Create Announcement</button>
-            <button type="reset">Clear</button>
+            <button type="reset">Clear Form</button>
         </div>
     </form>
 
