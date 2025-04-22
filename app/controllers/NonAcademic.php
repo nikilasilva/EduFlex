@@ -209,9 +209,33 @@ class NonAcademic extends Controller
 
 
     //-------------
+    public function searchServiceChargesByStudentId()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $studentId = $_POST['student_id'];
+
+            if (!empty($studentId)) {
+                $serviceChargesModel = new payment_chargesModel_verryfy();
+                $result = $serviceChargesModel->where(['student_id' => $studentId]);
+
+                if ($result) {
+                    $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => $result]);
+                } else {
+                    $_SESSION['error_message'] = "No service charges found for Student ID: " . htmlspecialchars($studentId);
+                    $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => []]);
+                }
+            } else {
+                $_SESSION['error_message'] = "Student ID cannot be empty.";
+                $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => []]);
+            }
+        } else {
+            $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => []]);
+        }
+    }
+
     public function verify_service_charges()
     {
-        $serviceChargesModel = new Payment_chargesModel(); // Assuming you have this model to load students
+        $serviceChargesModel = new payment_chargesModel_verryfy(); // Assuming you have this model to load students
         $serviceCharge = $serviceChargesModel->findAll();
 
     
@@ -219,5 +243,37 @@ class NonAcademic extends Controller
         $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => $serviceCharge]);
 
     }
+//
+public function downloadFile($fileName) {
+    $filePath = APPROOT . '/../uploads/' . $fileName;
+
+    if (file_exists($filePath)) {
+        // Disable output buffering
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        // Get the MIME type
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $filePath);
+        finfo_close($finfo);
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: ' . $mime);
+        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filePath));
+
+        readfile($filePath);
+        exit;
+    } else {
+        die('File not found.');
+    }
+}
+
+
+
 }
 ?>
