@@ -11,13 +11,16 @@
           $this->ClassModel = $this->model('ClassesModel');
         }
         // View all students.
-        public function showAllStudents() {
+        public function showAllStudents($page = 1) {
             checkRoles(['principal', 'vice-principal']);
 
             $this->ClassModel->setLimit(50);
+            $limit = 20;
+            $offset = ($page - 1) * $limit;
 
             // Fetch all students from the model
-            $students = $this-> AllStudentsModel->getAllStudents();
+            $students = $this->AllStudentsModel->getAllStudents($limit, $offset);
+            $totalStudents = $this->AllStudentsModel->getTotalStudents();
             $classes = $this->ClassModel->findAll();
             $grades = $this->ClassModel->getAllGrades();
             $religions = $this->AllStudentsModel->getAllReligions();
@@ -27,10 +30,15 @@
             $data = [
                 'students' => [],
                 'studentCount' => $studentCount,
+                'studentTotal' => $totalStudents,
                 'classes' => $classes,
                 'grades' => $grades,
-                'religions' => $religions
+                'religions' => $religions,
+                'page' => $page,
+                'totalPages' => ceil($totalStudents / $limit),
+                'message' => ''
             ];
+
 
             if (is_array($students) && !empty($students)) {
                 $data['students'] = array_map(function ($student) {
@@ -52,19 +60,6 @@
             }
             $this->view('inc/student/all_students', $data);
         }
-
-        // public function details() {
-        // //     //
-        // //     // $Student = $this->StudentModel->getUsers();
-
-        // //     // $data = [
-        // //     //     'Student' => $Student
-        // //     // ];
-
-        // //     //
-        //     $this->view('inc/student/details');
-
-        // }
 
         
 //

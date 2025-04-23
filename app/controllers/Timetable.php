@@ -10,7 +10,7 @@ class Timetable extends Controller {
         //     session_start();
         // }
         $this->timetableModel = $this->model('TimetableModel');
-        $this->classModel = $this->model('ClassModel');
+        $this->classModel = $this->model('ClassesModel');
     }
 
     public function index() {

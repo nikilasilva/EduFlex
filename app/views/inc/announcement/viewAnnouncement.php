@@ -26,7 +26,6 @@
 
     <div class="announcement-count-wrapper">
         <p class="announcement-count">Showing: <?php echo $data['announcementCount']; ?> Result(s) out of <?php echo $data['announcementTotal']; ?> Total</p>
-        <!-- <p class="announcement-count">Total Announcements: <?php echo $data['announcementCount']; ?></p> -->
     </div>
     
     <?php if (!empty($data['announcements'])): ?>

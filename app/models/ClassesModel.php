@@ -23,4 +23,8 @@ class ClassesModel {
     public function classIdExists($classId) {
         return $this->first(['classId' => $classId]) !== false;
     }
+
+    public function getTableName() {
+        return $this->table;
+    }
 }

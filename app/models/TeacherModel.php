@@ -10,7 +10,10 @@ class TeacherModel {
     ];
 
     // Fetch all teachers with their details
-    public function getAllTeachers() {
+    public function getAllTeachers($limit = 25, $offset = 0) {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+
         $sql = "SELECT t.regNo, t.firstName, t.lastName, u.email, u.mobileNo,
                        GROUP_CONCAT(s.subjectName) as subjects, c.className
                 FROM teachers t
@@ -19,8 +22,19 @@ class TeacherModel {
                 LEFT JOIN subjects s ON ts.subjectId = s.subjectId
                 LEFT JOIN classes c ON c.classTeacherRegNo = t.regNo
                 WHERE u.role = 'teacher'
-                GROUP BY t.regNo, t.firstName, t.lastName, u.email, u.mobileNo";
+                GROUP BY t.regNo, t.firstName, t.lastName, u.email, u.mobileNo
+                LIMIT $limit OFFSET $offset";
 
         return $this->query($sql);
+    }
+
+    // Count total number of teachers
+    public function getTotalTeachers() {
+        $sql = "SELECT COUNT(*) as count
+                FROM teachers t
+                JOIN users u ON t.regNo = u.regNo
+                WHERE u.role = 'teacher'";
+
+        return $this->query($sql)[0]->count;
     }
 }

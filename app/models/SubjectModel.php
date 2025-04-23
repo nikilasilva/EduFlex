@@ -8,6 +8,11 @@ class SubjectModel {
         $data = ['class_id' => $classId];
         return $this->query($query, $data);  // Using the query method from the Database trait
     }
+
+    public function getAllSubjects() {
+        $sql = "SELECT subjectId, subjectName FROM subjects ORDER BY subjectName ASC";
+        return $this->query($sql);
+    }
 }
 ?>
 
