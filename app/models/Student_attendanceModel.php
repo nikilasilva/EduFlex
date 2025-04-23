@@ -57,7 +57,45 @@ class Student_attendanceModel {
                 WHERE a.date = :date AND s.classId = :class";
         return $this->query($sql, ['date' => $date, 'class' => $class]);
     }
-        
+    
+
+    public function updateWhere($where, $data)
+    {
+        $query = "UPDATE $this->table SET ";
+    
+        // Build SET part
+        $setParts = [];
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->allowedColumns)) {
+                $setParts[] = "$key = :set_$key";
+            }
+        }
+    
+        $query .= implode(', ', $setParts);
+    
+        // Build WHERE part
+        $whereParts = [];
+        foreach ($where as $key => $value) {
+            $whereParts[] = "$key = :where_$key";
+        }
+    
+        $query .= " WHERE " . implode(' AND ', $whereParts);
+    
+        // Merge params
+        $params = [];
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->allowedColumns)) {
+                $params["set_$key"] = $value;
+            }
+        }
+        foreach ($where as $key => $value) {
+            $params["where_$key"] = $value;
+        }
+    
+        return $this->query($query, $params);
+    }
+    
+    
 }
 
 

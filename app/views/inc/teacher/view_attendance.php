@@ -30,6 +30,19 @@
             <?php endif; ?>
         </tbody>
     </table>
+    <?php
+$canUpdate = (strtotime(date('Y-m-d')) - strtotime($data['date'])) <= 604800; // 7 * 24 * 60 * 60
+?>
+
+<?php if ($canUpdate): ?>
+    <form action="<?php echo URLROOT; ?>/teacher/editAttendance" method="POST">
+        <input type="hidden" name="date" value="<?= htmlspecialchars($data['date']) ?>">
+        <input type="hidden" name="class" value="<?= htmlspecialchars($data['class']) ?>">
+        <button type="submit" class="btn btn-info">Update Attendance</button>
+    </form>
+<?php endif; ?>
+
+    
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

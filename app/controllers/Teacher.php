@@ -138,6 +138,66 @@ class Teacher extends Controller {
         ]);
     }
 
+    public function editAttendance() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $date = $_POST['date'];
+            $class = $_POST['class'];
+    
+            $attendanceModel = new Student_attendanceModel();
+            $records = $attendanceModel->where(['date' => $date, 'class' => $class]);
+    
+            $records = json_decode(json_encode($records), true);
+    
+            $this->view('inc/teacher/edit_attendance', [
+                'attendanceRecords' => $records,
+                'date' => $date,
+                'class' => $class
+            ]);
+        }
+    }
+
+    public function updateAttendance()
+    {
+        $attendanceModel = new Student_attendanceModel();
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $submittedDate = $_POST['date'];
+            $class = $_POST['class'];
+            $today = date('Y-m-d');
+            $daysDiff = (strtotime($today) - strtotime($submittedDate)) / (60 * 60 * 24);
+    
+            if ($daysDiff > 7) {
+                $_SESSION['error'] = "You can only update attendance within 7 days of submission.";
+                header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$submittedDate&view_class=$class");
+                exit();
+            }
+    
+            foreach ($_POST['status'] as $studentId => $status) {
+                $data = [
+                    'status' => $status,
+                    'name' => $_POST['student_name'][$studentId] ?? ''
+                ];
+    
+                $where = [
+                    'student_id' => $studentId,
+                    'date' => $submittedDate,
+                    'class' => $class
+                ];
+    
+                $attendanceModel->updateWhere($where, $data);
+            }
+    
+            $_SESSION['success'] = "Attendance updated successfully.";
+            header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$submittedDate&view_class=$class");
+            exit();
+        } else {
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
+        }
+    }
+    
+    
+    
 
     //absences
 
