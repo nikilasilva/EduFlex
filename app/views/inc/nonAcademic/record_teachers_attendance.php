@@ -21,6 +21,11 @@
         <div class="attendance-container">
             <h1>Record Teachers Attendance</h1>
 
+            <!-- Display current date -->
+            <div class="current-date">
+                <p><strong>Date:</strong> <?php echo date('Y-m-d'); ?></p>
+            </div>
+
             <!-- Attendance form -->
             <form action="<?php echo URLROOT; ?>/nonAcademic/SubmitTeachersAttendanceForm" method="POST">
                 <table border="1" cellpadding="10">

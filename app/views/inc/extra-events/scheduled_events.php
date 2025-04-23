@@ -77,7 +77,7 @@
                 ?>
             </div>
 
-
+            
 
             <!-- end calender part -->
 
@@ -100,6 +100,52 @@
                     </div>
                 <?php endif; ?>
             </div>
+
+            <!-- show upcomming event  -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const eventBoxes = document.querySelectorAll('.upcoming-events .box');
+
+                    eventBoxes.forEach(box => {
+                        box.addEventListener('click', function () {
+                            const eventDate = this.querySelector('.event-date').textContent;
+                            const eventDescription = this.querySelector('p').textContent;
+
+                            // Create modal structure
+                            const modal = document.createElement('div');
+                            modal.className = 'event-modal';
+
+                            modal.innerHTML = `
+                                <div class="event-modal-content">
+                                    <span class="event-modal-close">&times;</span>
+                                    <h2>Event Details</h2>
+                                    <p><strong>Date:</strong> ${eventDate}</p>
+                                    <p><strong>Description:</strong> ${eventDescription}</p>
+                                </div>
+                            `;
+
+                            document.body.appendChild(modal);
+
+                            // Close modal on click of close button
+                            modal.querySelector('.event-modal-close').addEventListener('click', function () {
+                                modal.remove();
+                            });
+
+                            // Close modal on outside click
+                            modal.addEventListener('click', function (e) {
+                                if (e.target === modal) {
+                                    modal.remove();
+                                }
+                            });
+                        });
+                    });
+                });
+            </script>
+
+            <style>
+                
+            </style>
+
 
         </div> <!-- End of main content -->
 

@@ -177,6 +177,11 @@ class NonAcademic extends Controller
                 $_SESSION['success_message'] = "Attendance submitted successfully!";
             }
         }
+
+        // Redirect to the ViewTeachersAttendance function after submission
+        header("Location: " . URLROOT . "/NonAcademic/ViewTeachersAttendance");
+        exit();
+
     }
 
 
