@@ -39,7 +39,7 @@ label {
 .announcement-container input[type="time"],
 .announcement-container select,
 .announcement-container textarea {
-    width: 100%;
+    width: 102%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -52,6 +52,22 @@ label {
 
 #announcement-date {
     margin: 0;
+}
+
+.announcement-content-form-group {
+    margin-bottom: 0;
+}
+
+.button-group-announcement {
+    display: flex;
+    gap: 10px;
+    width: 102%;
+}
+
+
+.announcement-container input[type="date"],
+.announcement-container input[type="time"] {
+    width: 100%;
 }
 
 .announcement-container input[type="text"]:focus,
@@ -87,6 +103,25 @@ label {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 35px;
+    margin-bottom: 20px;
+}
+
+.button-group-announcement button[type="submit"] {
+    background-color: var(--secondary-btn-color);
+    color: white;
+}
+
+.button-group-announcement button[type="submit"]:hover {
+    background-color: var(--secondary-btn-hover-color);
+}
+
+.button-group-announcement button[type="reset"] {
+    background-color: #aca9bb;
+    color: white;
+}
+
+.button-group-announcement button[type="reset"]:hover {
+    background-color: #cccccc;
 }
 
 .profile-picture-buttons {
@@ -137,16 +172,17 @@ label {
 .announcement-container .btn-view-all {
     display: inline-block;
     padding: 10px 15px;
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
-    background-color: var(--primary-btn-color);
+    background-color: var(--secondary-btn-color);
     text-decoration: none;
     border-radius: 5px;
     transition: background-color var(--trans-02);
+    font-weight: normal;
 }
 
 .announcement-container .btn-view-all:hover {
-    background-color: var(--primary-btn-hover-color);
+    background-color: var(--secondary-btn-hover-color);
 }
 
 

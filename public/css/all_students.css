@@ -38,3 +38,17 @@
 .all-students-search-bar {
     margin-bottom: 15px;
 }
+
+.all-students-search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    width: 215%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0;
+    margin-right: 12px;
+}
+
+.all-students-search-bar button {
+    margin-left: 5px;
+}

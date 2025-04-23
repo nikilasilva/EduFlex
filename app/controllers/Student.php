@@ -8,7 +8,7 @@
           // $this->StudentModel = $this->model('StudentModel');
           // $this->model('StudentModel');
           $this->AllStudentsModel = $this->model('AllStudentsModel');
-          $this->ClassModel = $this->model('classModel');
+          $this->ClassModel = $this->model('ClassesModel');
         }
         // View all students.
         public function showAllStudents() {
