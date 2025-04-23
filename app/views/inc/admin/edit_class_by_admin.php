@@ -26,15 +26,15 @@
 
                 <!-- Class Name -->
                 <div class="form-group">
-                    <label for="classId">Class Name:</label>
-                    <input type="text" name="classId" id="classId" value="<?php echo $data['class']->classId; ?>" required>
+                    <label for="className">Class Name:</label>
+                    <input type="text" name="className" id="className" value="<?php echo $data['class']->className; ?>" required>
                 </div>
 
                 <!-- Class Teacher ID -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="classTeacherId">Class Teacher ID:</label>
                     <input type="number" name="classTeacherId" id="classTeacherId" value="<?php echo $data['class']->classTeacherId; ?>" required>
-                </div>
+                </div> -->
 
                 <button type="submit" class="btn btn-primary">Update Class</button>
                 <br><br>

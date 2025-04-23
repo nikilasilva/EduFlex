@@ -4,7 +4,7 @@
 class User {
     use Model;
 
-    protected $table = 'users1';
+    protected $table = 'users';
     protected $allowedColumns = [
         "regNo",
         "email",

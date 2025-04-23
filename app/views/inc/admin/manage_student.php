@@ -20,6 +20,13 @@
         <!-- Student Form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitStudent" method="POST">
 
+
+            <!-- Student ID -->
+            <div class="form-group">
+                <label for="student_id">Student ID:</label>
+                <input type="text" name="student_id" id="student_id" required>
+            </div>
+
             <!-- User ID -->
             <div class="form-group">
                 <label for="regNo">User Reg:</label>
@@ -40,9 +47,44 @@
 
             <!-- Class ID -->
             <div class="form-group">
-                <label for="classId">Class name:</label>
-                <input type="text" name="classId" id="classId" required>
-            </div>
+    <label for="classId">Class name:</label>
+    <select name="classId" id="classId" required>
+        <option value="">Select Class</option>
+        <optgroup label="Grade 6">
+            <option value="1">Grade 6-A</option>
+            <option value="2">Grade 6-B</option>
+            <option value="3">Grade 6-C</option>
+            <option value="4">Grade 6-D</option>
+            <option value="5">Grade 6-E</option>
+        </optgroup>
+        <optgroup label="Grade 7">
+            <option value="6">Grade 7-A</option>
+            <option value="7">Grade 7-B</option>
+            <option value="8">Grade 7-C</option>
+            <option value="9">Grade 7-D</option>
+            <option value="10">Grade 7-E</option>
+        </optgroup>
+        <!-- Add similar optgroups for Grade 8 to Grade 11 -->
+        <optgroup label="Grade 8">
+            <!-- Add options for Grade 8 classes -->
+            <option value="11">Grade 8-A</option>
+            <option value="12">Grade 8-B</option>
+            <option value="13">Grade 8-C</option>
+            <option value="14">Grade 8-D</option>
+            <option value="15">Grade 8-E</option>
+        </optgroup>
+        <optgroup label="Grade 9">
+            <!-- Add options for Grade 9 classes -->
+        </optgroup>
+        <optgroup label="Grade 10">
+            <!-- Add options for Grade 10 classes -->
+        </optgroup>
+        <optgroup label="Grade 11">
+            <!-- Add options for Grade 11 classes -->
+        </optgroup>
+    </select>
+</div>
+
 
             <!-- Guardian (Parent) User ID (Optional) -->
             <div class="form-group">

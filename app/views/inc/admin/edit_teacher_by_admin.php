@@ -25,7 +25,7 @@
 
             <!-- Daily Activities form -->
             <!-- <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity" method="POST"> -->
-            <form action="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $data['teacher']->teacherId; ?>" method="POST">
+            <form action="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $data['teacher']->teacher_id; ?>" method="POST">
 
 
                
@@ -34,8 +34,8 @@
 
 
             <div class="form-group">
-                <label for="teacherId">Teacher ID :</label>
-                <input type="number" name="teacherId" id="teacherId" value="<?php echo $data['teacher']->teacherId; ?>" required>
+                <label for="teacher_id">Teacher ID :</label>
+                <input type="number" name="teacher_id" id="teacher_id" value="<?php echo $data['teacher']->teacher_id; ?>" required>
             </div>
 
  <!-- First Name -->

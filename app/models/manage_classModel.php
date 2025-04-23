@@ -8,7 +8,7 @@ class manage_classModel
 
     protected $allowedColumns = [
         'classId',
-        'classTeacherId'
+        'className'
 
     ];
 

@@ -38,7 +38,7 @@ teacher
                 <tbody>
                     <?php foreach ($data['teachers'] as $teacher): ?>
                         <tr>
-                            <td><?php echo $teacher->teacherId; ?></td>
+                            <td><?php echo $teacher->teacher_id; ?></td>
                             <td><?php echo $teacher->regNo; ?></td>
                             <td><?php echo $teacher->firstName . ' ' . $teacher->lastName; ?></td>
                             <td><?php echo $teacher->subject; ?></td>
@@ -46,8 +46,8 @@ teacher
                             <td><?php echo $teacher->hireDate; ?></td>
 
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacherId; ?>" class="btn btn-edit">Edit</a><br></br>
-                                <a href="<?php echo URLROOT; ?>/Admin/deleteTeacher/<?php echo $teacher->teacherId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
+                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-edit">Edit</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/deleteTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

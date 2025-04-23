@@ -20,6 +20,12 @@
         <h1>Insert Teacher Details</h1>
 
         <form action="<?php echo URLROOT; ?>/Admin/submitTeacher" method="POST">
+
+
+        <div class="form-group">
+                <label for="teacher_id">Teacher Id :</label>
+                <input type="text" name="teacher_id" id="teacher_id" required>
+            </div>
             
             <div class="form-group">
                 <label for="regNo">User Reg:</label>
@@ -41,24 +47,24 @@
                 <input type="text" name="subject" id="subject" required>
             </div>
 
-            <!-- Experience -->
-<div class="form-group">
-    <label for="experience">Years of Experience:</label>
-    <input type="number" name="experience" id="experience" min="0" value="<?php echo isset($formData['experience']) ? $formData['experience'] : ''; ?>" required>
-    <span class="error"><?php echo isset($errors['experience']) ? $errors['experience'] : ''; ?></span>
+                        <!-- Experience -->
+            <div class="form-group">
+                <label for="experience">Years of Experience:</label>
+                <input type="number" name="experience" id="experience" min="0" value="<?php echo isset($formData['experience']) ? $formData['experience'] : ''; ?>" required>
+                <span class="error"><?php echo isset($errors['experience']) ? $errors['experience'] : ''; ?></span>
 
 
 
-    <!--JS -->
-<script>
-    document.getElementById('experience').addEventListener('input', function () {
-        if (this.value < 0) {
-            this.value = '';
-            alert("Experience must be a positive number.");
-        }
-    });
-</script>
-</div>
+                <!--JS -->
+                        <script>
+                            document.getElementById('experience').addEventListener('input', function () {
+                                if (this.value < 0) {
+                                    this.value = '';
+                                    alert("Experience must be a positive number.");
+                                }
+                            });
+                        </script>
+            </div>
 
 
           <!-- Hire Date -->

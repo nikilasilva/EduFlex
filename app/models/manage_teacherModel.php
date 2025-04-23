@@ -7,7 +7,7 @@ class manage_teacherModel
 
     protected $table = 'teachers';
     protected $allowedColumns = [
-        'teacherId',
+        'teacher_id',
         'regNo',
         'firstName',
         'lastName',
@@ -17,5 +17,5 @@ class manage_teacherModel
 
     ];
 
-    protected $order_column = 'teacherId'; // Defined here
+    protected $order_column = 'teacher_id'; // Defined here
 }

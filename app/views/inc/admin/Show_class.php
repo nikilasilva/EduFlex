@@ -25,8 +25,8 @@ teacher
                 <thead>
                     <tr>
                     
-                        <th>className</th>
-                        <th>classTeacherId</th>
+                        <th>class ID</th>
+                        <th>class Name</th>
                         <th>action</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@ teacher
                     <?php foreach ($data['classes'] as $classe): ?>
                         <tr>
                             <td><?php echo $classe->classId; ?></td>
-                            <td><?php echo $classe->classTeacherId; ?></td>
+                            <td><?php echo $classe->className; ?></td>
 
                             <td>
                                 <a href="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $classe->classId; ?>" class="btn btn-edit">Edit</a><br></br>

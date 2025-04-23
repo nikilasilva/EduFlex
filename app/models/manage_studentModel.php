@@ -7,7 +7,7 @@ class manage_studentModel
     protected $table = 'students';
 
     protected $allowedColumns = [
-        'studentId',
+        'student_id',
         'regNo',
         'firstName',
         'lastName',
@@ -16,5 +16,5 @@ class manage_studentModel
 
     ];
 
-    protected $order_column = 'studentId'; // Defined here
+    protected $order_column = 'student_Id'; // Defined here
 }

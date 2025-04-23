@@ -55,7 +55,7 @@ public function submitUser() {
                 break;
             
             case 'admin':
-                header("Location: " . URLROOT . "/admin/manage_admin?regNo=" . $reg_No);
+                header("Location: " . URLROOT . "/admin/viewUser");
                 break;
         
             default:
@@ -267,6 +267,7 @@ public function submitStudent()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $studentData = [
+            'student_id' => $_POST['student_id'],
             'regNo' => $_POST['regNo'],
             'firstName' => trim($_POST['firstName']),
             'lastName' => trim($_POST['lastName']),
@@ -293,12 +294,13 @@ public function viewStudent()
 }
 
 // Edit Student
-public function editStudent($studentId)
+public function editStudent($regNo)
 {
     $studentModel = new manage_studentModel();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
+            'student_id' => $_POST['student_id'],
             'regNo' => $_POST['regNo'],
             'firstName' => trim($_POST['firstName']),
             'lastName' => trim($_POST['lastName']),
@@ -307,12 +309,12 @@ public function editStudent($studentId)
             
         ];
 
-        $studentModel->update($studentId, $data, 'studentId');
+        $studentModel->update($regNo, $data, 'regNo');
 
         header("Location: " . URLROOT . "/Admin/viewStudent");
         exit();
     } else {
-        $student = $studentModel->first(['studentId' => $studentId]);
+        $student = $studentModel->first(['regNo' => $regNo]);
 
         if ($student) {
             $this->view('inc/Admin/edit_student_by_admin', ['student' => $student]);
@@ -323,10 +325,10 @@ public function editStudent($studentId)
 }
 
 // Delete Student
-public function deleteStudent($studentId)
+public function deleteStudent($student_id)
 {
     $studentModel = new manage_studentModel();
-    $studentModel->delete($studentId, 'studentId');
+    $studentModel->delete($student_id, 'student_id');
 
     header("Location: " . URLROOT . "/Admin/viewStudent");
     exit();
@@ -347,7 +349,7 @@ public function deleteStudent($studentId)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $teacherData = [
-                'teacherId' => trim($_POST['teacherId']),
+                'teacher_id' => trim($_POST['teacher_id']),
                 'regNo' => trim($_POST['regNo']),
                 'firstName' => trim($_POST['firstName']),
                 'lastName' => trim($_POST['lastName']),
@@ -380,7 +382,7 @@ public function deleteStudent($studentId)
         $this->view('inc/Admin/Show_teacher', ['teachers' => $teachers]);
     }
 
-    public function editTeacher($teacherId)
+    public function editTeacher($teacher_id)
     {
         $teacherModel = new manage_teacherModel();
 
@@ -395,14 +397,14 @@ public function deleteStudent($studentId)
                 'hireDate' => trim($_POST['hireDate'])
             ];
 
-            $teacherModel->update($teacherId, $data, 'teacherId');
+            $teacherModel->update($teacher_id, $data, 'teacher_id');
 
             // Redirect to the view teachers page
             header("Location: " . URLROOT . "/admin/viewTeacher");
             exit();
         } else {
             // Get the teacher details
-            $teacher = $teacherModel->first(['teacherId' => $teacherId]);
+            $teacher = $teacherModel->first(['teacher_id' => $teacher_id]);
 
             if ($teacher) {
                 $this->view('inc/admin/edit_teacher_by_admin', ['teacher' => $teacher]);
@@ -412,12 +414,12 @@ public function deleteStudent($studentId)
         }
     }
 
-    public function deleteTeacher($teacherId)
+    public function deleteTeacher($teacher_id)
     {
         $teacherModel = new manage_teacherModel();
 
         // Delete the teacher
-        $teacherModel->delete($teacherId, 'teacherId');
+        $teacherModel->delete($teacher_id, 'teacher_id');
 
         // Redirect to the view teachers page
         header("Location: " . URLROOT . "/admin/viewTeacher");
@@ -717,7 +719,7 @@ public function deleteVicePrincipal($vicePrincipalId)
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $classData = [
                     'classId' => trim($_POST['classId']),
-                    'classTeacherId' => trim($_POST['classTeacherId']) // Match DB column name
+                    'className' => trim($_POST['className']) // Match DB column name
                 ];
         
                 $classModel = new manage_classModel();
@@ -747,7 +749,7 @@ public function deleteVicePrincipal($vicePrincipalId)
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $data = [
                     'classId' => trim($_POST['classId']),
-                    'classTeacherId' => trim($_POST['classTeacherId'])
+                    'className' => trim($_POST['className'])
                 ];
         
                 $classModel->update($classId, $data, 'classId');
