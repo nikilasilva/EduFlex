@@ -1,5 +1,9 @@
 <!-- // all emty -->
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+
 class NonAcademic extends Controller
 {
     public function __construct() {}
@@ -198,14 +202,7 @@ class NonAcademic extends Controller
 
     // END All Teachers Attendencee Funtions
 
-
-
-
-
     //start verify service charges
-
-    
-
 
 
     //-------------
@@ -238,42 +235,159 @@ class NonAcademic extends Controller
         $serviceChargesModel = new payment_chargesModel_verryfy(); // Assuming you have this model to load students
         $serviceCharge = $serviceChargesModel->findAll();
 
-    
+
 
         $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => $serviceCharge]);
-
     }
-//
-public function downloadFile($fileName) {
-    $filePath = APPROOT . '/../uploads/' . $fileName;
+    //
+    public function downloadFile($fileName)
+    {
+        $filePath = APPROOT . '/../uploads/' . $fileName;
 
-    if (file_exists($filePath)) {
-        // Disable output buffering
-        if (ob_get_level()) {
-            ob_end_clean();
+        if (file_exists($filePath)) {
+            // Disable output buffering
+            if (ob_get_level()) {
+                ob_end_clean();
+            }
+
+            // Get the MIME type
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $filePath);
+            finfo_close($finfo);
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: ' . $mime);
+            header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($filePath));
+
+            readfile($filePath);
+            exit;
+        } else {
+            die('File not found.');
         }
-
-        // Get the MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $filePath);
-        finfo_close($finfo);
-
-        header('Content-Description: File Transfer');
-        header('Content-Type: ' . $mime);
-        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filePath));
-
-        readfile($filePath);
-        exit;
-    } else {
-        die('File not found.');
     }
+
+
+
+    public function RequestLeavingCertificatesView()
+    {
+        $LeavingCertificateMode = new LeavingCertificateModeldev3(); // Make sure this model exists
+        $LeavingCertificates = $LeavingCertificateMode->findAll();
+    
+        $this->view('inc/nonAcademic/Leaving_Certificates', ['LeavingCertificates' => $LeavingCertificates]);
+    }
+
+
+    public function markCertificateComplete($id)
+{
+    $model = new LeavingCertificateModeldev3();
+   // Make sure the certificate exists (optional but good practice)
+   $certificate = $model->first(['certificate_id' => $id]);
+
+$mail = new mail();
+$mail->forwardMinuteContent(); // Call the method to send the email
+
+   if ($certificate) {
+       // Update status from 0 to 1
+       $model->update($id, ['status' => 1], 'certificate_id');
+   }
+
+    header("Location: " . URLROOT . "/NonAcademic/RequestLeavingCertificatesView");
+    exit();
 }
 
 
 
+
+
+
+    public function sendLeavingCertificateEmail($recipientEmail) {
+        require '../vendor/autoload.php';
+    
+        $mail = new PHPMailer(true);
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'c.t.gamlath@gmail.com'; // Sender email
+            $mail->Password = 'wsnx vvbp hiet wcex'; // App-specific password for Gmail
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+    
+            // Recipients
+            $mail->setFrom('c.t.gamlath@gmail.com', 'School Non-Academic Staff');
+            $mail->addAddress($recipientEmail, "Student"); // Recipient email
+    
+            // Content
+            // $mail->isHTML(true);
+            $mail->Subject = 'Reddy – Your Leaving Certificate';
+            $mail->Body    = "
+                <p>Dear Student,</p>
+                <p>Your leaving certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
+                <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>
+            ";
+    
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            return false;
+        }
+    }
+
+
+
+    // public function RequestCharacterCertificateView()
+    // {
+    //     $characterCertificateModel = new CharacterCertificateModel(); // Make sure this model exists
+    //     $characterCertificates = $characterCertificateModel->findAll();
+    
+    //     $this->view('inc/nonAcademic/Character_Certificate', ['characterCertificates' => $characterCertificates]);
+    // }    
+
+
+
+    
+
+    private function sendCharacterCertificateEmail($recipientEmail) {
+        require '../vendor/autoload.php';
+    
+        $mail = new PHPMailer(true);
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'gamlathcharitha@gmail.com'; // Replace with actual sender email
+            $mail->Password = ''; // Replace with actual app password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+    
+            // Recipients
+            $mail->setFrom('gamlathcharitha@gmail.com', 'School Non-Academic Staff');
+            $mail->addAddress($recipientEmail);
+    
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Reddy – Your Character Certificate';
+            $mail->Body    = "
+                <p>Dear Student,</p>
+                <p>Your living certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
+                <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>
+            ";
+    
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            return false;
+        }
+    }
+    
+    
 }
 ?>
