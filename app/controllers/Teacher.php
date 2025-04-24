@@ -55,6 +55,7 @@ class Teacher extends Controller {
     }
 
     public function attendance() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classId = $_POST['classId'];
     
@@ -72,6 +73,7 @@ class Teacher extends Controller {
     }
     
     public function submitAttendance() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $class = $_POST['class'] ?? null;
             $attendance = $_POST['attendance'] ?? [];
@@ -117,47 +119,56 @@ class Teacher extends Controller {
     
     
     public function viewAttendance() {
+        checkRole('teacher');
         $date = $_GET['attendance_date'] ?? null;
-        $class = $_GET['view_class'] ?? null;
+        $classId = $_GET['view_class'] ?? null;
     
-        if (!$date || !$class) {
+        if (!$date || !$classId) {
             $_SESSION['error'] = "Date or class not provided.";
             header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
             exit();
         }
     
         $attendanceModel = new Student_attendanceModel();
-        $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $class]);
+        $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $classId]);
+        $className = $attendanceModel->getClassName($classId);
     
         $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
     
         $this->view('inc/teacher/view_attendance', [
             'attendanceRecords' => $attendanceRecords,
             'date' => $date,
-            'class' => $class
+            'class' => $classId,         // for logic if needed
+            'className' => $className    // for display
         ]);
     }
+    
 
     public function editAttendance() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $date = $_POST['date'];
-            $class = $_POST['class'];
+            $classId = $_POST['class'];
     
             $attendanceModel = new Student_attendanceModel();
-            $records = $attendanceModel->where(['date' => $date, 'class' => $class]);
+            $records = $attendanceModel->where(['date' => $date, 'class' => $classId]);
+            $className = $attendanceModel->getClassName($classId);
     
             $records = json_decode(json_encode($records), true);
     
             $this->view('inc/teacher/edit_attendance', [
                 'attendanceRecords' => $records,
                 'date' => $date,
-                'class' => $class
+                'class' => $classId,
+                'className' => $className
             ]);
         }
     }
+    
 
     public function updateAttendance()
     {
+        checkRole('teacher');
         $attendanceModel = new Student_attendanceModel();
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -202,6 +213,7 @@ class Teacher extends Controller {
     //absences
 
     public function viewAbsences() {
+        checkRole('teacher');
         $date = $_GET['absence_date'] ?? null;
         $class = $_GET['class'] ?? null;
     
@@ -224,11 +236,13 @@ class Teacher extends Controller {
     
 
     public function dailyActivities() {
+        checkRole('teacher');
         $this->view('inc/teacher/daily_activities');
     }
 
     // Handle form submission
     public function submitActivities() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return $this->dailyActivities();
         }
@@ -264,6 +278,7 @@ class Teacher extends Controller {
 
     // List only this teacher's activities
     public function viewActivities() {
+        checkRole('teacher');
         $teacherId = $_SESSION['user']['regNo'];
         
         $activityModel = new Current_activityModel();
@@ -274,6 +289,7 @@ class Teacher extends Controller {
 
     // Edit existing activity (only if it belongs to this teacher)
     public function editActivity($id) {
+        checkRole('teacher');
         $teacherId = $_SESSION['user']['regNo'];
         $activityModel = new Current_activityModel();
 
@@ -311,6 +327,7 @@ class Teacher extends Controller {
 
     // Delete an activity (only if it belongs to this teacher)
     public function deleteActivity($id) {
+        checkRole('teacher');
         $teacherId = $_SESSION['user']['regNo'];
         $activityModel = new Current_activityModel();
 
@@ -333,12 +350,14 @@ class Teacher extends Controller {
     
 
     public function index() {
+        checkRole('teacher');
         // Ensure that enterMarks does not redirect back to index
         redirect('teacher/selectClass'); // Change to a safe default page
     }
 
 
     public function selectClass() {
+        checkRole('teacher');
         $classModel = $this->model('ClassModel');
         $classes = $classModel->getAllClasses();
         $this->view('inc/teacher/selectClass', ['classes' => $classes]);
@@ -346,6 +365,7 @@ class Teacher extends Controller {
 
 
     public function selectClassForAttendance() {
+        checkRole('teacher');
         // var_dump("this is selectClassForAttendance method");
         // die();
         $classModel = $this->model('ClassModel');
@@ -354,6 +374,7 @@ class Teacher extends Controller {
     }
 
     public function selectClassForViewReport() {
+        checkRole('teacher');
         $classModel = $this->model('ClassModel');
         $classes = $classModel->getAllClasses();
         $this->view('inc/teacher/view_report_by_term', ['classes' => $classes]);
@@ -363,6 +384,7 @@ class Teacher extends Controller {
 
 
     public function viewClassReport() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classId = $_POST['class'];
             $marksData = $_POST['marks'] ?? [];
@@ -432,6 +454,7 @@ class Teacher extends Controller {
     }
 
     public function viewTermReport() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classId = $_POST['class'];
             $term = $_POST['term'];
@@ -496,6 +519,7 @@ class Teacher extends Controller {
     }
 
     public function updateMarks() {
+        checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $marksModel = $this->model('MarksModel');
 
@@ -521,6 +545,7 @@ class Teacher extends Controller {
     }
 
     public function submitMarks() {
+        checkRole('teacher');
         $classModel = $this->model('ClassModel');
         $studentModel = $this->model('StudentModel');
         $subjectModel = $this->model('SubjectModel');
@@ -559,6 +584,7 @@ class Teacher extends Controller {
     }
     
     public function processMarks() {
+        checkRole('teacher');
         $marksModel = $this->model('MarksModel');
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

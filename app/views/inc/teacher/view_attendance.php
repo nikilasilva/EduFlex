@@ -4,7 +4,7 @@
 
 <div class="attendance-container">
     <h1>Attendance Records for <?php echo htmlspecialchars($data['date']); ?></h1>
-    <h2>Class: <?php echo htmlspecialchars($data['class']); ?></h2>
+    <h2>Class: <?php echo htmlspecialchars($data['className']); ?></h2>
 
     <table>
         <thead>
