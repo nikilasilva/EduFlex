@@ -28,6 +28,17 @@
                     <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['parents']->regNo); ?>" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['parents']->fullName); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nameWithInitial">Name with Initials:</label>
+                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['parents']->nameWithInitial); ?>" required>
+                </div>
+
+
 
                 <div class="form-group">
                     <label for="NIC">NIC (Parent):</label>

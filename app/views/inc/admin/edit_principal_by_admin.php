@@ -29,11 +29,11 @@
 
 
               <!-- User ID -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="regNo">Principal ID:</label>
                 <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['principal']->principalId) ; ?>" required>
                 <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
-            </div>
+            </div> -->
 
             <!-- Full Name -->
                 <div class="form-group">

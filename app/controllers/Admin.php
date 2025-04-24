@@ -273,36 +273,53 @@ public function deleteStudent($student_id)
     }
 
 // edit Parent details 
-public function editParent($regNo){
+public function editParent($regNo)
+{
     $parentModel = new manage_parentModel();
+    $userModel = new manage_useraccountModel(); // include user model
 
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $data = [
             'NIC' => trim($_POST['NIC']),
             'regNo' => trim($_POST['regNo']),
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
-            'Relationship' => trim($_POST['Relationship'])
-        
+            'Relationship' => trim($_POST['Relationship']),
+            'fullName' => trim($_POST['fullName']),
+            'nameWithInitial' => trim($_POST['nameWithInitial']),
         ];
 
-        //$teacherModel->update($teacher_id, $data, 'email');
+        // Update the parents table
         $parentModel->update($regNo, $data, 'regNo');
-         // Redirect to the view parent page
-         header("Location: " . URLROOT . "/admin/viewParent");
-         exit();
+
+        // Update the users table with full name and name with initials
+        $userModel->updateUserNameDetails($regNo, [
+            'fullName' => $data['fullName'],
+            'nameWithInitial' => $data['nameWithInitial']
+        ]);
+
+        header("Location: " . URLROOT . "/admin/viewParent");
+        exit();
     } else {
-        // Get the parent details
-        $parents = $parentModel->first(['regNo' => $regNo]);
+        // Fetch from parent model joined with user info
+        $parents = $parentModel->first([
+            'regNo' => $regNo
+        ]);
 
         if ($parents) {
+            // Fetch user info
+            $userModel = new manage_useraccountModel();
+            $user = $userModel->first(['regNo' => $regNo]);
+
+            // Add user fields to parent object
+            $parents->fullName = $user->fullName ?? '';
+            $parents->nameWithInitial = $user->nameWithInitial ?? '';
+
             $this->view('inc/admin/edit_parent_by_admin', ['parents' => $parents]);
         } else {
-            die('Activity not found.');
+            die('Parent not found.');
         }
     }
-
 }
+
 
 //Delete Parent recode
 public function deleteParent($regNo)
@@ -373,34 +390,47 @@ public function submitTeacher()
     public function editTeacher($teacher_id)
     {
         $teacherModel = new manage_teacherModel();
-
-        // If the request is POST, update the teacher
+        $userModel = new manage_useraccountModel();
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
                 'subject' => trim($_POST['subject']),
                 'experience' => trim($_POST['experience']),
                 'hireDate' => trim($_POST['hireDate'])
             ];
-
+    
+            // Update teacher table
             $teacherModel->update($teacher_id, $data, 'teacher_id');
-
-            // Redirect to the view teachers page
+    
+            // Update user name details
+            $regNo = trim($_POST['regNo']);
+            $userData = [
+                'fullName' => trim($_POST['fullName']),
+                'nameWithInitial' => trim($_POST['nameWithInitial'])
+            ];
+            $userModel->updateUserNameDetails($regNo, $userData);
+    
             header("Location: " . URLROOT . "/admin/viewTeacher");
             exit();
         } else {
-            // Get the teacher details
             $teacher = $teacherModel->first(['teacher_id' => $teacher_id]);
-
+    
             if ($teacher) {
+                // Fetch user's full name and initials
+                $userModel = new manage_useraccountModel();
+                $user = $userModel->first(['regNo' => $teacher->regNo]);
+    
+                // Merge teacher and user info
+                $teacher->fullName = $user->fullName ?? '';
+                $teacher->nameWithInitial = $user->nameWithInitial ?? '';
+    
                 $this->view('inc/admin/edit_teacher_by_admin', ['teacher' => $teacher]);
             } else {
-                die('Activity not found.');
+                die('Teacher not found.');
             }
         }
     }
+    
 
     public function deleteTeacher($teacher_id)
     {

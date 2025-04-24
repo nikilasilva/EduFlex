@@ -27,16 +27,54 @@
             <!-- <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity" method="POST"> -->
             <form action="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $data['teacher']->teacher_id; ?>" method="POST">
 
+          
+
+            <input type="hidden" name="regNo" value="<?php echo $data['teacher']->regNo; ?>">
+
+
 
                
 
 
 
 
-            <div class="form-group">
+            
+
+            <!-- <div class="form-group">
+                <label for="teacher_id">Teachers ID :</label>
+                <input type="text" id="teacher_id" value="<?php echo $data['teacher']->teacher_id; ?>" readonly>
+            </div> -->
+
+            <!-- <div class="form-group">
+            <label>Teacher ID :</label>
+            <p><?php echo $data['teacher']->teacher_id; ?></p>
+        </div> -->
+
+            <!-- <div class="form-group">
                 <label for="teacher_id">Teacher ID :</label>
-                <input type="number" name="teacher_id" id="teacher_id" value="<?php echo $data['teacher']->teacher_id; ?>" required>
+                <input type="text" id="teacher_id" value="<?php echo $data['teacher']->teacher_id; ?>" disabled>
+            </div> -->
+
+            <div class="form-group">
+                <label>Teacher ID :</label>
+                <p><?php echo $data['teacher']->teacher_id; ?></p>
             </div>
+
+
+
+
+            
+
+            <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" name="fullName" id="fullName" value="<?php echo isset($data['teacher']->fullName) ? htmlspecialchars($data['teacher']->fullName) : ''; ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nameWithInitial">Name with Initials:</label>
+                        <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo isset($data['teacher']->nameWithInitial) ? htmlspecialchars($data['teacher']->nameWithInitial) : ''; ?>" required>
+            </div>
+
 
             <div class="form-group">
                     <label for="subject">subject:</label>
