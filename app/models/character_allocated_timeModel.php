@@ -11,7 +11,7 @@ class character_allocated_timeModel
         'time_slot',
         'day'
     ];
-    protected $order_column = 'allocated_id';
+    protected $order_column = 'day';
 
     // Method to get user email using student_id
     public function getUserEmailByStudentIdForCharacter($student_id)

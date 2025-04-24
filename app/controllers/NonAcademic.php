@@ -18,15 +18,11 @@ class NonAcademic extends Controller
     //     $this->view('all_teachers');
     // }
 
-
-
     // public function Issuance_books()
     // {
 
-
     //     $this->view('/inc/nonAcademic/Issuance_of_books');
     // }
-
 
     // public function Issuance_books_searched()
     // {
@@ -76,10 +72,6 @@ class NonAcademic extends Controller
 
     //     $this->view('inc/nonAcademic/See_library_activity', ['activities' => $activities]);
     // }
-
-
-
-
 
     // public function editActivity($id)
     // {
@@ -132,8 +124,6 @@ class NonAcademic extends Controller
 
         $this->view('inc/nonAcademic/record_teachers_attendance', ['teachers' => $teachers]);
     }
-
-
 
     public function SubmitTeachersAttendanceForm()
     {
@@ -271,6 +261,19 @@ class NonAcademic extends Controller
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function RequestLeavingCertificatesView()
     {
         $LeavingCertificateMode = new LeavingCertificateModeldev3(); // Make sure this model exists
@@ -278,7 +281,6 @@ class NonAcademic extends Controller
 
         $this->view('inc/nonAcademic/Leaving_Certificates', ['LeavingCertificates' => $LeavingCertificates]);
     }
-
 
 
     public function markCertificateComplete($id)
@@ -320,61 +322,141 @@ class NonAcademic extends Controller
         exit();
     }
 
+
+
     public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
     {
         $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
-        $days = ['Monday', 'Friday'];
-        // Function to allocate a time slot and day
+        $maxPerSlot = 1;
         $allocationModel = new leaving_allocated_timeModel();
 
-        // Check the current allocation count for each time slot on each day
+        // Load all current allocations
         $allocatedSlots = $allocationModel->findAll();
         $slotCounts = [];
 
         foreach ($allocatedSlots as $allocation) {
-            $key = $allocation->day . '|' . $allocation->time_slot;
+            $date = $allocation->day; // already in YYYY-MM-DD
+            $key = $date . '|' . $allocation->time_slot;
+
             if (!isset($slotCounts[$key])) {
                 $slotCounts[$key] = 0;
             }
             $slotCounts[$key]++;
         }
 
-        // Find the next available time slot and day
-        $timeSlot = null;
-        $day = null;
+        // Try to allocate on the next available Monday or Friday
+        $daysChecked = 0;
+        $dateToCheck = new DateTime();
+        $maxDaysAhead = 60; // Safety limit
 
-        foreach ($days as $currentDay) {
-            foreach ($timeSlots as $currentSlot) {
-                $key = $currentDay . '|' . $currentSlot;
-                if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
-                    $timeSlot = $currentSlot;
-                    $day = $currentDay;
-                    break 2; // Exit both loops once a slot is found
+        $found = false;
+        while ($daysChecked < $maxDaysAhead && !$found) {
+            $weekday = $dateToCheck->format('l');
+
+            if ($weekday === 'Monday' || $weekday === 'Friday') {
+                $dateStr = $dateToCheck->format('Y-m-d');
+
+                foreach ($timeSlots as $slot) {
+                    $key = $dateStr . '|' . $slot;
+                    if (!isset($slotCounts[$key]) || $slotCounts[$key] < $maxPerSlot) {
+                        // Found available slot
+                        $allocationModel->insert([
+                            'student_id' => $studentId,
+                            'certificate_id' => $allocatedId,
+                            'time_slot' => $slot,
+                            'day' => $dateStr
+                        ]);
+                        $found = true;
+                        break;
+                    }
                 }
             }
+
+            $dateToCheck->modify('+1 day');
+            $daysChecked++;
         }
 
-        // If no slot is available, assign the next nearest day
-        if (!$timeSlot || !$day) {
-            $day = $days[0]; // Default to the first day
-            $timeSlot = $timeSlots[0]; // Default to the first time slot
+        if (!$found) {
+            // Fallback - assign to next Monday
+            $nextMonday = new DateTime('next Monday');
+            $allocationModel->insert([
+                'student_id' => $studentId,
+                'certificate_id' => $allocatedId,
+                'time_slot' => $timeSlots[0],
+                'day' => $nextMonday->format('Y-m-d')
+            ]);
         }
-        // a to Z select a time slot and day
 
-
-        // Save the allocation in the database
-        $allocationModel = new leaving_allocated_timeModel();
-        $allocationModel->insert([
-            'student_id' => $studentId,
-            'certificate_id' => $allocatedId, // This is actually the certificate ID
-            'time_slot' => $timeSlot,
-            'day' => $day
-        ]);
-
-
-        // Output the allocated time and day
-        // echo "Time slot and day allocated successfully: $timeSlot on $day";
     }
+
+
+
+                
+
+    // public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
+    // {
+    //     $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
+    //     $days = ['Monday', 'Friday'];
+    //     $allocationModel = new character_allocated_timeModel();
+
+    //     $allocatedSlots = $allocationModel->findAll();
+    //     $slotCounts = [];
+
+    //     foreach ($allocatedSlots as $allocation) {
+    //         $weekday = date('l', strtotime($allocation->day)); // Convert date to weekday name
+    //         $key = $weekday . '|' . $allocation->time_slot;
+    //         if (!isset($slotCounts[$key])) {
+    //             $slotCounts[$key] = 0;
+    //         }
+    //         $slotCounts[$key]++;
+    //     }
+
+    //     $timeSlot = null;
+    //     $day = null;
+
+    //     foreach ($days as $currentDay) {
+    //         foreach ($timeSlots as $currentSlot) {
+    //             $key = $currentDay . '|' . $currentSlot;
+    //             if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
+    //                 $timeSlot = $currentSlot;
+    //                 $day = $this->getNextDateFromWeekday($currentDay); // Convert to actual date
+    //                 break 2;
+    //             }
+    //         }
+    //     }
+
+    //     if (!$timeSlot || !$day) {
+    //         $day = $this->getNextDateFromWeekday($days[0]); // Default to first day as a date
+    //         $timeSlot = $timeSlots[0];
+    //     }
+
+    //     $allocationModel->insert([
+    //         'student_id' => $studentId,
+    //         'certificate_id' => $allocatedId,
+    //         'time_slot' => $timeSlot,
+    //         'day' => $day // Stored as DATE now
+    //     ]);
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -394,6 +476,8 @@ class NonAcademic extends Controller
 
 
 
+
+    
     public function markCharacterCertificateComplete($id)
     {
         $model = new CharacterCertificateModeldev3();
@@ -433,56 +517,138 @@ class NonAcademic extends Controller
         exit();
     }
 
+
+
+
+
+
+
+
+
+
     public function autoAllocateCharacterCertificateTime($allocatedId, $studentId)
     {
         $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
-        $days = ['Monday', 'Friday'];
-        // Function to allocate a time slot and day
+        $maxPerSlot = 1;
         $allocationModel = new character_allocated_timeModel();
 
-        // Check the current allocation count for each time slot on each day
+        // Load all current allocations
         $allocatedSlots = $allocationModel->findAll();
         $slotCounts = [];
 
         foreach ($allocatedSlots as $allocation) {
-            $key = $allocation->day . '|' . $allocation->time_slot;
+            $date = $allocation->day; // already in YYYY-MM-DD
+            $key = $date . '|' . $allocation->time_slot;
+
             if (!isset($slotCounts[$key])) {
                 $slotCounts[$key] = 0;
             }
             $slotCounts[$key]++;
         }
 
-        // Find the next available time slot and day
-        $timeSlot = null;
-        $day = null;
+        // Try to allocate on the next available Monday or Friday
+        $daysChecked = 0;
+        $dateToCheck = new DateTime();
+        $maxDaysAhead = 60; // Safety limit
 
-        foreach ($days as $currentDay) {
-            foreach ($timeSlots as $currentSlot) {
-                $key = $currentDay . '|' . $currentSlot;
-                if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
-                    $timeSlot = $currentSlot;
-                    $day = $currentDay;
-                    break 2; // Exit both loops once a slot is found
+        $found = false;
+        while ($daysChecked < $maxDaysAhead && !$found) {
+            $weekday = $dateToCheck->format('l');
+
+            if ($weekday === 'Monday' || $weekday === 'Friday') {
+                $dateStr = $dateToCheck->format('Y-m-d');
+
+                foreach ($timeSlots as $slot) {
+                    $key = $dateStr . '|' . $slot;
+                    if (!isset($slotCounts[$key]) || $slotCounts[$key] < $maxPerSlot) {
+                        // Found available slot
+                        $allocationModel->insert([
+                            'student_id' => $studentId,
+                            'certificate_id' => $allocatedId,
+                            'time_slot' => $slot,
+                            'day' => $dateStr
+                        ]);
+                        $found = true;
+                        break;
+                    }
                 }
             }
+
+            $dateToCheck->modify('+1 day');
+            $daysChecked++;
         }
 
-        // If no slot is available, assign the next nearest day
-        if (!$timeSlot || !$day) {
-            $day = $days[0]; // Default to the first day
-            $timeSlot = $timeSlots[0]; // Default to the first time slot
+        if (!$found) {
+            // Fallback - assign to next Monday
+            $nextMonday = new DateTime('next Monday');
+            $allocationModel->insert([
+                'student_id' => $studentId,
+                'certificate_id' => $allocatedId,
+                'time_slot' => $timeSlots[0],
+                'day' => $nextMonday->format('Y-m-d')
+            ]);
         }
-        // a to Z select a time slot and day
+    }
 
 
-        // Save the allocation in the database
-        $allocationModel = new character_allocated_timeModel();
-        $allocationModel->insert([
-            'student_id' => $studentId,
-            'certificate_id' => $allocatedId, // This is actually the certificate ID
-            'time_slot' => $timeSlot,
-            'day' => $day
-        ]);
+
+
+
+
+
+
+
+
+
+
+
+    public function allocatedCharacterCertificatesView()
+    {
+        $allocatedCharacterCertificateModel = new character_allocated_timeModel(); // Make sure this model exists
+        $allocatedCharacterCertificates = $allocatedCharacterCertificateModel->findAll();
+
+        $this->view('inc/nonAcademic/AllocatedCharacterCertificates', ['allocatedCharacterCertificates' => $allocatedCharacterCertificates]);
+    }
+    //==================================
+
+    function getWeekdayFromDate($date)
+    {
+        // Convert date string to weekday name
+        return date("l", strtotime($date));
+    }
+
+
+
+
+    function getDateFromWeekday($weekday)
+    {
+        // Convert the weekday string to a date based on the upcoming weekday
+        $timestamp = strtotime("next " . $weekday);
+
+        // If today is the same weekday, strtotime("next Monday") returns next week's Monday
+        // So, check if today is the same as $weekday and return today's date instead
+        if (date('l') === ucfirst(strtolower($weekday))) {
+            $timestamp = strtotime("today");
+        }
+
+        return date("Y-m-d", $timestamp);
+    }
+
+    private function getNextDateFromWeekday($weekday)
+    {
+        $today = new DateTime();
+        $todayWeekday = $today->format('l');
+
+        if (strtolower($weekday) === strtolower($todayWeekday)) {
+            return $today->format('Y-m-d');
+        }
+
+        $target = new DateTime("next $weekday");
+        return $target->format('Y-m-d');
     }
 }
+
+
+
+
 ?>
