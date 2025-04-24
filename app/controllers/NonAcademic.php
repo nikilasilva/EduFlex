@@ -271,8 +271,6 @@ class NonAcademic extends Controller
         }
     }
 
-
-
     public function RequestLeavingCertificatesView()
     {
         $LeavingCertificateMode = new LeavingCertificateModeldev3(); // Make sure this model exists
@@ -284,48 +282,43 @@ class NonAcademic extends Controller
 
 
     public function markCertificateComplete($id)
-{
-    $model = new LeavingCertificateModeldev3();
-    $certificate = $model->first(['certificate_id' => $id]);
+    {
+        $model = new LeavingCertificateModeldev3();
+        $certificate = $model->first(['certificate_id' => $id]);
 
-    if ($certificate) {
-        // Allocate time
-        $this->autoAllocateLeavingCertificateTime($certificate->certificate_id, $certificate->student_id);
+        if ($certificate) {
+            // Allocate time
+            $this->autoAllocateLeavingCertificateTime($certificate->certificate_id, $certificate->student_id);
 
-        // Get allocated time from the DB
-        $allocModel = new leaving_allocated_timeModel();
-        $allocated = $allocModel->first([
-            'student_id' => $certificate->student_id,
-            'certificate_id' => $certificate->certificate_id
-        ]);
+            // Get allocated time from the DB
+            $allocModel = new leaving_allocated_timeModel();
+            $allocated = $allocModel->first([
+                'student_id' => $certificate->student_id,
+                'certificate_id' => $certificate->certificate_id
+            ]);
 
-        if ($allocated) {
-            $timeSlot = $allocated->time_slot;
-            $day = $allocated->day;
+            if ($allocated) {
+                $timeSlot = $allocated->time_slot;
+                $day = $allocated->day;
 
-            // Get the email of the student via JOIN
-            $emailData = $allocModel->getUserEmailByStudentId($certificate->student_id);
-            $recipientEmail = $emailData ? $emailData->email : null;
+                // Get the email of the student via JOIN
+                $emailData = $allocModel->getUserEmailByStudentId($certificate->student_id);
+                $recipientEmail = $emailData ? $emailData->email : null;
 
-            if ($recipientEmail) {
-                // Send email with allocated time
-                $mail = new mail();
-                $mail->sendEailLeavingCertificates($timeSlot, $day, $recipientEmail);
+                if ($recipientEmail) {
+                    // Send email with allocated time
+                    $mail = new mail();
+                    $mail->sendEailLeavingCertificates($timeSlot, $day, $recipientEmail);
+                }
             }
+
+            // Update status from 0 to 1
+            $model->update($id, ['status' => 1], 'certificate_id');
         }
 
-        // Update status from 0 to 1
-        $model->update($id, ['status' => 1], 'certificate_id');
+        header("Location: " . URLROOT . "/NonAcademic/RequestLeavingCertificatesView");
+        exit();
     }
-
-    header("Location: " . URLROOT . "/NonAcademic/RequestLeavingCertificatesView");
-    exit();
-}
-
-
-
-    
-
 
     public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
     {
@@ -341,7 +334,7 @@ class NonAcademic extends Controller
         foreach ($allocatedSlots as $allocation) {
             $key = $allocation->day . '|' . $allocation->time_slot;
             if (!isset($slotCounts[$key])) {
-            $slotCounts[$key] = 0;
+                $slotCounts[$key] = 0;
             }
             $slotCounts[$key]++;
         }
@@ -352,12 +345,12 @@ class NonAcademic extends Controller
 
         foreach ($days as $currentDay) {
             foreach ($timeSlots as $currentSlot) {
-            $key = $currentDay . '|' . $currentSlot;
-            if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
-                $timeSlot = $currentSlot;
-                $day = $currentDay;
-                break 2; // Exit both loops once a slot is found
-            }
+                $key = $currentDay . '|' . $currentSlot;
+                if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
+                    $timeSlot = $currentSlot;
+                    $day = $currentDay;
+                    break 2; // Exit both loops once a slot is found
+                }
             }
         }
 
@@ -377,7 +370,7 @@ class NonAcademic extends Controller
             'time_slot' => $timeSlot,
             'day' => $day
         ]);
-        
+
 
         // Output the allocated time and day
         // echo "Time slot and day allocated successfully: $timeSlot on $day";
@@ -385,56 +378,111 @@ class NonAcademic extends Controller
 
 
 
-   
-
-
-
-    // public function RequestCharacterCertificateView()
-    // {
-    //     $characterCertificateModel = new CharacterCertificateModel(); // Make sure this model exists
-    //     $characterCertificates = $characterCertificateModel->findAll();
-
-    //     $this->view('inc/nonAcademic/Character_Certificate', ['characterCertificates' => $characterCertificates]);
-    // }    
 
 
 
 
-
-    private function sendCharacterCertificateEmail($recipientEmail)
+    public function RequestedCharacterCertificateView()
     {
-        require '../vendor/autoload.php';
+        $characterCertificateModel = new CharacterCertificateModeldev3(); // Make sure this model exists
+        $characterCertificates = $characterCertificateModel->findAll();
 
-        $mail = new PHPMailer(true);
-        try {
-            // Server settings
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'gamlathcharitha@gmail.com'; // Replace with actual sender email
-            $mail->Password = ''; // Replace with actual app password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+        $this->view('inc/nonAcademic/Character_Certificates', ['characterCertificates' => $characterCertificates]);
+    }
 
-            // Recipients
-            $mail->setFrom('gamlathcharitha@gmail.com', 'School Non-Academic Staff');
-            $mail->addAddress($recipientEmail);
 
-            // Content
-            $mail->isHTML(true);
-            $mail->Subject = 'Reddy – Your Character Certificate';
-            $mail->Body    = "
-                <p>Dear Student,</p>
-                <p>Your living certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
-                <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>
-            ";
 
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
-            return false;
+
+
+    public function markCharacterCertificateComplete($id)
+    {
+        $model = new CharacterCertificateModeldev3();
+        $certificate = $model->first(['certificate_id' => $id]);
+
+        if ($certificate) {
+            // Allocate time
+            $this->autoAllocateCharacterCertificateTime($certificate->certificate_id, $certificate->student_id);
+
+            // Get allocated time from the DB
+            $allocModel = new character_allocated_timeModel();
+            $allocated = $allocModel->first([
+                'student_id' => $certificate->student_id,
+                'certificate_id' => $certificate->certificate_id
+            ]);
+
+            if ($allocated) {
+                $timeSlot = $allocated->time_slot;
+                $day = $allocated->day;
+
+                // Get the email of the student via JOIN
+                $emailData = $allocModel->getUserEmailByStudentIdForCharacter($certificate->student_id);
+                $recipientEmail = $emailData ? $emailData->email : null;
+
+                if ($recipientEmail) {
+                    // Send email with allocated time
+                    $mail = new Email_sendCharacterCertificates();
+                    $mail->sendEailCharacterCertificates($timeSlot, $day, $recipientEmail);
+                }
+            }
+
+            // Update status from 0 to 1
+            $model->update($id, ['status' => 1], 'certificate_id');
         }
+
+        header("Location: " . URLROOT . "/NonAcademic/RequestedCharacterCertificateView");
+        exit();
+    }
+
+    public function autoAllocateCharacterCertificateTime($allocatedId, $studentId)
+    {
+        $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
+        $days = ['Monday', 'Friday'];
+        // Function to allocate a time slot and day
+        $allocationModel = new character_allocated_timeModel();
+
+        // Check the current allocation count for each time slot on each day
+        $allocatedSlots = $allocationModel->findAll();
+        $slotCounts = [];
+
+        foreach ($allocatedSlots as $allocation) {
+            $key = $allocation->day . '|' . $allocation->time_slot;
+            if (!isset($slotCounts[$key])) {
+                $slotCounts[$key] = 0;
+            }
+            $slotCounts[$key]++;
+        }
+
+        // Find the next available time slot and day
+        $timeSlot = null;
+        $day = null;
+
+        foreach ($days as $currentDay) {
+            foreach ($timeSlots as $currentSlot) {
+                $key = $currentDay . '|' . $currentSlot;
+                if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
+                    $timeSlot = $currentSlot;
+                    $day = $currentDay;
+                    break 2; // Exit both loops once a slot is found
+                }
+            }
+        }
+
+        // If no slot is available, assign the next nearest day
+        if (!$timeSlot || !$day) {
+            $day = $days[0]; // Default to the first day
+            $timeSlot = $timeSlots[0]; // Default to the first time slot
+        }
+        // a to Z select a time slot and day
+
+
+        // Save the allocation in the database
+        $allocationModel = new character_allocated_timeModel();
+        $allocationModel->insert([
+            'student_id' => $studentId,
+            'certificate_id' => $allocatedId, // This is actually the certificate ID
+            'time_slot' => $timeSlot,
+            'day' => $day
+        ]);
     }
 }
 ?>

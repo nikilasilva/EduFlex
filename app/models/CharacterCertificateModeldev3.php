@@ -10,7 +10,9 @@ class CharacterCertificateModeldev3 {
         'date_of_birth',
         'guardian_name',
         'address',
-        'slip'
+        'slip',
+        'status'
     ];
     protected $order_column = 'certificate_id';
+
 }
