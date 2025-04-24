@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <div class="button-group">
+        <div class="button-group-announcement">
             <button type="submit">Update Announcement</button>
             <button class="cancel-ann-btn" type="reset">Cancel</button>
         </div>
