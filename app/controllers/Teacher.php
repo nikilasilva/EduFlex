@@ -218,7 +218,7 @@ class Teacher extends Controller {
 
     public function viewAbsences() {
         checkRole('teacher');
-        $date = $_GET['absence_date'] ?? null;
+        $date = $_GET['attendance_date'] ?? null;
         $class = $_GET['class'] ?? null;
     
         if (!$date || !$class) {
