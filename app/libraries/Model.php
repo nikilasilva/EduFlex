@@ -188,11 +188,8 @@ Trait Model{
 //     public function where($data, $data_not = []) {
 
 //         $keys = array_keys($data);
-<<<<<<< HEAD
-=======
 
 //        $keys = array_keys($data);
->>>>>>> 18f12ee3579c838701b9539dd999e59c323f5680
 //         $keys_not = array_keys($data_not);
 //         $query = "SELECT * FROM $this->table WHERE ";
 
