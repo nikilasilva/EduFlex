@@ -4,7 +4,7 @@
 
 <div class="attendance-container">
     <h1>Attendance Records for <?php echo htmlspecialchars($data['date']); ?></h1>
-    <h2>Class: <?php echo htmlspecialchars($data['class']); ?></h2>
+    <h2>Class: <?php echo htmlspecialchars($data['className']); ?></h2>
 
     <table>
         <thead>
@@ -30,6 +30,25 @@
             <?php endif; ?>
         </tbody>
     </table>
+    <?php
+$canUpdate = (strtotime(date('Y-m-d')) - strtotime($data['date'])) <= 604800; // 7 * 24 * 60 * 60
+?>
+
+<?php if ($canUpdate): ?>
+    <form action="<?php echo URLROOT; ?>/teacher/editAttendance" method="POST">
+        <input type="hidden" name="date" value="<?= htmlspecialchars($data['date']) ?>">
+        <input type="hidden" name="class" value="<?= htmlspecialchars($data['class']) ?>">
+        <button type="submit" class="btn btn-info">Update Attendance</button>
+    </form>
+
+    <a href="<?php echo URLROOT; ?>/teacher/selectClassForAttendance" class="btn-back">
+    << Back
+    </a>
+
+
+<?php endif; ?>
+
+    
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance</title>
 
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/attendance.css">
+
 </head>
 <body>
 <div class="layout">
@@ -92,7 +91,13 @@
         <!-- View Attendance form -->
         <form action="<?php echo URLROOT; ?>/teacher/viewAttendance" method="GET">
             <label for="attendance_date">Select Date:</label>
-            <input type="date" id="attendance_date" name="attendance_date" required>
+            <input 
+        type="date" 
+        id="attendance_date" 
+        name="attendance_date" 
+        max="<?= date('Y-m-d') ?>" 
+        required >
+    
             
             <!-- Class will be automatically selected from the previous form -->
             <input type="hidden" name="view_class" value="<?= $class ?? '' ?>">
@@ -103,7 +108,13 @@
         <!-- View Absence Reports form -->
 <form action="<?php echo URLROOT; ?>/teacher/viewAbsences" method="GET">
     <label for="absence_date">Select Date:</label>
-    <input type="date" id="absence_date" name="absence_date" required>
+    <input 
+        type="date" 
+        id="attendance_date" 
+        name="attendance_date" 
+        max="<?= date('Y-m-d') ?>" 
+        required >
+    
 
     <input type="hidden" name="class" value="<?= $class ?? '' ?>">
 
