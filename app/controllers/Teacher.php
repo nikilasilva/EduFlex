@@ -383,52 +383,57 @@ class Teacher extends Controller {
 
 
 
-    public function viewClassReport() {
-        checkRole('teacher');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classId = $_POST['class'];
-            $marksData = $_POST['marks'] ?? [];
-            $term = $_POST['term'] ?? null;
+  public function viewClassReport() {
+    checkRole('teacher');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $classId = $_POST['class'];
+        $marksData = $_POST['marks'] ?? [];
+        $term = $_POST['term'] ?? null;
 
-            $marksModel = $this->model('MarksModel');
+        $marksModel = $this->model('MarksModel');
 
-            // Insert marks
-            foreach ($marksData as $studentId => $subjects) {
-                foreach ($subjects as $subjectId => $marks) {
-                    $marksModel->insertMarks($studentId, $subjectId, $term, $marks, $classId);
-                }
+        // Insert marks
+        foreach ($marksData as $studentId => $subjects) {
+            foreach ($subjects as $subjectId => $marks) {
+                $marksModel->insertMarks($studentId, $subjectId, $term, $marks, $classId);
             }
+        }
 
-            // Get data for the report
-            $subjectWise = $marksModel->getClassReport($classId, $term);
-            $rankData = $marksModel->getStudentRanks($classId, $term);
+        // Get data for the report
+        $subjectWise = $marksModel->getClassReport($classId, $term);
+        $rankData = $marksModel->getStudentRanks($classId, $term);
 
-            // Group subject-wise marks for each student
-            $classReport = [];
-            foreach ($subjectWise as $row) {
-                $sid = $row->student_id;
-                if (!isset($classReport[$sid])) {
-                    $classReport[$sid] = [
-                        'student_id' => $sid,
-                        'student_name' => $row->student_name,
-                        'subjects' => [],
-                        'total_marks_obtained' => 0,
-                        'average_marks' => 0,
-                    ];
-                }
-                $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
-                $classReport[$sid]['total_marks_obtained'] += $row->marks;
+        // Validate data before using it
+        if (!is_array($subjectWise)) $subjectWise = [];
+        if (!is_array($rankData)) $rankData = [];
+
+        // Group subject-wise marks for each student
+        $classReport = [];
+        foreach ($subjectWise as $row) {
+            $sid = $row->student_id;
+            if (!isset($classReport[$sid])) {
+                $classReport[$sid] = [
+                    'student_id' => $sid,
+                    'student_name' => $row->student_name,
+                    'subjects' => [],
+                    'total_marks_obtained' => 0,
+                    'average_marks' => 0,
+                ];
             }
+            $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
+            $classReport[$sid]['total_marks_obtained'] += $row->marks;
+        }
 
-            // Calculate average
-            foreach ($classReport as &$student) {
-                $subjectCount = count($student['subjects']);
-                $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
-            }
+        // Calculate average
+        foreach ($classReport as &$student) {
+            $subjectCount = count($student['subjects']);
+            $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
+        }
 
-            // Prepare ranks
-            $ranks = [];
-            foreach ($rankData as $row) {
+        // Prepare ranks
+        $ranks = [];
+        foreach ($rankData as $row) {
+            if (isset($classReport[$row->student_id])) {
                 $ranks[] = [
                     'student_id' => $row->student_id,
                     'student_name' => $row->student_name,
@@ -436,22 +441,24 @@ class Teacher extends Controller {
                     'percentage' => $classReport[$row->student_id]['average_marks'],
                 ];
             }
-
-            // Sort by percentage
-            usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
-
-            // Load the view
-            $this->view('inc/teacher/class_report', [
-                'classReport' => $classReport,
-                'ranks' => $ranks,
-                'subjects' => array_map(fn($row) => (object)['name' => $row->subject_name], $subjectWise),
-                'term' => $term,
-                'class' => $classId
-            ]);
-        } else {
-            header("Location: " . URLROOT . "/teacher");
         }
+
+        // Sort by percentage
+        usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
+
+        // Load the view
+        $this->view('inc/teacher/class_report', [
+            'classReport' => $classReport,
+            'ranks' => $ranks,
+            'subjects' => array_map(fn($row) => (object)['name' => $row->subject_name], $subjectWise),
+            'term' => $term,
+            'class' => $classId
+        ]);
+    } else {
+        header("Location: " . URLROOT . "/teacher");
     }
+}
+
 
     public function viewTermReport() {
         checkRole('teacher');
@@ -460,6 +467,10 @@ class Teacher extends Controller {
             $term = $_POST['term'];
 
             $marksModel = $this->model('MarksModel');
+
+            
+        $attendanceModel = new ClassModel();
+        $className = $attendanceModel->getClassName($classId);
 
             $subjectWise = $marksModel->getClassReportByTerm($classId, $term);
             $rankData = $marksModel->getStudentRanksByTerm($classId, $term);
@@ -511,6 +522,7 @@ class Teacher extends Controller {
                 'ranks' => $ranks,
                 'term' => $term,
                 'subjects' => array_map(fn($r) => (object)['name' => $r->subject_name], $subjectWise),
+                'className' => $className,
                 'class' => $classId
             ]);
         } else {

@@ -40,6 +40,12 @@ $canUpdate = (strtotime(date('Y-m-d')) - strtotime($data['date'])) <= 604800; //
         <input type="hidden" name="class" value="<?= htmlspecialchars($data['class']) ?>">
         <button type="submit" class="btn btn-info">Update Attendance</button>
     </form>
+
+    <a href="<?php echo URLROOT; ?>/teacher/selectClassForAttendance" class="btn-back">
+    << Back
+    </a>
+
+
 <?php endif; ?>
 
     

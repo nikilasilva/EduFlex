@@ -59,7 +59,13 @@
                 <?php endif; ?>
             </tbody>
         </table>
+
+        <a href="<?php echo URLROOT; ?>/Teacher/dailyActivities" class="btn-back">
+    << Back
+    </a>
     </div>
+
+    
 </div>
 </body>
 </html>
