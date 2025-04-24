@@ -230,12 +230,17 @@ class Teacher extends Controller {
         $attendanceModel = new Student_attendanceModel();
         $absences = $attendanceModel->getAbsencesByDateAndClass($date, $class);
         $absences = json_decode(json_encode($absences), true);
-    
+
+
+        $absenceModel = new AbsenceModel();
+        $className = $absenceModel->getClassName($class); // use $class (which is classId from the form)
+
         $this->view('inc/teacher/view_absences', [
             'absences' => $absences,
             'date' => $date,
-            'class' => $class
+            'className' => $className // <- this should now be the actual class name
         ]);
+        
     }
     
 

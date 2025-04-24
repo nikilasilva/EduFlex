@@ -12,4 +12,11 @@ class AbsenceModel {
     ];
 
     protected $order_column = 'date';
+
+    public function getClassName($classId) {
+        $sql = "SELECT className FROM classes WHERE classId = :classId";
+        $result = $this->query($sql, ['classId' => $classId]);
+        return $result[0]->className ?? 'Unknown';
+    }
+
 }
