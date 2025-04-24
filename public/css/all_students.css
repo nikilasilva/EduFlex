@@ -31,12 +31,12 @@
     gap: 15px;
 }
 
-.search-filter-bar {
+.all-students-container .search-filter-bar {
     width: 103%;
 }
 
 .all-students-search-bar {
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }
 
 .all-students-search-bar input {
@@ -51,4 +51,9 @@
 
 .all-students-search-bar button {
     margin-left: 5px;
+}
+
+
+#students-table {
+    width: 103%;
 }

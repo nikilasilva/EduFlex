@@ -42,7 +42,7 @@ export function initStudentSearch() {
 
         // Update count display
         if (studentCount) {
-            studentCount.textContent = `Total Students: ${visibleCount}`;
+            studentCount.textContent = `Showing: ${visibleCount} Result(s) out of ${window.totalStudents} Total`;
         }
     }
 

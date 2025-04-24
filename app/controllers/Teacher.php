@@ -10,6 +10,7 @@ class Teacher extends Controller {
     private $studentModel;
     private $subjectModel;
     private $teacherModel;
+    private $ClassesModel;
 
     public function __construct() {
 
@@ -20,6 +21,7 @@ class Teacher extends Controller {
         $this->studentModel = $this->model('StudentModel');
         $this->subjectModel = $this->model('SubjectModel');
         $this->teacherModel = $this->model('TeacherModel');
+        $this->ClassesModel = $this->model('ClassesModel');
     }
 
     public function teachers() {
@@ -407,17 +409,31 @@ class Teacher extends Controller {
     }
   
   
-  public function showAllTeachers() {
+    public function showAllTeachers($page = 1) {
         checkRoles(['principal', 'vice-principal']);
-        // Fetch all teachers from the model
-        $teachers = $this->teacherModel->getAllTeachers();
-        
+    
+        $limit = 25; // Number of teachers per page
+        $offset = ($page - 1) * $limit;
+    
+        // Fetch paginated teachers and total count
+        $teachers = $this->teacherModel->getAllTeachers($limit, $offset);
+        $totalTeachers = $this->teacherModel->getTotalTeachers();
+        $grades = $this->ClassesModel->getAllGrades();
+        $subjects = $this->subjectModel->getAllSubjects();
+
+    
         // Prepare data for the view
         $data = [
             'teachers' => [],
-            'teacherCount' => 0
+            'teacherCount' => count($teachers),
+            'teacherTotal' => $totalTeachers,
+            'grades' => $grades,
+            'subjects' => $subjects,
+            'page' => $page,
+            'totalPages' => ceil($totalTeachers / $limit),
+            'message' => ''
         ];
-
+    
         // Check if $teachers is an array and not empty
         if (is_array($teachers) && !empty($teachers)) {
             $data['teachers'] = array_map(function ($teacher) {
@@ -430,14 +446,13 @@ class Teacher extends Controller {
                     'className' => $teacher->className
                 ];
             }, $teachers);
-            $data['teacherCount'] = count($teachers);
         } else {
             $data['message'] = 'No teachers found in the database.';
         }
-
+    
         // Pass the data to the view
         $this->view('inc/teacher/all_teachers', $data);
-  }
+    }
 
     public function updateMarks() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
