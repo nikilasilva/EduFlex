@@ -17,7 +17,8 @@ public function submitUser() {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $userData = [
           
-            'username' => trim($_POST['username']),
+            'fullName' => trim($_POST['fullName']),
+            'nameWithInitial' => trim($_POST['nameWithInitial']),
             'email' => trim($_POST['email']),
             'mobileNo' => trim($_POST['mobileNo']),
             'address' => trim($_POST['address']),
@@ -85,7 +86,8 @@ public function editUser($regNo) {
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $data = [
-            'username' => trim($_POST['username']),
+            'fullName' => trim($_POST['fullName']),
+            'nameWithInitial' => trim($_POST['nameWithInitial']),
             'email' => trim($_POST['email']),
             'mobileNo' => trim($_POST['mobileNo']),
             'address' => trim($_POST['address']),
@@ -122,46 +124,108 @@ public function deleteUser($regNo) {
     exit();
 }
 
-/*Manage Addmin */
 
-// public function manage_admin(){
+/* *Manage students* */
+/* *Manage students* */
+public function manage_student()
+{
+    $userModel = new manage_useraccountModel();
+    $users = $userModel->findAll();
 
-//     $userModel = new manage_useraccountModel();
-//     $users = $userModel->findAll();
+    $classModel = new manage_classModel();
+    $classes = $classModel->findAll();
 
-//     $this->view('inc/admin/manage_admin',['users' => $users]);
-// }
+    $this->view('inc/admin/manage_student', [
+        'users' => $users,
+        'classes' => $classes
+    ]);
+}
+
+//For submit Student details
+   
+
+// Insert Student
+public function submitStudent()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // 1. Get selected classId directly from dropdown (you already use classId in <option value>)
+        $classId = $_POST['classId']; // classId is selected directly
+
+        // 2. Generate new student_id (e.g., S0001, S0002)
+        $studentModel = new manage_studentModel();
+        $newStudentId = $studentModel->generateStudentID();
+
+        // 3. Prepare student data
+        $studentData = [
+            'student_id' => $newStudentId,
+            'regNo' => $_POST['regNo'],
+            'classId' => $classId
+        ];
+
+        // 4. Insert into database
+        $studentModel->insert($studentData);
+
+        // 5. Redirect after success
+        header("Location: " . URLROOT . "/Admin/viewStudent");
+        exit();
+    } else {
+        // If GET, just reload the form view
+        $this->view('manage_student');
+    }
+}
 
 
-// //for submit admin details
-// public function submitAdmin(){
-//     if($_SERVER['REQUEST_METHOD'] == "POST"){
-//         $adminData = [
-//             'NIC' => trim($_POST['NIC']),
-//             'regNo' => trim($_POST['regNo']),
-//             'firstName' => trim($_POST['firstName']),
-//             'lastName' => trim($_POST['lastName'])
-//         ];
-//         $admin = new manage_adminModel();
-//         $admin ->insert($adminData);
-//         // Here, save the parents to the database.
+// View Students
+public function viewStudent()
+{
+    $studentModel = new manage_studentModel();
+    $students = $studentModel->findAllWithUserInfo();
 
-//         // Display a success message or redirect to a success page
-//         header("Location: " . URLROOT . "/Admin/viewAdmin");
-//         exit();
-//     } else{
-//          // If not a POST request, reload the manage parent page
-//          $this->view('Manage_admin');
-//     }
-// }
-// //view Admin details
-// public function viewAdmin(){
-//     $adminModel = new manage_adminModel();
-//     $admins = $adminModel->findAll();
+    $classModel = new manage_classModel();
+    $classes = $classModel->findAll();
 
-//     $this->view('inc/Admin/Show_admin', ['admins' => $admins]);
-// }
+    $this->view('inc/Admin/Show_student', ['students' => $students]);
+}
 
+// Edit Student
+public function editStudent($regNo)
+{
+    $studentModel = new manage_studentModel();
+    
+    $classModel = new manage_classModel();
+    $classes = $classModel->findAll();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $data = [
+            'student_id' => $_POST['student_id'],
+            'regNo' => $_POST['regNo'],
+            'classId' => $_POST['classId']
+        ];
+
+        $studentModel->update($regNo, $data, 'regNo');
+
+        header("Location: " . URLROOT . "/Admin/viewStudent");
+        exit();
+    } else {
+        $student = $studentModel->first(['regNo' => $regNo]);
+
+        if ($student) {
+            $this->view('inc/Admin/edit_student_by_admin', ['student' => $student, 'classes' => $classes]);
+        } else {
+            die('Student not found.');
+        }
+    }
+}
+
+// Delete Student
+public function deleteStudent($student_id)
+{
+    $studentModel = new manage_studentModel();
+    $studentModel->delete($student_id, 'student_id');
+
+    header("Location: " . URLROOT . "/Admin/viewStudent");
+    exit();
+}
 
 
 
@@ -199,7 +263,11 @@ public function deleteUser($regNo) {
 //view Parent details
     public function viewParent(){
         $parentModel = new manage_parentModel();
-        $parents = $parentModel->findAll();
+        $parents = $parentModel->findAllWithUserInfo();
+
+
+        // $nonacaModel = new manage_nonacaModel();
+        // $nonacas = $nonacaModel->findAllWithUserInfo();
 
         $this->view('inc/Admin/Show_parent', ['parents' => $parents]);
     }
@@ -250,89 +318,6 @@ public function deleteParent($regNo)
 }
 
 
-/* *Manage students* */
-    public function manage_student(){
-
-        $userModel = new manage_useraccountModel();
-        $users = $userModel->findAll();
-
-        $this->view('inc/admin/manage_student',['users' => $users]);
-        
-    }
-//For submit Student details
-   
-
-// Insert Student
-public function submitStudent()
-{
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $studentData = [
-            'student_id' => $_POST['student_id'],
-            'regNo' => $_POST['regNo'],
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
-            'classId' => $_POST['classId']
-        ];
-
-        $studentModel = new manage_studentModel();
-        $studentModel->insert($studentData);
-
-        header("Location: " . URLROOT . "/Admin/viewStudent");
-        exit();
-    } else {
-        $this->view('manage_student');
-    }
-}
-
-// View Students
-public function viewStudent()
-{
-    $studentModel = new manage_studentModel();
-    $students = $studentModel->findAll();
-
-    $this->view('inc/Admin/Show_student', ['students' => $students]);
-}
-
-// Edit Student
-public function editStudent($regNo)
-{
-    $studentModel = new manage_studentModel();
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [
-            'student_id' => $_POST['student_id'],
-            'regNo' => $_POST['regNo'],
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
-            'classId' => $_POST['classId'],
-            'guardianregNo' => $_POST['guardianregNo']
-            
-        ];
-
-        $studentModel->update($regNo, $data, 'regNo');
-
-        header("Location: " . URLROOT . "/Admin/viewStudent");
-        exit();
-    } else {
-        $student = $studentModel->first(['regNo' => $regNo]);
-
-        if ($student) {
-            $this->view('inc/Admin/edit_student_by_admin', ['student' => $student]);
-        } else {
-            die('Student not found.');
-        }
-    }
-}
-
-// Delete Student
-public function deleteStudent($student_id)
-{
-    $studentModel = new manage_studentModel();
-    $studentModel->delete($student_id, 'student_id');
-
-    header("Location: " . URLROOT . "/Admin/viewStudent");
-    exit();
-}
 
     
 // Manage Teacher details
@@ -345,39 +330,42 @@ public function deleteStudent($student_id)
         
     }
 //for submit teacher details form
-    public function submitTeacher()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $teacherData = [
-                'teacher_id' => trim($_POST['teacher_id']),
-                'regNo' => trim($_POST['regNo']),
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
-                'subject' => trim($_POST['subject']),
-                'experience' => trim($_POST['experience']),
-                'hireDate' => trim($_POST['hireDate'])
+public function submitTeacher()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $teacher = new manage_teacherModel();
 
-            ];
+        // Use model method to get the next teacher_id
+        $newTeacherID = $teacher->getNextTeacherId();
 
-            $teacher = new manage_teacherModel();
-            $teacher->insert($teacherData);
-            // Here, save the teacher data to the database.
-            // Example: $this->activityModel->addActivity($teacherData);
+        $teacherData = [
+            'teacher_id' => $newTeacherID,
+            'regNo' => trim($_POST['regNo']),
+            'firstName' => trim($_POST['firstName']),
+            'lastName' => trim($_POST['lastName']),
+            'subject' => trim($_POST['subject']),
+            'experience' => trim($_POST['experience']),
+            'hireDate' => trim($_POST['hireDate'])
+        ];
 
-            // Display a success message or redirect to a success page
-            header("Location: " . URLROOT . "/Admin/viewTeacher");
-            exit();
-        } else {
-            // If not a POST request, reload the manage teacher page
-            $this->view('Manage_teacher');
-        }
+        $teacher->insert($teacherData);
+
+        header("Location: " . URLROOT . "/Admin/viewTeacher");
+        exit();
+    } else {
+        $this->view('Manage_teacher');
     }
+}
+
 
 
     public function viewTeacher()
     {
         $teacherModel = new manage_teacherModel();
-        $teachers = $teacherModel->findAll();
+        $teachers = $teacherModel->findAllWithUserInfo();
+
+        // $nonacaModel = new manage_nonacaModel();
+        // $nonacas = $nonacaModel->findAllWithUserInfo();
 
         $this->view('inc/Admin/Show_teacher', ['teachers' => $teachers]);
     }
@@ -477,44 +465,56 @@ public function deleteStudent($student_id)
     public function viewPrincipal()
     {
         $principalModel = new manage_principalModel();
-        $principals = $principalModel->findAll();
+        $principals = $principalModel->findAllWithUserInfo();
 
         $this->view('inc/Admin/Show_principal', ['principals' => $principals]);
     }
 
 
     // edit Principal details
-     public function editPrincipal($principalId)
-    {
-        $principalModel = new manage_principalModel();
+    public function editPrincipal($principalId)
+{
+    $principalModel = new manage_principalModel();
+    $userModel = new manage_useraccountModel();
 
-        // If the request is POST, update the teacher
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = [
-            
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
-                'experience' => trim($_POST['experience']),
-                'hireDate' => trim($_POST['hireDate'])
-                
-            ];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // First, fetch the principal's current regNo
+        $principal = $principalModel->first(['principalId' => $principalId]);
+        $regNo = $principal->regNo;
 
-            $principalModel->update($principalId, $data, 'principalId');
+        // Prepare data for principal table
+        $principalData = [
+            'experience' => trim($_POST['experience']),
+            'hireDate' => trim($_POST['hireDate'])
+        ];
 
-            // Redirect to the view teachers page
-            header("Location: " . URLROOT . "/admin/viewPrincipal");
-            exit();
+        // Prepare user name data
+        $userData = [
+            'fullName' => trim($_POST['fullName']),
+            'nameWithInitial' => trim($_POST['nameWithInitial'])
+        ];
+
+        // Update both tables
+        $principalModel->update($principalId, $principalData, 'principalId');
+        $userModel->updateUserNameDetails($regNo, $userData);
+
+        header("Location: " . URLROOT . "/admin/viewPrincipal");
+        exit();
+    } else {
+        // Fetch principal and join with user info
+        $principal = $principalModel->query("SELECT p.*, u.fullName, u.nameWithInitial 
+                                             FROM principals p 
+                                             JOIN users u ON p.regNo = u.regNo 
+                                             WHERE p.principalId = :principalId", 
+                                            ['principalId' => $principalId]);
+        if ($principal && count($principal) > 0) {
+            $this->view('inc/admin/edit_principal_by_admin', ['principal' => $principal[0]]);
         } else {
-            // Get the teacher details
-            $principal = $principalModel->first(['principalId' => $principalId]);
-
-            if ($principal) {
-                $this->view('inc/admin/edit_principal_by_admin', ['principal' => $principal]);
-            } else {
-                die('Activity not found.');
-            }
+            die('Principal not found.');
         }
     }
+}
+
 //Delete Principal
     public function deletePrincipal($principalId)
     {
@@ -566,26 +566,31 @@ public function submitVicePrincipal()
 public function viewVicePrincipal()
 {
     $vpModel = new manage_viceprincipalModel();
-    $vicePrincipals = $vpModel->findAll();
+    $vicePrincipals = $vpModel->findAllWithUserInfo();
 
     $this->view('inc/Admin/show_vice_principal', ['vicePrincipals' => $vicePrincipals]);
 }
 
-// Edit Vice Principal details
 public function editVicePrincipal($vicePrincipalId)
 {
     $vpModel = new manage_viceprincipalModel();
+    $userModel = new manage_useraccountModel();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [
+        $regNo = trim($_POST['regNo']); // get regNo to update users table
 
-            'firstName' => trim($_POST['firstName']),
-            'lastName' => trim($_POST['lastName']),
+        $vpData = [
             'experience' => trim($_POST['experience']),
             'hireDate' => trim($_POST['hireDate'])
         ];
 
-        $vpModel->update($vicePrincipalId, $data, 'vicePrincipalId');
+        $userData = [
+            'fullName' => trim($_POST['fullName']),
+            'nameWithInitial' => trim($_POST['nameWithInitial'])
+        ];
+
+        $vpModel->update($vicePrincipalId, $vpData, 'vicePrincipalId');
+        $userModel->updateUserNameDetails($regNo, $userData);
 
         header("Location: " . URLROOT . "/admin/viewVicePrincipal");
         exit();
@@ -593,12 +598,18 @@ public function editVicePrincipal($vicePrincipalId)
         $vicePrincipal = $vpModel->first(['vicePrincipalId' => $vicePrincipalId]);
 
         if ($vicePrincipal) {
-            $this->view('inc/admin/edit_vice_principal_by_admin', ['vicePrincipal' => $vicePrincipal]);
+            $user = (new manage_useraccountModel())->first(['regNo' => $vicePrincipal->regNo]);
+
+            $this->view('inc/admin/edit_vice_principal_by_admin', [
+                'vicePrincipal' => $vicePrincipal,
+                'user' => $user
+            ]);
         } else {
             die('Vice Principal not found.');
         }
     }
 }
+
 
 // Delete Vice Principal
 public function deleteVicePrincipal($vicePrincipalId)
@@ -626,8 +637,6 @@ public function deleteVicePrincipal($vicePrincipalId)
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nonacaData = [
                 'regNo' => trim($_POST['regNo']),
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
                 'position' => trim($_POST['position']),
                 'department' => trim($_POST['department']),
                 'hireDate' => trim($_POST['hireDate'])
@@ -651,7 +660,8 @@ public function deleteVicePrincipal($vicePrincipalId)
     public function viewNonaca()
     {
         $nonacaModel = new manage_nonacaModel();
-        $nonacas = $nonacaModel->findAll();
+        // $nonacas = $nonacaModel->findAll();
+        $nonacas = $nonacaModel->findAllWithUserInfo();
 
         $this->view('inc/Admin/Show_nonaca', ['nonacas' => $nonacas]);
     }
@@ -659,35 +669,51 @@ public function deleteVicePrincipal($vicePrincipalId)
     public function editNonaca($staffId)
     {
         $nonacaModel = new manage_nonacaModel();
-
-        // If the request is POST, update the teacher
+        $userModel = new manage_useraccountModel();
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'regNo' => trim($_POST['regNo']),
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
                 'position' => trim($_POST['position']),
                 'department' => trim($_POST['department']),
-                'hireDate' => trim($_POST['hireDate'])
-
+                'hireDate' => trim($_POST['hireDate']),
             ];
-
+    
+            $userData = [
+                'fullName' => trim($_POST['fullName']),
+                'nameWithInitial' => trim($_POST['nameWithInitial']),
+            ];
+    
+            // Update non-academic staff table
             $nonacaModel->update($staffId, $data, 'staffId');
-
-            // Redirect to the view teachers page
-            header("Location: " . URLROOT . "/admin/ viewNonaca");
+    
+            // Update user table
+            $userModel->updateUserNameDetails($data['regNo'], $userData);
+    
+            header("Location: " . URLROOT . "/admin/viewNonaca");
             exit();
         } else {
-            // Get the teacher details
-            $nonaca = $nonacaModel->first(['staffId' => $staffId]);
-
+            // Manual filter to find the specific staff member
+            $nonacas = $nonacaModel->findAllWithUserInfo();
+            $nonaca = null;
+    
+            foreach ($nonacas as $n) {
+                if ($n->staffId == $staffId) {
+                    $nonaca = $n;
+                    break;
+                }
+            }
+    
             if ($nonaca) {
                 $this->view('inc/admin/edit_nonaca_by_admin', ['nonaca' => $nonaca]);
             } else {
-                die('Activity not found.');
+                die('Staff member not found.');
             }
         }
     }
+    
+    
+    
 
     //Delete Nonacademic
     public function deleteNonaca($staffId)
@@ -719,7 +745,8 @@ public function deleteVicePrincipal($vicePrincipalId)
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $classData = [
                     'classId' => trim($_POST['classId']),
-                    'className' => trim($_POST['className']) // Match DB column name
+                    'className' => trim($_POST['className']),
+                    'academicYear' => trim($_POST['academicYear']) // Match DB column name
                 ];
         
                 $classModel = new manage_classModel();
@@ -749,7 +776,8 @@ public function deleteVicePrincipal($vicePrincipalId)
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $data = [
                     'classId' => trim($_POST['classId']),
-                    'className' => trim($_POST['className'])
+                    'className' => trim($_POST['className']),
+                    'academicYear' => trim($_POST['academicYear'])
                 ];
         
                 $classModel->update($classId, $data, 'classId');

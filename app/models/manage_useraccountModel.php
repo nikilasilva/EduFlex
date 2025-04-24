@@ -11,7 +11,8 @@ class manage_useraccountModel
         'email',
         'mobileNo',
         'address',
-        'username',
+        'fullName',
+        'nameWithInitial',
         'password',
         'dob',
         'gender',
@@ -22,6 +23,13 @@ class manage_useraccountModel
     ];
 
      protected $order_column = 'regNo'; // Defined here
+
+     //update the full name and name with initials
+     public function updateUserNameDetails($regNo, $data)
+{
+    $this->update($regNo, $data, 'regNo'); // <-- Pass 'regNo' as key column
+}
+
 
      
 

@@ -39,20 +39,17 @@
                     <textarea name="occupation" id="occupation" rows="1" required><?php echo htmlspecialchars($data['parents']->occupation); ?></textarea>
                 </div> -->
 
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['parents']->firstName); ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['parents']->lastName); ?>" required>
-                </div>
 
                 <div class="form-group">
                     <label for="Relationship">Relationship :</label>
-                    <input type="text" name="Relationship" id="Relationship" value="<?php echo htmlspecialchars($data['parents']->Relationship); ?>" required>
+                    <select name="Relationship" id="Relationship" required>
+                        <option value="">-- Select Relationship --</option>
+                        <option value="Mother" <?php echo ($data['parents']->Relationship === 'Mother') ? 'selected' : ''; ?>>Mother</option>
+                        <option value="Father" <?php echo ($data['parents']->Relationship === 'Father') ? 'selected' : ''; ?>>Father</option>
+                        <option value="Guardian" <?php echo ($data['parents']->Relationship === 'Guardian') ? 'selected' : ''; ?>>Guardian</option>
+                    </select>
                 </div>
+
 
                 <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
                 <a href="<?php echo URLROOT; ?>/Admin/viewParents" class="btn btn-secondary">Cancel</a>

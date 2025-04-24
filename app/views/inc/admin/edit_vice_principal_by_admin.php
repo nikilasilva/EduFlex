@@ -31,22 +31,26 @@
               <!-- User ID -->
              <div class="form-group">
                 <label for="regNo">Principal Reg No :</label>
-                <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['vicePrincipal']->vicePrincipalId) ; ?>" required>
+                <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['vicePrincipal']->regNo); ?>" required>
+
+
+
                 <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
             </div>
 
+                                            <!-- Full Name -->
+                                <div class="form-group">
+                                    <label for="fullName">Full Name:</label>
+                                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['user']->fullName); ?>" required>
+                                </div>
+
+                                <!-- Name with Initial -->
+                                <div class="form-group">
+                                    <label for="nameWithInitial">Name with Initial:</label>
+                                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['user']->nameWithInitial); ?>" required>
+                                </div>
 
 
-<!-- First Name -->
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['vicePrincipal']->firstName); ?>" required>
-                </div>
-<!-- Last Name -->
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['vicePrincipal']->lastName); ?>" required>
-                </div>
             <!-- Experience -->
             <div class="form-group">
                 <label for="experience">Years of Experience:</label>

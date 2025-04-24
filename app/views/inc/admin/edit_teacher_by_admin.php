@@ -38,17 +38,6 @@
                 <input type="number" name="teacher_id" id="teacher_id" value="<?php echo $data['teacher']->teacher_id; ?>" required>
             </div>
 
- <!-- First Name -->
-        <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['teacher']->firstName); ?>" required>
-                </div>
-<!-- Last Name -->
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['teacher']->lastName); ?>" required>
-                </div>
-
             <div class="form-group">
                     <label for="subject">subject:</label>
                     <input type="text" name="subject" id="subject" value="<?php echo $data['teacher']->subject; ?>" required>

@@ -25,9 +25,9 @@
             <table class="activities-table">
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>User Reg</th>
                         
-                        <th>Username</th>
+                        <th>Name With Initial</th>
                         <th>Email</th>
                         <th>Mobile No</th>
                         <th>Address</th>
@@ -43,7 +43,7 @@
                         <tr>
                             <td><?php echo htmlspecialchars($user->regNo); ?></td>
                             
-                            <td><?php echo htmlspecialchars($user->username); ?></td>
+                            <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
                             <td><?php echo htmlspecialchars($user->email); ?></td>
                             <td><?php echo htmlspecialchars($user->mobileNo); ?></td>
                             <td><?php echo htmlspecialchars($user->address); ?></td>
@@ -52,8 +52,8 @@
                             <td><?php echo htmlspecialchars($user->religion); ?></td>
                             <td><?php echo htmlspecialchars($user->role); ?></td>
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editUser/<?php echo $user->regNo; ?>" class="btn btn-edit">Edit</a><br><br>
-                                <a href="<?php echo URLROOT; ?>/Admin/deleteUser/<?php echo $user->regNo; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                                <a href="<?php echo URLROOT; ?>/Admin/editUser/<?php echo $user->regNo; ?>" class="btn btn-edit">Update</a><br><br>
+                                <a href="<?php echo URLROOT; ?>/Admin/deleteUser/<?php echo $user->regNo; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

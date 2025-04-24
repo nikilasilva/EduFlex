@@ -35,19 +35,15 @@
 
 
             <div class="form-group">
-                <label for="firstName">First Name :</label>
-                <input type="text" name="firstName" id="firstName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last Name :</label>
-                <input type="text" name="lastName" id="lastName" required>
-            </div>
-
-            <div class="form-group">
                 <label for="Relationship">Relationship:</label>
-                <input type="text" name="Relationship" id="Relationship" required>
+                <select name="Relationship" id="Relationship" required>
+                    <option value="">-- Select Relationship --</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                    <option value="Guardian">Guardian</option>
+                </select>
             </div>
+
 
             <button type="submit" class="btn btn-primary">Submit Parent</button><br><br>
 
@@ -59,34 +55,31 @@
              <!-- ################To get users ID ################ -->
 
         
-                 <h1>Show User Accounts</h1>
+             <h1>Show Parent Accounts</h1>
 
-                <!-- User Accounts Table -->
-                <table class="activities-table">
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($data['users'] as $user): ?>
+            <!-- Student Accounts Table -->
+            <table class="activities-table">
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Name with Initials</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data['users'] as $user): ?>
+                        <?php if ($user->role === 'parent'): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($user->regNo); ?></td>
-                               
-                                <td><?php echo htmlspecialchars($user->username); ?></td>
+                                <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
                                 <td><?php echo htmlspecialchars($user->email); ?></td>
-
                                 <td><?php echo htmlspecialchars($user->role); ?></td>
-
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
 
 

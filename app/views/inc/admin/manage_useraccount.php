@@ -29,8 +29,13 @@
 
 
             <div class="form-group">
-                <label for="username">Username :</label>
-                <input type="text" name="username" id="username" required>
+                <label for="fullName">Full Name :</label>
+                <input type="text" name="fullName" id="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nameWithInitial">Name With Initials:</label>
+                <input type="text" name="nameWithInitial" id="nameWithInitial" required>
             </div>
 
             <div class="form-group">

@@ -34,16 +34,19 @@
                 <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['principal']->principalId) ; ?>" required>
                 <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
             </div>
-<!-- First Name -->
-            <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($data['principal']->firstName); ?>" required>
-                </div>
-<!-- Last Name -->
+
+            <!-- Full Name -->
                 <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($data['principal']->lastName); ?>" required>
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['principal']->fullName); ?>" required>
                 </div>
+
+                <!-- Name with Initial -->
+                <div class="form-group">
+                    <label for="nameWithInitial">Name with Initials:</label>
+                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['principal']->nameWithInitial); ?>" required>
+                </div>
+
 
             <!-- Experience -->
             <div class="form-group">

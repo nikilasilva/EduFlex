@@ -28,7 +28,7 @@
                     
                         <th>Reg No</th>
                         <th>Parent NIC</th>
-                        <th>Full Name</th>
+                        <th>Name With Initial</th>
                         <th>Relationship</th>
                         <th>Actions</th>
                     </tr>
@@ -38,12 +38,12 @@
                         <tr>
                             <td><?php echo $parent->regNo; ?></td>
                             <td><?php echo $parent->NIC; ?></td>
-                            <td><?php echo $parent->firstName . ' ' . $parent->lastName; ?></td>
+                            <td><?php echo $parent->nameWithInitial ?></td>
                             <td><?php echo $parent->Relationship; ?></td>
                         
                     
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $parent->regNo; ?>" class="btn btn-edit">Edit</a><br><br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $parent->regNo; ?>" class="btn btn-edit">Update</a><br><br>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteParent/<?php echo $parent->regNo; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                             </td>
                         </tr>

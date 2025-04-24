@@ -27,6 +27,7 @@ teacher
                     
                         <th>class ID</th>
                         <th>class Name</th>
+                        <th>Academic Year</th>
                         <th>action</th>
                     </tr>
                 </thead>
@@ -35,9 +36,10 @@ teacher
                         <tr>
                             <td><?php echo $classe->classId; ?></td>
                             <td><?php echo $classe->className; ?></td>
+                            <td><?php echo $classe->academicYear; ?></td>
 
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $classe->classId; ?>" class="btn btn-edit">Edit</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $classe->classId; ?>" class="btn btn-edit">Update</a><br></br>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteClass/<?php echo $classe->classId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

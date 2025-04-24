@@ -25,8 +25,8 @@ teacher
                 <thead>
                     <tr>
                         <th>Teacher ID</th>
-                        <th>User ID</th>
-                        <th>Full Name</th>
+                        <th>User Reg</th>
+                        <th>Name With Initials</th>
                         <th>Subject</th>
                         <th>Year of Experience</th>
                         <th>Hire Date</th>
@@ -40,13 +40,13 @@ teacher
                         <tr>
                             <td><?php echo $teacher->teacher_id; ?></td>
                             <td><?php echo $teacher->regNo; ?></td>
-                            <td><?php echo $teacher->firstName . ' ' . $teacher->lastName; ?></td>
+                            <td><?php echo $teacher->nameWithInitial?></td>
                             <td><?php echo $teacher->subject; ?></td>
                             <td><?php echo $teacher->experience; ?></td>
                             <td><?php echo $teacher->hireDate; ?></td>
 
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-edit">Edit</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-edit">Update</a><br></br>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

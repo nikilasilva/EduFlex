@@ -18,16 +18,15 @@
 
             <form action="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $data['class']->classId; ?>" method="POST">
 
-                <!-- Class ID (read-only) -->
-                <div class="form-group">
-                    <label for="classId">Class ID:</label>
-                    <input type="number" name="classId" id="classId" value="<?php echo $data['class']->classId; ?>" readonly>
-                </div>
-
                 <!-- Class Name -->
                 <div class="form-group">
                     <label for="className">Class Name:</label>
                     <input type="text" name="className" id="className" value="<?php echo $data['class']->className; ?>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="academicYear">Academic Year:</label>
+                    <input type="text" name="academicYear" id="academicYear" value="<?php echo $data['class']->academicYear; ?>" required>
                 </div>
 
                 <!-- Class Teacher ID -->

@@ -21,15 +21,16 @@
 
         <form action="<?php echo URLROOT; ?>/Admin/submitClass" method="POST">
             <!-- Class Name Input -->
-            <div class="form-group">
-                <label for="classId">Class ID:</label>
-                <input type="number" name="classId" id="classId" required>
-            </div>
+          
 
             <!-- Class Teacher ID Input -->
             <div class="form-group">
                 <label for="className">Class Name:</label>
                 <input type="text" name="className" id="className" required>
+            </div>
+            <div class="form-group">
+                <label for="academicYear">Academic Year:</label>
+                <input type="text" name="academicYear" id="academicYear" required>
             </div>
 
             <!-- Buttons -->

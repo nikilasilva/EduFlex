@@ -25,7 +25,7 @@ teacher
                 <thead>
                     <tr>
                         <th>Vice Principal ID</th>
-                        <th>Full Name</th>
+                        <th>Name With Initial</th>
                         <th>Year Of experience</th>
                         <th>Hired Date</th>
         
@@ -38,14 +38,14 @@ teacher
                     <?php foreach ($data['vicePrincipals'] as $vicePrincipal): ?>
                         <tr>
                             <td><?php echo $vicePrincipal->vicePrincipalId; ?></td>
-                            <td><?php echo $vicePrincipal->firstName . ' ' . $vicePrincipal->lastName; ?></td>
+                            <td><?php echo $vicePrincipal->nameWithInitial?></td>
                             <td><?php echo $vicePrincipal->experience; ?></td>
                             <td><?php echo $vicePrincipal->hireDate; ?></td>
 
 
                     
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editVicePrincipal/<?php echo $vicePrincipal->vicePrincipalId; ?>" class="btn btn-edit">Edit</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editVicePrincipal/<?php echo $vicePrincipal->vicePrincipalId; ?>" class="btn btn-edit">Update</a><br></br>
                                 <a href="<?php echo URLROOT; ?>/Admin/deletevicePrincipal/<?php echo $vicePrincipal->vicePrincipalId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

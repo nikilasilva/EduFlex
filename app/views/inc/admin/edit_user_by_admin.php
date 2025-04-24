@@ -27,8 +27,13 @@
 
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($data['users']->username); ?>" required>
+                    <label for="fullName">Full Name :</label>
+                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['users']->fullName); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nameWithInitial">Name With Initials:</label>
+                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['users']->nameWithInitial); ?>" required>
                 </div>
 
                 <div class="form-group">

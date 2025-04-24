@@ -20,9 +20,23 @@
 
                 <!-- User ID (read-only for safety) -->
                 <div class="form-group">
-                    <label for="regNo">User ID:</label>
+                    <label for="regNo">User Reg:</label>
                     <input type="number" name="regNo" id="regNo" value="<?php echo $data['nonaca']->regNo; ?>" readonly>
                 </div>
+
+                <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" name="fullName" id="fullName" value="<?php echo $data['nonaca']->fullName; ?>" required>
+                    </div>
+
+                    <!-- Name With Initial -->
+                    <div class="form-group">
+                        <label for="nameWithInitial">Name with Initial:</label>
+                        <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo $data['nonaca']->nameWithInitial; ?>" required>
+                    </div>
+
+
 
                 <!-- Position -->
                 <div class="form-group">
@@ -30,17 +44,7 @@
                     <input type="text" name="position" id="position" value="<?php echo $data['nonaca']->position; ?>" required>
                 </div>
 
-
-
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo $data['nonaca']->firstName; ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" value="<?php echo $data['nonaca']->lastName; ?>" required>
-                </div>
+               
 
                 <!-- Department -->
                 <div class="form-group">

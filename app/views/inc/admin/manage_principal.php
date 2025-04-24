@@ -28,15 +28,6 @@
 
             </div>
 
-            <div class="form-group">
-                <label for="firstName">First Name :</label>
-                <input type="text" name="firstName" id="firstName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last Name :</label>
-                <input type="text" name="lastName" id="lastName" required>
-            </div>
 
          <!-- Experience -->
 <div class="form-group">
@@ -89,31 +80,28 @@
             <!-- ################To get users ID ################ -->
 
         
-            <h1>Show User Accounts</h1>
+            <h1>Show Student Principal</h1>
 
-            <!-- User Accounts Table -->
+            <!-- Student Accounts Table -->
             <table class="activities-table">
                 <thead>
                     <tr>
-                        <th>User Reg</th>
-                       
-                        <th>Username</th>
+                        <th>Reg No</th>
+                        <th>Name with Initials</th>
                         <th>Email</th>
                         <th>Role</th>
-                    
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($data['users'] as $user): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($user->regNo); ?></td>
-                           
-                            <td><?php echo htmlspecialchars($user->username); ?></td>
-                            <td><?php echo htmlspecialchars($user->email); ?></td>
-
-                            <td><?php echo htmlspecialchars($user->role); ?></td>
-
-                        </tr>
+                        <?php if ($user->role === 'principal'): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($user->regNo); ?></td>
+                                <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
+                                <td><?php echo htmlspecialchars($user->email); ?></td>
+                                <td><?php echo htmlspecialchars($user->role); ?></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>

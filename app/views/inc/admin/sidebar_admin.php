@@ -17,7 +17,7 @@
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add-Class</span></a></li>
 
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li>
+            <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li> -->
 
 
 
