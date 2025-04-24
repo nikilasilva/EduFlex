@@ -11,11 +11,11 @@ class StudentModel {
     ];
 
         
-      public function __construct() {
-          if ($this->db === null) {
-              $this->connect(); // Ensure the connection is established here
-          }
-      }
+    //   public function __construct() {
+    //       if ($this->db === null) {
+    //           $this->connect(); // Ensure the connection is established here
+    //       }
+    //   }
 
       public function getUsers() {
           return $this->query('SELECT * FROM students');  // Using the query method from the trait
@@ -50,16 +50,16 @@ class StudentModel {
 
 
 
-    // Example method to get all students
-    // public function getAllStudents() {
-    //     $query = 'SELECT * FROM students';  // Adjust the table name as needed
-    //     return $this->query($query); // Using the query method from the Database trait
-    // }
+    //Example method to get all students
+    public function getAllStudents() {
+        $query = 'SELECT * FROM students';  // Adjust the table name as needed
+        return $this->query($query); // Using the query method from the Database trait
+    }
     
-    // public function __construct()
-    // {
-    //  $this->order_column='student_id';   
-    // }
+    public function __construct()
+    {
+     $this->order_column='student_id';   
+    }
     
 
 }
