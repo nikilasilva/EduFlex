@@ -1,5 +1,6 @@
 <!-- // all emty -->
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
@@ -276,24 +277,46 @@ class NonAcademic extends Controller
     {
         $LeavingCertificateMode = new LeavingCertificateModeldev3(); // Make sure this model exists
         $LeavingCertificates = $LeavingCertificateMode->findAll();
-    
+
         $this->view('inc/nonAcademic/Leaving_Certificates', ['LeavingCertificates' => $LeavingCertificates]);
     }
+
 
 
     public function markCertificateComplete($id)
 {
     $model = new LeavingCertificateModeldev3();
-   // Make sure the certificate exists (optional but good practice)
-   $certificate = $model->first(['certificate_id' => $id]);
+    $certificate = $model->first(['certificate_id' => $id]);
 
-$mail = new mail();
-$mail->forwardMinuteContent(); // Call the method to send the email
+    if ($certificate) {
+        // Allocate time
+        $this->autoAllocateLeavingCertificateTime($certificate->certificate_id, $certificate->student_id);
 
-   if ($certificate) {
-       // Update status from 0 to 1
-       $model->update($id, ['status' => 1], 'certificate_id');
-   }
+        // Get allocated time from the DB
+        $allocModel = new leaving_allocated_timeModel();
+        $allocated = $allocModel->first([
+            'student_id' => $certificate->student_id,
+            'certificate_id' => $certificate->certificate_id
+        ]);
+
+        if ($allocated) {
+            $timeSlot = $allocated->time_slot;
+            $day = $allocated->day;
+
+            // Get the email of the student via JOIN
+            $emailData = $allocModel->getUserEmailByStudentId($certificate->student_id);
+            $recipientEmail = $emailData ? $emailData->email : null;
+
+            if ($recipientEmail) {
+                // Send email with allocated time
+                $mail = new mail();
+                $mail->sendEailLeavingCertificates($timeSlot, $day, $recipientEmail);
+            }
+        }
+
+        // Update status from 0 to 1
+        $model->update($id, ['status' => 1], 'certificate_id');
+    }
 
     header("Location: " . URLROOT . "/NonAcademic/RequestLeavingCertificatesView");
     exit();
@@ -301,43 +324,68 @@ $mail->forwardMinuteContent(); // Call the method to send the email
 
 
 
+    
 
 
+    public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
+    {
+        $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
+        $days = ['Monday', 'Friday'];
+        // Function to allocate a time slot and day
+        $allocationModel = new leaving_allocated_timeModel();
 
-    public function sendLeavingCertificateEmail($recipientEmail) {
-        require '../vendor/autoload.php';
-    
-        $mail = new PHPMailer(true);
-        try {
-            // Server settings
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'c.t.gamlath@gmail.com'; // Sender email
-            $mail->Password = 'wsnx vvbp hiet wcex'; // App-specific password for Gmail
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
-    
-            // Recipients
-            $mail->setFrom('c.t.gamlath@gmail.com', 'School Non-Academic Staff');
-            $mail->addAddress($recipientEmail, "Student"); // Recipient email
-    
-            // Content
-            // $mail->isHTML(true);
-            $mail->Subject = 'Reddy – Your Leaving Certificate';
-            $mail->Body    = "
-                <p>Dear Student,</p>
-                <p>Your leaving certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
-                <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>
-            ";
-    
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
-            return false;
+        // Check the current allocation count for each time slot on each day
+        $allocatedSlots = $allocationModel->findAll();
+        $slotCounts = [];
+
+        foreach ($allocatedSlots as $allocation) {
+            $key = $allocation->day . '|' . $allocation->time_slot;
+            if (!isset($slotCounts[$key])) {
+            $slotCounts[$key] = 0;
+            }
+            $slotCounts[$key]++;
         }
+
+        // Find the next available time slot and day
+        $timeSlot = null;
+        $day = null;
+
+        foreach ($days as $currentDay) {
+            foreach ($timeSlots as $currentSlot) {
+            $key = $currentDay . '|' . $currentSlot;
+            if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
+                $timeSlot = $currentSlot;
+                $day = $currentDay;
+                break 2; // Exit both loops once a slot is found
+            }
+            }
+        }
+
+        // If no slot is available, assign the next nearest day
+        if (!$timeSlot || !$day) {
+            $day = $days[0]; // Default to the first day
+            $timeSlot = $timeSlots[0]; // Default to the first time slot
+        }
+        // a to Z select a time slot and day
+
+
+        // Save the allocation in the database
+        $allocationModel = new leaving_allocated_timeModel();
+        $allocationModel->insert([
+            'student_id' => $studentId,
+            'certificate_id' => $allocatedId, // This is actually the certificate ID
+            'time_slot' => $timeSlot,
+            'day' => $day
+        ]);
+        
+
+        // Output the allocated time and day
+        // echo "Time slot and day allocated successfully: $timeSlot on $day";
     }
+
+
+
+   
 
 
 
@@ -345,17 +393,18 @@ $mail->forwardMinuteContent(); // Call the method to send the email
     // {
     //     $characterCertificateModel = new CharacterCertificateModel(); // Make sure this model exists
     //     $characterCertificates = $characterCertificateModel->findAll();
-    
+
     //     $this->view('inc/nonAcademic/Character_Certificate', ['characterCertificates' => $characterCertificates]);
     // }    
 
 
 
-    
 
-    private function sendCharacterCertificateEmail($recipientEmail) {
+
+    private function sendCharacterCertificateEmail($recipientEmail)
+    {
         require '../vendor/autoload.php';
-    
+
         $mail = new PHPMailer(true);
         try {
             // Server settings
@@ -366,11 +415,11 @@ $mail->forwardMinuteContent(); // Call the method to send the email
             $mail->Password = ''; // Replace with actual app password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
-    
+
             // Recipients
             $mail->setFrom('gamlathcharitha@gmail.com', 'School Non-Academic Staff');
             $mail->addAddress($recipientEmail);
-    
+
             // Content
             $mail->isHTML(true);
             $mail->Subject = 'Reddy – Your Character Certificate';
@@ -379,7 +428,7 @@ $mail->forwardMinuteContent(); // Call the method to send the email
                 <p>Your living certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
                 <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>
             ";
-    
+
             $mail->send();
             return true;
         } catch (Exception $e) {
@@ -387,7 +436,5 @@ $mail->forwardMinuteContent(); // Call the method to send the email
             return false;
         }
     }
-    
-    
 }
 ?>

@@ -1,12 +1,13 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
 require '../vendor/autoload.php';
+
 class mail
 {
     protected $mail;
+
     public function __construct()
     {
         $this->configureMail();
@@ -21,27 +22,28 @@ class mail
     private function configureSMTP()
     {
         $this->mail->isSMTP();
-        $this->mail->Host = 'smtp.gmail.com'; // SMTP server
+        $this->mail->Host = 'smtp.gmail.com';
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = 'c.t.gamlath@gmail.com';
-        $this->mail->Password = 'wsnx vvbp hiet wcex'; // app password
+        $this->mail->Username = 'Eduflex.schools@gmail.com';
+        $this->mail->Password = 'rvao yubc uhiv xqbw';
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $this->mail->Port = 587;
     }
 
-    public function forwardMinuteContent()
+    public function sendEailLeavingCertificates($timeSlot, $day, $recipientEmail)
     {
         try {
             $this->configureSMTP();
-            $this->mail->setFrom('c.t.gamlath@gmail.com', 'MinuteMate');
-            $this->mail->addAddress("gamlathcharitha@gail.com", "charitha"); // Recipient
-            $this->mail->Subject = 'Forwarded Minute Content';
-            // $this->mail->addCC($depheademail, $depheadname); //cc
-            $this->mail->Body = '
-                        <p>Dear Student,</p>
-            <p>Your leaving certificate is complete. You can come between <strong>8:00 AM and 12:00 PM</strong> to collect it.</p>
-            <p>Best regards,<br>Non-Academic Staff<br>[School Name]</p>';
-            $this->mail->AltBody = 'Forwarded Minute Content';
+            $this->mail->setFrom('Eduflex.schools@gmail.com', 'EduFlex');
+            $this->mail->addAddress($recipientEmail, "student");
+            $this->mail->Subject = 'Leaving Certificate Collection Details';
+
+            $this->mail->Body = "
+                <p>Dear Student,</p>
+                <p>Your leaving certificate is complete. You can collect it on <strong>{$day}</strong> between <strong>{$timeSlot}</strong>.</p>
+                <p>Best regards,<br>Non-Academic Staff<br>Rajasinghe College</p>
+            ";
+            $this->mail->AltBody = "Your leaving certificate is ready. Collect it on {$day} between {$timeSlot}.";
 
             $this->mail->send();
 
@@ -50,5 +52,7 @@ class mail
             return "Email could not be sent. Error: {$this->mail->ErrorInfo}";
         }
     }
+
     public function sendMail() {}
 }
+
