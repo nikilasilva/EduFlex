@@ -188,6 +188,11 @@ Trait Model{
 //     public function where($data, $data_not = []) {
 
 //         $keys = array_keys($data);
+<<<<<<< HEAD
+=======
+
+//        $keys = array_keys($data);
+>>>>>>> 18f12ee3579c838701b9539dd999e59c323f5680
 //         $keys_not = array_keys($data_not);
 //         $query = "SELECT * FROM $this->table WHERE ";
 
@@ -254,7 +259,21 @@ Trait Model{
 //         return $this->query($query, [$id_column => $id]);
 //     }
 
+<<<<<<< HEAD
     
+=======
+//     // Fetch all rows from the table
+//     // public function findAll() {
+//     //     $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+//     //     return $this->query($query);
+//     // }
+
+// //     public function findAll()
+// // {
+// //     $orderColumn = property_exists($this, 'custom_order_column') ? $this->custom_order_column : 'id';
+// //     return $this->query("SELECT * FROM $this->table ORDER BY $orderColumn DESC");
+// // }
+>>>>>>> 18f12ee3579c838701b9539dd999e59c323f5680
 //     public function findAll() {
 //         $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 //         return $this->query($query);

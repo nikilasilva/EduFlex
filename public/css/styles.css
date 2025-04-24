@@ -45,11 +45,19 @@
 @import url('addUserStyles.css');
 @import url('404Styles.css');
 @import url('403Styles.css');
+@import url('classTimetable.css');
+@import url('teacherTimetable.css');
+@import url('all_teacher.css');
+@import url('all_students.css');
+@import url('uploadUsers/uploadUsers.css');
+@import url('components/pagination.css');
 
 @import url('selectClass.css');
 @import url('submitMarks.css');
 @import url('classReport.css');
 @import url('termReport.css');
+
+@import url('uploadTimetable.css');
 
 :root {
     /* Colors */
@@ -67,8 +75,16 @@
     --primary-btn-color: #4759b1;
     --primary-btn-hover-color: #6976d2;
     /* --icon-color: #3b4380; */
+    --red-color-2: #dc3545;
+    --btn-red-color: #cc0000;
+    --success-color: #155724;
+    --danger-color: #721c24;
+    --secondary-btn-color: #003366;
+    --secondary-btn-hover-color: #001d3d;
+    --black-1: #333;
 
     /* Transitions */
+    --tran-01: all 0.1s ease;
     --tran-02: all 0.2s ease;
     --tran-03: all 0.3s ease;
     --tran-04: all 0.4s ease;
@@ -116,4 +132,26 @@ h1, h2 {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: var(--tran-05);
+}
+
+.alert {
+    padding: 10px;
+    margin-top: 65px;
+    margin-right: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: var(--success-color);
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: var(--danger-color);
 }

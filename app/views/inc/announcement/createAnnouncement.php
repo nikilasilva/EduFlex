@@ -5,7 +5,7 @@
 
 <div class="announcement-container">
     <h1>Create Announcement</h1>
-    <form action="<?= URLROOT ?>/announcement/submitAnnouncement" method="POST">
+    <form action="<?= URLROOT ?>/announcement/submitAnnouncement" method="POST" class="announcement-form" enctype="multipart/form-data" novalidate>
         <div class="form-group">
             <label for="announcement-title">Announcement Title</label>
             <input type="text" id="announcement-title" name="announcement-title" 
@@ -34,7 +34,7 @@
             <label>Target Audience</label>
             <div class="checkbox-group">
                 <?php
-                $audiences = ['Students', 'Teachers', 'Parents', 'Non-academic Staff', 'Vice-Principals'];
+                $audiences = ['students', 'teachers', 'parents', 'non-academic staff', 'vice-principals'];
                 foreach ($audiences as $audience): ?>
                     <label>
                         <input type="checkbox" name="audience[]" value="<?= $audience ?>"
@@ -48,7 +48,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="form-group">
+        <div class="form-group announcement-content-form-group">
             <label for="announcement-content">Announcement Content</label>
             <textarea id="announcement-content" name="announcement-content" 
                       placeholder="Enter announcement content" required><?= $data['content'] ?></textarea>
@@ -76,9 +76,9 @@
             </div>
         </div>
 
-        <div class="button-group">
+        <div class="button-group-announcement">
             <button type="submit">Create Announcement</button>
-            <button type="reset">Clear</button>
+            <button type="reset">Clear Form</button>
         </div>
     </form>
 
