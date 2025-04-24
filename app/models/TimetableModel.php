@@ -17,6 +17,8 @@ class TimetableModel {
 
     protected $order_column = 'periodId';
 
+    public $errors = [];
+
     /**
      * Get timetable for a specific class and day
      *
@@ -109,4 +111,83 @@ class TimetableModel {
             ]);
         }
     }
+
+    public function checkClassScheduleConflict($classId, $periodId, $day) {
+        $sql = "SELECT COUNT(*) as count FROM $this->table 
+                WHERE classId = :classId AND periodId = :periodId AND day = :day";
+        
+        $data = [
+            'classId' => $classId,
+            'periodId' => $periodId,
+            'day' => $day
+        ];
+        
+        $result = $this->query($sql, $data);
+        return $result[0]->count > 0;
+    }
+
+    public function checkTeacherScheduleConflict($teacherRegNo, $periodId, $day) {
+        $sql = "SELECT COUNT(*) as count FROM $this->table 
+                WHERE teacherRegNo = :teacherRegNo AND periodId = :periodId AND day = :day";
+        
+        $data = [
+            'teacherRegNo' => $teacherRegNo,
+            'periodId' => $periodId,
+            'day' => $day
+        ];
+        
+        $result = $this->query($sql, $data);
+        return $result[0]->count > 0;
+    }
+
+    public function getTimetableByClass($classId) {
+        $sql = "SELECT t.*, s.subjectName, 
+                CONCAT(tc.firstName, ' ', tc.lastName) as teacherName 
+                FROM $this->table t
+                JOIN subjects s ON t.subjectId = s.subjectId
+                JOIN teachers tc ON t.teacherRegNo = tc.regNo
+                WHERE t.classId = :classId
+                ORDER BY t.day, t.periodId";
+        
+        return $this->query($sql, ['classId' => $classId]);
+    }
+
+    public function getTimetableByTeacher($teacherRegNo) {
+        $sql = "SELECT t.*, s.subjectName, c.className 
+                FROM $this->table t
+                JOIN subjects s ON t.subjectId = s.subjectId
+                JOIN classes c ON t.classId = c.classId
+                WHERE t.teacherRegNo = :teacherRegNo
+                ORDER BY t.day, t.periodId";
+        
+        return $this->query($sql, ['teacherRegNo' => $teacherRegNo]);
+    }
+
+    public function clearTimetableByClass($classId) {
+        $sql = "DELETE FROM $this->table WHERE classId = :classId";
+        return $this->query($sql, ['classId' => $classId]);
+    }
+
+    public function validateUploadTimetable($data, $file) {
+        $this->errors = [];
+
+        if (empty($data['academic_year'])) {
+            $this->errors['academic_year'] = 'Please select academic year.';
+        }
+
+        // // File validation
+        // if ($file['timetable_csv']['error'] !== UPLOAD_ERR_OK) {
+        //     $this->errors['timetable_csv'] = 'File upload failed.';
+        // } else {
+        //     $fileType = mime_content_type($file['timetable_csv']['tmp_name']);
+        //     $fileExtension = pathinfo($file['timetable_csv']['name'], PATHINFO_EXTENSION);
+
+        //     if ($fileExtension !== 'csv' || $fileType !== 'text/plain') {
+        //         $this->errors['timetable_csv'] = 'Please upload a valid CSV file.';
+        //     }
+        // }
+
+        return empty($this->errors);
+    }
 }
+?>

@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".all-students-container"),
         document.querySelector(".upload-users-container"),
         document.querySelector(".timetable-container"),
+        document.querySelector(".upload-timetable-container"),
     ];
 
     // Restore sidebar state from localStorage

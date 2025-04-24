@@ -1,6 +1,9 @@
 <?php
 class SubjectModel {
     use Database; // Use the Database trait directly
+    use Model;
+
+    protected $table = 'subjects';
 
     // Example method to get subjects for a class
     public function getSubjectsByClass($classId) {
@@ -12,6 +15,12 @@ class SubjectModel {
     public function getAllSubjects() {
         $sql = "SELECT subjectId, subjectName FROM subjects ORDER BY subjectName ASC";
         return $this->query($sql);
+    }
+
+    public function getSubjectIdByName($subjectName) {
+        $sql = "SELECT subjectId FROM $this->table WHERE subjectName = :subjectName";
+        $result = $this->query($sql, ['subjectName' => $subjectName]);
+        return $result ? $result[0]->subjectId : null;
     }
 }
 ?>

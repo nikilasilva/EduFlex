@@ -37,4 +37,35 @@ class TeacherModel {
 
         return $this->query($sql)[0]->count;
     }
+
+    public function getTeacherRegNoByFullName($fullName) {
+        // Split the full name into first and last name
+        $nameParts = explode(' ', $fullName, 2);
+        $firstName = $nameParts[0];
+        $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+        
+        $sql = "SELECT regNo FROM teachers 
+                WHERE firstName = :firstName AND lastName = :lastName";
+        
+        $data = [
+            'firstName' => $firstName,
+            'lastName' => $lastName
+        ];
+        
+        $result = $this->query($sql, $data);
+        return $result ? $result[0]->regNo : null;
+    }
+    
+    public function isTeacherAssignedToSubject($teacherRegNo, $subjectId) {
+        $sql = "SELECT COUNT(*) as count FROM teacher_subjects 
+                WHERE teacherRegNo = :teacherRegNo AND subjectId = :subjectId";
+        
+        $data = [
+            'teacherRegNo' => $teacherRegNo,
+            'subjectId' => $subjectId
+        ];
+        
+        $result = $this->query($sql, $data);
+        return $result[0]->count > 0;
+    }
 }

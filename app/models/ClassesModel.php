@@ -27,4 +27,22 @@ class ClassesModel {
     public function getTableName() {
         return $this->table;
     }
+
+    public function getClassIdByNameAndYear($className, $academicYear) {
+        $sql = "SELECT classId FROM $this->table 
+                WHERE className = :className AND academicYear = :academicYear";
+        
+        $data = [
+            'className' => $className,
+            'academicYear' => $academicYear
+        ];
+        
+        $result = $this->query($sql, $data);
+        return $result ? $result[0]->classId : null;
+    }
+
+    public function getAcademicYears() {
+        $sql = "SELECT DISTINCT academicYear FROM $this->table ORDER BY academicYear DESC";
+        return $this->query($sql);
+    }
 }
