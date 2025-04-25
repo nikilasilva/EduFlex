@@ -5,7 +5,7 @@
         private $ClassModel;
 
         public function __construct() {
-          // $this->StudentModel = $this->model('StudentModel');
+          $this->StudentModel = $this->model('StudentModel');
           // $this->model('StudentModel');
           $this->AllStudentsModel = $this->model('AllStudentsModel');
           $this->ClassModel = $this->model('ClassesModel');

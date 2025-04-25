@@ -9,6 +9,7 @@ class StudentModel {
         'classId',
         'guardianRegN0'   
     ];
+    protected $order_column;
 
         
     //   public function __construct() {
@@ -61,6 +62,30 @@ class StudentModel {
      $this->order_column='student_id';   
     }
     
+
+    public function getStudentDetails($regNo) {
+        $query = "SELECT 
+            u.regNo,
+            u.fullName,
+            u.nameWithInitial,
+            u.email,
+            u.mobileNo,
+            u.address,
+            u.dob,
+            u.gender,
+            u.religion,
+            s.studentId,
+            c.className,
+            c.academicYear,
+            s.guardianRegNo,
+            s.dateOfAdmission
+        FROM users u
+        JOIN students s ON u.regNo = s.regNo
+        JOIN classes c ON c.classId = s.classId
+        WHERE u.regNo = :regNo;";
+
+        return $this->query($query, ['regNo' => $regNo]);
+    }
 
 }
 ?>
