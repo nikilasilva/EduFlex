@@ -37,10 +37,10 @@ class MarksModel {
     public function getClassReport($classId, $term) {
         $year = date('Y');
         $query = "
-            SELECT s.student_id, s.firstName AS student_name, sub.name AS subject_name, m.marks
+            SELECT s.student_id, s.firstName AS student_name, sub.subjectName AS subject_name, m.marks
             FROM marks m
             JOIN students s ON m.student_id = s.student_id
-            JOIN subjects sub ON m.subject_id = sub.id
+            JOIN subjects sub ON m.subject_id = sub.subjectId
             WHERE s.classId = :classId AND m.term = :term AND m.year = :year
         ";
         return $this->query($query, [
@@ -72,14 +72,14 @@ class MarksModel {
         $sql = "
             SELECT 
                 m.student_id,
-                s.name AS subject_name,
+                s.subjectName AS subject_name,
                 m.marks,
                 CONCAT(st.firstName, ' ', st.lastName) AS student_name
             FROM marks m
-            JOIN subjects s ON m.subject_id = s.id
+            JOIN subjects s ON m.subject_id = s.subjectId
             JOIN students st ON m.student_id = st.student_id
             WHERE m.classId = :classId AND m.term = :term AND m.year = :year
-            ORDER BY m.student_id, s.name
+            ORDER BY m.student_id, s.subjectName
         ";
         return $this->query($sql, [
             'classId' => $classId,
@@ -140,9 +140,9 @@ class MarksModel {
     }
 
     public function getSubjectIdByName($subjectName) {
-        $query = "SELECT id FROM subjects WHERE name = :name LIMIT 1";
-        $result = $this->getRow($query, [':name' => $subjectName]);
-        return $result ? $result->id : null;
+        $query = "SELECT subjectId FROM subjects WHERE subjectName = :subjectName LIMIT 1";
+        $result = $this->getRow($query, [':subjectName' => $subjectName]);
+        return $result ? $result->subjectId : null;
     }
 
     // 🔍 New function to help controller check if marks already exist
