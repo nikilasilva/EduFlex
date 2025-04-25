@@ -60,6 +60,9 @@
 @import url('uploadTimetable.css');
 @import url('assignClassTeachers.css');
 
+/*by admin */
+@import url('components/insert_actor_style.css');
+
 :root {
     /* Colors */
     --body-color: #E4E9F7;
