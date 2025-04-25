@@ -32,7 +32,7 @@ use Soap\Url;
         </div>
         <!-- form for change profile picture  -->
         <form action="<?php echo URLROOT; ?>/Users/settings" method="POST" enctype="multipart/form-data" class="user-settings-profile-pic-form">
-            <h2><?php echo ucwords(strtolower($_SESSION['user']['username']))?> - <?php echo ucwords(strtolower($_SESSION['user']['role']))?></h2>
+            <h2><?php echo $_SESSION['user']['nameWithInitial']?> - <?php echo ucwords(strtolower($_SESSION['user']['role']))?></h2>
             <div class="form-group">
                 <label for="profile_picture">Upload New Picture (JPEG/PNG, max 2MB):</label>
                 <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/png">
