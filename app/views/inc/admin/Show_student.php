@@ -25,8 +25,11 @@
                 <tr>
                     <th>Student ID</th>
                     <th>User Reg</th>
+                    <th>Full Name</th>
                     <th>Name With Initial</th>
                     <th>Class Name</th>
+                    <!-- <th>Address</th>
+                    <th>Mobile Number</th> -->
                     <!-- <th>Guardian User ID</th> -->
                     <th>Actions</th>
                 </tr>
@@ -36,9 +39,12 @@
                     <tr>
                         <td><?php echo $student->student_id; ?></td>
                         <td><?php echo $student->regNo; ?></td>
-                        <td><?php echo $student->nameWithInitial?></td>
+                        <td><?php echo $student->fullName; ?></td>
+                        <td><?php echo $student->nameWithInitial;?></td>
                         
                         <td><?php echo $student->className ?? 'Unknown'; ?></td>
+                        <!-- <td><?php echo $student->address; ?></td>
+                        <td><?php echo $student->mobileNo;?></td> -->
 
             
 

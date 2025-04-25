@@ -191,31 +191,45 @@ public function viewStudent()
 public function editStudent($regNo)
 {
     $studentModel = new manage_studentModel();
-    
+    $userModel = new manage_useraccountModel();
     $classModel = new manage_classModel();
     $classes = $classModel->findAll();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [
+        $studentData = [
             'student_id' => $_POST['student_id'],
             'regNo' => $_POST['regNo'],
             'classId' => $_POST['classId']
         ];
 
-        $studentModel->update($regNo, $data, 'regNo');
+        $userData = [
+            'fullName' => $_POST['fullName'],
+            'nameWithInitial' => $_POST['nameWithInitial'],
+            'mobileNo' => $_POST['mobileNo'],
+            'address' => $_POST['address']
+        ];
+
+        $studentModel->update($regNo, $studentData, 'regNo');
+        $userModel->updateUserNameDetails($regNo, $userData);
 
         header("Location: " . URLROOT . "/Admin/viewStudent");
         exit();
     } else {
         $student = $studentModel->first(['regNo' => $regNo]);
+        $user = $userModel->first(['regNo' => $regNo]);
 
-        if ($student) {
-            $this->view('inc/Admin/edit_student_by_admin', ['student' => $student, 'classes' => $classes]);
+        if ($student && $user) {
+            $this->view('inc/Admin/edit_student_by_admin', [
+                'student' => $student,
+                'user' => $user,
+                'classes' => $classes
+            ]);
         } else {
             die('Student not found.');
         }
     }
 }
+
 
 // Delete Student
 public function deleteStudent($student_id)

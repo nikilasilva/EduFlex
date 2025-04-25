@@ -86,7 +86,7 @@
 
 
                 <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
-                <a href="<?php echo URLROOT; ?>/Admin/viewUser" class="btn btn-secondary">Cancel</a>
+                <a href="<?php echo URLROOT; ?>/Admin/viewUser" class="btn btn-secondary">Back to List</a>
 
             </form>
         </div>
