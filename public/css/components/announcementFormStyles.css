@@ -186,11 +186,9 @@ label {
 }
 
 
-<<<<<<< HEAD
 
 
 
-=======
 /* Delete Confirmation */
 .modal {
     display: none;
@@ -278,4 +276,3 @@ body.modal-open {
     min-width: 125px; 
     width: 125px;
 }
->>>>>>> 18f12ee3579c838701b9539dd999e59c323f5680
