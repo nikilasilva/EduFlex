@@ -195,6 +195,12 @@ class NonAcademic extends Controller
 
     //start verify service charges
 
+    public function requestedCertificate() {
+        $this->view('inc/nonAcademic/requestedCertificate');
+    }
+    public function allocatedTime() {
+        $this->view('inc/nonAcademic/allocatedTime');
+    }
 
     //-------------
     public function searchServiceChargesByStudentId()  // Search service charges by student ID
