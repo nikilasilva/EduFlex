@@ -15,6 +15,8 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_nonaca"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Non-Academic</span></a></li>
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add-Class</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT; ?>/SuperAdmin/uploadUsers"><i class="fa-solid fa-users icon"></i><span class="text nav-text">Upload Users</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
 
             <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li> -->
 
