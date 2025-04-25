@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div class="form-container">
+<div class="form-container container">
   <h2>Request for Leaving Certificate</h2>
 
   <!-- Display errors if any -->

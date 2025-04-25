@@ -18,7 +18,9 @@
     
 
     <!-- Container for the image cards -->
+    <div class="container">
     <div class="certificate-container">
+
         <div class="certificate-card">
             <a href="<?php echo URLROOT; ?>/Student/leaving">
                 <img src="<?php echo URLROOT; ?>/public/img/Library_fine.jpg" alt="Library Fine">
@@ -36,6 +38,7 @@
                 </div>
             </a>
         </div>
+    </div>
     </div>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
