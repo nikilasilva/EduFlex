@@ -24,6 +24,8 @@ teacher
             <table class="activities-table">
                 <thead>
                     <tr>
+
+                        <th>User Reg</th>
                         <th>Vice Principal ID</th>
                         <th>Name With Initial</th>
                         <th>Year Of experience</th>
@@ -37,6 +39,7 @@ teacher
                 <tbody>
                     <?php foreach ($data['vicePrincipals'] as $vicePrincipal): ?>
                         <tr>
+                            <td><?php echo $vicePrincipal->regNo; ?></td>
                             <td><?php echo $vicePrincipal->vicePrincipalId; ?></td>
                             <td><?php echo $vicePrincipal->nameWithInitial?></td>
                             <td><?php echo $vicePrincipal->experience; ?></td>

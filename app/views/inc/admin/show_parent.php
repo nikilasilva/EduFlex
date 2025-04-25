@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                     
-                        <th>Reg No</th>
+                        <th>User Reg</th>
                         <th>Parent NIC</th>
                         <th>Name With Initial</th>
                         <th>Relationship</th>

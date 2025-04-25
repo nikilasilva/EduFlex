@@ -23,8 +23,8 @@
         <table class="activities-table">
             <thead>
                 <tr>
-                    <th>Student ID</th>
                     <th>User Reg</th>
+                    <th>Student ID</th>
                     <th>Full Name</th>
                     <th>Name With Initial</th>
                     <th>Class Name</th>
@@ -37,8 +37,9 @@
             <tbody>
                 <?php foreach ($data['students'] as $student): ?>
                     <tr>
-                        <td><?php echo $student->student_id; ?></td>
+                       
                         <td><?php echo $student->regNo; ?></td>
+                        <td><?php echo $student->student_id; ?></td>
                         <td><?php echo $student->fullName; ?></td>
                         <td><?php echo $student->nameWithInitial;?></td>
                         
