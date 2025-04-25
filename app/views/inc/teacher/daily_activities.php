@@ -44,8 +44,13 @@
         <!-- Daily Activities form -->
         <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST">
             <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" name="date" id="date" required>
+            <label for="absence_date">Date:</label>
+    <input 
+        type="date" 
+        id="attendance_date" 
+        name="attendance_date" 
+        max="<?= date('Y-m-d') ?>" 
+        required >
             </div>
 
             <div class="form-group">
