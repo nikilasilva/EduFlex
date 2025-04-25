@@ -36,5 +36,18 @@ class ViewMarksModel {
     
         return $this->query($query, ['parentRegNo' => $parentRegNo]);
     }
+
+    public function getTotalMarksByTerm($term) {
+        $query = "
+            SELECT m.student_id, SUM(m.marks) AS total_marks
+            FROM marks m
+            WHERE m.term = :term
+            GROUP BY m.student_id
+            ORDER BY total_marks DESC
+        ";
+    
+        return $this->query($query, ['term' => $term]);
+    }
+    
     
 }
