@@ -59,22 +59,31 @@ class Teacher extends Controller {
     }
 
     public function attendance() {
-        checkRole('teacher');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classId = $_POST['classId'];
-    
-            $classModel = $this->model('ClassModel');
-            $studentModel = $this->model('StudentModel');
-    
-            $students = $studentModel->where(['classId' => $classId]);
-            $students = is_array($students) ? $students : [];
-    
-            $this->view('inc/teacher/attendance', [
-                'students' => $students,
-                'class' => $classId
-            ]);
-        }
+    checkRole('teacher');
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $classId = $_POST['classId'];
+
+        $studentModel = $this->model('StudentModel');
+        $students = $studentModel->where(['classId' => $classId]);
+        $students = is_array($students) ? $students : [];
+
+        $this->view('inc/teacher/attendance', [
+            'students' => $students,
+            'class' => $classId
+        ]);
+    } else {
+        // Handle GET request: show class selection page
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->query("SELECT classId, className FROM classes");
+
+
+        $this->view('inc/teacher/select_class_for_attendance', [
+            'classes' => $classes
+        ]);
     }
+}
+
     
     public function submitAttendance() {
         checkRole('teacher');
@@ -401,6 +410,8 @@ class Teacher extends Controller {
 
         $marksModel = $this->model('MarksModel');
 
+        
+
         // Insert marks
         foreach ($marksData as $studentId => $subjects) {
             foreach ($subjects as $subjectId => $marks) {
@@ -455,13 +466,17 @@ class Teacher extends Controller {
         // Sort by percentage
         usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
 
+        $classModel = $this->model('ClassModel');
+        $className = $classModel->getClassName($classId);  
+
         // Load the view
         $this->view('inc/teacher/class_report', [
             'classReport' => $classReport,
             'ranks' => $ranks,
             'subjects' => array_map(fn($row) => (object)['name' => $row->subject_name], $subjectWise),
             'term' => $term,
-            'class' => $classId
+            'class' => $classId,
+            'className' => $className 
         ]);
     } else {
         header("Location: " . URLROOT . "/teacher");
@@ -484,10 +499,16 @@ class Teacher extends Controller {
             $subjectWise = $marksModel->getClassReportByTerm($classId, $term);
             $rankData = $marksModel->getStudentRanksByTerm($classId, $term);
             if (!$subjectWise || count($subjectWise) === 0) {
-                $this->view('inc/teacher/class_report', [
-                    'message' => 'No data entered for this term.',
-                    'term' => $term
-                ]);
+                $classModel = $this->model('ClassModel');
+$className = $classModel->getClassName($classId);
+
+$this->view('inc/teacher/class_report', [
+    'message' => 'No data entered for this term.',
+    'term' => $term,
+    'className' => $className, // ✅ fix here
+    'class' => $classId
+]);
+
                 return;
             }
 

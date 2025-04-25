@@ -31,6 +31,12 @@
     </tbody>
 </table>
 
+
+
+<button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/attendance';" class="btn-back"><< Back</button>
+
+
+
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
