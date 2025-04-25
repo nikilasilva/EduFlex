@@ -1,188 +1,746 @@
-<?php
-    class Teacher extends Controller {
-        public function __construct() {
-        }
+<?php session_start();
+require_once '../app/helpers/url_helper.php';
+require_once '../app/helpers/session_helper.php';
 
-        public function index() {
-            $this->view('inc/teacher/default');
-        }
-        // View all teachers.
-        public function teachers() {
-            $this->view('all_teachers');
-        }
+class Teacher extends Controller {
 
-        public function student_academic() {
-            $this->view('inc/teacher/academic_student');
-        }
+    //new
+    private $marksModel;
+    private $classModel;
+    private $studentModel;
+    private $subjectModel;
+    private $teacherModel;
+    private $ClassesModel;
 
-        public function student_attendance() {
-            $this->view('inc/teacher/attendance_student');
-        }
-
-        public function student_payment() {
-            $this->view('inc/teacher/payment_student');
-        }
+    public function __construct() {
 
 
+        //new
+        $this->marksModel = $this->model('MarksModel');
+        $this->classModel = $this->model('ClassModel');
+        $this->studentModel = $this->model('StudentModel');
+        $this->subjectModel = $this->model('SubjectModel');
+        $this->teacherModel = $this->model('TeacherModel');
+        $this->ClassesModel = $this->model('ClassesModel');
+    }
 
-        public function events() {
-            // Example events array (replace with your actual data)
-            $data = [
-                'events' => [
-                    '2024-01-19' => 'Event 1',
-                    '2024-01-20' => 'Event 2',
-                ],
-                'upcomingEvents' => [
-                    ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
-                    ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
-                ],
-                'reminders' => [
-                    ['date' => '2024-01-18', 'description' => 'Reminder 1'],
-                    ['date' => '2024-01-19', 'description' => 'Reminder 2'],
-                ]
-            ];
+    public function teachers() {
+        $this->view('all_teachers');
+    }
+
+    public function events() {
+        $data = [
+            'events' => [
+                '2024-01-19' => 'Event 1',
+                '2024-01-20' => 'Event 2',
+            ],
+            'upcomingEvents' => [
+                ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
+                ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
+            ],
+            'reminders' => [
+                ['date' => '2024-01-18', 'description' => 'Reminder 1'],
+                ['date' => '2024-01-19', 'description' => 'Reminder 2'],
+            ]
+        ];
+
+        $this->view('scheduled_events', $data);
+    }
+
+    public function timeTable() {
+        $data = [
+            'timeTable' => [
+                ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
+                
+            ]
+        ];
+
+        $this->view('time_table', $data);
+    }
+
+    public function attendance() {
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['classId'];
     
-            // Load the view and pass data
-            $this->view('scheduled_events', $data);
+            $classModel = $this->model('ClassModel');
+            $studentModel = $this->model('StudentModel');
+    
+            $students = $studentModel->where(['classId' => $classId]);
+            $students = is_array($students) ? $students : [];
+    
+            $this->view('inc/teacher/attendance', [
+                'students' => $students,
+                'class' => $classId
+            ]);
         }
-        
-        public function timeTable() {
-            // Sample timetable data (you can retrieve this from a database in real use cases)
-            $data = [
-                'timeTable' => [
-                    ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
-                    ['time' => '09:30 - 10:30', 'monday' => 'Period 2', 'tuesday' => 'Period 2', 'wednesday' => 'Period 2', 'thursday' => 'Period 2', 'friday' => 'Period 2'],
-                    ['time' => '10:30 - 11:00', 'monday' => 'Lunch 1', 'tuesday' => 'Lunch 1', 'wednesday' => 'Lunch 1', 'thursday' => 'Lunch 1', 'friday' => 'Lunch 1'],
-                    ['time' => '11:00 - 12:00', 'monday' => 'Period 3', 'tuesday' => 'Period 3', 'wednesday' => 'Period 3', 'thursday' => 'Period 3', 'friday' => 'Period 3'],
-                    ['time' => '12:00 - 1:00', 'monday' => 'Period 4', 'tuesday' => 'Period 4', 'wednesday' => 'Period 4', 'thursday' => 'Period 4', 'friday' => 'Period 4'],
-                    ['time' => '1:00 - 1:30', 'monday' => 'Lunch 2', 'tuesday' => 'Lunch 2', 'wednesday' => 'CONNECT', 'thursday' => 'Lunch 2', 'friday' => 'Lunch 2'],
-                    ['time' => '1:30 - 2:30', 'monday' => 'Period 5', 'tuesday' => 'Period 5', 'wednesday' => 'CONNECT', 'thursday' => 'Period 5', 'friday' => 'Period 5']
-                ]
-            ];
-
-            // Load the view and pass the timetable data
-            $this->view('time_table', $data);
-        }
-
-        public function attendance() {
-            // Example student data (this should be retrieved from your database in a real scenario)
-            $data = [
-                'students' => [
-                    ['id' => 'S001', 'name' => 'John Doe'],
-                    ['id' => 'S002', 'name' => 'Jane Smith'],
-                    ['id' => 'S003', 'name' => 'Michael Johnson'],
-                    ['id' => 'S004', 'name' => 'Emily Davis'],
-                ]
-            ];
-
-            // Load the view and pass student data
-            $this->view('inc/teacher/attendance', $data);
-        }
-
-        // Handle attendance submission
-        public function submitAttendance() {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Process the attendance data
-                $attendance = $_POST['attendance'];
-
-                // Example: Save the attendance to the database (implementation depends on your database)
-                foreach ($attendance as $studentId => $status) {
-                    // Save each student's attendance
-                    // Example: $this->attendanceModel->markAttendance($studentId, $status);
-                    echo "Student ID: $studentId, Status: $status <br>";
-                }
-
-                // Redirect to the attendance page or a success page
-                redirect('teacher/attendance');
-            } else {
-                // If not a POST request, redirect to the attendance page
-                redirect('teacher/attendance');
+    }
+    
+    public function submitAttendance() {
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $class = $_POST['class'] ?? null;
+            $attendance = $_POST['attendance'] ?? [];
+            $date = date('Y-m-d');
+    
+            if (empty($class) || empty($attendance)) {
+                $_SESSION['error'] = "Class or attendance data missing.";
+                header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+                exit();
             }
+    
+            $attendanceModel = new Student_attendanceModel();
+    
+            //  Check if attendance already exists
+            $existing = $attendanceModel->where(['class' => $class, 'date' => $date]);
+    
+            if (!empty($existing)) {
+                $_SESSION['error'] = "Attendance for this class has already been entered for today.";
+                header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+                exit();
+            }
+    
+            //  Save new attendance
+            foreach ($attendance as $studentId => $status) {
+                $studentData = [
+                    'date' => $date,
+                    'student_id' => $studentId,
+                    'name' => $_POST['student_name'][$studentId],
+                    'class' => $class,
+                    'status' => $status,
+                ];
+                $attendanceModel->insert($studentData);
+            }
+    
+            $_SESSION['success'] = "Attendance submitted successfully.";
+            header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$date&view_class=$class");
+            exit();
+        } else {
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
         }
+    }
+    
+    
+    public function viewAttendance() {
+        checkRole('teacher');
+        $date = $_GET['attendance_date'] ?? null;
+        $classId = $_GET['view_class'] ?? null;
+    
+        if (!$date || !$classId) {
+            $_SESSION['error'] = "Date or class not provided.";
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
+        }
+    
+        $attendanceModel = new Student_attendanceModel();
+        $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $classId]);
+        $className = $attendanceModel->getClassName($classId);
+    
+        $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
+    
+        $this->view('inc/teacher/view_attendance', [
+            'attendanceRecords' => $attendanceRecords,
+            'date' => $date,
+            'class' => $classId,         // for logic if needed
+            'className' => $className    // for display
+        ]);
+    }
+    
 
-    // Display the daily activities form
+    public function editAttendance() {
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $date = $_POST['date'];
+            $classId = $_POST['class'];
+    
+            $attendanceModel = new Student_attendanceModel();
+            $records = $attendanceModel->where(['date' => $date, 'class' => $classId]);
+            $className = $attendanceModel->getClassName($classId);
+    
+            $records = json_decode(json_encode($records), true);
+    
+            $this->view('inc/teacher/edit_attendance', [
+                'attendanceRecords' => $records,
+                'date' => $date,
+                'class' => $classId,
+                'className' => $className
+            ]);
+        }
+    }
+    
+
+    public function updateAttendance()
+    {
+        checkRole('teacher');
+        $attendanceModel = new Student_attendanceModel();
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $submittedDate = $_POST['date'];
+            $class = $_POST['class'];
+            $today = date('Y-m-d');
+            $daysDiff = (strtotime($today) - strtotime($submittedDate)) / (60 * 60 * 24);
+    
+            if ($daysDiff > 7) {
+                $_SESSION['error'] = "You can only update attendance within 7 days of submission.";
+                header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$submittedDate&view_class=$class");
+                exit();
+            }
+    
+            foreach ($_POST['status'] as $studentId => $status) {
+                $data = [
+                    'status' => $status,
+                    'name' => $_POST['student_name'][$studentId] ?? ''
+                ];
+    
+                $where = [
+                    'student_id' => $studentId,
+                    'date' => $submittedDate,
+                    'class' => $class
+                ];
+    
+                $attendanceModel->updateWhere($where, $data);
+            }
+    
+            $_SESSION['success'] = "Attendance updated successfully.";
+            header("Location: " . URLROOT . "/teacher/viewAttendance?attendance_date=$submittedDate&view_class=$class");
+            exit();
+        } else {
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
+        }
+    }
+    
+    
+    
+
+    //absences
+
+    public function viewAbsences() {
+        checkRole('teacher');
+        $date = $_GET['attendance_date'] ?? null;
+        $class = $_GET['class'] ?? null;
+    
+        if (!$date || !$class) {
+            $_SESSION['error'] = "Date or class not provided.";
+            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+            exit();
+        }
+    
+        $attendanceModel = new Student_attendanceModel();
+        $absences = $attendanceModel->getAbsencesByDateAndClass($date, $class);
+        $absences = json_decode(json_encode($absences), true);
+    
+        $this->view('inc/teacher/view_absences', [
+            'absences' => $absences,
+            'date' => $date,
+            'class' => $class
+        ]);
+    }
+    
+
     public function dailyActivities() {
-        
+        checkRole('teacher');
         $this->view('inc/teacher/daily_activities');
     }
 
-    // Handle the submission of daily activities
+    // Handle form submission
     public function submitActivities() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $activityData = [
-                'date' => $_POST['date'],
-                'period' => $_POST['period'],
-                'subject' => $_POST['subject'],
-                'class' => $_POST['class'],
-                'description' => $_POST['description'],
-                'additional_note' => $_POST['additional_note']
-
-            ];
-
-            $activity = new Current_activityModel();
-            $activity->insert($activityData);
-            // Here, save the activity data to the database.
-            // Example: $this->activityModel->addActivity($activityData);
-
-            // Display a success message or redirect to a success page
-            echo "Activity recorded successfully: " . htmlspecialchars($activityData['description']);
-        } else {
-            // If not a POST request, reload the daily activities page
-            $this->view('daily_activities');
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->dailyActivities();
         }
-    }
 
-    public function viewActivities() {
-    $activityModel = new Current_activityModel();
-    $activities = $activityModel->findAll();
+        $date = $_POST['date'];
+        $today = date('Y-m-d');
+        $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
 
-    $this->view('inc/teacher/view_activities', ['activities' => $activities]);
-}
+        // Validate date is between one week ago and today
+        if ($date > $today || $date < $oneWeekAgo) {
+            $_SESSION['error'] = "Date must be today or within the last 7 days.";
+            return header("Location: " . URLROOT . "/teacher/dailyActivities");
+        }
 
-
-public function editActivity($id) {
-    $activityModel = new Current_activityModel();
-
-    // If the request is POST, update the activity
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [
-                'date' => $_POST['date'],
-                'period' => $_POST['period'],
-                'subject' => $_POST['subject'],
-                'class' => $_POST['class'],
-                'description' => $_POST['description'],
-                'additional_note' => $_POST['additional_note']
+        // Build activity record, including teacher_id from session
+        $activityData = [
+            'teacher_id'    => $_SESSION['user']['regNo'],
+            'date'          => $date,
+            'period'        => $_POST['period'],
+            'subject'       => $_POST['subject'],
+            'class'         => $_POST['class'],
+            'description'   => $_POST['description'],
+            'additional_note'=> $_POST['additional_note']
         ];
 
-        $activityModel->update($id, $data, 'activity_id');
+        $activityModel = new Current_activityModel();
+        $activityModel->insert($activityData);
 
-        // Redirect to the view activities page
+        $_SESSION['success'] = "Activity recorded successfully.";
         header("Location: " . URLROOT . "/teacher/viewActivities");
-        exit();
-    } else {
-        // Get the activity details
-        $activity = $activityModel->first(['activity_id' => $id]);
+        exit;
+    }
 
-        if ($activity) {
-            $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+    // List only this teacher's activities
+    public function viewActivities() {
+        checkRole('teacher');
+        $teacherId = $_SESSION['user']['regNo'];
+        
+        $activityModel = new Current_activityModel();
+        $activities = $activityModel->getTeacherActivities($teacherId);
+
+        $this->view('inc/teacher/view_activities', ['activities' => $activities]);
+    }
+
+    // Edit existing activity (only if it belongs to this teacher)
+    public function editActivity($id) {
+        checkRole('teacher');
+        $teacherId = $_SESSION['user']['regNo'];
+        $activityModel = new Current_activityModel();
+
+        // Fetch the record and ensure it belongs to this teacher
+        $activity = $activityModel->first([
+            'activity_id' => $id,
+            'teacher_id'  => $teacherId
+        ]);
+
+        if (! $activity) {
+            $_SESSION['error'] = "You are not authorized to edit that activity.";
+            return header("Location: " . URLROOT . "/teacher/viewActivities");
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate date again if needed, omitted here for brevity
+
+            $updateData = [
+                'date'            => $_POST['date'],
+                'period'          => $_POST['period'],
+                'subject'         => $_POST['subject'],
+                'class'           => $_POST['class'],
+                'description'     => $_POST['description'],
+                'additional_note' => $_POST['additional_note'],
+            ];
+
+            $activityModel->update($id, $updateData, 'activity_id');
+            $_SESSION['success'] = "Activity updated successfully.";
+            header("Location: " . URLROOT . "/teacher/viewActivities");
+            exit;
+        }
+
+        $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+    }
+
+    // Delete an activity (only if it belongs to this teacher)
+    public function deleteActivity($id) {
+        checkRole('teacher');
+        $teacherId = $_SESSION['user']['regNo'];
+        $activityModel = new Current_activityModel();
+
+        // Ensure it's really this teacher's record
+        $activity = $activityModel->first([
+            'activity_id' => $id,
+            'teacher_id'  => $teacherId
+        ]);
+
+        if (! $activity) {
+            $_SESSION['error'] = "You are not authorized to delete that activity.";
         } else {
-            die('Activity not found.');
+            $activityModel->delete($id, 'activity_id');
+            $_SESSION['success'] = "Activity deleted successfully.";
+        }
+
+        header("Location: " . URLROOT . "/teacher/viewActivities");
+        exit;
+    }
+    
+
+    public function index() {
+        checkRole('teacher');
+        // Ensure that enterMarks does not redirect back to index
+        redirect('teacher/selectClass'); // Change to a safe default page
+    }
+
+
+    public function selectClass() {
+        checkRole('teacher');
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/selectClass', ['classes' => $classes]);
+    }
+
+
+    public function selectClassForAttendance() {
+        checkRole('teacher');
+        // var_dump("this is selectClassForAttendance method");
+        // die();
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/select_class_for_attendance', ['classes' => $classes]);
+    }
+
+    public function selectClassForViewReport() {
+        checkRole('teacher');
+        $classModel = $this->model('ClassModel');
+        $classes = $classModel->getAllClasses();
+        $this->view('inc/teacher/view_report_by_term', ['classes' => $classes]);
+    }
+
+
+
+
+  public function viewClassReport() {
+    checkRole('teacher');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $classId = $_POST['class'];
+        $marksData = $_POST['marks'] ?? [];
+        $term = $_POST['term'] ?? null;
+
+        $marksModel = $this->model('MarksModel');
+
+        // Insert marks
+        foreach ($marksData as $studentId => $subjects) {
+            foreach ($subjects as $subjectId => $marks) {
+                $marksModel->insertMarks($studentId, $subjectId, $term, $marks, $classId);
+            }
+        }
+
+        // Get data for the report
+        $subjectWise = $marksModel->getClassReport($classId, $term);
+        $rankData = $marksModel->getStudentRanks($classId, $term);
+
+        // Validate data before using it
+        if (!is_array($subjectWise)) $subjectWise = [];
+        if (!is_array($rankData)) $rankData = [];
+
+        // Group subject-wise marks for each student
+        $classReport = [];
+        foreach ($subjectWise as $row) {
+            $sid = $row->student_id;
+            if (!isset($classReport[$sid])) {
+                $classReport[$sid] = [
+                    'student_id' => $sid,
+                    'student_name' => $row->student_name,
+                    'subjects' => [],
+                    'total_marks_obtained' => 0,
+                    'average_marks' => 0,
+                ];
+            }
+            $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
+            $classReport[$sid]['total_marks_obtained'] += $row->marks;
+        }
+
+        // Calculate average
+        foreach ($classReport as &$student) {
+            $subjectCount = count($student['subjects']);
+            $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
+        }
+
+        // Prepare ranks
+        $ranks = [];
+        foreach ($rankData as $row) {
+            if (isset($classReport[$row->student_id])) {
+                $ranks[] = [
+                    'student_id' => $row->student_id,
+                    'student_name' => $row->student_name,
+                    'total_marks_obtained' => $classReport[$row->student_id]['total_marks_obtained'],
+                    'percentage' => $classReport[$row->student_id]['average_marks'],
+                ];
+            }
+        }
+
+        // Sort by percentage
+        usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
+
+        // Load the view
+        $this->view('inc/teacher/class_report', [
+            'classReport' => $classReport,
+            'ranks' => $ranks,
+            'subjects' => array_map(fn($row) => (object)['name' => $row->subject_name], $subjectWise),
+            'term' => $term,
+            'class' => $classId
+        ]);
+    } else {
+        header("Location: " . URLROOT . "/teacher");
+    }
+}
+
+
+    public function viewTermReport() {
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['class'];
+            $term = $_POST['term'];
+
+            $marksModel = $this->model('MarksModel');
+
+            
+        $attendanceModel = new ClassModel();
+        $className = $attendanceModel->getClassName($classId);
+
+            $subjectWise = $marksModel->getClassReportByTerm($classId, $term);
+            $rankData = $marksModel->getStudentRanksByTerm($classId, $term);
+            if (!$subjectWise || count($subjectWise) === 0) {
+                $this->view('inc/teacher/class_report', [
+                    'message' => 'No data entered for this term.',
+                    'term' => $term
+                ]);
+                return;
+            }
+
+            $classReport = [];
+            $subjectIds = [];
+            foreach ($subjectWise as $row) {
+                $sid = $row->student_id;
+                if (!isset($classReport[$sid])) {
+                    $classReport[$sid] = [
+                        'student_id' => $sid,
+                        'student_name' => $row->student_name,
+                        'subjects' => [],
+                        'total_marks_obtained' => 0,
+                        'average_marks' => 0,
+                    ];
+                }
+                $classReport[$sid]['subjects'][$row->subject_name] = $row->marks;
+                $classReport[$sid]['total_marks_obtained'] += $row->marks;
+            }
+
+            foreach ($classReport as &$student) {
+                $subjectCount = count($student['subjects']);
+                $student['average_marks'] = $subjectCount > 0 ? $student['total_marks_obtained'] / $subjectCount : 0;
+            }
+
+            $ranks = [];
+            foreach ($rankData as $row) {
+                $ranks[] = [
+                    'student_id' => $row->student_id,
+                    'student_name' => $row->student_name,
+                    'total_marks_obtained' => $classReport[$row->student_id]['total_marks_obtained'] ?? 0,
+                    'percentage' => $classReport[$row->student_id]['average_marks'] ?? 0,
+                ];
+            }
+
+            usort($ranks, fn($a, $b) => $b['percentage'] <=> $a['percentage']);
+
+            $this->view('inc/teacher/class_report', [
+                'classReport' => $classReport,
+                'ranks' => $ranks,
+                'term' => $term,
+                'subjects' => array_map(fn($r) => (object)['name' => $r->subject_name], $subjectWise),
+                'className' => $className,
+                'class' => $classId
+            ]);
+        } else {
+            header("Location: " . URLROOT . "/teacher");
         }
     }
-}
+  
+  
+    public function showAllTeachers($page = 1) {
+        checkRoles(['principal', 'vice-principal']);
+    
+        $limit = 25; // Number of teachers per page
+        $offset = ($page - 1) * $limit;
+    
+        // Fetch paginated teachers and total count
+        $teachers = $this->teacherModel->getAllTeachers($limit, $offset);
+        $totalTeachers = $this->teacherModel->getTotalTeachers();
+        $grades = $this->ClassesModel->getAllGrades();
+        $subjects = $this->subjectModel->getAllSubjects();
 
-public function deleteActivity($id) {
-    $activityModel = new Current_activityModel();
-
-    // Delete the activity
-    $activityModel->delete($id, 'activity_id');
-
-    // Redirect to the view activities page
-    header("Location: " . URLROOT . "/teacher/viewActivities");
-    exit();
-}
-
-
-
+    
+        // Prepare data for the view
+        $data = [
+            'teachers' => [],
+            'teacherCount' => count($teachers),
+            'teacherTotal' => $totalTeachers,
+            'grades' => $grades,
+            'subjects' => $subjects,
+            'page' => $page,
+            'totalPages' => ceil($totalTeachers / $limit),
+            'message' => ''
+        ];
+    
+        // Check if $teachers is an array and not empty
+        if (is_array($teachers) && !empty($teachers)) {
+            $data['teachers'] = array_map(function ($teacher) {
+                return [
+                    'regNo' => $teacher->regNo,
+                    'fullName' => $teacher->firstName . ' ' . $teacher->lastName,
+                    'email' => $teacher->email,
+                    'mobileNo' => $teacher->mobileNo,
+                    'subjects' => $teacher->subjects,
+                    'className' => $teacher->className
+                ];
+            }, $teachers);
+        } else {
+            $data['message'] = 'No teachers found in the database.';
+        }
+    
+        // Pass the data to the view
+        $this->view('inc/teacher/all_teachers', $data);
     }
+
+    public function updateMarks() {
+        checkRole('teacher');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $marksModel = $this->model('MarksModel');
+
+            $classId = $_POST['class'];
+            $term = $_POST['term'];
+            $marksData = $_POST['marks'];
+
+            foreach ($marksData as $studentId => $subjectMarks) {
+                foreach ($subjectMarks as $subjectName => $mark) {
+                    $marksModel->updateOrInsertMarks($studentId, $subjectName, $term, $mark, $classId);
+                }
+            }
+
+            echo '<form id="redirectForm" method="POST" action="' . URLROOT . '/teacher/viewTermReport">';
+            echo '<input type="hidden" name="class" value="' . htmlspecialchars($classId) . '">';
+            echo '<input type="hidden" name="term" value="' . htmlspecialchars($term) . '">';
+            echo '</form>';
+            echo '<script>document.getElementById("redirectForm").submit();</script>';
+            exit;
+        } else {
+            header("Location: " . URLROOT . "/teacher");
+        }
+    }
+
+    public function submitMarks() {
+        checkRole('teacher');
+        $classModel = $this->model('ClassModel');
+        $studentModel = $this->model('StudentModel');
+        $subjectModel = $this->model('SubjectModel');
+        $marksModel = $this->model('MarksModel');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['classId'];
+            $term = $_POST['term'] ?? null;
+    
+            // Check if marks already exist for this class and term
+            if ($marksModel->marksExistForClassTerm($classId, $term)) {
+                $_SESSION['error'] = "Marks have already been submitted for this class and term.";
+                header("Location: " . URLROOT . "/teacher/selectClass"); // or wherever your form starts
+                exit();
+            }
+    
+            $results = $subjectModel->query("
+                SELECT s.id, s.name 
+                FROM subject_class sc
+                JOIN subjects s ON sc.subject_id = s.id
+                WHERE sc.class_id = ?", 
+                [$classId]
+            );
+    
+            $students = $studentModel->where(['classId' => $classId]);
+            $subjects = is_array($results) ? $results : [];
+            $students = is_array($students) ? $students : [];
+    
+            $this->view('inc/teacher/submit_marks', [
+                'subjects' => $subjects,
+                'students' => $students,
+                'class'=> $classId,
+                'term' => $term
+            ]);
+        }
+    }
+
+    public function assignClassTeacher() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get data from form
+            $classId = isset($_POST['classId']) ? $_POST['classId'] : null;
+            $teacherId = isset($_POST['teacherId']) ? $_POST['teacherId'] : null;
+            $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : null;
+            
+            // Validate data
+            if (!$classId || !$teacherId) {
+                $_SESSION['error'] = 'Please select both a class and a teacher.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            }
+            
+            // Attempt to assign teacher
+            if ($this->teacherModel->assignTeacherToClass($classId, $teacherId)) {
+                $_SESSION['success'] = 'Teacher assigned successfully.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            } else {
+                $_SESSION['error'] = 'Failed to assign teacher to class.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            }
+        } else {
+            // Display the class teacher assignment page
+            $academicYear = isset($_GET['academicYear']) ? $_GET['academicYear'] : '';
+            
+            // Get all academic years
+            $academicYears = $this->ClassesModel->getAcademicYears();
+            
+            // Get classes for the selected academic year
+            $classes = $academicYear ? $this->teacherModel->getClassesWithTeachers($academicYear) : [];
+            
+            // Format class data for display
+            $formattedClasses = [];
+            foreach ($classes as $class) {
+                $formattedClasses[] = [
+                    'classId' => $class->classId,
+                    'className' => $class->className,
+                    'academicYear' => $class->academicYear,
+                    'teacherName' => $class->teacherName ?: 'None'
+                ];
+            }
+            
+            // Get teachers available for assignment
+            $teachers = $this->teacherModel->getTeachersForAssignment();
+            
+            $data = [
+                'title' => 'Assign Class Teachers',
+                'academic_year' => $academicYears,
+                'selected_academic_year' => $academicYear,
+                'classes' => $formattedClasses,
+                'teachers' => $teachers,
+                'error' => $_SESSION['error'] ?? '',
+                'success' => $_SESSION['success'] ?? ''
+            ];
+            
+            // Clear session messages after using them
+            unset($_SESSION['error'], $_SESSION['success']);
+            
+            $this->view('inc/assignClassTeacher', $data);
+        }
+    }
+    
+    public function processMarks() {
+        checkRole('teacher');
+        $marksModel = $this->model('MarksModel');
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $classId = $_POST['class'];
+            $term = $_POST['term'];
+            $marksData = $_POST['marks'];
+    
+            if ($marksModel->marksExistForClassTerm($classId, $term)) {
+                $_SESSION['error'] = "Marks already submitted for this class and term.";
+                header("Location: " . URLROOT . "/teacher/selectClass");
+                exit();
+            }
+    
+            foreach ($marksData as $studentId => $subjectMarks) {
+                foreach ($subjectMarks as $subjectId => $mark) {
+                    $marksModel->insertMarks($studentId, $subjectId, $term, $mark, $classId);
+                }
+            }
+    
+            // Redirect to report page using POST to avoid "Page Not Found" from GET
+            echo '<form id="redirectForm" method="POST" action="' . URLROOT . '/teacher/viewClassReport">';
+            echo '<input type="hidden" name="class" value="' . htmlspecialchars($classId) . '">';
+            echo '<input type="hidden" name="term" value="' . htmlspecialchars($term) . '">';
+            echo '</form>';
+            echo '<script>document.getElementById("redirectForm").submit();</script>';
+            exit();
+        }
+    }
+    
+ }
+
 ?>

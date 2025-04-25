@@ -3,10 +3,12 @@ class Parents extends Controller {
 
 
     private $FeedbackModel;
+    private $AbsenceModel;
 
     public function __construct() {
         // Load the FeedbackModel
         $this->FeedbackModel = $this->model('FeedbackModel');
+        $this->AbsenceModel = $this->model('AbsenceModel');
     }
 
     // Default method for this controller
@@ -31,14 +33,14 @@ class Parents extends Controller {
     }
 
     // Display parent details
-    public function details() {
-        $this->view('inc/Parent/details_parent');
-    }
+    // public function details() {
+    //     $this->view('inc/Parent/details_parent');
+    // }
 
     // Display academic details
-    public function academic_details() {
-        $this->view('inc/Parent/aca_parent');
-    }
+    // public function academic_details() {
+    //     $this->view('inc/Parent/aca_parent');
+    // }
 
     // Display payment details
     public function pay_details() {
@@ -50,9 +52,17 @@ class Parents extends Controller {
         $this->view('inc/Parent/parent_charges');
     }
 
-    public function attendance() {
-        $this->view('inc/Parent/attendance_parent');
+    public function absences(){
+        $this->view('inc/Parent/Absence_Report');
     }
+
+    public function report(){
+        $this->view('inc/Parent/Parent_Report');
+    }
+
+    // public function attendance() {
+    //     $this->view('inc/Parent/attendance_parent');
+    // }
 
     public function events() {
         // Example events array (replace with your actual data)
@@ -75,58 +85,24 @@ class Parents extends Controller {
         $this->view('scheduled_events', $data);
     }
 
-    public function timeTable() {
-        // Sample timetable data (you can retrieve this from a database in real use cases)
-        $data = [
-            'timeTable' => [
-                ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
-                ['time' => '09:30 - 10:30', 'monday' => 'Period 2', 'tuesday' => 'Period 2', 'wednesday' => 'Period 2', 'thursday' => 'Period 2', 'friday' => 'Period 2'],
-                ['time' => '10:30 - 11:00', 'monday' => 'Lunch 1', 'tuesday' => 'Lunch 1', 'wednesday' => 'Lunch 1', 'thursday' => 'Lunch 1', 'friday' => 'Lunch 1'],
-                ['time' => '11:00 - 12:00', 'monday' => 'Period 3', 'tuesday' => 'Period 3', 'wednesday' => 'Period 3', 'thursday' => 'Period 3', 'friday' => 'Period 3'],
-                ['time' => '12:00 - 1:00', 'monday' => 'Period 4', 'tuesday' => 'Period 4', 'wednesday' => 'Period 4', 'thursday' => 'Period 4', 'friday' => 'Period 4'],
-                ['time' => '1:00 - 1:30', 'monday' => 'Lunch 2', 'tuesday' => 'Lunch 2', 'wednesday' => 'CONNECT', 'thursday' => 'Lunch 2', 'friday' => 'Lunch 2'],
-                ['time' => '1:30 - 2:30', 'monday' => 'Period 5', 'tuesday' => 'Period 5', 'wednesday' => 'CONNECT', 'thursday' => 'Period 5', 'friday' => 'Period 5']
-            ]
-        ];
+    // public function timeTable() {
+    //     // Sample timetable data (you can retrieve this from a database in real use cases)
+    //     $data = [
+    //         'timeTable' => [
+    //             ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
+    //             ['time' => '09:30 - 10:30', 'monday' => 'Period 2', 'tuesday' => 'Period 2', 'wednesday' => 'Period 2', 'thursday' => 'Period 2', 'friday' => 'Period 2'],
+    //             ['time' => '10:30 - 11:00', 'monday' => 'Lunch 1', 'tuesday' => 'Lunch 1', 'wednesday' => 'Lunch 1', 'thursday' => 'Lunch 1', 'friday' => 'Lunch 1'],
+    //             ['time' => '11:00 - 12:00', 'monday' => 'Period 3', 'tuesday' => 'Period 3', 'wednesday' => 'Period 3', 'thursday' => 'Period 3', 'friday' => 'Period 3'],
+    //             ['time' => '12:00 - 1:00', 'monday' => 'Period 4', 'tuesday' => 'Period 4', 'wednesday' => 'Period 4', 'thursday' => 'Period 4', 'friday' => 'Period 4'],
+    //             ['time' => '1:00 - 1:30', 'monday' => 'Lunch 2', 'tuesday' => 'Lunch 2', 'wednesday' => 'CONNECT', 'thursday' => 'Lunch 2', 'friday' => 'Lunch 2'],
+    //             ['time' => '1:30 - 2:30', 'monday' => 'Period 5', 'tuesday' => 'Period 5', 'wednesday' => 'CONNECT', 'thursday' => 'Period 5', 'friday' => 'Period 5']
+    //         ]
+    //     ];
 
-        // Load the view and pass the timetable data
-        $this->view('inc/student/time_table', $data);
-    }
-
-
-
-
-
-
-    // Handle feedback submission
-    // public function submitFeedback() {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $content = htmlspecialchars($_POST['content'] ?? '');
-    //         $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
-    //         $date = date('Y-m-d');
-
-    //         if (!empty($content)) {
-    //             $data = [
-    //                 'content' => $content,
-    //                 'recipient' => $recipient,
-    //                 'date' => $date,
-                
-    //             ];
-    //             try {
-    //                 if ($this->FeedbackModel->insert($data)) {
-    //                     header('Location: ' . URLROOT . '/parents/feedback');
-    //                     exit;
-    //                 } else {
-    //                     echo "Failed to submit feedback.";
-    //                 }
-    //             } catch (Exception $e) {
-    //                 echo "Error submitting feedback: " . $e->getMessage();
-    //             }
-    //         } else {
-    //             echo "Feedback content cannot be empty.";
-    //         }
-    //     }
+    //     // Load the view and pass the timetable data
+    //     $this->view('inc/student/time_table', $data);
     // }
+
 
     public function submitFeedback() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -156,52 +132,6 @@ class Parents extends Controller {
             }
         }
     }
-
-
-    // public function submitFeedback(){
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $activityData = [
-                
-    //             'content' => $_POST['content']
-                
-                
-
-    //         ];
-
-    //         $activity = new FeedbackModel();
-    //         $activity->insert($activityData);
-    //         // Here, save the activity data to the database.
-    //         // Example: $this->activityModel->addActivity($activityData);
-
-    //         // Display a success message or redirect to a success page
-    //         echo "Activity recorded successfully: " . htmlspecialchars($activityData['content']);
-    //     } else {
-    //         // If not a POST request, reload the daily activities page
-    //         $this->view('feedbacks');
-    //     }
-    // }
-
-    // Update feedback
-    
-    // public function updateFeedback($id) {
-    //     $FeedbackModel = new FeedbackModel();
-    
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
-    //             $data = [
-    //                 'content' => $_POST['content'],
-    //                 'date' => $_POST['date']
-    //             ];
-    //             echo "hiiii";
-    //             if ($this->FeedbackModel->update($id, $data, 'feedback_id')) {
-    //                 //header("Location: " . URLROOT . "/parents/feedback");
-    //                 echo 'hooo';
-    //             }
-    //             exit();
-                
-    //         }
-
-    //     }
 
     
       
@@ -286,6 +216,36 @@ class Parents extends Controller {
 
     }
 
+
+    public function submitAbsence() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $student_id = htmlspecialchars($_POST['student_id'] ?? '');
+            $content = htmlspecialchars($_POST['content'] ?? '');
+            $date = date('Y-m-d');
+
+            if (!empty($content)) {
+                $data = [
+                    'student_id' => $student_id,
+                    'content' => $content,
+                    'date' => $date,
+
+                
+                ];
+                try {
+                    if ($this->AbsenceModel->insert($data)) {
+                        header('Location: ' . URLROOT . '/parents/absences');
+                        exit;
+                    } else {
+                        echo "Failed to submit the Absence the absence report.";
+                    }
+                } catch (Exception $e) {
+                    echo "Error submitting report: " . $e->getMessage();
+                }
+            } else {
+                echo "content cannot be empty.";
+            }
+        }
+    }
 
     
     

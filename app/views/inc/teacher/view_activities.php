@@ -23,7 +23,7 @@
         <table class="activities-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Record No.</th>
                     <th>Date</th>
                     <th>Period</th>
                     <th>Subject</th>
@@ -59,11 +59,25 @@
                 <?php endif; ?>
             </tbody>
         </table>
+
+        <a href="<?php echo URLROOT; ?>/Teacher/dailyActivities" class="btn-back">
+    << Back
+    </a>
     </div>
+
+    
 </div>
 </body>
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+
+
+
+
+
+
+
+
 
 

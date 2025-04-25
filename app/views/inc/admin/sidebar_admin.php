@@ -1,4 +1,3 @@
-
 <div class="menu-bar">
     <div class="menu">
         <ul class="menu-links">

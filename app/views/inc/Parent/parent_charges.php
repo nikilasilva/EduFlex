@@ -12,7 +12,7 @@
 <body>
 
     <!-- Container for the image cards -->
-    <div class="cards-container">
+    <!-- <div class="cards-container">
         <div class="card">
             <a href="<?php echo URLROOT; ?>/Student/library_fine">
                 <img src="../public/img/Library_fine.jpg" alt="Library Fine">
@@ -20,7 +20,7 @@
                     <p>Library Fine</p>
                 </div>
             </a>
-        </div>
+        </div> -->
         
         <div class="card">
             <a href="<?php echo URLROOT; ?>/Student/f_s">
@@ -41,6 +41,7 @@
     </div>
 
 </body>
+
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
