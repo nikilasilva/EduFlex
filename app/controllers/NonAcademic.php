@@ -125,7 +125,7 @@ class NonAcademic extends Controller
         $this->view('inc/nonAcademic/record_teachers_attendance', ['teachers' => $teachers]);
     }
 
-    public function SubmitTeachersAttendanceForm()
+    public function SubmitTeachersAttendanceForm() // Submit the teachers attendance form
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $attendanceModel = new TeacherAttendanceModel();
@@ -171,7 +171,7 @@ class NonAcademic extends Controller
     }
 
 
-    public function ViewTeachersAttendance()
+    public function ViewTeachersAttendance()  // View all teachers attendance records
     {
         $attendanceModel = new TeacherAttendanceModel();
         $records = $attendanceModel->findAll();
@@ -197,7 +197,7 @@ class NonAcademic extends Controller
 
 
     //-------------
-    public function searchServiceChargesByStudentId()
+    public function searchServiceChargesByStudentId()  // Search service charges by student ID
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $studentId = $_POST['student_id'];
@@ -221,17 +221,15 @@ class NonAcademic extends Controller
         }
     }
 
-    public function verify_service_charges()
+    public function verify_service_charges()  // view all service charges
     {
         $serviceChargesModel = new payment_chargesModel_verryfy(); // Assuming you have this model to load students
         $serviceCharge = $serviceChargesModel->findAll();
-
-
-
         $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => $serviceCharge]);
     }
-    //
-    public function downloadFile($fileName)
+    
+
+    public function downloadFile($fileName)  // Download file function
     {
         $filePath = APPROOT . '/../uploads/' . $fileName;
 
@@ -262,19 +260,7 @@ class NonAcademic extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public function RequestLeavingCertificatesView()
+    public function RequestLeavingCertificatesView() // View all requested leaving certificates
     {
         $LeavingCertificateMode = new LeavingCertificateModeldev3(); // Make sure this model exists
         $LeavingCertificates = $LeavingCertificateMode->findAll();
@@ -282,8 +268,8 @@ class NonAcademic extends Controller
         $this->view('inc/nonAcademic/Leaving_Certificates', ['LeavingCertificates' => $LeavingCertificates]);
     }
 
-
-    public function markCertificateComplete($id)
+    
+    public function markCertificateComplete($id) 
     {
         $model = new LeavingCertificateModeldev3();
         $certificate = $model->first(['certificate_id' => $id]);
@@ -321,7 +307,6 @@ class NonAcademic extends Controller
         header("Location: " . URLROOT . "/NonAcademic/RequestLeavingCertificatesView");
         exit();
     }
-
 
 
     public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
@@ -386,83 +371,16 @@ class NonAcademic extends Controller
                 'day' => $nextMonday->format('Y-m-d')
             ]);
         }
-
     }
 
 
+    public function allocatedleavingCertificatesView()
+    {
+        $allocatedLeavingCertificateModel = new leaving_allocated_timeModel(); // Make sure this model exists
+        $allocatedLeavingCertificates = $allocatedLeavingCertificateModel->findAll();
 
-                
-
-    // public function autoAllocateLeavingCertificateTime($allocatedId, $studentId)
-    // {
-    //     $timeSlots = ['8:00 AM - 9:00 AM', '9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM'];
-    //     $days = ['Monday', 'Friday'];
-    //     $allocationModel = new character_allocated_timeModel();
-
-    //     $allocatedSlots = $allocationModel->findAll();
-    //     $slotCounts = [];
-
-    //     foreach ($allocatedSlots as $allocation) {
-    //         $weekday = date('l', strtotime($allocation->day)); // Convert date to weekday name
-    //         $key = $weekday . '|' . $allocation->time_slot;
-    //         if (!isset($slotCounts[$key])) {
-    //             $slotCounts[$key] = 0;
-    //         }
-    //         $slotCounts[$key]++;
-    //     }
-
-    //     $timeSlot = null;
-    //     $day = null;
-
-    //     foreach ($days as $currentDay) {
-    //         foreach ($timeSlots as $currentSlot) {
-    //             $key = $currentDay . '|' . $currentSlot;
-    //             if (!isset($slotCounts[$key]) || $slotCounts[$key] < 2) {
-    //                 $timeSlot = $currentSlot;
-    //                 $day = $this->getNextDateFromWeekday($currentDay); // Convert to actual date
-    //                 break 2;
-    //             }
-    //         }
-    //     }
-
-    //     if (!$timeSlot || !$day) {
-    //         $day = $this->getNextDateFromWeekday($days[0]); // Default to first day as a date
-    //         $timeSlot = $timeSlots[0];
-    //     }
-
-    //     $allocationModel->insert([
-    //         'student_id' => $studentId,
-    //         'certificate_id' => $allocatedId,
-    //         'time_slot' => $timeSlot,
-    //         'day' => $day // Stored as DATE now
-    //     ]);
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        $this->view('inc/nonAcademic/AllocatedLeavingCertificates', ['allocatedLeavingCertificates' => $allocatedLeavingCertificates]);
+    }
 
     public function RequestedCharacterCertificateView()
     {
@@ -473,11 +391,6 @@ class NonAcademic extends Controller
     }
 
 
-
-
-
-
-    
     public function markCharacterCertificateComplete($id)
     {
         $model = new CharacterCertificateModeldev3();
@@ -516,14 +429,6 @@ class NonAcademic extends Controller
         header("Location: " . URLROOT . "/NonAcademic/RequestedCharacterCertificateView");
         exit();
     }
-
-
-
-
-
-
-
-
 
 
     public function autoAllocateCharacterCertificateTime($allocatedId, $studentId)
@@ -591,17 +496,6 @@ class NonAcademic extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     public function allocatedCharacterCertificatesView()
     {
         $allocatedCharacterCertificateModel = new character_allocated_timeModel(); // Make sure this model exists
@@ -609,16 +503,13 @@ class NonAcademic extends Controller
 
         $this->view('inc/nonAcademic/AllocatedCharacterCertificates', ['allocatedCharacterCertificates' => $allocatedCharacterCertificates]);
     }
-    //==================================
+
 
     function getWeekdayFromDate($date)
     {
         // Convert date string to weekday name
         return date("l", strtotime($date));
     }
-
-
-
 
     function getDateFromWeekday($weekday)
     {
@@ -647,8 +538,5 @@ class NonAcademic extends Controller
         return $target->format('Y-m-d');
     }
 }
-
-
-
 
 ?>

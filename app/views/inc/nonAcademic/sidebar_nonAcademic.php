@@ -12,6 +12,8 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/RequestLeavingCertificatesView"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Leaving Certificates</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/RequestedCharacterCertificateView"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Character Certificates</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/allocatedCharacterCertificatesView"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Allocated Character Certificates</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/NonAcademic/allocatedleavingCertificatesView"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Allocated Leaving Certificates</span></a></li>
+
 
 
             <!-- <li class="nav-links"><a href="#misReport"><i class="fa-solid fa-file icon"></i><span class="text nav-text">MIS Report</span></a></li> -->
