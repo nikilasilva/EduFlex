@@ -77,7 +77,7 @@
                                         <?php
                                         $tid = $record->teacher_id;
                                         echo isset($data['teachers'][$tid]) 
-                                            ? $data['teachers'][$tid]->first_name . ' ' . $data['teachers'][$tid]->last_name 
+                                            ? $data['teachers'][$tid]->firstName . ' ' . $data['teachers'][$tid]->lastName 
                                             : 'Unknown';
                                         ?>
                                     </td>

@@ -43,7 +43,7 @@
                                     <?php echo $teacher->teacher_id; ?>
                                     <input type="hidden" name="teacher_ids[]" value="<?php echo $teacher->teacher_id; ?>">
                                 </td>
-                                <td><?php echo $teacher->first_name . ' ' . $teacher->last_name; ?></td>
+                                <td><?php echo $teacher->firstName . ' ' . $teacher->lastName; ?></td>
                                 <td>
                                     <div style="display: flex; gap: 15px;">
                                         <label>
