@@ -74,7 +74,8 @@ class StudentModel {
             u.dob,
             u.gender,
             u.religion,
-            s.studentId,
+            u.profile_picture,
+            s.student_id,
             c.className,
             c.academicYear,
             s.guardianRegNo,
@@ -84,7 +85,8 @@ class StudentModel {
         JOIN classes c ON c.classId = s.classId
         WHERE u.regNo = :regNo;";
 
-        return $this->query($query, ['regNo' => $regNo]);
+        $result = $this->query($query, ['regNo' => $regNo]);
+        return is_array($result) && !empty($result) ? $result[0] : new stdClass();
     }
 
 }
