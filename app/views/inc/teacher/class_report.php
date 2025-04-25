@@ -1,31 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
-<style>
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        .printable-area, .printable-area * {
-            visibility: visible;
-        }
-        .printable-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-        }
-        .no-print {
-            display: none !important;
-        }
-    }
-
-    .download-btn-container {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 20px;
-    }
-</style>
 
 <div class="class-report-container printable-area">
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
@@ -34,7 +9,7 @@
         <button onclick="window.print()" class="btn btn-success">Download as PDF</button>
     </div>
 
-    <h1 class="report-title"><?=htmlspecialchars($class ?? 'N/A') ?>   Class Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
+    <h1 class="report-title"><?php echo htmlspecialchars($data['className']); ?> Report - Term <?= htmlspecialchars($term ?? 'N/A') ?></h1>
 
     <?php if (!empty($data['message'])): ?>
         <p style="color: red; font-weight: bold; padding: 10px;">
@@ -126,6 +101,10 @@
         </tbody>
     </table>
     <?php endif; ?>
+
+    <a href="<?php echo URLROOT; ?>/teacher/selectClassForViewReport" class="btn-back">
+    << Back
+</a>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

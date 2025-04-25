@@ -7,18 +7,20 @@
 
     <!-- Debugging output -->
 
-    <form action="<?= URLROOT ?>/teacher/viewClassReport" method="POST">
+    <form action="<?= URLROOT ?>/teacher/processMarks" method="POST">
+
         <input type="hidden" name="class" value="<?= $class ?? '' ?>">
         
 
         <!-- Select Term -->
     <label for="term">Select Term:</label>
     <select name="term" id="term" required>
-        <option value="">-- Select Term --</option>
-        <option value="1">Term 1</option>
-        <option value="2">Term 2</option>
-        <option value="3">Term 3</option>
-    </select>
+    <option value="">-- Select Term --</option>
+    <option value="1" <?= (isset($term) && $term == 1) ? 'selected' : '' ?>>Term 1</option>
+    <option value="2" <?= (isset($term) && $term == 2) ? 'selected' : '' ?>>Term 2</option>
+    <option value="3" <?= (isset($term) && $term == 3) ? 'selected' : '' ?>>Term 3</option>
+</select>
+
     
         <table border="1" class="marks-table">
             <thead>

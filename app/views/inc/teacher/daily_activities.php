@@ -22,7 +22,7 @@
     <div class="record-container">
         <h1>Record Activity</h1>
 
-        <!-- ✅ Alert messages -->
+        <!-- Alert messages -->
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger">
                 <?php 
@@ -62,19 +62,12 @@
                 <label for="subject">Subject:</label>
                 <select name="subject" id="subject" class="searchable" required>
                     <option value="">Search or Select a Subject</option>
-                    <option value="Mathematics">Mathematics</option>
-                    <option value="Science">Science</option>
-                    <option value="History">History</option>
-                    <option value="English">English</option>
-                    <option value="Buddhism">Buddhism</option>
-                    <option value="Sinhala">Sinhala</option>
-                    <option value="Tamil">Tamil</option>
-                    <option value="PTS">Practical and technical skills</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Art">Art</option>
-                    <option value="Music">Music</option>
-                    <option value="ICT">ICT</option>
-                    <option value="Dancing">Dancing</option>
+                    <?php 
+                        $subjects = ["Mathematics", "Science", "History", "English", "Buddhism", "Sinhala", "Tamil", "Practical and technical skills", "Commerce", "Art", "Music", "ICT", "Dancing"];
+                        foreach ($subjects as $subject) {
+                            echo "<option value=\"$subject\">$subject</option>";
+                        }
+                    ?>
                 </select>
             </div>
 
@@ -128,6 +121,7 @@
 </body>
 </html>
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+
 
 
 

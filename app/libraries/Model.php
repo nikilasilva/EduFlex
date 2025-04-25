@@ -256,6 +256,7 @@ Trait Model{
 //         return $this->query($query, [$id_column => $id]);
 //     }
 
+    
 //     // Fetch all rows from the table
 //     // public function findAll() {
 //     //     $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";

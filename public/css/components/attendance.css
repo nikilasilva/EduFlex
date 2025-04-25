@@ -38,6 +38,7 @@ button {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -60,3 +61,22 @@ button:hover {
     margin-left: 250px;
     padding: 20px;
 }
+
+
+/* attendance.css */
+
+.btn-back {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #001d3d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.btn-back:hover {
+    background-color:#004080;
+}
+
