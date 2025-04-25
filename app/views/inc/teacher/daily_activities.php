@@ -61,31 +61,27 @@
             <div class="form-group">
                 <label for="subject">Subject:</label>
                 <select name="subject" id="subject" class="searchable" required>
-                    <option value="">Search or Select a Subject</option>
-                    <?php 
-                        $subjects = ["Mathematics", "Science", "History", "English", "Buddhism", "Sinhala", "Tamil", "Practical and technical skills", "Commerce", "Art", "Music", "ICT", "Dancing"];
-                        foreach ($subjects as $subject) {
-                            echo "<option value=\"$subject\">$subject</option>";
-                        }
-                    ?>
-                </select>
+    <option value="">Search or Select a Subject</option>
+    <?php foreach ($data['subjects'] as $subject): ?>
+        <option value="<?= $subject->subjectName ?>">
+            <?= $subject->subjectName ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
             </div>
 
             <div class="form-group">
                 <label for="class">Class:</label>
                 <select name="class" id="class" class="searchable" required>
-                    <option value="">Search or Select a Class</option>
-                    <?php
-                        $grades = ['6', '7', '8', '9', '10', '11'];
-                        $sections = ['A', 'B', 'C', 'D'];
-                        foreach ($grades as $grade) {
-                            foreach ($sections as $sec) {
-                                $classVal = $grade . $sec;
-                                echo "<option value=\"$classVal\">$classVal</option>";
-                            }
-                        }
-                    ?>
-                </select>
+    <option value="">Search or Select a Class</option>
+    <?php foreach ($data['classes'] as $class): ?>
+        <option value="<?= $class->classId ?>">
+            <?= $class->className ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
             </div>
 
             <div class="form-group">

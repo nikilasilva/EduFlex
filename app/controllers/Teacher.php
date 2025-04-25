@@ -255,8 +255,19 @@ class Teacher extends Controller {
 
     public function dailyActivities() {
         checkRole('teacher');
-        $this->view('inc/teacher/daily_activities');
+    
+        $classModel = new ClassModel();
+        $subjectModel = new SubjectModel();
+    
+        $classes = $classModel->getAllClasses();
+        $subjects = $subjectModel->getAllSubjects();
+    
+        $this->view('inc/teacher/daily_activities', [
+            'classes' => $classes,
+            'subjects' => $subjects
+        ]);
     }
+    
 
     // Handle form submission
     public function submitActivities() {
