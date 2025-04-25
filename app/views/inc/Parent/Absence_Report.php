@@ -14,6 +14,18 @@
 
         <button type = "submit" class = "btn btn-success colorful-submit">Submit </button>
     </form>
+
+    <div class="view-feedbacks">
+        <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewAbsences';">
+            View Absence Records
+        </button>
+        <!-- <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
+            Update Feedbacks
+        </button>
+        <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/parents/viewFeedbacks';">
+            Delete Feedbacks
+        </button> -->
+    </div>
 </div>
 
 
