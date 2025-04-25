@@ -138,6 +138,12 @@ h1, h2 {
     transition: var(--tran-05);
 }
 
+.container.full-width {
+    margin-left: 95px;
+    width: 86.5%;
+    transition: var(--tran-04);
+}
+
 .alert {
     padding: 10px;
     margin-top: 65px;
