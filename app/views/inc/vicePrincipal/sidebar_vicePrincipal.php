@@ -10,6 +10,8 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/ExtraEvent/index"><i class="fa-solid fa-calendar-plus icon"></i><span class="text nav-text">Create Event</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/uploadTimetable"><i class="fa-regular fa-calendar icon"></i><span class="text nav-text">Upload Timetable</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/assignClassTeacher"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Manage Class Teacher</span></a></li>
+
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Announcement/submitAnnouncement"><i class="fa-solid fa-bullhorn icon"></i><span class="text nav-text">Make Announcement</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
