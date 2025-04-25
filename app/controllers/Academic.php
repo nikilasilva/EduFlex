@@ -22,8 +22,6 @@ class Academic extends Controller {
             exit();
         }
 
-      
-
         $regNo = $_SESSION['user']['regNo'] ?? null;
 
         if (!$regNo) {
@@ -39,9 +37,24 @@ class Academic extends Controller {
         $studentId = $student->student_id;
         $marks = $this->ViewMarksModel->getStudentMarks($studentId);
 
+        // Collect all terms the student has marks in
+        $terms = array_unique(array_map(fn($m) => $m->term, $marks));
+        $termRanks = [];
+
+        foreach ($terms as $term) {
+            $rankList = $this->ViewMarksModel->getTotalMarksByTerm($term);
+            foreach ($rankList as $index => $entry) {
+                if ($entry->student_id == $studentId) {
+                    $termRanks[$term] = $index + 1;
+                    break;
+                }
+            }
+        }
+
         $this->view('inc/student/aca_details', [
             'marks' => $marks,
-            'student' => $student
+            'student' => $student,
+            'ranks' => $termRanks,
         ]);
     }
 
@@ -50,30 +63,42 @@ class Academic extends Controller {
             header("Location: " . URLROOT . "/login");
             exit();
         }
-    
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $studentId = trim($_POST['student_id']);
             $parentRegNo = $_SESSION['user']['regNo'];
-    
-            // Check if student belongs to the logged-in parent
+
             $students = $this->ViewMarksModel->getStudentsMarksByParentRegNo($parentRegNo);
             $allowedStudentIds = array_map(fn($s) => $s->student_id, $students);
-    
+
             if (!in_array($studentId, $allowedStudentIds)) {
                 $this->view('inc/Parent/aca_parent', ['error' => 'Invalid Student ID or access denied.']);
                 return;
             }
-    
-            // Fetch and show marks
+
             $marks = $this->ViewMarksModel->getStudentMarks($studentId);
+
+            // Extract terms and calculate ranks
+            $terms = array_unique(array_map(fn($m) => $m->term, $marks));
+            $termRanks = [];
+
+            foreach ($terms as $term) {
+                $rankList = $this->ViewMarksModel->getTotalMarksByTerm($term);
+                foreach ($rankList as $index => $entry) {
+                    if ($entry->student_id == $studentId) {
+                        $termRanks[$term] = $index + 1;
+                        break;
+                    }
+                }
+            }
+
             $this->view('inc/Parent/aca_parent', [
                 'marks' => $marks,
-                'studentId' => $studentId
+                'studentId' => $studentId,
+                'ranks' => $termRanks,
             ]);
         } else {
-            // Initial load of form
             $this->view('inc/Parent/aca_parent');
         }
     }
-    
 }

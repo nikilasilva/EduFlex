@@ -91,7 +91,10 @@ if (!empty($data['marks']) && is_array($data['marks'])) {
                 <tr>
                 <td><strong>Average</strong></td>
                 <td><strong><?= round($totalMarks / max($count, 1), 2) ?></strong></td></tr>
-
+                <tr>
+                    <td><strong>Rank</strong></td>
+                    <td><strong><?= $data['ranks'][$term] ?? 'N/A' ?></strong></td>
+                </tr>
             </tbody>
         </table>
     <?php endforeach; ?>

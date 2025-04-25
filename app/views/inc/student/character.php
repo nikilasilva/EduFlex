@@ -51,7 +51,10 @@ require APPROOT.'/views/inc/components/sideBar.php';
                    id="dob" 
                    name="dob" 
                    value="<?php echo $data['date_of_birth'] ?? ''; ?>" 
+                  
                    required>
+
+            
             
             <!-- Guardian Name Field -->
             <label for="guardianName">4. Guardian Name</label>
@@ -72,7 +75,7 @@ require APPROOT.'/views/inc/components/sideBar.php';
                    required>
             
             <!-- Payment Slip (File Upload) -->
-            <label for="paymentSlip">6. ID Copy</label>
+            <!-- <label for="paymentSlip">6. ID Copy</label>
             <div class="file-upload">
                 <input type="file" 
                        class="fine-input" 
@@ -84,8 +87,8 @@ require APPROOT.'/views/inc/components/sideBar.php';
                        id="uploadLabel" 
                        class="upload-label">
                     Upload Copy of ID <span class="upload-icon">📤</span>
-                </label>
-            </div>
+                </label> -->
+            <!-- </div> -->
 
             <!-- Checkbox: Terms and Conditions (or agreement) -->
             <label for="agreeCheckbox" class="checkbox-label">

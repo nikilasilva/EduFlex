@@ -2,12 +2,10 @@
 class CharacterCertificate extends Controller {
     private $characterCertificateModel;
 
-
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
 
         $this->characterCertificateModel = new CharacterCertificateModel();
     }
@@ -20,19 +18,18 @@ class CharacterCertificate extends Controller {
                 'student_id' => trim($_POST['studentId']),
                 'date_of_birth' => trim($_POST['dob']),
                 'guardian_name' => trim($_POST['guardianName']),
-                'address' => trim($_POST['address']),
-                'slip' => ''
+                'address' => trim($_POST['address'])
             ];
 
             try {
-                $data['slip'] = $this->uploadFile($_FILES['slip']);
-                $validationErrors = $this->characterCertificateModel->validate($data);
-
-                if (!empty($validationErrors)) {
-                    throw new Exception(implode(', ', $validationErrors));
-                }
+                // Optional: Validate input data if validation is implemented
+                // $validationErrors = $this->characterCertificateModel->validate($data);
+                // if (!empty($validationErrors)) {
+                //     throw new Exception(implode(', ', $validationErrors));
+                // }
 
                 $insertResult = $this->characterCertificateModel->insert($data);
+
                 if ($insertResult) {
                     header("Location: " . URLROOT . "/Student/character");
                     exit();
@@ -44,7 +41,6 @@ class CharacterCertificate extends Controller {
                 $data['errors'] = [$e->getMessage()];
                 $this->view('character_certificate/request_form', $data);
                 exit();
-                
             }
         }
     }
@@ -52,6 +48,8 @@ class CharacterCertificate extends Controller {
     private function generateUniqueCertificateId() {
         return abs(crc32(uniqid('', true)));
     }
+
+
 
     private function uploadFile($file) {
         $uploadDir = __DIR__ . '/../../uploads/';

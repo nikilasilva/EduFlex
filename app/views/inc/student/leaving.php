@@ -35,13 +35,15 @@
 
     <div class="form-group">
       <label for="student-id">2. Student ID</label>
-      <input type="text" name="studentId" id="student-id" placeholder="Enter student ID"
+      <input type="text" name="student_id" id="student-id" placeholder="Enter student ID"
              value="<?php echo htmlspecialchars($data['student_id'] ?? ''); ?>" required>
     </div>
 
     <div class="form-group">
       <label for="dob">3. Date of Birth</label>
-      <input type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($data['DOB'] ?? ''); ?>" required>
+      <input type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($data['DOB'] ?? ''); ?>"
+      max="<?php echo date('Y-m-d'); ?>"
+       required>
     </div>
 
     <div class="form-group">
@@ -49,6 +51,26 @@
       <input type="date" name="admissionDate" id="admission-date"
              value="<?php echo htmlspecialchars($data['Admission_date'] ?? ''); ?>" required>
     </div>
+
+    <!-- <script>
+  const dobInput = document.getElementById('dob');
+  const admissionDateInput = document.getElementById('admission-date');
+  const today = new Date().toISOString().split('T')[0];
+
+  // Set the max date for admission date to today
+  admissionDateInput.setAttribute('max', today);
+
+  // Update admission date's min when DOB changes
+  dobInput.addEventListener('change', function () {
+    const dobValue = this.value;
+    admissionDateInput.setAttribute('min', dobValue);
+  });
+
+  // Trigger on page load if dob is already filled
+  if (dobInput.value) {
+    admissionDateInput.setAttribute('min', dobInput.value);
+  }
+</script> -->
 
     <div class="form-group">
       <label for="reason">5. Reason for Leaving</label>
