@@ -50,10 +50,10 @@
 
 
             <!-- Guardian (Parent) User ID (Optional) -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="guardianUserID">Guardian (Parent) User ID (optional):</label>
                 <input type="number" name="guardianUserID" id="guardianUserID">
-            </div>
+            </div> -->
 
             <!-- Buttons -->
             <button type="submit" class="btn btn-primary">Submit Student</button><br><br>
