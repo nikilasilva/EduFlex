@@ -28,11 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".current-activities-container"),
         document.querySelector(".all-teachers-container"),
         document.querySelector(".all-students-container"),
+
         document.querySelector(".upload-users-container"),
         document.querySelector(".timetable-container"),
         document.querySelector(".upload-timetable-container"),
         document.querySelector(".assign-class-teachers-container"),
         document.querySelector(".container"),
+
     ];
 
     // Restore sidebar state from localStorage

@@ -4,7 +4,7 @@
 
 <div class="attendance-container">
     <h1>Absence Reports for <?php echo htmlspecialchars($data['date']); ?></h1>
-    <h2>Class: <?php echo htmlspecialchars($data['class']); ?></h2>
+    <h2><?php echo htmlspecialchars($data['className']); ?></h2>
 
     <table>
     <thead>
@@ -30,6 +30,12 @@
         <?php endif; ?>
     </tbody>
 </table>
+
+
+
+<button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/attendance';" class="btn-back"><< Back</button>
+
+
 
 </div>
 

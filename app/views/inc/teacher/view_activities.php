@@ -30,6 +30,9 @@
                     <th>Class</th>
                     <th>Description</th>
                     <th>Additional Note</th>
+
+                    
+
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -45,6 +48,7 @@
                             <td><?php echo $activity->class; ?></td>
                             <td><?php echo $activity->description; ?></td>
                             <td><?php echo $activity->additional_note; ?></td>
+                            
                             <td>
                                 <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/teacher/deleteActivity/<?php echo $activity->activity_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this activity?');">Delete</a>
