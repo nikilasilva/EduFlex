@@ -18,7 +18,7 @@ class AllStudentsModel {
         $limit = (int)$limit;
         $offset = (int)$offset;
     
-        $sql = "SELECT s.studentId, s.regNo, s.firstName, s.lastName, 
+        $sql = "SELECT s.student_id, s.regNo, s.firstName, s.lastName, 
                        c.className,
                        u.email, u.mobileNo, u.religion,
                        p.firstName AS parentFirstName, p.lastName AS parentLastName,
@@ -29,7 +29,7 @@ class AllStudentsModel {
                 LEFT JOIN parents p ON s.guardianRegNo = p.regNo
                 LEFT JOIN users pu ON p.regNo = pu.regNo
                 WHERE u.role = 'student'
-                ORDER BY s.studentId ASC
+                ORDER BY s.student_id ASC
                 LIMIT $limit OFFSET $offset";
     
         return $this->query($sql);
@@ -62,6 +62,6 @@ class AllStudentsModel {
 
     // Check duplicate studentId
     public function studentIdExists($studentId) {
-        return $this->first(['studentId' => $studentId]) !== false;
+        return $this->first(['student_id' => $studentId]) !== false;
     }
 }
