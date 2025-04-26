@@ -7,7 +7,9 @@ class StudentModel {
         'firstName',
         'lastName',
         'classId',
-        'guardianRegN0'   
+       'dateOfAdmission',
+        
+        
     ];
     protected $order_column;
 

@@ -191,6 +191,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 1;
 }
 
+
+#fineForm .error {
+    text-align: left;
+}
 #dob, #admission-date {
 margin-right: 108px;
 padding: 19px;
