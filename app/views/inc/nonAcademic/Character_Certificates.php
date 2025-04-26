@@ -14,8 +14,7 @@
                     <th>Full Name</th>
                     <th>Student ID</th>
                     <th>Date of Birth</th>
-                    <th>Guardian Name</th>
-                    <th>Address</th>
+                    <th>Reason</th>
                     <th>slip</th>
                     <th>Status</th> <!-- New column -->
                 </tr>
@@ -28,8 +27,7 @@
                             <td><?php echo $characterCertificates->full_name; ?></td>
                             <td><?php echo $characterCertificates->student_id; ?></td>
                             <td><?php echo $characterCertificates->date_of_birth; ?></td>
-                            <td><?php echo $characterCertificates->guardian_name; ?></td>
-                            <td><?php echo $characterCertificates->address; ?></td>
+                            <td><?php echo $characterCertificates->reason; ?></td>
                             <td><?php echo $characterCertificates->slip; ?></td>
                             <td>
                                 <?php if ($characterCertificates->status == 0): ?>
