@@ -8,9 +8,7 @@ class CharacterCertificateModel {
         'full_name',
         'student_id',
         'date_of_birth',
-        'guardian_name',
-        'address',
-        'slip'
+        'reason',
     ];
     protected $order_column = 'certificate_id';
 
@@ -54,6 +52,10 @@ class CharacterCertificateModel {
             $errors[] = "Slip is required.";
         }
 
+        if (empty($data['reason'])) {
+            $errors[] = "Reason  is required.";
+        }
+
         return $errors;
     }
 
@@ -72,6 +74,11 @@ class CharacterCertificateModel {
     //     $result = $this->query($query, $params);
     //     return $result[0]->count > 0;
     // }
+
+    public function findById($certificate_id) {
+        $query = "SELECT * FROM character_certificates WHERE certificate_id = :id";
+        return $this->query($query, ['certificate_id' => $certificate_id]);
+    }
 
     
 }
