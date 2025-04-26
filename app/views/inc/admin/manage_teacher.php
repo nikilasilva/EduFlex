@@ -83,11 +83,11 @@
             <button type="submit" class="btn btn-primary">Submit Teacher</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewTeacher'" class="btn btn-primary">View Teachers</button><br><br>
 
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
             <!-- ################To get users ID ################ -->
 
         
-            <h1>Show Teachers Accounts</h1>
+            <h1>Show Teachers Details</h1>
 
             <!-- Student Accounts Table -->
             <table class="activities-table">

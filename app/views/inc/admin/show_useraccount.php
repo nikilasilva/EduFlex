@@ -31,7 +31,7 @@
                 <thead>
                     <tr>
                         <th>User Reg</th>
-                        
+                        <th>Full Name</th>
                         <th>Name With Initial</th>
                         <th>Email</th>
                         <th>Mobile No</th>
@@ -40,14 +40,14 @@
                         <th>Gender</th>
                         <th>Religion</th>
                         <th>Role</th>
-                        <th>Actions</th>
+                        <th>Operation</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($data['users'] as $user): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($user->regNo); ?></td>
-                            
+                            <td><?php echo htmlspecialchars($user->fullName); ?></td>
                             <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
                             <td><?php echo htmlspecialchars($user->email); ?></td>
                             <td><?php echo htmlspecialchars($user->mobileNo); ?></td>

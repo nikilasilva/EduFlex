@@ -58,11 +58,11 @@
             <!-- Buttons -->
             <button type="submit" class="btn btn-primary">Submit Student</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewStudent'" class="btn btn-primary">View All Records</button><br><br>
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
 
 
-            <h1>Show Student Accounts</h1>
+            <h1>Show Student Details</h1>
 
 <!-- Student Accounts Table -->
 <table class="activities-table">

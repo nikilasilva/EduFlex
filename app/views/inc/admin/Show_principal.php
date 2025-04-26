@@ -47,7 +47,7 @@ teacher
 
                     
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editPrincipal/<?php echo $principal->principalId; ?>" class="btn btn-edit">Update</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editPrincipal/<?php echo $principal->principalId; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/Admin/deletePrincipal/<?php echo $principal->principalId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

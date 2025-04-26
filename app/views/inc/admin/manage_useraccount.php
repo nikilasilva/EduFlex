@@ -8,10 +8,8 @@
     <title>Insert User</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+      <!-- Link to the CSS file -->
+      <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
 </head>
 <body>
 <div class="layout">
@@ -25,8 +23,6 @@
         <!-- User Insert Form -->
         <form action="<?php echo URLROOT; ?>/Admin/submitUser" method="POST">
 
-    
-
 
             <div class="form-group">
                 <label for="fullName">Full Name :</label>
@@ -37,6 +33,19 @@
                 <label for="nameWithInitial">Name With Initials:</label>
                 <input type="text" name="nameWithInitial" id="nameWithInitial" required>
             </div>
+
+
+
+            <div class="form-group">
+                <label for="mobileNo">Mobile Number :</label>
+                <input type="text" name="mobileNo" id="mobileNo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address :</label>
+                <textarea name="address" id="address" rows="2" required></textarea>
+            </div>
+
 
             <div class="form-group">
                 <label for="email">Email :</label>
@@ -52,18 +61,8 @@
                             this.value = '';
                         }
                     });
-    </script>
+                </script>
 
-            </div>
-
-            <div class="form-group">
-                <label for="mobileNo">Mobile Number :</label>
-                <input type="text" name="mobileNo" id="mobileNo" required>
-            </div>
-
-            <div class="form-group">
-                <label for="address">Address :</label>
-                <textarea name="address" id="address" rows="2" required></textarea>
             </div>
 
             <div class="form-group" style="position: relative;">

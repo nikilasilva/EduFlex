@@ -68,7 +68,7 @@
             <button type="submit" class="btn btn-primary">Submit Vice Principal</button>
             <br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewVicePrincipal'" class="btn btn-primary">View Vice Principals</button>
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
 
             <!-- ################To get users ID ################ -->

@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Parent</title>
 
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+
+
+     <!-- Link to the CSS file -->
+
+     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
 </head>
 <body>
 <div class="layout">
@@ -25,7 +28,7 @@
             <div class="form-group">
                 <label for="regNo">User Reg (Parent):</label>
                 <input type="number" name="regNo" id="regNo" required>
-                <small class="form-text">This should match an existing user in the Users table.</small>
+                <!-- <small class="form-text">This should match an existing user in the Users table.</small> -->
             </div>
 
             <div class="form-group">
@@ -50,43 +53,41 @@
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewParent'" class="btn btn-primary">View All Parents</button><br><br>
 
             <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+        </form><br><br>
 
+                                        <!-- ################To get users ID ################ -->
 
-             <!-- ################To get users ID ################ -->
+                            
+                                        <h1>Show Parent Details</h1>
 
-        
-             <h1>Show Parent Accounts</h1>
-
-            <!-- Student Accounts Table -->
-            <table class="activities-table">
-                <thead>
-                    <tr>
-                        <th>Reg No</th>
-                        <th>Name with Initials</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($data['users'] as $user): ?>
-                        <?php if ($user->role === 'parent'): ?>
+                    <!-- Student Accounts Table -->
+                    <table class="activities-table">
+                        <thead>
                             <tr>
-                                <td><?php echo htmlspecialchars($user->regNo); ?></td>
-                                <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
-                                <td><?php echo htmlspecialchars($user->email); ?></td>
-                                <td><?php echo htmlspecialchars($user->role); ?></td>
+                                <th>Reg No</th>
+                                <th>Name with Initials</th>
+                                <th>Email</th>
+                                <th>Role</th>
                             </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($data['users'] as $user): ?>
+                                <?php if ($user->role === 'parent'): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user->regNo); ?></td>
+                                        <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
+                                        <td><?php echo htmlspecialchars($user->email); ?></td>
+                                        <td><?php echo htmlspecialchars($user->role); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
 
 
 
-                <!-- ################To get users ID ################ -->
-
-        </form>
+                        <!-- ################To get users ID ################ -->
     </div>
 </div>
 </body>

@@ -847,8 +847,8 @@ public function deleteVicePrincipal($vicePrincipalId)
             header("Location: " . URLROOT . "/admin/viewClass");
             exit();
         }
-
-
-
     
 }
+
+/*Back up users */
+

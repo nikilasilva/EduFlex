@@ -37,15 +37,15 @@
 
 
 
-    <!--JS -->
-<script>
-    document.getElementById('experience').addEventListener('input', function () {
-        if (this.value < 0) {
-            this.value = '';
-            alert("Experience must be a positive number.");
-        }
-    });
-</script>
+                            <!--JS -->
+                        <script>
+                            document.getElementById('experience').addEventListener('input', function () {
+                                if (this.value < 0) {
+                                    this.value = '';
+                                    alert("Experience must be a positive number.");
+                                }
+                            });
+                        </script>
 </div>
 
 
@@ -57,31 +57,31 @@
 </div>
 
 <!-- JavaScript validation -->
-<script>
-    document.getElementById('hireDate').addEventListener('change', function () {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
+                        <script>
+                            document.getElementById('hireDate').addEventListener('change', function () {
+                                const selectedDate = new Date(this.value);
+                                const today = new Date();
 
-        // Remove time from today's date for accurate comparison
-        today.setHours(0, 0, 0, 0);
+                                // Remove time from today's date for accurate comparison
+                                today.setHours(0, 0, 0, 0);
 
-        if (selectedDate > today) {
-            alert("Hire Date cannot be in the future.");
-            this.value = '';
-        }
-    });
-</script>
+                                if (selectedDate > today) {
+                                    alert("Hire Date cannot be in the future.");
+                                    this.value = '';
+                                }
+                            });
+                        </script>
 
 
             <button type="submit" class="btn btn-primary">Submit Principal</button>
             <br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewPrincipal'" class="btn btn-primary">View Principals</button>
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
             <!-- ################To get users ID ################ -->
 
         
-            <h1>Show Student Principal</h1>
+            <h1>Show Principal Details</h1>
 
             <!-- Student Accounts Table -->
             <table class="activities-table">
