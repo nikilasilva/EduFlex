@@ -254,8 +254,8 @@ class NonAcademic extends Controller
                 $_SESSION['success_message'] = "Attendance submitted successfully!";
             }
 
-            $this->view('inc/nonAcademic/ViewTeachersAttendance');
 
+            header("Location: " . URLROOT . "/NonAcademic/ViewTeachersAttendance");
 
         }
     }

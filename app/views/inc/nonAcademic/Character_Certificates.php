@@ -33,8 +33,7 @@
                                 <?php if ($characterCertificates->status == 0): ?>
                                     <form method="post" action="<?php echo URLROOT; ?>/NonAcademic/markCharacterCertificateComplete/<?php echo $characterCertificates->certificate_id; ?>" onsubmit="return showCharacterProcessingMessage(this);">
                                         <button id="charSubmitBtn_<?php echo $characterCertificates->certificate_id; ?>" type="submit" style="padding: 6px 12px; background-color:rgb(255, 0, 0); color: white; border: none; border-radius: 4px;">
-                                            Complete Character Certificate
-                                        </button>
+                                            Allocate                      </button>
                                         <span id="charStatusMsg_<?php echo $characterCertificates->certificate_id; ?>" style="margin-left:10px; color:green;"></span>
                                     </form>
 
@@ -54,7 +53,7 @@
 
                                 <?php else: ?>
                                     <button onclick="alert('The email has already been sent to the student.'); return false;" style="padding: 6px 12px; background-color: rgb(59, 143, 57); color: white; border: none; border-radius: 4px; ">
-                                        Sent Email
+                                        Allocated
                                     </button>
                                 <?php endif; ?>
                             </td>
