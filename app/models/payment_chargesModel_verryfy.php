@@ -1,5 +1,6 @@
 <?php
-class payment_chargesModel_verryfy {
+class payment_chargesModel_verryfy
+{
     use Model;
 
     protected $table = 'facility_charges';
@@ -8,11 +9,13 @@ class payment_chargesModel_verryfy {
         'full_name',
         'student_id',
         'year_of_payment',
-        'payment_slip'
+        'payment_slip',
+        'status'
     ];
     protected $order_column = 'payment_id';
 
-    public function validate($data) {
+    public function validate($data)
+    {
         $errors = [];
 
         // Full Name Validation
@@ -43,10 +46,11 @@ class payment_chargesModel_verryfy {
         return $errors;
     }
 
-    public function checkDuplicateEntry($studentId, $yearOfPayment) {
+    public function checkDuplicateEntry($studentId, $yearOfPayment)
+    {
         $query = "SELECT COUNT(*) as count FROM $this->table 
                   WHERE student_id = :student_id AND year_of_payment = :year_of_payment";
-        
+
         $params = [
             'student_id' => $studentId,
             'year_of_payment' => $yearOfPayment
@@ -56,13 +60,15 @@ class payment_chargesModel_verryfy {
         return $result[0]->count > 0;
     }
 
-    public function getPaymentsByStudentId($studentId) {
+    public function getPaymentsByStudentId($studentId)
+    {
         $query = "SELECT * FROM $this->table WHERE student_id = :student_id ORDER BY year_of_payment DESC";
         $params = ['student_id' => $studentId];
         return $this->query($query, $params);
     }
 
-    public function getPaymentsByParentRegNo($parentRegNo) {
+    public function getPaymentsByParentRegNo($parentRegNo)
+    {
         // Query to get payments for all students associated with the parent
         $query = "SELECT p.*
                   FROM facility_charges p
@@ -72,10 +78,21 @@ class payment_chargesModel_verryfy {
                       JOIN parent_students ps ON s.regNo = ps.studentRegNo
                       WHERE ps.parentRegNo = :parentRegNo
                   )";
-    
+
         return $this->query($query, ['parentRegNo' => $parentRegNo]);
     }
-    
+
+
+    public function updateStatusByStudentId($studentId, $status)
+    {
+        $query = "UPDATE facility_charges SET status = :status WHERE student_id = :student_id";
+        $params = [
+            'status' => $status,
+            'student_id' => $studentId
+        ];
+
+        return $this->query($query, $params);
+    }
 }
 
 

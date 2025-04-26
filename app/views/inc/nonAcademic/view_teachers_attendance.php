@@ -76,27 +76,35 @@
                                     <td>
                                         <?php
                                         $tid = $record->teacher_id;
-                                        echo isset($data['teachers'][$tid]) 
-                                            ? $data['teachers'][$tid]->firstName . ' ' . $data['teachers'][$tid]->lastName 
+                                        echo isset($data['teachers'][$tid])
+                                            ? $data['teachers'][$tid]->firstName . ' ' . $data['teachers'][$tid]->lastName
                                             : 'Unknown';
                                         ?>
                                     </td>
                                     <td><?php echo $record->teacher_id; ?></td>
                                     <td><?php echo ucfirst($record->status); ?></td>
                                 </tr>
-                    <?php
+                        <?php
                             endif;
                         endforeach;
                     endif;
 
                     if (!$recordsFound):
-                    ?>
+                        ?>
                         <tr>
                             <td colspan="3">No attendance records found for <?php echo $selectedDate; ?>.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
+            <!-- <?= $_SESSION['attendance_errors'] ?>
+            <?= $_SESSION['attendance_success'] ?> -->
+
+            <form method="get" action="<?php echo URLROOT; ?>/NonAcademic/UpdateTeachersAttendanceForm">
+                <input type="hidden" name="date" value="<?php echo isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'); ?>">
+                <button type="submit" class="btn btn-info">Update Attendance</button>
+            </form>
+
         </div>
     </div>
 </body>

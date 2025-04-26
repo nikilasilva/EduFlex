@@ -8,8 +8,7 @@ class CharacterCertificateModeldev3 {
         'full_name',
         'student_id',
         'date_of_birth',
-        'guardian_name',
-        'address',
+        'reason',
         'slip',
         'status'
     ];
