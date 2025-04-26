@@ -6,18 +6,17 @@
     <h1>Select Class & Term</h1>
 
     <?php if (isset($_SESSION['error'])): ?>
-    <div style="color: red; font-weight: bold; margin-bottom: 10px;">
-        <?= $_SESSION['error']; ?>
-    </div>
-    <?php unset($_SESSION['error']); ?>
-<?php endif; ?>
-
+        <div style="color: red; font-weight: bold; margin-bottom: 10px;">
+            <?= $_SESSION['error']; ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
 
     <form action="<?php echo URLROOT; ?>/teacher/submitMarks" method="POST">
         <div class="form-group">
             <label for="class">Select Class:</label>
             <?php if (!empty($data['classes'])): ?>
-                <select name="classId" id="class" class="form-control" required>
+                <select name="classId" id="class" class="form-control">
                     <option value="">-- Select Class --</option>
                     <?php foreach ($data['classes'] as $class): ?>
                         <option value="<?php echo htmlspecialchars($class->classId); ?>">
@@ -32,7 +31,7 @@
 
         <div class="form-group mt-3">
             <label for="term">Select Term:</label>
-            <select name="term" id="term" class="form-control" required>
+            <select name="term" id="term" class="form-control">
                 <option value="">-- Select Term --</option>
                 <option value="1">Term 1</option>
                 <option value="2">Term 2</option>
