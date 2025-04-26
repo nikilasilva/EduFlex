@@ -276,13 +276,14 @@ class Teacher extends Controller {
             return $this->dailyActivities();
         }
 
-        $date = $_POST['date'];
+        $date = $_POST['attendance_date'];
+        // $date = date('y-m-d');
         $today = date('Y-m-d');
         $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
 
         // Validate date is between one week ago and today
-        if ($date > $today || $date < $oneWeekAgo) {
-            $_SESSION['error'] = "Date must be today or within the last 7 days.";
+        if ($date > $today) {
+            $_SESSION['error'] = "Date must be today or previous date.";
             return header("Location: " . URLROOT . "/teacher/dailyActivities");
         }
 
@@ -294,7 +295,8 @@ class Teacher extends Controller {
             'subject'       => $_POST['subject'],
             'class'         => $_POST['class'],
             'description'   => $_POST['description'],
-            'additional_note'=> $_POST['additional_note']
+            'additional_note'=> $_POST['additional_note'],
+            
         ];
 
         $activityModel = new Current_activityModel();
@@ -321,6 +323,8 @@ class Teacher extends Controller {
         checkRole('teacher');
         $teacherId = $_SESSION['user']['regNo'];
         $activityModel = new Current_activityModel();
+        $classModel = new ClassModel();
+        $subjectModel = new SubjectModel();
 
         // Fetch the record and ensure it belongs to this teacher
         $activity = $activityModel->first([
@@ -332,6 +336,9 @@ class Teacher extends Controller {
             $_SESSION['error'] = "You are not authorized to edit that activity.";
             return header("Location: " . URLROOT . "/teacher/viewActivities");
         }
+
+        $classes = $classModel->getAllClasses();
+        $subjects = $subjectModel->getAllSubjects();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate date again if needed, omitted here for brevity
@@ -351,7 +358,11 @@ class Teacher extends Controller {
             exit;
         }
 
-        $this->view('inc/teacher/edit_activity', ['activity' => $activity]);
+        $this->view('inc/teacher/edit_activity', [
+            'activity' => $activity,
+            'classes' => $classes,
+            'subjects' => $subjects
+        ]);
     }
 
     // Delete an activity (only if it belongs to this teacher)
@@ -710,6 +721,20 @@ $this->view('inc/teacher/class_report', [
             echo '<script>document.getElementById("redirectForm").submit();</script>';
             exit();
         }
+    }
+
+    public function testcase(){
+        // echo 'test';
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $name = $_POST['firstName'];
+            // echo $name;
+        }
+
+        $this->view('inc/teacher/test2' , ['first' => $name]);
+    }
+
+    public function test2(){
+        $this->view('inc/teacher/test');
     }
     
     
