@@ -21,9 +21,11 @@
                 </div>
             </a>
         </div> -->
-        
+    
+    <div class="FS-charges container">
+    <div class="cards-container">
         <div class="card">
-            <a href="<?php echo URLROOT; ?>/Student/f_s">
+            <a href="<?php echo URLROOT; ?>/payment_charges/submit">
                 <img src="../public/img/Facility.jpg" alt="F&S Charges">
                 <div class="card-text">
                     <p>F&S Charges</p>
@@ -38,6 +40,7 @@
         <p>A/C Number : 202-23-56-98-0</p>
         <p>A/C Name : University of Colombo</p>
         <p>Commercial Credit, Reid Avenue, Colombo 07</p>
+    </div>
     </div>
 
 </body>

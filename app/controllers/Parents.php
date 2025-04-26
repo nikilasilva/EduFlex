@@ -6,6 +6,9 @@ class Parents extends Controller {
     private $AbsenceModel;
 
     public function __construct() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         // Load the FeedbackModel
         $this->FeedbackModel = $this->model('FeedbackModel');
         $this->AbsenceModel = $this->model('AbsenceModel');
@@ -105,16 +108,24 @@ class Parents extends Controller {
 
 
     public function submitFeedback() {
+
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $content = htmlspecialchars($_POST['content'] ?? '');
-            $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
+            $content = trim($_POST['content'] ?? '');
+            $recipient = trim($_POST['recipient'] ?? '');
             $date = date('Y-m-d');
+            $parentRegNo = $_SESSION['user']['regNo'];
 
             if (!empty($content)) {
                 $data = [
                     'content' => $content,
                     'recipient' => $recipient,
                     'date' => $date,
+                    'parentRegNo' => $parentRegNo,
                 
                 ];
                 try {
@@ -163,6 +174,9 @@ class Parents extends Controller {
         }
     }
 
+   
+    
+
     
     
 
@@ -188,17 +202,40 @@ class Parents extends Controller {
    
     
 
-    public function viewFeedbacks() {
-        // Get feedbacks from the database
-        $feedbacks = $this->FeedbackModel->findAll();
+//     public function viewFeedbacks() {
+//         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+//             header("Location: " . URLROOT . "/login");
+//             exit();
+//         }
+// -
+//         // Get feedbacks from the database
+//         $feedbacks = $this->FeedbackModel->findAll();
         
-        // Pass feedbacks to the view
-        $data = [
-            'feedbacks' => $feedbacks
-        ];
+//         // Pass feedbacks to the view
+//         $data = [
+//             'feedbacks' => $feedbacks
+//         ];
     
-        $this->view('inc/Parent/viewFeedback_parent', $data);
+//         $this->view('inc/Parent/viewFeedback_parent', $data);
+//     }
+
+    public function viewFeedbacks() {
+        // Ensure user is logged in and is a parent
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+    
+        // Get parentRegNo from session
+        $parentRegNo = $_SESSION['user']['regNo'];
+    
+        // Load model and fetch only the parent's feedbacks
+        $feedbacks = $this->FeedbackModel->findByParentId($parentRegNo);
+    
+        // Load view with data
+        $this->view('inc/Parent/viewFeedback_parent', ['feedbacks' => $feedbacks]);
     }
+    
 
     
 
@@ -218,17 +255,23 @@ class Parents extends Controller {
 
 
     public function submitAbsence() {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $student_id = htmlspecialchars($_POST['student_id'] ?? '');
-            $content = htmlspecialchars($_POST['content'] ?? '');
+            $student_id = trim($_POST['student_id'] ?? '');
+            $content = trim($_POST['content'] ?? '');
             $date = date('Y-m-d');
+            $parentRegNo = $_SESSION['user']['regNo'];
 
             if (!empty($content)) {
                 $data = [
                     'student_id' => $student_id,
                     'content' => $content,
                     'date' => $date,
-
+                    'parentRegNo' => $parentRegNo, // Replace with actual parentRegNo from session	
                 
                 ];
                 try {
@@ -247,14 +290,33 @@ class Parents extends Controller {
         }
     }
 
+    public function viewAbsences() {
+        // Ensure user is logged in and is a parent
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
     
+        // Get parentRegNo from session
+        $parentRegNo = $_SESSION['user']['regNo'];
     
+        // Load model and fetch only the parent's feedbacks
+        $absences = $this->AbsenceModel->findByParentId($parentRegNo);
     
+        // Load view with data
+        $this->view('inc/Parent/viewAbsenceRecords', ['absences' => $absences]);
+       
+
+
 
     
     
     
 
+    
+    
+    
 
+    }
     
 }

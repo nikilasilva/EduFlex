@@ -9,7 +9,8 @@ class User {
         "email",
         "mobileNo",
         "address",
-        "username",
+        'fullName',
+        'nameWithInitial',
         "password",
         "dob",
         "gender",
@@ -58,9 +59,14 @@ class User {
             $this->errors['mobileNo'] = 'A valid mobile number is required (10-15 digits).';
         }
 
-        // Username validation
-        if (empty($data['username'])) {
-            $this->errors['username'] = 'Username is required.';
+        // Fullname validation
+        if (empty($data['fullName'])) {
+            $this->errors['fullName'] = 'Full Name is required.';
+        }
+
+        // Name with initials validation
+        if (empty($data['nameWithInitial'])) {
+            $this->errors['nameWithInitial'] = 'Name with initial is required.';
         }
 
         // Password validation

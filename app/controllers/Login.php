@@ -27,6 +27,8 @@ class Login extends Controller {
                     'email' => $user->email,
                     'username' => $user->username,
                     'role' => $user->role,
+                    'fullName' => $user->fullName,
+                    'nameWithInitial' => $user->nameWithInitial
                 ];
 
                 header('Location: ' . URLROOT . '/Dashboard/index');

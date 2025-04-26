@@ -20,7 +20,7 @@ class ViewMarksModel {
     public function getStudentMarks($studentId) {
         $query = "SELECT s.subjectName, m.term, m.marks
                   FROM marks m
-                  JOIN subjects s ON m.subject_id = s.subject_id
+                  JOIN subjects s ON m.subject_id = s.subjectId
                   WHERE m.student_id = :student_id
                   ORDER BY m.term DESC";
     
@@ -36,5 +36,18 @@ class ViewMarksModel {
     
         return $this->query($query, ['parentRegNo' => $parentRegNo]);
     }
+
+    public function getTotalMarksByTerm($term) {
+        $query = "
+            SELECT m.student_id, SUM(m.marks) AS total_marks
+            FROM marks m
+            WHERE m.term = :term
+            GROUP BY m.student_id
+            ORDER BY total_marks DESC
+        ";
+    
+        return $this->query($query, ['term' => $term]);
+    }
+    
     
 }

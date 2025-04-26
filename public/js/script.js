@@ -5,6 +5,7 @@ import { initUploadUsers } from './uploadUsers.js';
 import { initAnnouncements } from './announcement.js'; 
 import { initFlashMessage } from './flashMessage.js';
 import { handleDeletePictureConfirmation } from './user.js';
+import { initAssignClassTeacher } from './assignTeacher.js';
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".upload-users-container"),
         document.querySelector(".timetable-container"),
         document.querySelector(".upload-timetable-container"),
+        document.querySelector(".assign-class-teachers-container"),
+        document.querySelector(".container"),
+
     ];
 
     // Restore sidebar state from localStorage
@@ -104,6 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.querySelector(".user-settings-container")) {
         handleDeletePictureConfirmation();
+    }
+
+    if (document.querySelector(".assign-class-teachers-container")) {
+        initAssignClassTeacher();
     }
 });
 

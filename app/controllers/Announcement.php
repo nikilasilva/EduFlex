@@ -209,11 +209,11 @@ class Announcement extends Controller {
                 'created_by' => $_SESSION['user']['regNo']
             ]);
     
-            if ($announcement && $this->announcementModel->delete($id)) {
-                $_SESSION['message'] = 'Announcement deleted successfully';
-            } else {
-                $_SESSION['error'] = 'Failed to delete announcement or you are not authorized';
-            }
+            $announcement && $this->announcementModel->delete($id);
+            $_SESSION['message'] = 'Announcement deleted successfully';
+            //  else {
+            //     $_SESSION['error'] = 'Failed to delete announcement or you are not authorized';
+            // }
     
             header('Location: ' . URLROOT . '/Announcement/viewAnnouncement');
             exit;

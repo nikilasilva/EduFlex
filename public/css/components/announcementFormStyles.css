@@ -1,6 +1,6 @@
 .announcement-container {
-    margin: 20px 0 20px 290px;
-    width: 73.5%;
+    margin: 15px 0 20px 290px;
+    width: 73.75%;
     padding: 50px;
     background-color: white;
     border-radius: 10px;
@@ -186,11 +186,9 @@ label {
 }
 
 
-<<<<<<< HEAD
 
 
 
-=======
 /* Delete Confirmation */
 .modal {
     display: none;
@@ -278,4 +276,3 @@ body.modal-open {
     min-width: 125px; 
     width: 125px;
 }
->>>>>>> 18f12ee3579c838701b9539dd999e59c323f5680

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 </head>
 
+
 <body>
     <div class="layout">
         <!-- Sidebar -->
@@ -39,6 +40,7 @@
 
             <!-- Daily Activities form -->
             <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST" novalidate>
+
             <div class="form-group">
                 <label for="attendance_date">Date:</label>
                 <input

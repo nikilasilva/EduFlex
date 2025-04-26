@@ -944,7 +944,79 @@ public function deleteActivity($id)
     }
 
 
-    public function updateMarks()
+
+    
+
+    public function assignClassTeacher() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get data from form
+            $classId = isset($_POST['classId']) ? $_POST['classId'] : null;
+            $teacherId = isset($_POST['teacherId']) ? $_POST['teacherId'] : null;
+            $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : null;
+            
+            // Validate data
+            if (!$classId || !$teacherId) {
+                $_SESSION['error'] = 'Please select both a class and a teacher.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            }
+            
+            // Attempt to assign teacher
+            if ($this->teacherModel->assignTeacherToClass($classId, $teacherId)) {
+                $_SESSION['success'] = 'Teacher assigned successfully.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            } else {
+                $_SESSION['error'] = 'Failed to assign teacher to class.';
+                header('Location: ' . URLROOT . '/teacher/assignClassTeacher?academicYear=' . urlencode($academicYear));
+                exit;
+            }
+        } else {
+            // Display the class teacher assignment page
+            $academicYear = isset($_GET['academicYear']) ? $_GET['academicYear'] : '';
+            
+            // Get all academic years
+            $academicYears = $this->ClassesModel->getAcademicYears();
+            
+            // Get classes for the selected academic year
+            $classes = $academicYear ? $this->teacherModel->getClassesWithTeachers($academicYear) : [];
+            
+            // Format class data for display
+            $formattedClasses = [];
+            foreach ($classes as $class) {
+                $formattedClasses[] = [
+                    'classId' => $class->classId,
+                    'className' => $class->className,
+                    'academicYear' => $class->academicYear,
+                    'teacherName' => $class->teacherName ?: 'None'
+                ];
+            }
+            
+            // Get teachers available for assignment
+            $teachers = $this->teacherModel->getTeachersForAssignment();
+            
+            $data = [
+                'title' => 'Assign Class Teachers',
+                'academic_year' => $academicYears,
+                'selected_academic_year' => $academicYear,
+                'classes' => $formattedClasses,
+                'teachers' => $teachers,
+                'error' => $_SESSION['error'] ?? '',
+                'success' => $_SESSION['success'] ?? ''
+            ];
+            
+            // Clear session messages after using them
+            unset($_SESSION['error'], $_SESSION['success']);
+            
+            $this->view('inc/assignClassTeacher', $data);
+        }
+    }
+    
+    
+
+  
+  public function updateMarks()
     {
         checkRole('teacher');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -991,20 +1063,8 @@ public function deleteActivity($id)
         }
     }
 
+    
+ }
 
-    public function testcase()
-    {
-        // echo 'test';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['firstName'];
-            // echo $name;
-        }
 
-        $this->view('inc/teacher/test2', ['first' => $name]);
-    }
 
-    public function test2()
-    {
-        $this->view('inc/teacher/test');
-    }
-}

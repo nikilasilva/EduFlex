@@ -1,0 +1,71 @@
+/* Styling for the container */
+.manage_actor_container {
+    margin-left: 300px;
+    margin-top: 30px;
+    padding: 100px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styling for the form */
+.actor_form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two-column layout */
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for each row in the form */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* Styling for labels and inputs */
+.form-row label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-row input,
+.form-row select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    border-color: #007bff;
+}
+
+/* Styling for the submit button */
+.submit-button {
+    grid-column: span 2; /* Make the button span across two columns */
+    padding: 15px;
+    background-color: #6472CD;;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
