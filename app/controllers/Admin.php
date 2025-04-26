@@ -114,15 +114,53 @@ public function editUser($regNo) {
     }
 }
 
-//Delete User Details
+// //Delete User Details
+// public function deleteUser($regNo) {
+//     $userModel = new manage_useraccountModel();
+//     $userModel->delete($regNo, 'regNo');
+
+//     // Redirect to view users page
+//     header("Location: " . URLROOT . "/admin/viewUser");
+//     exit();
+// }
+
+//Delete and backups
+// Delete User Details// Delete User Details
 public function deleteUser($regNo) {
     $userModel = new manage_useraccountModel();
-    $userModel->delete($regNo, 'regNo');
+    $backupModel = new backupusersModel(); // <-- Use model, not new Database()
+
+    // 1. First, fetch user data
+    $userData = $userModel->first(['regNo' => $regNo]);
+
+    if ($userData) {
+        // 2. Insert the user data into backupusers table
+        $backupData = [
+            'regNo' => $userData->regNo,
+            'email' => $userData->email,
+            'mobileNo' => $userData->mobileNo,
+            'address' => $userData->address,
+            'fullName' => $userData->fullName,
+            'nameWithInitial' => $userData->nameWithInitial,
+            'password' => $userData->password,
+            'dob' => $userData->dob,
+            'gender' => $userData->gender,
+            'religion' => $userData->religion,
+            'role' => $userData->role
+        ];
+
+        $backupModel->insert($backupData);
+
+        // 3. Now delete from users table
+        $userModel->delete($regNo, 'regNo');
+    }
 
     // Redirect to view users page
     header("Location: " . URLROOT . "/admin/viewUser");
     exit();
 }
+
+
 
 
 /* *Manage students* */
@@ -847,8 +885,22 @@ public function deleteVicePrincipal($vicePrincipalId)
             header("Location: " . URLROOT . "/admin/viewClass");
             exit();
         }
-    
+
+
+
+
+        /*Back up users */
+
+        public function viewBackupUsers() {
+            $backupModel = new backupusersModel();
+        
+            // Fetch all backup users
+            $backupUsers = $backupModel->findAll();
+        
+            // Load the view and pass data
+            $this->view('inc/admin/show_backupusers', ['backupusers' => $backupUsers]);
+        }
+         
 }
 
-/*Back up users */
 

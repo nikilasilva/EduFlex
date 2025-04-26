@@ -52,7 +52,7 @@
 
                         <!-- <td><?php echo $student->guardianregNo ?? 'N/A'; ?></td> -->
                         <td>
-                            <a href="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $student->regNo; ?>" class="btn btn-edit">Update</a><br><br>
+                            <a href="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $student->regNo; ?>" class="btn btn-edit">Update</a>
                             <a href="<?php echo URLROOT; ?>/Admin/deleteStudent/<?php echo $student->student_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
                         </td>
                     </tr>

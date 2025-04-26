@@ -9,7 +9,9 @@
     <title>Library Activity</title>
 
     <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/teacher.css">
+        <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
 teacher
 <body>
     <div class="layout">
@@ -24,7 +26,6 @@ teacher
             <table class="activities-table">
                 <thead>
                     <tr>
-                    
                         <th>class ID</th>
                         <th>class Name</th>
                         <th>Academic Year</th>
@@ -39,7 +40,7 @@ teacher
                             <td><?php echo $classe->academicYear; ?></td>
 
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $classe->classId; ?>" class="btn btn-edit">Update</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editClass/<?php echo $classe->classId; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteClass/<?php echo $classe->classId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

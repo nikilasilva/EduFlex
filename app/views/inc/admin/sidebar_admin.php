@@ -16,7 +16,12 @@
 
             <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_class"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Add-Class</span></a></li>
 
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/"><i class="fa-solid fa-trash icon"></i><span class="text nav-text">Backup Users</span></a></li>
+
+
+            <!-- <a href="<?php echo URLROOT; ?>/Admin/viewBackupUsers" class="btn btn-view">View Backup Users</a> -->
+
+
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/viewBackupUsers"><i class="fa-solid fa-trash icon"></i><span class="text nav-text">Backup Users</span></a></li>
 
             <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li> -->
 
