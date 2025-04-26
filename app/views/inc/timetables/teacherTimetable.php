@@ -30,12 +30,12 @@
         </form>
     </div>
 
+    <h2 id="timetableHeader" style="display: none"></h2>
     <!-- filepath: c:\xampp\htdocs\EduFlex\app\views\inc\timetables\teacherTimetable.php -->
     <p id="selectionMessage" class="hidden-message" style="display: none;">
         Please select both a teacher and a day to view the timetable.
     </p>
 
-    <h2 id="timetableHeader" style="display: none"></h2>
 
     <table class="timetable" id="timetableTable" style="display: none;">
         <thead>

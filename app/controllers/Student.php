@@ -43,18 +43,18 @@
             if (is_array($students) && !empty($students)) {
                 $data['students'] = array_map(function ($student) {
                     return [
-                        'studentId' => $student->studentId,
-                        'fullName' => $student->firstName . ' ' . $student->lastName,
+                        'studentId' => $student->student_id,
+                        'fullName' => $student->studentFullName,
                         'className' => $student->className,
                         'email' => $student->email,
                         'mobileNo' => $student->mobileNo,
                         'religion' => $student->religion,
-                        'parentName' => ($student->parentFirstName ? $student->parentFirstName . ' ' . $student->parentLastName : 'None'),
+                        'parentName' => $student->parentNameWithInitial ? $student->parentNameWithInitial : 'None',
                         'parentMobileNo' => $student->parentMobileNo ?: 'None'
                     ];
                 }, $students);
                 $data['studentCount'] = count($students);
-            }
+            }            
             else {
                 $data['message'] = 'No students found in the database.';
             }

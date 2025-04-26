@@ -40,7 +40,7 @@ class TimetableModel {
                   FROM timetables tm
                   JOIN periods p ON tm.periodId = p.periodId
                   JOIN subjects s ON tm.subjectId = s.subjectId
-                  JOIN teachers t ON tm.teacherRegNo = t.regNo
+                  JOIN teachers t ON tm.teacherRegNo = t.teacher_id
                   WHERE tm.classId = :classId
                   ORDER BY tm.day, p.periodId ASC";
                   
@@ -57,7 +57,7 @@ class TimetableModel {
                   FROM timetables tm
                   JOIN periods p ON tm.periodId = p.periodId
                   JOIN subjects s ON tm.subjectId = s.subjectId
-                  JOIN teachers t ON tm.teacherRegNo = t.regNo
+                  JOIN teachers t ON tm.teacherRegNo = t.teacher_id
                   WHERE tm.classId = :classId AND tm.day = :day
                   ORDER BY p.periodId ASC";
     
@@ -85,6 +85,7 @@ class TimetableModel {
                   JOIN periods p ON tm.periodId = p.periodId
                   JOIN subjects s ON tm.subjectId = s.subjectId
                   JOIN classes c ON tm.classId = c.classId
+                  JOIN teachers t ON tm.teacherRegNo = t.teacher_id
                   WHERE tm.teacherRegNo = :teacherRegNo
                   ORDER BY tm.day, p.periodId ASC";
                   
@@ -102,6 +103,7 @@ class TimetableModel {
                   JOIN periods p ON tm.periodId = p.periodId
                   JOIN subjects s ON tm.subjectId = s.subjectId
                   JOIN classes c ON tm.classId = c.classId
+                  JOIN teachers t ON tm.teacherRegNo = t.teacher_id
                   WHERE tm.teacherRegNo = :teacherRegNo AND tm.day = :day
                   ORDER BY p.periodId ASC";
     
@@ -145,7 +147,7 @@ class TimetableModel {
                 CONCAT(tc.firstName, ' ', tc.lastName) as teacherName 
                 FROM $this->table t
                 JOIN subjects s ON t.subjectId = s.subjectId
-                JOIN teachers tc ON t.teacherRegNo = tc.regNo
+                JOIN teachers tc ON t.teacherRegNo = tc.teacher_id
                 WHERE t.classId = :classId
                 ORDER BY t.day, t.periodId";
         
@@ -157,6 +159,7 @@ class TimetableModel {
                 FROM $this->table t
                 JOIN subjects s ON t.subjectId = s.subjectId
                 JOIN classes c ON t.classId = c.classId
+                JOIN teachers t ON tm.teacherRegNo = t.teacher_id
                 WHERE t.teacherRegNo = :teacherRegNo
                 ORDER BY t.day, t.periodId";
         

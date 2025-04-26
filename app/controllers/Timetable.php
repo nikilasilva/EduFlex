@@ -65,13 +65,12 @@ class Timetable extends Controller {
         // For regular page load
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // Get unique teachers from timetables table
-            $teachersQuery = "SELECT DISTINCT t.regNo AS teacherId, 
+            $teachersQuery = "SELECT DISTINCT t.teacher_id AS teacherId, 
                             CONCAT(t.firstName, ' ', t.lastName) AS teacherName 
                             FROM teachers t 
-                            JOIN timetables tm ON t.regNo = tm.teacherRegNo 
+                            JOIN timetables tm ON t.teacher_id = tm.teacherRegNo 
                             LIMIT 50";
             $teachers = $this->timetableModel->query($teachersQuery);
-            
             $data = [
                 'teachers' => $teachers,
                 'timetable' => []

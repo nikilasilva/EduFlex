@@ -18,19 +18,21 @@ class AllStudentsModel {
         $limit = (int)$limit;
         $offset = (int)$offset;
     
-        $sql = "SELECT s.student_id, s.regNo, s.firstName, s.lastName, 
-                       c.className,
-                       u.email, u.mobileNo, u.religion,
-                       p.firstName AS parentFirstName, p.lastName AS parentLastName,
-                       pu.mobileNo AS parentMobileNo
-                FROM students s
-                JOIN users u ON s.regNo = u.regNo
-                JOIN classes c ON s.classId = c.classId
-                LEFT JOIN parents p ON s.guardianRegNo = p.regNo
-                LEFT JOIN users pu ON p.regNo = pu.regNo
-                WHERE u.role = 'student'
-                ORDER BY s.student_id ASC
-                LIMIT $limit OFFSET $offset";
+        $sql = "SELECT s.student_id, s.regNo, 
+            u.fullName AS studentFullName, u.nameWithInitial AS studentNameWithInitial, 
+            c.className,
+            u.email, u.mobileNo, u.religion,
+            pu.nameWithInitial AS parentNameWithInitial,
+            pu.mobileNo AS parentMobileNo
+            FROM students s
+            JOIN users u ON s.regNo = u.regNo
+            JOIN classes c ON s.classId = c.classId
+            LEFT JOIN parents p ON s.guardianRegNo = p.regNo
+            LEFT JOIN users pu ON p.regNo = pu.regNo
+            WHERE u.role = 'student'
+            ORDER BY s.student_id ASC
+            LIMIT $limit OFFSET $offset;
+        ";
     
         return $this->query($sql);
     }
