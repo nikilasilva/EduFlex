@@ -37,20 +37,31 @@
 </head>
 <body>
 
-<div class="profile-container">
+<div class="profile-container container">
    <!-- <div class="user-profile-header">
       
     </div> -->
     <div class="profile-card">
         <div class="user-profile-image">
-            <img src="<?php echo URLROOT; ?>/public/img/profileImg.png" alt="User Photo" class="user-profile-photos">
+        <?php
+        // Create proper server path for file_exists check
+        $profilePath = $data['user']->profile_picture ?? '';
+        $testPath = APPROOT . '/../' . $profilePath;              
+        
+        if (!empty($profilePath) && file_exists($testPath)) {
+            $imgSrc = URLROOT . '/' . ltrim($profilePath, '/');
+        } else {
+            $imgSrc = URLROOT . '/public/img/profiles/default-profile.jpg';
+        }
+        ?>
+        <img src="<?php echo $imgSrc ;?>" alt="User Photo" class="user-profile-photos">
         </div>
         <div class="user-profile-info-section">
             <div class="user-profile-header">
-                <h2 class="user-name"> <?php echo htmlspecialchars(ucwords($data['user']->username)); ?> </h2>
+                <h2 class="user-name"> <?php echo htmlspecialchars(ucwords($data['user']->nameWithInitial)); ?> </h2>
             </div>
             <ul class="user-details">
-                <li><strong>ID No:</strong> <?php echo htmlspecialchars($data['user']->regNo); ?> </li>
+                <li><strong>Student ID:</strong> <?php echo htmlspecialchars($data['user']->student_id); ?> </li>
                 <li><strong>Date of Birth:</strong> <?php echo htmlspecialchars($data['user']->dob); ?> </li> 
                 <li><strong>Email:</strong> <?php echo htmlspecialchars($data['user']->email); ?> </li>
                 <li><strong>Phone No:</strong> <?php echo htmlspecialchars($data['user']->mobileNo); ?> </li>

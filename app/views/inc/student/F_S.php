@@ -20,7 +20,7 @@
         </div>
     <?php endif; ?>
 
-    <div class="form-container">
+    <div class="form-container container">
         <h2>Facility & Service Charges</h2>
         <form id="fineForm" method="post" action="<?= URLROOT ?>/payment_charges/submit" 
                
@@ -34,6 +34,7 @@
                    placeholder="Enter your full name" 
                   
                    required>
+
                    <?php if (!empty($data['errors']['fullName'])): ?>
                         <span class="error"><?= htmlspecialchars($data['errors']['fullName']) ?></span>
                     <?php endif; ?>
@@ -47,12 +48,14 @@
                    placeholder="Enter your student ID" 
                    
                    required>
+
                    <?php if (!empty($data['errors']['studentId'])): ?>
                         <span class="error"><?= htmlspecialchars($data['errors']['studentId']) ?></span>
                     <?php endif; ?>
             </div>
             
            <div class="form-group">
+
             <label for="payment">3. Year Of Payment</label>
             <input type="text" 
                    id="payment" 
@@ -60,12 +63,14 @@
                    placeholder="Enter the Year Of Payment" 
                    
                    required>
+
                    <?php if (!empty($data['errors']['payment'])): ?>
                         <span class="error"><?= htmlspecialchars($data['errors']['payment']) ?></span>
                     <?php endif; ?></div>
+          </div>
 
-            <div class="form-group">
             
+            <div class="form-group">
             <label for="paymentSlip">4. Payment Slip</label>
             <div class="file-upload">
                 <input type="file" 
@@ -83,6 +88,7 @@
                 <?php if (!empty($data['errors']['paymentSlip'])): ?>
                         <span class="error"><?= htmlspecialchars($data['errors']['paymentSlip']) ?></span>
                     <?php endif; ?></div>
+            </div>
             </div>
             
             <button type="submit" class="charges-submit-button">Submit</button>

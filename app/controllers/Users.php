@@ -6,9 +6,11 @@ session_start();
 
 class Users extends Controller {
     private $userModel;
+    private $studentModel;
 
     public function __construct() {
         $this->userModel = new User();
+        $this->studentModel = new StudentModel();
     }
 
     // Display forgot password form
@@ -154,14 +156,19 @@ class Users extends Controller {
 
     public function details() {
         
-        $email = $_SESSION['user']['email'];
-        $user = $this->userModel->findUserByEmail($email);
+        // $email = $_SESSION['user']['email'];
+        // $user = $this->userModel->findUserByEmail($email);
+        
+        $regNo = $_SESSION['user']['regNo'];
+        $student = $this->studentModel->getStudentDetails($regNo);
 
-        if (!$user) {
+        if (!$student) {
             die('User not found.');
         }
-
-        $this->view('inc/student/userDetails', ['user' => $user]);
+        $data = [
+            'user' => $student
+        ];
+        $this->view('inc/student/userDetails', $data);
     }
 
     public function updatePassword() {

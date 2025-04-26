@@ -23,7 +23,7 @@ require APPROOT.'/views/inc/components/sideBar.php';
         <?php unset($_SESSION['error']); // Clear error after displaying ?>
     <?php endif; ?>
 
-    <div class="form-container">
+    <div class="form-container container">
         <h2>Character Certificate Application</h2>
         <form id="characterCertificateForm" method="post" action="<?= URLROOT ?>/CharacterCertificate/submit" enctype="multipart/form-data" onsubmit="return validateForm()" >
             

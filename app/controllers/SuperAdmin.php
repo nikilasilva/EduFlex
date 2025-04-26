@@ -76,16 +76,17 @@ class SuperAdmin extends Controller {
                 'email' => trim($row[1]),
                 'mobileNo' => trim($row[2]),
                 'address' => trim($row[3]),
-                'username' => trim($row[4]),
-                'dob' => trim($row[5]),
-                'gender' => trim($row[6]),
-                'religion' => trim($row[7]),
-                'role' => trim($row[8]),
+                'fullName' => trim($row[4]),
+                'nameWithInitial' => trim($row[5]),
+                'dob' => trim($row[6]),
+                'gender' => trim($row[7]),
+                'religion' => trim($row[8]),
+                'role' => trim($row[9]),
                 // 'must_reset_password' => 1
             ];
     
             // Generate password
-            $plainPassword = strtolower($userData['username']) . '123';
+            $plainPassword = strtolower($userData['nameWithInitial']) . '123';
             $userData['password'] = password_hash($plainPassword, PASSWORD_BCRYPT);
     
             // Validate user data
@@ -118,21 +119,21 @@ class SuperAdmin extends Controller {
                     $mail->Port = 587;
 
                     $mail->setFrom('nikilasilva@gmail.com', 'Eduflex Admin');
-                    $mail->addAddress($userData['email'], $userData['username']);
+                    $mail->addAddress($userData['email'], $userData['fullName']);
 
                     $mail->isHTML(true);
                     $mail->Subject = 'Your Eduflex Account Details';
                     $mail->Body = "
                         <h2>Welcome to EduFlex!</h2>
                         <p>Your account has been created. Below are your login details:</p>
-                        <p><strong>Username:</strong> {$userData['username']}</p>
+                        <p><strong>Full Name:</strong> {$userData['fullName']}</p>
                         <p><strong>Password:</strong> {$plainPassword}</p>
                         <p>Please change your password immediately by clicking the link below:</p>
                         <p><a href='".URLROOT."/Users/updatePassword'>Change Password</a></p>
                         <p>For security, this is a one-time password. Log in and update it as soon as possible.</p>
                         <p>Thank you, <br>Eduflex Team</p>
                     ";
-                    $mail->AltBody = "Welcome to EduFlex!\nYour account details:\nUsername: {$userData['username']}\nPassword: {$plainPassword}\nPlease change your password at " . URLROOT . "/Users/updatePassword\nThis is a one-time password. Log in and update it soon.\nThank you,\nEduflex Team";
+                    $mail->AltBody = "Welcome to EduFlex!\nYour account details:\nUsername: {$userData['fullName']}\nPassword: {$plainPassword}\nPlease change your password at " . URLROOT . "/Users/updatePassword\nThis is a one-time password. Log in and update it soon.\nThank you,\nEduflex Team";
                     $mail->send();
                 } catch (Exception $e) {
                     $emailErrors[] = "Failed to send email to {$userData['email']}: {$mail->ErrorInfo}";
@@ -140,12 +141,12 @@ class SuperAdmin extends Controller {
     
                 if ($userData['role'] === 'student') {
                     $studentData = [
-                        'studentId' => isset($row[9]) && $row[9] ? trim($row[9]) : 'S' . str_pad($userData['regNo'], 4, '0', STR_PAD_LEFT),
+                        'student_id' => isset($row[10]) && $row[10] ? trim($row[10]) : 'S' . str_pad($userData['regNo'], 4, '0', STR_PAD_LEFT),
                         'regNo' => $userData['regNo'],
-                        'firstName' => $userData['username'], // Using username as firstName
-                        'lastName' => '',
-                        'classId' => isset($row[10]) ? trim($row[10]) : null,
-                        'guardianRegNo' => isset($row[11]) ? trim($row[11]) : null
+                        // 'firstName' => $userData['username'], // Using username as firstName
+                        // 'lastName' => '',
+                        'classId' => isset($row[11]) ? trim($row[11]) : null,
+                        'guardianRegNo' => isset($row[12]) ? trim($row[12]) : null
                     ];
                     if (!$studentData['classId'] || !is_numeric($studentData['classId']) || !$this->ClassModel->classIdExists($studentData['classId'])) {
                         $errors[] = "Invalid or missing classId for student regNo: {$userData['regNo']}";
@@ -155,8 +156,8 @@ class SuperAdmin extends Controller {
                         $errors[] = "Invalid or non-existent guardianRegNo for student regNo: {$userData['regNo']}";
                         continue;
                     }
-                    if ($this->AllStudentsModel->studentIdExists($studentData['studentId'])) {
-                        $errors[] = "Duplicate studentId: {$studentData['studentId']}";
+                    if ($this->AllStudentsModel->studentIdExists($studentData['student_id'])) {
+                        $errors[] = "Duplicate student_id: {$studentData['student_id']}";
                         continue;
                     }
                     if (!$this->AllStudentsModel->insertStudent($studentData)) {
@@ -165,10 +166,10 @@ class SuperAdmin extends Controller {
                 } elseif ($userData['role'] === 'parent') {
                     $parentData = [
                         'regNo' => $userData['regNo'],
-                        'firstName' => ucwords(strtolower($userData['username'])), // Using username as firstName
-                        'lastName' => '',
-                        'occupation' => isset($row[12]) && $row[12] !== '' ? ucwords(strtolower(trim($row[12]))) : 'Not Specified',
-                        'relationship' => isset($row[13]) && $row[13] !== '' ? trim($row[13]) : 'Guardian'
+                        // 'firstName' => ucwords(strtolower($userData['username'])), // Using username as firstName
+                        // 'lastName' => '',
+                        'occupation' => isset($row[13]) && $row[13] !== '' ? ucwords(strtolower(trim($row[13]))) : 'Not Specified',
+                        'relationship' => isset($row[14]) && $row[14] !== '' ? trim($row[14]) : 'Guardian'
 
                     ];
 

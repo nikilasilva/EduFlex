@@ -14,7 +14,7 @@ class ExtraEvent extends Controller
 
     public function index()
     {
-        // $this->view('inc/extra-events/createEvent');
+        $this->view('inc/extra-events/createEvent');
     }
 
 

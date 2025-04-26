@@ -40,7 +40,7 @@
 </nav>
 
 <body>
-    <div class="aca-container">
+    <div class="aca-container container">
         <h1>Facility & Service Charges</h1>
         
         <form action="<?= URLROOT ?>/payment_charges/paymentParent" method="POST" style="text-align:center; margin-bottom: 30px;">
