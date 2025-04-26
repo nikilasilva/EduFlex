@@ -307,14 +307,8 @@ class NonAcademic extends Controller
 
     //start verify service charges
 
-    public function requestedCertificate()
-    {
-        $this->view('inc/nonAcademic/requestedCertificate');
-    }
-    public function allocatedTime()
-    {
-        $this->view('inc/nonAcademic/allocatedTime');
-    }
+    //
+    // start service charges
 
     //-------------
     public function searchServiceChargesByStudentId()  // Search service charges by student ID
@@ -341,12 +335,76 @@ class NonAcademic extends Controller
         }
     }
 
-    public function verify_service_charges()  // view all service charges
+    public function submitted_verify_service_charges()  // view all submitted service charges
     {
         $serviceChargesModel = new payment_chargesModel_verryfy(); // Assuming you have this model to load students
         $serviceCharge = $serviceChargesModel->findAll();
         $this->view('inc/nonAcademic/verify_service_charges', ['serviceCharges' => $serviceCharge]);
     }
+
+    public function SubmitServiceCharges()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $attendance = $_POST['attendance']; // attendance contains student_id => status pairs
+
+        $serviceChargesModel = new payment_chargesModel_verryfy();
+
+        foreach ($attendance as $studentId => $status) {
+            // Update the status for each student
+            $serviceChargesModel->updateStatusByStudentId($studentId, $status);
+        }
+
+        // Redirect back with a success message (optional)
+        $_SESSION['success_message'] = "Service charges updated successfully.";
+        header('Location: ' . URLROOT . '/NonAcademic/submitted_verify_service_charges');
+        exit;
+    }
+}
+
+// Inside app/controllers/NonAcademic.php
+
+public function viewVerifyServiceCharges()
+{
+    // Load the model
+    $serviceChargesModel = new payment_chargesModel_verryfy();
+
+    // Fetch service charges data (you can adjust query conditions if needed)
+    $serviceCharges = $serviceChargesModel->findAll();
+
+    // Send the data to the view
+    $this->view('inc/nonAcademic/view_verify_service_charges', [
+        'serviceCharges' => $serviceCharges
+    ]);
+}
+
+public function searchVerifiedServiceChargesByStudentId()  // Search service charges by student ID
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $studentId = $_POST['student_id'];
+
+            if (!empty($studentId)) {
+                $serviceChargesModel = new payment_chargesModel_verryfy();
+                $result = $serviceChargesModel->where(['student_id' => $studentId]);
+
+                if ($result) {
+                    $this->view('inc/nonAcademic/view_verify_service_charges', ['serviceCharges' => $result]);
+                } else {
+                    $_SESSION['error_message'] = "No service charges found for Student ID: " . htmlspecialchars($studentId);
+                    $this->view('inc/nonAcademic/view_verify_service_charges', ['serviceCharges' => []]);
+                }
+            } else {
+                $_SESSION['error_message'] = "Student ID cannot be empty.";
+                $this->view('inc/nonAcademic/view_verify_service_charges', ['serviceCharges' => []]);
+            }
+        } else {
+            $this->view('inc/nonAcademic/view_verify_service_charges', ['serviceCharges' => []]);
+        }
+    }
+
+
+
+    
+
 
 
     public function downloadFile($fileName)  // Download file function
@@ -377,6 +435,16 @@ class NonAcademic extends Controller
         } else {
             die('File not found.');
         }
+    }
+
+
+    public function requestedCertificate()
+    {
+        $this->view('inc/nonAcademic/requestedCertificate');
+    }
+    public function allocatedTime()
+    {
+        $this->view('inc/nonAcademic/allocatedTime');
     }
 
 
