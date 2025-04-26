@@ -55,7 +55,7 @@
                                 <?php else: ?>
                                     <button onclick="alert('The email has already been sent to the student.'); return false;" style="padding: 6px 12px; background-color: rgb(59, 143, 57); color: white; border: none; border-radius: 4px; ">
                                         Sent Email
-                                    </button>                                <?php endif; ?>
+                                    </button> <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -66,6 +66,11 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <a href="<?php echo URLROOT; ?>/NonAcademic/allocatedleavingCertificatesView">
+            <button class="byn btn-primary">
+            View Attendance Time
+            </button>
+        </a>
 
     </div>
 </div>

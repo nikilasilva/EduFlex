@@ -136,14 +136,14 @@
 
                 </table>
                 <button type="submit" class="submit-btn">Submit Payments</button>
-                
+
 
             </form>
             <a href="<?php echo URLROOT; ?>/NonAcademic/viewVerifyServiceCharges">
-                    <button class="byn btn-primary">
-                        View Verified Service Charges
-                    </button>
-                </a>
+                <button class="byn btn-primary">
+                    View Verified Service Charges
+                </button>
+            </a>
         </div>
     </div>
 </body>

@@ -58,12 +58,15 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
-                
-
                 <br>
                 <button type="submit" class="btn btn-primary">Submit Attendance</button>
+
             </form>
+            <a href="<?php echo URLROOT; ?>/NonAcademic/ViewTeachersAttendance">
+                <button class="byn btn-primary">
+                    View Attendance
+                </button>
+            </a>
         </div>
     </div>
 </body>

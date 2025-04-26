@@ -211,54 +211,54 @@ class NonAcademic extends Controller
 
 
 
-    // public function SubmitTeachersAttendanceForm() // Submit the teachers attendance form
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $attendanceModel = new TeacherAttendanceModel();
+    public function SubmitTeachersAttendanceForm() // Submit the teachers attendance form
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $attendanceModel = new TeacherAttendanceModel();
 
-    //         $teacherIds = $_POST['teacher_ids'];
-    //         $attendance = $_POST['attendance'];
-    //         $currentDate = date('Y-m-d');
+            $teacherIds = $_POST['teacher_ids'];
+            $attendance = $_POST['attendance'];
+            $currentDate = date('Y-m-d');
 
-    //         $errors = [];
+            $errors = [];
 
-    //         foreach ($teacherIds as $teacherId) {
-    //             if (isset($attendance[$teacherId])) {
-    //                 //  Check if attendance for this teacher on this date already exists
-    //                 $existing = $attendanceModel->where([
-    //                     'teacher_id' => $teacherId,
-    //                     'attendance_date' => $currentDate
-    //                 ]);
+            foreach ($teacherIds as $teacherId) {
+                if (isset($attendance[$teacherId])) {
+                    //  Check if attendance for this teacher on this date already exists
+                    $existing = $attendanceModel->where([
+                        'teacher_id' => $teacherId,
+                        'attendance_date' => $currentDate
+                    ]);
 
-    //                 if ($existing) {
-    //                     $errors[] = "Attendance already marked for Teacher ID $teacherId.";
-    //                     continue;
-    //                 }
+                    if ($existing) {
+                        $errors[] = "Attendance already marked for Teacher ID $teacherId.";
+                        continue;
+                    }
 
-    //                 //  Otherwise, insert attendance
-    //                 $status = $attendance[$teacherId];
+                    //  Otherwise, insert attendance
+                    $status = $attendance[$teacherId];
 
-    //                 $attendanceModel->insert([
-    //                     'teacher_id' => $teacherId,
-    //                     'status' => $status,
-    //                     'attendance_date' => $currentDate
-    //                 ]);
-    //             }
-    //         }
-
-
-    //         //  Pass error messages to the view (to show in a popup)
-    //         if (!empty($errors)) {
-    //             $_SESSION['attendance_errors'] = $errors;
-    //         } else {
-    //             $_SESSION['success_message'] = "Attendance submitted successfully!";
-    //         }
-
-    //         $this->view('inc/nonAcademic/ViewTeachersAttendance');
+                    $attendanceModel->insert([
+                        'teacher_id' => $teacherId,
+                        'status' => $status,
+                        'attendance_date' => $currentDate
+                    ]);
+                }
+            }
 
 
-    //     }
-    // }
+            //  Pass error messages to the view (to show in a popup)
+            if (!empty($errors)) {
+                $_SESSION['attendance_errors'] = $errors;
+            } else {
+                $_SESSION['success_message'] = "Attendance submitted successfully!";
+            }
+
+            $this->view('inc/nonAcademic/ViewTeachersAttendance');
+
+
+        }
+    }
 
     // public function updateAllTeachersAttendance() // Update all teachers attendance records
     // {

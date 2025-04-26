@@ -69,6 +69,11 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <a href="<?php echo URLROOT; ?>/NonAcademic/allocatedCharacterCertificatesView">
+            <button class="byn btn-primary">
+                View Attendance Time
+            </button>
+        </a>
 
     </div>
 </div>
