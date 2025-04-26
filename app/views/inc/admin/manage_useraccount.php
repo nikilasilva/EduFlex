@@ -150,7 +150,7 @@
 
             <button type="submit" class="btn btn-primary">Submit User</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewUser'" class="btn btn-primary">View Users</button><br><br>
-            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>

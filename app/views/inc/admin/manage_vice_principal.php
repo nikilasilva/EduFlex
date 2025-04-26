@@ -31,15 +31,15 @@
 
 
     <!--JS -->
-<script>
-    document.getElementById('experience').addEventListener('input', function () {
-        if (this.value < 0) {
-            this.value = '';
-            alert("Experience must be a positive number.");
-        }
-    });
-</script>
-</div>
+            <script>
+                document.getElementById('experience').addEventListener('input', function () {
+                    if (this.value < 0) {
+                        this.value = '';
+                        alert("Experience must be a positive number.");
+                    }
+                });
+            </script>
+            </div>
 
 
           <!-- Hire Date -->
@@ -68,6 +68,7 @@
             <button type="submit" class="btn btn-primary">Submit Vice Principal</button>
             <br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewVicePrincipal'" class="btn btn-primary">View Vice Principals</button>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
 
 
             <!-- ################To get users ID ################ -->

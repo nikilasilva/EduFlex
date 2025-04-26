@@ -9,7 +9,12 @@
     <title>Manage User Accounts</title>
 
     <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/admin.css">
+
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
+
+    <style>
+        
+    </style>
 </head>
 
 <body>

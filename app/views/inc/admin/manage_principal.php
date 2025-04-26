@@ -76,6 +76,7 @@
             <button type="submit" class="btn btn-primary">Submit Principal</button>
             <br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewPrincipal'" class="btn btn-primary">View Principals</button>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
 
             <!-- ################To get users ID ################ -->
 

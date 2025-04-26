@@ -40,7 +40,8 @@ teacher
                     <?php foreach ($data['teachers'] as $teacher): ?>
                         <tr>
                             
-                            <td><?php echo $teacher->regNo; ?></td>
+                            <td><?php echo $teacher->
+                            ; ?></td>
                             <td><?php echo $teacher->teacher_id; ?></td>
                             <td><?php echo $teacher->nameWithInitial?></td>
                             <td><?php echo $teacher->subject; ?></td>

@@ -36,7 +36,7 @@
             <!-- Buttons -->
             <button type="submit" class="btn btn-primary">Submit Class</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewClass'" class="btn btn-primary">View Class</button><br><br>
-            <!-- <a href="<?php echo URLROOT; ?>/admin/dashboard/index" class="btn btn-secondary">Cancel</a> -->
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
 
 
              <!-- ################To get Teacher ID ################ -->

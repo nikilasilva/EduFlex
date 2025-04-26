@@ -21,7 +21,7 @@
             <img src="<?php echo $imgSrc ?>" alt="User Photo" class="user-profile-photo">
         </div>
         <div class="user-profile-info-section">
-            <h2 class="user-name"> <?php echo htmlspecialchars(ucwords($data['user']->username)); ?> </h2>
+            <h2 class="user-name"> <?php echo htmlspecialchars(ucwords($data['user']->nameWithInitial)); ?> </h2>
             <ul class="user-details">
                 <li><strong>Gender:</strong> <?php echo htmlspecialchars($data['user']->gender); ?> </li>
                 <li><strong>Date of Birth:</strong> <?php echo htmlspecialchars($data['user']->dob); ?> </li> 

@@ -64,7 +64,7 @@
 
             <button type="submit" class="btn btn-primary">Submit Non-Academic</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewNonaca'" class="btn btn-primary">View Non-Academic Staff</button><br><br>
-            <!-- <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a> -->
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
 
 
             <!-- ################To get users ID ################ -->

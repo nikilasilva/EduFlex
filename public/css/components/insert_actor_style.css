@@ -69,3 +69,34 @@
 .submit-button:hover {
     background-color: #0056b3;
 }
+
+
+/*Style the uodate and delete button */
+.btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px; /* optional: forces all buttons to be at least this wide */
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
