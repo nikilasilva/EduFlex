@@ -10,10 +10,10 @@ class Student_attendanceModel {
         'class',
         'status'
     ];
-
+    protected $order_column;
 
     public function __construct() {
-        $this->order_column = 'student_id';
+        $this->order_column = 'student_id'; 
     }
 
     
