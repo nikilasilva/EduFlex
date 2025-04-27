@@ -7,10 +7,10 @@
     <main>
         <div class="current-activity-content">
         <h1>All Free Classes</h1>
-        <div class="search-bar">
+        <!-- <div class="search-bar">
             <input type="text" placeholder="Search by class" id="search-input">
             <button id="search-button">SEARCH</button>
-        </div>
+        </div> -->
         <?php if (isset($message)): ?>
                 <p><?php echo $message; ?></p>
         <?php endif; ?>
@@ -31,7 +31,7 @@
                 <td><?= $class['subjectName'] ?></td>
                 <td><?= $class['periodName'] ?></td>
                 <td>
-                <a href="<?php echo URLROOT ?>/CurrentActivities/showAvailableTeachers?subjectId=<?= $class['subjectId'] ?>&periodId=<?= $class['periodId'] ?>&day=<?= $class['day'] ?>">Assign</a>
+                <a class="btn btn-edit" href="<?php echo URLROOT ?>/CurrentActivities/showAvailableTeachers?subjectId=<?= $class['subjectId'] ?>&periodId=<?= $class['periodId'] ?>&day=<?= $class['day'] ?>">Assign</a>
                 </td>
             </tr>
             <?php endforeach; ?>        

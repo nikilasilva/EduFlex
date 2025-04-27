@@ -6,10 +6,10 @@
     <main>
         <div class="current-activity-content">
             <h1>All Free Teachers</h1>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <input type="text" placeholder="Search by class" id="search-input">
                 <button id="search-button">SEARCH</button>
-            </div>
+            </div> -->
             <?php if (isset($data['message'])): ?>
                 <p><?php echo $data['message']; ?></p>
             <?php elseif (empty($data['availableTeachers'])): ?>
@@ -18,6 +18,7 @@
                 <table class="free-classes-table">
                     <thead>
                         <tr>
+                            <th>Teacher ID</th>
                             <th>Name</th>
                             <th>Mobile No</th>
                             <th>Action</th>
@@ -26,10 +27,11 @@
                     <tbody id="table-body">
                         <?php foreach ($data['availableTeachers'] as $teacher): ?>
                         <tr>
-                            <td><?= $teacher->firstName . " " . $teacher->lastName ?></td>
+                            <td><?= $teacher->teacher_id ?></td>
+                            <td><?= $teacher->fullName ?></td>
                             <td><?= $teacher->mobileNo ?></td>
                             <td>
-                                <button onclick="confirmAssignment(<?= $teacher->teacherId ?>)">Confirm</button>
+                                <button class="btn btn-edit" onclick="confirmAssignment(<?= $teacher->teacherId ?>)">Confirm</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -111,9 +111,9 @@ class SuperAdmin extends Controller {
                 $mail = new PHPMailer(true);
                 try {
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
+                    $mail->Host = SMTP_HOST;
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'nikilasilva@gmail.com';
+                    $mail->Username = SMTP_USER;
                     $mail->Password = SMTP_PASSWORD;
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port = 587;
