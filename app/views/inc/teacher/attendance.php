@@ -46,34 +46,38 @@
                         <?php if (!empty($data['students']) && is_array($data['students'])): ?>
                             <?php foreach ($data['students'] as $student): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($student->student_id) ?></td>
-                                    <td><?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></td>
+    <td><?= htmlspecialchars($student->student_id) ?></td>
+    <td>
+        <?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?>
+        <input type="hidden" name="student_name[<?= $student->student_id ?>]" 
+            value="<?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?>">
+    </td>
+    <td>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <label>
+                <input type="radio"
+                    name="attendance[<?= $student->student_id ?>]"
+                    value="Present"
+                    <?= isset($data['oldInput']['attendance'][$student->student_id]) && $data['oldInput']['attendance'][$student->student_id] === 'Present' ? 'checked' : '' ?>>
+                Present
+            </label>
+            <label>
+                <input type="radio"
+                    name="attendance[<?= $student->student_id ?>]"
+                    value="Absent"
+                    <?= isset($data['oldInput']['attendance'][$student->student_id]) && $data['oldInput']['attendance'][$student->student_id] === 'Absent' ? 'checked' : '' ?>>
+                Absent
+            </label>
+        </div>
 
-                                    <input type="hidden" name="student_name[<?= $student->student_id ?>]"
-                                        value="<?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?>">
+        <?php if (!empty($data['errors']['attendance'][$student->student_id])): ?>
+            <div class="error-message" style="color: red; margin-top: 5px;">
+                <span class="error"><?= htmlspecialchars($data['errors']['attendance'][$student->student_id]) ?></span>
+            </div>
+        <?php endif; ?>
+    </td>
+</tr>
 
-                                    <td>
-                                        <label style="margin-right: 10px;">
-                                            <input type="radio"
-                                                name="attendance[<?= $student->student_id ?>]"
-                                                value="present"
-                                                <?= isset($data['oldInput']['attendance'][$student->student_id]) && $data['oldInput']['attendance'][$student->student_id] === 'present' ? 'checked' : '' ?>>
-                                            Present
-                                        </label>
-                                        <label>
-                                            <input type="radio"
-                                                name="attendance[<?= $student->student_id ?>]"
-                                                value="absent"
-                                                <?= isset($data['oldInput']['attendance'][$student->student_id]) && $data['oldInput']['attendance'][$student->student_id] === 'absent' ? 'checked' : '' ?>>
-                                            Absent
-                                        </label>
-                                        <?php if (!empty($data['errors']['attendance'][$student->student_id])): ?>
-                                            <div class="error-message" style="color: red; margin-bottom: 10px;">
-                                                <span class="error"><?= htmlspecialchars($data['errors']['attendance'][$student->student_id]) ?></span>
-                                            </div>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>

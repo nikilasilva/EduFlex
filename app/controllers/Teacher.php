@@ -141,7 +141,7 @@ class Teacher extends Controller
                     $errors['attendance'][$studentId] = "Please select a status.";
                 }
                 // Check if status is valid
-                elseif (!in_array($attendance[$studentId], ['present', 'absent'])) {
+                elseif (!in_array($attendance[$studentId], ['Present', 'Absent'])) {
                     $errors['attendance'][$studentId] = "Invalid status.";
                 }
             }
@@ -163,7 +163,7 @@ class Teacher extends Controller
                     'class' => $class,
                     'errors' => $errors,
                     'oldInput' => [
-                        'attendance' => $attendance
+                    'attendance' => $attendance
                     ]
                 ]);
                 return;

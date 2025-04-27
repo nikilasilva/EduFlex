@@ -21,7 +21,7 @@
         <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
         <!-- Main content -->
-        <div class="record-container">
+        <div class="record-container container">
             <h1>Edit Activity</h1>
 
             <!-- Alert messages -->

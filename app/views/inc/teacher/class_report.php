@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
 
-<div class="class-report-container printable-area">
+<div class="class-report-container container printable-area">
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <div class="download-btn-container no-print">

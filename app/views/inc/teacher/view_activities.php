@@ -16,7 +16,7 @@
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
-    <div class="view-activities-container">
+    <div class="view-activities-container container">
         <h1>All Recorded Activities</h1>
 
         <!-- Activities table -->

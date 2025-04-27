@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="submit-marks-container">
+<div class="submit-marks-container container">
     <h1 class="form-title">Submit Marks</h1>
 
     <!-- Display custom error messages -->

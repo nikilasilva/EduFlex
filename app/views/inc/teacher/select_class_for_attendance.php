@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="select-class-container">
+<div class="select-class-container container">
     <h1>Select Class</h1>
 
     <?php if (!empty($_SESSION['error'])): ?>

@@ -22,7 +22,7 @@
         <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
         <!-- Main content -->
-        <div class="record-container">
+        <div class="record-container container">
             <h1>Record Activity</h1>
 
             <!-- Alert messages -->
@@ -115,7 +115,7 @@
 
             <button type="submit" class="btn btn-primary">Submit Activity</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/teacher/viewActivities'" class="btn btn-primary">View All Records</button><br><br>
-            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/teacher/viewActivities" class="btn btn-primary">Cancel</a>
         </form>
         </div>
     </div>

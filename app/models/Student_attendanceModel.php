@@ -13,7 +13,7 @@ class Student_attendanceModel {
 
 
     public function __construct() {
-        $this->order_column = 'student_id'; // ✅ safely override here
+        $this->order_column = 'student_id';
     }
 
     
