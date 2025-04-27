@@ -193,30 +193,40 @@ class Teacher extends Controller
 
 
     public function viewAttendance()
-    {
-        checkRole('teacher');
-        $date = $_GET['attendance_date'] ?? null;
-        $classId = $_GET['view_class'] ?? null;
+{
+    checkRole('teacher');
+    $date = $_GET['attendance_date'] ?? null;
+    $classId = $_GET['view_class'] ?? null;
 
-        if (!$date || !$classId) {
-            $_SESSION['error'] = "Date or class not provided.";
-            header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
-            exit();
-        }
-
-        $attendanceModel = new Student_attendanceModel();
-        $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $classId]);
-        $className = $attendanceModel->getClassName($classId);
-
-        $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
-
-        $this->view('inc/teacher/view_attendance', [
-            'attendanceRecords' => $attendanceRecords,
-            'date' => $date,
-            'class' => $classId,         // for logic if needed
-            'className' => $className    // for display
-        ]);
+    if (!$date || !$classId) {
+        $_SESSION['error'] = "Date or class not provided.";
+        header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
+        exit();
     }
+
+    // Manual date validation
+    $selectedDate = strtotime($date);
+    $currentDate = strtotime(date('Y-m-d'));
+    
+    if ($selectedDate > $currentDate) {
+        $_SESSION['error'] = "You cannot view attendance for future dates.";
+        header("Location: " . URLROOT . "/teacher/attendance?class=" . $classId);
+        exit();
+    }
+
+    $attendanceModel = new Student_attendanceModel();
+    $attendanceRecords = $attendanceModel->where(['date' => $date, 'class' => $classId]);
+    $className = $attendanceModel->getClassName($classId);
+
+    $attendanceRecords = json_decode(json_encode($attendanceRecords), true);
+
+    $this->view('inc/teacher/view_attendance', [
+        'attendanceRecords' => $attendanceRecords,
+        'date' => $date,
+        'class' => $classId,         // for logic if needed
+        'className' => $className    // for display
+    ]);
+}
 
 
     public function editAttendance()
@@ -287,31 +297,39 @@ class Teacher extends Controller
 
 
     //absences
-
     public function viewAbsences()
     {
         checkRole('teacher');
         $date = $_GET['attendance_date'] ?? null;
         $class = $_GET['class'] ?? null;
-
+    
         if (!$date || !$class) {
             $_SESSION['error'] = "Date or class not provided.";
             header("Location: " . URLROOT . "/teacher/selectClassForAttendance");
             exit();
         }
-
+    
+        // Manual date validation
+        $selectedDate = strtotime($date);
+        $currentDate = strtotime(date('Y-m-d'));
+        
+        if ($selectedDate > $currentDate) {
+            $_SESSION['error'] = "You cannot view absence reports for future dates.";
+            header("Location: " . URLROOT . "/teacher/attendance?class=" . $class);
+            exit();
+        }
+    
         $attendanceModel = new Student_attendanceModel();
         $absences = $attendanceModel->getAbsencesByDateAndClass($date, $class);
         $absences = json_decode(json_encode($absences), true);
-
-
+    
         $absenceModel = new AbsenceModel();
-        $className = $absenceModel->getClassName($class); // use $class (which is classId from the form)
-
+        $className = $absenceModel->getClassName($class);
+    
         $this->view('inc/teacher/view_absences', [
             'absences' => $absences,
             'date' => $date,
-            'className' => $className // <- this should now be the actual class name
+            'className' => $className
         ]);
     }
 
