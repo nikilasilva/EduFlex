@@ -193,4 +193,23 @@ class Payment_charges extends Controller {
             'error' => $error
         ]);
     }
+
+    // public function updatePayment($id){
+    //     $payment_chargesModel = $this->model('Payment_chargesModel');
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $data = json_decode(file_get_contents('php://input'), true);
+
+    //         $updateData = [
+               
+    //             'full_name' => trim($data['fullName']),
+    //             'student_id' => trim($data['studentId']),
+    //             'year_of_payment' => trim($data['payment']),
+    //             'payment_slip' => ''
+    //         ];
+
+    //        $updateSucces =  $payment_chargesModel->update($id, $updateData,'payment_id');
+    //        header("location: " . URLROOT . "payment_charges/submit");
+
+    // }
+   
 }

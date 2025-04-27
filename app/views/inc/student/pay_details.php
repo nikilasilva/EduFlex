@@ -113,6 +113,7 @@ $payments = $data['payments'] ?? [];
                     <td><?= htmlspecialchars($payment->full_name) ?></td> -->
                     <td><?= htmlspecialchars($payment->student_id) ?></td>
                     <td><?= htmlspecialchars($payment->year_of_payment) ?></td>
+                   
                 <!-- <td>
                          <?php if (!empty($payment->payment_slip)) : ?>
                             <a href="<?= URLROOT ?>/uploads/<?= htmlspecialchars($payment->payment_slip) ?>" target="_blank">View</a>
