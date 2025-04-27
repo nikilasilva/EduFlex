@@ -9,9 +9,13 @@ class TeacherAttendanceModel
     protected $table = 'teacherattendance';
 
     protected $allowedColumns = [
-        'teacher_id',
-        'status',
-        'attendance_date',
+        'attendanceId', // 'attendance_id' change to 'attendanceId',
+        'teacherRegNo',// 'teacher_id' to 'teacherRegNo',
+        'date', // 'attendance_date',
+        'status	',  // 'status' to 'date',
+        'recordedBy', // 'recordedBy' (New)
+        'recordedAt' // 'recordedAt' (New)
+
     ];
 
     protected $order_column = 'attendance_date';

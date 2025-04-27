@@ -1,13 +1,15 @@
 <!-- // all emty -->
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
 
 
 class NonAcademic extends Controller
 {
-    public function __construct() {}
+    public function __construct() {
+        checkRole('non-academic');// can not be log athers
+    }
 
     // // View all NonAcademics.
     // public function nonAcademics() {
@@ -119,6 +121,7 @@ class NonAcademic extends Controller
 
     public function TeachersAttendenceeForm()
     {
+        
         $teacherModel = new TeacherModeldev3(); // Make sure this model exists
         $teachers = $teacherModel->findAll();
 

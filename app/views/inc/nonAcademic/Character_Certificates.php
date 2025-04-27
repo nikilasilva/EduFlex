@@ -68,7 +68,7 @@
         </table>
         <a href="<?php echo URLROOT; ?>/NonAcademic/allocatedCharacterCertificatesView">
             <button class="byn btn-primary">
-                View Attendance Time
+                View Allocated Time
             </button>
         </a>
 
