@@ -12,6 +12,7 @@ class Teacher extends Controller
     private $subjectModel;
     private $teacherModel;
     private $ClassesModel;
+    private $TimetableModel;
 
     public function __construct()
     {
@@ -24,6 +25,7 @@ class Teacher extends Controller
         $this->subjectModel = $this->model('SubjectModel');
         $this->teacherModel = $this->model('TeacherModel');
         $this->ClassesModel = $this->model('ClassesModel');
+        $this->TimetableModel = $this->model('TimetableModel');
     }
 
     public function teachers()
@@ -53,14 +55,17 @@ class Teacher extends Controller
 
     public function timeTable()
     {
+        
+        $teacherRegNo = $_SESSION['user']['regNo'];
+        $teacherId = $this->teacherModel->getTeacherId($teacherRegNo);
+        
+        $timetable = $this->TimetableModel->getTimetableByTeacherAndDay($teacherId, 'all');
         $data = [
-            'timeTable' => [
-                ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
-
-            ]
+            'timeTable' => $timetable
         ];
+        
 
-        $this->view('time_table', $data);
+        $this->view('inc/teacher/teacherTimetable', $data);
     }
 
     public function attendance()
@@ -845,7 +850,7 @@ class Teacher extends Controller
             $data['teachers'] = array_map(function ($teacher) {
                 return [
                     'regNo' => $teacher->regNo,
-                    'fullName' => $teacher->firstName . ' ' . $teacher->lastName,
+                    'fullName' => $teacher->fullName,
                     'email' => $teacher->email,
                     'mobileNo' => $teacher->mobileNo,
                     'subjects' => $teacher->subjects,
