@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Student</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/daily_activities.css">
+      <!-- Link to the CSS file -->
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
 </head>
 <body>
 <div class="layout">
@@ -15,10 +18,17 @@
 
     <!-- Main content -->
     <div class="container">
+
+    <?php if (!empty($data['form_err'])): ?>
+        <div style="color: red; font-weight: bold; margin-bottom: 15px;">
+            <?php echo $data['form_err']; ?>
+        </div>
+    <?php endif; ?>
+
         <h1>Insert Student Details</h1>
 
         <!-- Student Form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitStudent" method="POST">
+        <form action="<?php echo URLROOT; ?>/Admin/submitStudent" method="POST" novalidate>
 
 
             <!-- Student ID -->
@@ -58,11 +68,11 @@
             <!-- Buttons -->
             <button type="submit" class="btn btn-primary">Submit Student</button><br><br>
             <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewStudent'" class="btn btn-primary">View All Records</button><br><br>
-            <a href="<?php echo URLROOT; ?>/admin/dashboard" class="btn btn-secondary">Cancel</a>
+            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
 
 
-            <h1>Show Student Accounts</h1>
+            <h1>Show Student Details</h1>
 
 <!-- Student Accounts Table -->
 <table class="activities-table">

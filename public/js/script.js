@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".upload-timetable-container"),
         document.querySelector(".assign-class-teachers-container"),
         document.querySelector(".container"),
-
     ];
 
     // Restore sidebar state from localStorage

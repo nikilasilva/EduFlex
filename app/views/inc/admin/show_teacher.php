@@ -31,7 +31,7 @@ teacher
                         <th>Subject</th>
                         <th>Year of Experience</th>
                         <th>Hire Date</th>
-                        <th>action</th>
+                        <th>Operation</th>
                         
 
                     </tr>
@@ -48,7 +48,7 @@ teacher
                             <td><?php echo $teacher->hireDate; ?></td>
 
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-edit">Update</a><br></br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteTeacher/<?php echo $teacher->teacher_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this recode?');">Delete</a>
                             </td>
                         </tr>

@@ -7,67 +7,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Vice Principal</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/style.css">
+    <!-- Link to the CSS file -->
+   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/insert_actor_style.css">
 </head>
 <body>
 <div class="layout">
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
     <div class="container">
-        <h1>Insert Vice Principal Details!!!</h1>
+        <h1>Insert Vice Principal Details</h1>
 
-        <form action="<?php echo URLROOT; ?>/Admin/submitVicePrincipal" method="POST">
-            <!-- User ID -->
-            <div class="form-group">
-                <label for="regNo">User Reg:</label>
-                <input type="number" name="regNo" id="regNo" value="<?php echo isset($formData['regNo']) ? $formData['regNo'] : ''; ?>" required>
-                <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
-            </div>
+        <form id="vicePrincipalForm" action="<?php echo URLROOT; ?>/Admin/submitVicePrincipal" method="POST" novalidate>
 
-            <!-- Experience -->
-<div class="form-group">
-    <label for="experience">Years of Experience:</label>
-    <input type="number" name="experience" id="experience" min="0" value="<?php echo isset($formData['experience']) ? $formData['experience'] : ''; ?>" required>
-    <span class="error"><?php echo isset($errors['experience']) ? $errors['experience'] : ''; ?></span>
+                <div class="form-group">
+                    <label for="regNo">User Reg:</label>
+                    <input type="number" name="regNo" id="regNo" required>
+                    <div class="error-message" id="regNoError"></div>
+                </div>
 
+                <div class="form-group">
+                    <label for="experience">Years of Experience:</label>
+                    <input type="number" name="experience" id="experience" min="0" required>
+                    <div class="error-message" id="experienceError"></div>
+                </div>
 
+                <div class="form-group">
+                    <label for="hireDate">Hire Date:</label>
+                    <input type="date" name="hireDate" id="hireDate" required>
+                    <div class="error-message" id="hireDateError"></div>
+                </div>
 
-    <!--JS -->
-<script>
-    document.getElementById('experience').addEventListener('input', function () {
-        if (this.value < 0) {
-            this.value = '';
-            alert("Experience must be a positive number.");
-        }
-    });
-</script>
-</div>
+                <button type="submit" class="btn btn-primary">Submit Vice Principal</button><br><br>
+                <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewVicePrincipal'" class="btn btn-primary">View Vice Principals</button><br><br>
+                <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
+        </form>
 
-          <!-- Hire Date -->
-<div class="form-group">
-    <label for="hireDate">Hire Date:</label>
-    <input type="date" name="hireDate" id="hireDate" value="<?php echo isset($formData['hireDate']) ? $formData['hireDate'] : ''; ?>" required>
-    <span class="error"><?php echo isset($errors['hireDate']) ? $errors['hireDate'] : ''; ?></span>
-</div>
+                <!-- Validation Script -->
+                <script>
+                document.getElementById('vicePrincipalForm').addEventListener('submit', function(event) {
+                let isValid = true;
 
-<!-- JavaScript validation -->
-<script>
-    document.getElementById('hireDate').addEventListener('change', function () {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
+                // Clear previous error messages
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
 
-        // Remove time from today's date for accurate comparison
-        today.setHours(0, 0, 0, 0);
+                // regNo Validation
+                const regNo = document.getElementById('regNo').value.trim();
+                if (!regNo) {
+                    document.getElementById('regNoError').textContent = 'Registration number is required.';
+                    isValid = false;
+                }
 
-        if (selectedDate > today) {
-            alert("Hire Date cannot be in the future.");
-            this.value = '';
-        }
-    });
-</script>
+                // Experience Validation
+                const experience = document.getElementById('experience').value.trim();
+                if (experience === '' || experience < 0) {
+                    document.getElementById('experienceError').textContent = 'Experience must be a positive number.';
+                    isValid = false;
+                }
 
-            <button type="submit" class="btn btn-primary">Submit Vice Principal</button>
-            <br><br>
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewVicePrincipal'" class="btn btn-primary">View Vice Principals</button>
+                // Hire Date Validation
+                const hireDate = document.getElementById('hireDate').value;
+                if (!hireDate) {
+                    document.getElementById('hireDateError').textContent = 'Hire date is required.';
+                    isValid = false;
+                } else {
+                    const selectedDate = new Date(hireDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    if (selectedDate > today) {
+                        document.getElementById('hireDateError').textContent = 'Hire date cannot be a future date.';
+                        isValid = false;
+                    }
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+                });
+                </script>
+
+                <style>
+                .error-message {
+                color: red;
+                font-size: 0.9rem;
+                margin-top: 5px;
+                }
+                </style>
+
 
 
             <!-- ################To get users ID ################ -->
@@ -101,7 +129,7 @@
 
 
              <!-- ################To get users ID ################ -->
-        </form>
+       
     </div>
 </div>
 

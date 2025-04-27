@@ -69,3 +69,203 @@
 .submit-button:hover {
     background-color: #0056b3;
 }
+
+
+/*Style the uodate and delete button */
+.btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px; /* optional: forces all buttons to be at least this wide */
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/*Style inputs feilds */
+/* Styling for the container */
+.manage_actor_container {
+    margin-left: 300px;
+    margin-top: 30px;
+    padding: 100px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styling for the form */
+.actor_form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two-column layout */
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for each row in the form */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* Styling for labels and inputs */
+.form-row label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-row input,
+.form-row select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    border-color: #007bff;
+}
+
+/* Styling for the submit button */
+.submit-button {
+    grid-column: span 2; /* Make the button span across two columns */
+    padding: 15px;
+    background-color: #6472CD;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/*Style the update and delete button */
+.btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px; /* optional: forces all buttons to be at least this wide */
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Style input fields */
+/* Style all common input fields and selects */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form textarea,
+form select {
+    width: 100%;
+    height: 40px;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Optional: Allow textarea to expand vertically */
+form textarea {
+    height: auto;
+    resize: vertical;
+}
+
+/* On focus */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #007bff;
+}
+
+/* Styling for the activities table */
+.activities-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table header */
+.activities-table thead {
+    background-color: #6472CD;
+    color: white;
+}
+
+.activities-table th, 
+.activities-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Table rows */
+.activities-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Actions column buttons */
+.activities-table .btn {
+    margin: 0 5px;
+}

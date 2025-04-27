@@ -18,6 +18,13 @@
             <li class="nav-links"><a href="<?php echo URLROOT; ?>/SuperAdmin/uploadUsers"><i class="fa-solid fa-users icon"></i><span class="text nav-text">Upload Users</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
 
+
+
+            <!-- <a href="<?php echo URLROOT; ?>/Admin/viewBackupUsers" class="btn btn-view">View Backup Users</a> -->
+
+
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/viewBackupUsers"><i class="fa-solid fa-trash icon"></i><span class="text nav-text">Backup Users</span></a></li>
+
             <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/manage_admin"><i class="fa-solid fa-person-shelter icon"></i><span class="text nav-text">Admin</span></a></li> -->
 
 
@@ -25,7 +32,7 @@
             <!-- <li class="nav-links"><a href="<?php echo URLROOT ?>/admin/ manage_MIS"><i class="fa-solid fa-id-card icon"></i><span class="text nav-text">MIS-Report</span></a></li> -->
 
 
-
+        
 
             
         </ul>

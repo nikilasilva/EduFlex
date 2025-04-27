@@ -43,7 +43,7 @@
                         
                     
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $parent->regNo; ?>" class="btn btn-edit">Update</a><br><br>
+                                <a href="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $parent->regNo; ?>" class="btn btn-edit">Update</a>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteParent/<?php echo $parent->regNo; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                             </td>
                         </tr>

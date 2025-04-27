@@ -21,50 +21,96 @@
         <div class="container">
             <h1>Update Parent Details</h1>
 
-            <form action="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $data['parents']->regNo; ?>" method="POST">
+      <!-- Error message at the top -->
+<div id="formError" class="form-error-message" style="display:none;"></div>
 
-                <div class="form-group">
-                    <label for="regNo">User Reg (Parent):</label>
-                    <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['parents']->regNo); ?>" required>
-                </div>
+        <form id="editParentForm" action="<?php echo URLROOT; ?>/Admin/editParent/<?php echo $data['parents']->regNo; ?>" method="POST" novalidate>
 
-                <div class="form-group">
-                    <label for="fullName">Full Name:</label>
-                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['parents']->fullName); ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="regNo">User Reg (Parent):</label>
+                <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['parents']->regNo); ?>" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="nameWithInitial">Name with Initials:</label>
-                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['parents']->nameWithInitial); ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['parents']->fullName); ?>" required>
+            </div>
 
+            <div class="form-group">
+                <label for="nameWithInitial">Name with Initials:</label>
+                <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['parents']->nameWithInitial); ?>" required>
+            </div>
 
+            <div class="form-group">
+                <label for="NIC">NIC (Parent):</label>
+                <input type="text" name="NIC" id="NIC" value="<?php echo htmlspecialchars($data['parents']->NIC); ?>" required>
+                <div class="error-message" id="NICError"></div>
+            </div>
 
-                <div class="form-group">
-                    <label for="NIC">NIC (Parent):</label>
-                    <input type="text" name="NIC" id="NIC" value="<?php echo htmlspecialchars($data['parents']->NIC); ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="Relationship">Relationship :</label>
+                <select name="Relationship" id="Relationship" required>
+                    <option value="">-- Select Relationship --</option>
+                    <option value="Mother" <?php echo ($data['parents']->Relationship === 'Mother') ? 'selected' : ''; ?>>Mother</option>
+                    <option value="Father" <?php echo ($data['parents']->Relationship === 'Father') ? 'selected' : ''; ?>>Father</option>
+                    <option value="Guardian" <?php echo ($data['parents']->Relationship === 'Guardian') ? 'selected' : ''; ?>>Guardian</option>
+                </select>
+            </div>
 
-                <!-- <div class="form-group">
-                    <label for="occupation">Occupation:</label>
-                    <textarea name="occupation" id="occupation" rows="1" required><?php echo htmlspecialchars($data['parents']->occupation); ?></textarea>
-                </div> -->
+            <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
+            <a href="<?php echo URLROOT; ?>/Admin/viewParents" class="btn btn-secondary">Back to List</a>
 
+        </form>
 
-                <div class="form-group">
-                    <label for="Relationship">Relationship :</label>
-                    <select name="Relationship" id="Relationship" required>
-                        <option value="">-- Select Relationship --</option>
-                        <option value="Mother" <?php echo ($data['parents']->Relationship === 'Mother') ? 'selected' : ''; ?>>Mother</option>
-                        <option value="Father" <?php echo ($data['parents']->Relationship === 'Father') ? 'selected' : ''; ?>>Father</option>
-                        <option value="Guardian" <?php echo ($data['parents']->Relationship === 'Guardian') ? 'selected' : ''; ?>>Guardian</option>
-                    </select>
-                </div>
+        <!-- Validation Script -->
+        <script>
+        document.getElementById('editParentForm').addEventListener('submit', function(event) {
+            let isValid = true;
 
+            // Clear previous errors
+            document.getElementById('formError').style.display = 'none';
+            document.getElementById('NICError').textContent = '';
 
-                <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
+            const regNo = document.getElementById('regNo').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const nameWithInitial = document.getElementById('nameWithInitial').value.trim();
+            const NIC = document.getElementById('NIC').value.trim();
+            const Relationship = document.getElementById('Relationship').value.trim();
+
+            // Check all fields filled
+            if (!regNo || !fullName || !nameWithInitial || !NIC || !Relationship) {
+                document.getElementById('formError').style.display = 'block';
+                document.getElementById('formError').textContent = 'Required field is not filled, please check.';
+                isValid = false;
+            }
+
+            // Validate NIC length
+            if (NIC && !(NIC.length === 10 || NIC.length === 12)) {
+                document.getElementById('NICError').textContent = 'Incorrect NIC.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+        </script>
+
+        <style>
+        .form-error-message {
+            color: red;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        </style>
+
                 <a href="<?php echo URLROOT; ?>/Admin/viewParents" class="btn btn-secondary">Back to List</a>
-            </form>
+           
         </div>
     </div>
 </body>
