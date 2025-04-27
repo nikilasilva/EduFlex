@@ -31,9 +31,17 @@
 
                 <div class="form-group">
                     <label for="subject">Subject:</label>
-                    <input type="text" name="subject" id="subject" required>
+                    <select name="subject" id="subject" required>
+                        <option value="">Select Subject</option>
+                        <?php foreach($data['subjects'] as $subject): ?>
+                            <option value="<?php echo htmlspecialchars($subject->subjectId); ?>">
+                                <?php echo htmlspecialchars($subject->subjectName); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                     <div class="error-message" id="subjectError"></div>
                 </div>
+
 
                 <div class="form-group">
                     <label for="experience">Years of Experience:</label>

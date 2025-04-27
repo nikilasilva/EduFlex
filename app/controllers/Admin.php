@@ -2,7 +2,7 @@
 
 class Admin extends Controller
 {
-    //private $TeacherModel;
+    // private $teacherModel;
         public function __construct() {}
             // Load necessary models (if required)
         // $this->teacherModel = $this->model('TeacherModel');
@@ -356,8 +356,6 @@ class Admin extends Controller
                 $parentData = [
                     'NIC' => trim($_POST['NIC']),
                     'regNo' => trim($_POST['regNo']),
-                    'firstName' => trim($_POST['firstName']),
-                    'lastName' => trim($_POST['lastName']),
                     'Relationship' => trim($_POST['Relationship'])
                 ];
                 $parent = new manage_parentModel();
@@ -454,8 +452,11 @@ class Admin extends Controller
 
             $userModel = new manage_useraccountModel();
             $users = $userModel->findAll();
+            
+            $subjectModel = new subjectModel();
+            $subjects = $subjectModel->getAllSubjects();
 
-            $this->view('inc/admin/manage_teacher',['users' => $users]);
+            $this->view('inc/admin/manage_teacher',['users' => $users, 'subjects' => $subjects]);
             
         }
     //for submit teacher details form
@@ -470,14 +471,13 @@ class Admin extends Controller
             $teacherData = [
                 'teacher_id' => $newTeacherID,
                 'regNo' => trim($_POST['regNo']),
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
-                'subject' => trim($_POST['subject']),
                 'experience' => trim($_POST['experience']),
                 'hireDate' => trim($_POST['hireDate'])
             ];
+            $subjectId = trim($_POST['subject']);
 
             $teacher->insert($teacherData);
+            $teacher->assignTeacherToSubject($teacherData['teacher_id'], $subjectId);
 
             header("Location: " . URLROOT . "/Admin/viewTeacher");
             exit();
@@ -506,7 +506,6 @@ class Admin extends Controller
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $data = [
-                    'subject' => trim($_POST['subject']),
                     'experience' => trim($_POST['experience']),
                     'hireDate' => trim($_POST['hireDate'])
                 ];
@@ -526,7 +525,7 @@ class Admin extends Controller
                 exit();
             } else {
                 $teacher = $teacherModel->first(['teacher_id' => $teacher_id]);
-        
+                // $teacherModel = new manage_teacherModel();
                 if ($teacher) {
                     // Fetch user's full name and initials
                     $userModel = new manage_useraccountModel();
@@ -535,8 +534,11 @@ class Admin extends Controller
                     // Merge teacher and user info
                     $teacher->fullName = $user->fullName ?? '';
                     $teacher->nameWithInitial = $user->nameWithInitial ?? '';
+                    
+                    $teacherSubject = $teacherModel->getTeacherSubject($teacher_id);
+                    
         
-                    $this->view('inc/admin/edit_teacher_by_admin', ['teacher' => $teacher]);
+                    $this->view('inc/admin/edit_teacher_by_admin', ['teacher' => $teacher, 'subject' => $teacherSubject]);
                 } else {
                     die('Teacher not found.');
                 }
@@ -580,8 +582,6 @@ class Admin extends Controller
                 
                     'principalId' => trim($_POST['principalId']),
                     'regNo' => trim($_POST['regNo']),
-                    'firstName' => trim($_POST['firstName']),
-                    'lastName' => trim($_POST['lastName']),
                     'experience' => trim($_POST['experience']),
                     'hireDate' => trim($_POST['hireDate'])
 
@@ -687,8 +687,6 @@ class Admin extends Controller
             $vicePrincipalData = [
                 'regNo' => trim($_POST['regNo']),
                 'experience' => trim($_POST['experience']),
-                'firstName' => trim($_POST['firstName']),
-                'lastName' => trim($_POST['lastName']),
                 'hireDate' => trim($_POST['hireDate'])
             ];
 

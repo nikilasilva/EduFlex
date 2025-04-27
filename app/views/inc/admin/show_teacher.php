@@ -43,7 +43,7 @@ teacher
                             <td><?php echo $teacher->regNo; ?></td>
                             <td><?php echo $teacher->teacher_id; ?></td>
                             <td><?php echo $teacher->nameWithInitial?></td>
-                            <td><?php echo $teacher->subject; ?></td>
+                            <td><?php echo $teacher->subjectName; ?></td>
                             <td><?php echo $teacher->experience; ?></td>
                             <td><?php echo $teacher->hireDate; ?></td>
 

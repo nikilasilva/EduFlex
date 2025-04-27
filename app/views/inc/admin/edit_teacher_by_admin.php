@@ -46,10 +46,9 @@
                     <label for="nameWithInitial">Name with Initials:</label>
                     <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo isset($data['teacher']->nameWithInitial) ? htmlspecialchars($data['teacher']->nameWithInitial) : ''; ?>" required>
                 </div>
-
                 <div class="form-group">
                     <label for="subject">Subject:</label>
-                    <input type="text" name="subject" id="subject" value="<?php echo $data['teacher']->subject; ?>" required>
+                    <input type="text" name="subject" id="subject" value="<?php echo $data['subject'][0]->subjectName; ?>" required>
                 </div>
 
                 <div class="form-group">
