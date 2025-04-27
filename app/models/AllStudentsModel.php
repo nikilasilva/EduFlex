@@ -21,7 +21,7 @@ class AllStudentsModel {
         $sql = "SELECT s.student_id, s.regNo, 
             u.fullName AS studentFullName, u.nameWithInitial AS studentNameWithInitial, 
             c.className,
-            u.email, u.mobileNo, u.religion,
+            u.email, u.mobileNo, u.gender,
             pu.nameWithInitial AS parentNameWithInitial,
             pu.mobileNo AS parentMobileNo
             FROM students s

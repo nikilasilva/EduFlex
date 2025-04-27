@@ -73,7 +73,9 @@ class Timetable extends Controller {
             $teachers = $this->timetableModel->query($teachersQuery);
             $data = [
                 'teachers' => $teachers,
-                'timetable' => []
+                'timetable' => [],
+                'selectedTeacherName' => '',
+                'selectedDay' => '',
             ];
             $this->view('inc/timetables/teacherTimetable', $data);
         } 
