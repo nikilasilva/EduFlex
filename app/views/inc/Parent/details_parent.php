@@ -74,19 +74,31 @@
     <?php foreach ($data['students'] as $student): ?>
         <div class="profile-card">
             <div class="profile-image">
-                <img src="<?php echo URLROOT ?>/public/img/Student.jpg" alt="Student Photo">
+                <!-- <img src="<?php echo URLROOT ?>/public/img/Student.jpg" alt="Student Photo"> -->
+                <?php
+                // Create proper server path for file_exists check
+                $profilePath = $_SESSION['user']['profile_picture'] ?? $student->profile_picture ?? '';
+                $testPath = APPROOT . '/../' . $profilePath;              
+                
+                if (!empty($profilePath) && file_exists($testPath)) {
+                    $imgSrc = URLROOT . '/' . ltrim($profilePath, '/');
+                } else {
+                    $imgSrc = URLROOT . '/public/img/profiles/default-profile.jpg';
+                }
+                ?>
+                <img src="<?php echo $imgSrc; ?>" alt="User Photo" class="user-settings-avatar">
             </div>
             <div class="profile-details">
-                <h2><?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></h2>
+                <h2><?= htmlspecialchars($student->fullName) ?></h2>
                 <!-- <p><span>ID Number  :</span> <?= htmlspecialchars($student->regNo) ?></p> -->
-                <p><span>Full Name  :</span> <?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></p>
+                <p><span>Full Name  :</span> <?= htmlspecialchars($student->fullName) ?></p>
                 <p><span>Student ID :</span> <?= htmlspecialchars($student->student_id) ?></p>
                 <!-- <p><span>Admission Date:</span> <?= htmlspecialchars($student->dateOfAdmission) ?></p> -->
                 <!-- <p><span>Gender:</span> <?= htmlspecialchars($student->gender) ?></p>
                 <p><span>Date Of Birth:</span> <?= htmlspecialchars($student->dob) ?></p>
                 <p><span>E-mail:</span> <?= htmlspecialchars($student->email) ?></p>
                 <p><span>Admission Date:</span> <?= htmlspecialchars($student->admission_date) ?></p> -->
-                <!-- <p><span>Class  :</span> <?= htmlspecialchars($student->classId) ?></p> -->
+                <p><span>Class  :</span> <?= htmlspecialchars($student->className) ?></p>
             </div>
         </div>
     <?php endforeach; ?>

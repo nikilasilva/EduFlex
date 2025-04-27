@@ -30,7 +30,7 @@ class ParentStudent extends controller{
     // Fetch associated students
     $students = $this->parentStudentModel->getStudentsByParentRegNo($parentRegNo);
     
-        $this->view('inc/Parent/details_parent', ['students' => $students]);
+    $this->view('inc/Parent/details_parent', ['students' => $students]);
     }
     
 
