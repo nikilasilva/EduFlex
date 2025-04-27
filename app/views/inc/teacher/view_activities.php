@@ -45,7 +45,7 @@
                             <td><?php echo $activity->date; ?></td>
                             <td><?php echo $activity->period; ?></td>
                             <td><?php echo $activity->subject; ?></td>
-                            <td><?php echo $activity->class; ?></td>
+                            <td><?php echo $activity->className; ?></td>
                             <td><?php echo $activity->description; ?></td>
                             <td><?php echo $activity->additional_note; ?></td>
                             

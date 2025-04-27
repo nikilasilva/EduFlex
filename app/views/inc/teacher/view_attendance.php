@@ -6,6 +6,22 @@
     <h1>Attendance Records for <?php echo htmlspecialchars($data['date']); ?></h1>
     <h2>Class: <?php echo htmlspecialchars($data['className']); ?></h2>
 
+    <?php if (!empty($data['errors'])): ?>
+        <div class="alert alert-danger">
+            <?= htmlspecialchars($data['errors']) ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-success">
+            <?php if ($_GET['success'] === 'submitted'): ?>
+                Attendance has been submitted successfully.
+            <?php elseif ($_GET['success'] === 'updated'): ?>
+                Attendance has been updated successfully.
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <table>
         <thead>
             <tr>
@@ -31,24 +47,20 @@
         </tbody>
     </table>
     <?php
-$canUpdate = (strtotime(date('Y-m-d')) - strtotime($data['date'])) <= 604800; // 7 * 24 * 60 * 60
-?>
+    $canUpdate = (strtotime(date('Y-m-d')) - strtotime($data['date'])) <= 604800; // 7 * 24 * 60 * 60
+    ?>
 
-<?php if ($canUpdate): ?>
-    <form action="<?php echo URLROOT; ?>/teacher/editAttendance" method="POST">
-        <input type="hidden" name="date" value="<?= htmlspecialchars($data['date']) ?>">
-        <input type="hidden" name="class" value="<?= htmlspecialchars($data['class']) ?>">
-        <button type="submit" class="btn btn-info">Update Attendance</button>
-    </form>
+    <?php if ($canUpdate): ?>
+        <form action="<?php echo URLROOT; ?>/teacher/editAttendance" method="POST">
+            <input type="hidden" name="date" value="<?= htmlspecialchars($data['date']) ?>">
+            <input type="hidden" name="class" value="<?= htmlspecialchars($data['class']) ?>">
+            <button type="submit" class="btn btn-info">Update Attendance</button>
+        </form>
+    <?php endif; ?>
 
     <a href="<?php echo URLROOT; ?>/teacher/selectClassForAttendance" class="btn-back">
     << Back
     </a>
-
-
-<?php endif; ?>
-
-    
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

@@ -21,8 +21,15 @@ class Current_activityModel {
 
     // Fetch activities for the current logged-in teacher
     public function getTeacherActivities($teacherId) {
-        $query = "SELECT * FROM {$this->table} WHERE teacher_id = :teacher_id ORDER BY date DESC";
+        $query = "
+            SELECT ca.*, c.className 
+            FROM {$this->table} ca
+            JOIN classes c ON ca.class = c.classId
+            WHERE ca.teacher_id = :teacher_id
+            ORDER BY ca.date DESC
+        ";
         return $this->query($query, ['teacher_id' => $teacherId]);
     }
+    
 }
 
