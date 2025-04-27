@@ -37,15 +37,6 @@
                     </option>
                 <?php endforeach; ?>
             </select>
-                    
-            <select id="religionSelectStudents">
-                <option value="">All Religions</option>
-                <?php foreach ($data['religions'] as $religion): ?>
-                    <option value="<?php echo $religion->religion ?>">
-                        <?php echo $religion->religion ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
         </div>
 
         <!-- Display student count -->
@@ -63,7 +54,7 @@
                     <th>Class</th>
                     <th>Email</th>
                     <th>Mobile No</th>
-                    <th>Religion</th>
+                    <th>Gender</th>
                     <th>Parent</th>
                     <th>Parent Mobile No</th>
                 </tr>
@@ -76,7 +67,7 @@
                         <td><?php echo htmlspecialchars($student['className']); ?></td>
                         <td><?php echo htmlspecialchars($student['email']); ?></td>
                         <td><?php echo htmlspecialchars($student['mobileNo']); ?></td>
-                        <td><?php echo htmlspecialchars($student['religion']); ?></td>
+                        <td><?php echo htmlspecialchars($student['gender']); ?></td>
                         <td><?php echo htmlspecialchars($student['parentName']); ?></td>
                         <td><?php echo htmlspecialchars($student['parentMobileNo']); ?></td>
                     </tr>

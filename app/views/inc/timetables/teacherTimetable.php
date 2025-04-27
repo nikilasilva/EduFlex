@@ -6,7 +6,6 @@
     <h1>Teacher Timetable</h1>
     <div class="search-bar">
         <form class="teacher-timetable-form" action="<?= URLROOT ?>/Timetable/teacherTimetable" method="POST">
-            <input type="text" placeholder="Search by Teacher">
             <select id="teacherSelect" name="teacherId">
                 <option value="">Select Teacher</option>
                 <?php foreach ($data['teachers'] as $teacher): ?>
@@ -23,7 +22,6 @@
                 <option value="Wednesday">Wednesday</option>
                 <option value="Thursday">Thursday</option>
                 <option value="Friday">Friday</option>
-                <option value="All">All</option>
             </select>
 
             <button class="teacher-timetable-form-btn">SEARCH</button>

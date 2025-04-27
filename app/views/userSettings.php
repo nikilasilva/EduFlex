@@ -8,7 +8,7 @@ use Soap\Url;
 
 <div class="user-settings-container">
     <div class="user-settings-header">
-        <h1>Account Setting</h1>
+        <h1>Account Settings</h1>
     </div>
     <div class="user-settings-card">
         <div class="settings-profile-header">

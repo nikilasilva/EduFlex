@@ -33,7 +33,6 @@
                 'studentTotal' => $totalStudents,
                 'classes' => $classes,
                 'grades' => $grades,
-                'religions' => $religions,
                 'page' => $page,
                 'totalPages' => ceil($totalStudents / $limit),
                 'message' => ''
@@ -48,7 +47,7 @@
                         'className' => $student->className,
                         'email' => $student->email,
                         'mobileNo' => $student->mobileNo,
-                        'religion' => $student->religion,
+                        'gender' => $student->gender,
                         'parentName' => $student->parentNameWithInitial ? $student->parentNameWithInitial : 'None',
                         'parentMobileNo' => $student->parentMobileNo ?: 'None'
                     ];

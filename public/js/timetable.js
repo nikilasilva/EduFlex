@@ -115,17 +115,21 @@ function updateTimetableTable(data, endpoint) {
         return;
     }
 
-    tableBody.innerHTML = ''; // Clear existing rows
+    // Check if both selections are made
+    const selectId = endpoint === 'teacherTimetable' ? 'teacherSelect' : 'classSelect';
+    const selectElement = document.getElementById(selectId);
+    const selectVal = selectElement ? selectElement.value : '';
+    const dayVal = document.getElementById('daySelect')?.value || '';
 
-    // Update the header with selected value and day
+    // Only show header if BOTH are selected
     if (headerElement) {
-        const selectId = endpoint === 'teacherTimetable' ? 'teacherSelect' : 'classSelect';
-        const selectElement = document.getElementById(selectId);
-        const selectText = selectElement.options[selectElement.selectedIndex].text;
-        const dayText = document.getElementById('daySelect').value;
-        
-        headerElement.textContent = `${selectText} ${dayText === 'All' ? 'Weekly' : dayText} Timetable`;
-        headerElement.style.display = 'block';
+        if (selectVal && dayVal) {
+            const displayDay = dayVal === 'All' ? 'Weekly' : dayVal;
+            headerElement.textContent = `${displayDay} Timetable`;
+            headerElement.style.display = 'block';
+        } else {
+            headerElement.style.display = 'none'; // ❌ Hide if missing selection
+        }
     }
 
     if (data && data.length > 0) {
