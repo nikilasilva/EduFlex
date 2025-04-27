@@ -4,6 +4,8 @@ class Parents extends Controller {
 
     private $FeedbackModel;
     private $AbsenceModel;
+    private $studentModel;
+    
 
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -12,6 +14,7 @@ class Parents extends Controller {
         // Load the FeedbackModel
         $this->FeedbackModel = $this->model('FeedbackModel');
         $this->AbsenceModel = $this->model('AbsenceModel');
+        $this->studentModel = $this->model('StudentModel');
     }
 
     // Default method for this controller
@@ -265,7 +268,11 @@ class Parents extends Controller {
             $content = trim($_POST['content'] ?? '');
             $date = date('Y-m-d');
             $parentRegNo = $_SESSION['user']['regNo'];
+            $students = $this->AbsenceModel->getAbsenceByParentRegNo($parentRegNo);
+            $allowedStudentIds = array_map(fn($s) => $s->student_id, $students);
 
+            // Check if the student_id is vali
+            if (in_array($student_id, $allowedStudentIds)) {
             if (!empty($content)) {
                 $data = [
                     'student_id' => $student_id,
@@ -286,6 +293,9 @@ class Parents extends Controller {
                 }
             } else {
                 echo "content cannot be empty.";
+            }
+            }else{
+                echo "Invalid student ID or access denied";
             }
         }
     }
