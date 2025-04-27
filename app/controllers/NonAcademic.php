@@ -71,78 +71,89 @@ class NonAcademic extends Controller
 
 
     public function UpdateTeachersAttendanceForm()
-    {
-        $teacherAttendanceModel = new TeacherAttendanceModel();
-        $teacherModel = new TeacherModeldev3();
+{
+    $teacherAttendanceModel = new TeacherAttendanceModel();
+    $teacherModel = new TeacherModeldev3();
 
-        // Get selected date from URL or today's date
-        $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+    // Get selected date from URL or today's date
+    $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 
-        // Fetch all teachers
-        $teachers = $teacherModel->findAll();
+    // Fetch all teachers
+    $teachers = $teacherModel->findAll();
 
-        // Fetch attendance records for selected date
-        $attendanceRecords = $teacherAttendanceModel->getAttendanceByDate($selectedDate);
+    // Fetch attendance records for selected date
+    $attendanceRecords = $teacherAttendanceModel->getAttendanceByDate($selectedDate);
 
+    // Check if the data returned is valid
+    $attendanceArray = [];
+    if ($attendanceRecords && is_array($attendanceRecords)) {
         // Reformat attendance records: [teacher_id => status]
-        $attendanceArray = [];
         foreach ($attendanceRecords as $record) {
             $attendanceArray[$record->teacherRegNo] = $record->status;
         }
+    }
 
+    $data = [
+        'teachers' => $teachers,
+        'attendance' => $attendanceArray,
+        'date' => $selectedDate
+    ];
+
+    $this->view('inc/nonAcademic/update_teachers_attendance', $data);
+}
+
+
+
+public function SubmitUpdatedTeachersAttendance()
+{
+    // Assuming the staff ID is stored in the session (modify according to your actual session handling)
+    $staffId = $_SESSION['user']['regNo'];  // Adjust based on how you store staff information
+
+    // Instantiate the required models
+    $teacherAttendanceModel = new TeacherAttendanceModel();
+    $teacherModel = new TeacherModeldev3();
+
+    // Get the submitted form data
+    $teacherIds = $_POST['teacher_ids']; // Array of teacher IDs
+    $attendanceStatuses = $_POST['attendance']; // Array of attendance statuses
+    $date = $_POST['date']; // The selected date from the form
+
+    // Loop through each teacher and update their attendance
+    // Loop through each teacher and update their attendance
+foreach ($teacherIds as $teacherId) {
+    if (isset($attendanceStatuses[$teacherId])) {
+        // Prepare the data for updating
         $data = [
-            'teachers' => $teachers,
-            'attendance' => $attendanceArray,
-            'date' => $selectedDate
+            'teacherRegNo' => $teacherId,
+            'date' => $date,  // Use the 'date' field here, not 'attendance_date'
+            'status' => $attendanceStatuses[$teacherId],
+            'recordedBy' => $staffId // Include the staffId here for the foreign key constraint
         ];
 
-        $this->view('inc/nonAcademic/update_teachers_attendance', $data);
-    }
+        // Check if the attendance for this teacher on this date already exists
+        $existingAttendance = $teacherAttendanceModel->where([
+            'teacherRegNo' => $teacherId,
+            'date' => $date  // Correct field used for checking
+        ]);
 
-
-    public function SubmitUpdatedTeachersAttendance()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $teacherAttendanceModel = new TeacherAttendanceModel();
-
-            $date = $_POST['date'];
-            $teacherIds = $_POST['teacher_ids'];
-            $attendance = $_POST['attendance'];
-
-            foreach ($teacherIds as $teacher_id) {
-                $status = isset($attendance[$teacher_id]) ? $attendance[$teacher_id] : null;
-
-                if ($status !== null) {
-                    // Check if record already exists
-                    $existingRecords = $teacherAttendanceModel->where([
-                        'teacherRegNo' => $teacher_id,
-                        'date' => $date
-                    ]);
-
-                    $existingRecord = !empty($existingRecords) ? $existingRecords[0] : null;
-
-                    if ($existingRecord) {
-                        // Update existing attendance record
-                        $teacherAttendanceModel->update($existingRecord->id, [
-                            'status' => $status
-                        ]);
-                    } else {
-                        // Insert new attendance record
-                        $teacherAttendanceModel->insert([
-                            'teacherRegNo' => $teacher_id,
-                            'date' => $date,
-                            'status' => $status
-                        ]);
-                    }
-                }
-            }
-
-            // Redirect after successful update
-            redirect('nonAcademic/ViewTeachersAttendance?date=' . urlencode($date));
+        if ($existingAttendance) {
+            // Update existing attendance record
+            $teacherAttendanceModel->update($teacherId, $data);
         } else {
-            die('Invalid request method.');
+            // Insert new attendance record if not exists
+            $teacherAttendanceModel->insert($data);
         }
     }
+}
+
+
+    // Redirect to a page with a success message or a confirmation view
+    header('Location: ' . URLROOT . '/nonAcademic/UpdateTeachersAttendanceForm?date=' . urlencode($date));
+    exit();
+}
+
+
+
 
 
 

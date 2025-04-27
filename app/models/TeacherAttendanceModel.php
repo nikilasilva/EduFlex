@@ -22,38 +22,55 @@ class TeacherAttendanceModel
 
     public function update($teacherId, $data)
 {
-    // Assuming $teacherId and $attendance_date are used as a composite key
-    $this->query('UPDATE ' . $this->table . ' SET status = :status WHERE teacher_id = :teacher_id AND attendance_date = :attendance_date', [
-        'teacher_id' => $teacherId,
-        'attendance_date' => $data['attendance_date'],
-        'status' => $data['status']
+    // Update query using 'date' instead of 'attendance_date'
+    $this->query('UPDATE ' . $this->table . ' SET status = :status WHERE teacherRegNo = :teacherRegNo AND date = :date', [
+        'teacherRegNo' => $teacherId,  // Correct column name for teacher ID
+        'date' => $data['date'],  // Use 'date' here
+        'status' => $data['status']  // Status for the update
     ]);
 }
 
-public function where($conditions)
+    
+    public function where($conditions)
 {
     $sql = 'SELECT * FROM ' . $this->table . ' WHERE ';
     $params = [];
 
     foreach ($conditions as $key => $value) {
-        $sql .= "$key = :$key AND ";
-        $params[$key] = $value;
+        $sql .= $key . ' = :' . $key . ' AND ';
+        $params[':' . $key] = $value;
     }
 
+    // Remove the trailing 'AND' from the query
     $sql = rtrim($sql, ' AND ');
 
     return $this->query($sql, $params);
 }
+
+    
 
 public function findAll()
 {
     return $this->query("SELECT * FROM teacherattendance");
 }
 
+// public function getAttendanceByDate($date)
+// {
+//     return $this->query('SELECT * FROM teacherattendance WHERE date = :date', ['date' => $date]);
+// }
+
 public function getAttendanceByDate($date)
 {
-    return $this->query('SELECT * FROM teacherattendance WHERE date = :date', ['date' => $date]);
+    $result = $this->query('SELECT * FROM teacherattendance WHERE date = :date', ['date' => $date]);
+    
+    if ($result === false) {
+        // You can log the error here or handle it
+        error_log('Query failed for date: ' . $date);
+    }
+    
+    return $result ?: [];  // Return an empty array instead of false if query fails
 }
+
 
 
 
