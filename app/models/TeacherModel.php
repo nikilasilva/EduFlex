@@ -40,21 +40,18 @@ class TeacherModel {
     }
 
     public function getTeacherRegNoByFullName($fullName) {
-        // Split the full name into first and last name
-        $nameParts = explode(' ', $fullName, 2);
-        $firstName = $nameParts[0];
-        $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
         
-        $sql = "SELECT regNo FROM teachers 
-                WHERE firstName = :firstName AND lastName = :lastName";
+        $sql = "SELECT t.teacher_id 
+            FROM teachers t
+            INNER JOIN users u ON u.regNo = t.regNo 
+            WHERE u.fullName = :fullName";
         
         $data = [
-            'firstName' => $firstName,
-            'lastName' => $lastName
+            'fullName' => $fullName
         ];
         
         $result = $this->query($sql, $data);
-        return $result ? $result[0]->regNo : null;
+        return $result ? $result[0]->teacher_id : null;
     }
     
     public function isTeacherAssignedToSubject($teacherRegNo, $subjectId) {
