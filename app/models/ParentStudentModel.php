@@ -9,7 +9,8 @@ class ParentStudentModel {
         'regNo',
         'firstName',
         'lastName',
-        'classId'
+        'classId',
+        'dateOfAdmission',
     ];
     protected $order_column = 'student_id';
 

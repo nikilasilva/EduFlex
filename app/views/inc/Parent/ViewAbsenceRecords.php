@@ -12,21 +12,24 @@
         <?php foreach ($data['absences'] as $absences): ?>
             <div class="feedback-card" id="feedback-<?php echo $absences->absence_id; ?>">
                 <!-- Display Feedback Content -->
+                <div class="feedback-student-id">Student ID: <?php echo $absences->student_id; ?></div>
                 <textarea 
                     class="feedback-content fixed-space" 
                     id="content-<?php echo $absences->absence_id; ?>" 
                     readonly
-                ><?php echo htmlspecialchars($absences->content); ?></textarea>
+                ><?php echo htmlspecialchars($absences->content); ?>
+                </textarea>
 
                 <!-- Display Feedback Date -->
                 <div class="feedback-date"><?php echo $absences->date; ?></div>
+                
 
                 
                
 
-
+        </div>
                 <?php endforeach; ?>
-        </div> 
+         
         <!-- Message if no feedbacks are available -->
         
     <?php endif; ?>
