@@ -22,64 +22,84 @@
         $regNo = isset($_GET['regNo']) ? htmlspecialchars($_GET['regNo']) : '';
         ?>
 
-        <form action="<?php echo URLROOT; ?>/Admin/submitPrincipal" method="POST">
-            <!-- User ID -->
-            <div class="form-group">
-                <label for="regNo">User Reg:</label>
-                <input type="number" name="regNo" id="regNo" value="<?php echo isset($formData['regNo']) ? $formData['regNo'] : ''; ?>" required>
-                <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
+<form id="principalForm" action="<?php echo URLROOT; ?>/Admin/submitPrincipal" method="POST" novalidate>
 
-            </div>
+    <div class="form-group">
+        <label for="regNo">User Reg:</label>
+        <input type="number" name="regNo" id="regNo" required>
+        <div class="error-message" id="regNoError"></div>
+    </div>
 
+    <div class="form-group">
+        <label for="experience">Years of Experience:</label>
+        <input type="number" name="experience" id="experience" min="0" required>
+        <div class="error-message" id="experienceError"></div>
+    </div>
 
-         <!-- Experience -->
-<div class="form-group">
-    <label for="experience">Years of Experience:</label>
-    <input type="number" name="experience" id="experience" min="0" value="<?php echo isset($formData['experience']) ? $formData['experience'] : ''; ?>" required>
-    <span class="error"><?php echo isset($errors['experience']) ? $errors['experience'] : ''; ?></span>
+    <div class="form-group">
+        <label for="hireDate">Hire Date:</label>
+        <input type="date" name="hireDate" id="hireDate" required>
+        <div class="error-message" id="hireDateError"></div>
+    </div>
 
+    <button type="submit" class="btn btn-primary">Submit Principal</button><br><br>
+    <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewPrincipal'" class="btn btn-primary">View Principals</button><br><br>
+    <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
 
+</form>
 
-                            <!--JS -->
-                        <script>
-                            document.getElementById('experience').addEventListener('input', function () {
-                                if (this.value < 0) {
-                                    this.value = '';
-                                    alert("Experience must be a positive number.");
-                                }
-                            });
-                        </script>
-</div>
+<!-- Validation Script -->
+<script>
+document.getElementById('principalForm').addEventListener('submit', function(event) {
+    let isValid = true;
 
+    // Clear previous error messages
+    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
 
-          <!-- Hire Date -->
-<div class="form-group">
-    <label for="hireDate">Hire Date:</label>
-    <input type="date" name="hireDate" id="hireDate" value="<?php echo isset($formData['hireDate']) ? $formData['hireDate'] : ''; ?>" required>
-    <span class="error"><?php echo isset($errors['hireDate']) ? $errors['hireDate'] : ''; ?></span>
-</div>
+    // regNo Validation
+    const regNo = document.getElementById('regNo').value.trim();
+    if (!regNo) {
+        document.getElementById('regNoError').textContent = 'Registration number is required.';
+        isValid = false;
+    }
 
-<!-- JavaScript validation -->
-                        <script>
-                            document.getElementById('hireDate').addEventListener('change', function () {
-                                const selectedDate = new Date(this.value);
-                                const today = new Date();
+    // Experience Validation
+    const experience = document.getElementById('experience').value.trim();
+    if (experience === '' || experience < 0) {
+        document.getElementById('experienceError').textContent = 'Experience must be a positive number.';
+        isValid = false;
+    }
 
-                                // Remove time from today's date for accurate comparison
-                                today.setHours(0, 0, 0, 0);
+    // Hire Date Validation
+    const hireDate = document.getElementById('hireDate').value;
+    if (!hireDate) {
+        document.getElementById('hireDateError').textContent = 'Hire date is required.';
+        isValid = false;
+    } else {
+        const selectedDate = new Date(hireDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-                                if (selectedDate > today) {
-                                    alert("Hire Date cannot be in the future.");
-                                    this.value = '';
-                                }
-                            });
-                        </script>
+        if (selectedDate > today) {
+            document.getElementById('hireDateError').textContent = 'Hire date cannot be a future date.';
+            isValid = false;
+        }
+    }
 
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
 
-            <button type="submit" class="btn btn-primary">Submit Principal</button>
-            <br><br>
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/admin/viewPrincipal'" class="btn btn-primary">View Principals</button>
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a><br><br>
+<style>
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+</style>
+
 
             <!-- ################To get users ID ################ -->
 
@@ -117,7 +137,7 @@
 
 
 
-        </form>
+        
     </div>
 </div>
 

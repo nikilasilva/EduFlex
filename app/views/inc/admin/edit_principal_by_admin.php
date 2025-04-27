@@ -25,61 +25,102 @@
 
             <!-- Daily Activities form -->
             <!-- <form action="<?php echo URLROOT; ?>/NonAcademic/editActivity" method="POST"> -->
-            <form action="<?php echo URLROOT; ?>/Admin/editPrincipal/<?php echo $data['principal']->principalId; ?>" method="POST">
+<!-- Error message at the top -->
+<div id="formError" class="form-error-message" style="display:none;"></div>
 
+        <form id="editPrincipalForm" action="<?php echo URLROOT; ?>/Admin/editPrincipal/<?php echo $data['principal']->principalId; ?>" method="POST" novalidate>
 
-              <!-- User ID -->
-              <!-- <div class="form-group">
-                <label for="regNo">Principal ID:</label>
-                <input type="number" name="regNo" id="regNo" value="<?php echo htmlspecialchars($data['principal']->principalId) ; ?>" required>
-                <span class="error"><?php echo isset($errors['regNo']) ? $errors['regNo'] : ''; ?></span>
-            </div> -->
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['principal']->fullName); ?>" required>
+            </div>
 
-            <!-- Full Name -->
-                <div class="form-group">
-                    <label for="fullName">Full Name:</label>
-                    <input type="text" name="fullName" id="fullName" value="<?php echo htmlspecialchars($data['principal']->fullName); ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="nameWithInitial">Name with Initials:</label>
+                <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['principal']->nameWithInitial); ?>" required>
+            </div>
 
-                <!-- Name with Initial -->
-                <div class="form-group">
-                    <label for="nameWithInitial">Name with Initials:</label>
-                    <input type="text" name="nameWithInitial" id="nameWithInitial" value="<?php echo htmlspecialchars($data['principal']->nameWithInitial); ?>" required>
-                </div>
-
-
-            <!-- Experience -->
             <div class="form-group">
                 <label for="experience">Years of Experience:</label>
-                <input type="number" name="experience" id="experience" value="<?php echo htmlspecialchars($data['principal']->experience) ; ?>" required>
-                <span class="error"><?php echo isset($errors['experience']) ? $errors['experience'] : ''; ?></span>
+                <input type="number" name="experience" id="experience" value="<?php echo htmlspecialchars($data['principal']->experience); ?>" required>
+                <div class="error-message" id="experienceError"></div>
             </div>
 
-            <!-- Hire Date -->
             <div class="form-group">
                 <label for="hireDate">Hire Date:</label>
-                <input type="date" name="hireDate" id="hireDate" value="<?php echo htmlspecialchars($data['principal']->hireDate) ; ?>" required>
-                <span class="error"><?php echo isset($errors['hireDate']) ? $errors['hireDate'] : ''; ?></span>
+                <input type="date" name="hireDate" id="hireDate" value="<?php echo htmlspecialchars($data['principal']->hireDate); ?>" required>
+                <div class="error-message" id="hireDateError"></div>
             </div>
 
+            <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
+            <a href="<?php echo URLROOT; ?>/Admin/viewPrincipal" class="btn btn-secondary">Back to List</a>
+
+        </form>
+
+        <!-- Validation Script -->
+        <script>
+        document.getElementById('editPrincipalForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Clear previous errors
+            document.getElementById('formError').style.display = 'none';
+            document.getElementById('experienceError').textContent = '';
+            document.getElementById('hireDateError').textContent = '';
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const nameWithInitial = document.getElementById('nameWithInitial').value.trim();
+            const experience = document.getElementById('experience').value.trim();
+            const hireDate = document.getElementById('hireDate').value.trim();
+
+            // Check all fields filled
+            if (!fullName || !nameWithInitial || !experience || !hireDate) {
+                document.getElementById('formError').style.display = 'block';
+                document.getElementById('formError').textContent = 'Required field is not filled, please check.';
+                isValid = false;
+            }
+
+            // Validate experience
+            if (experience && experience < 0) {
+                document.getElementById('experienceError').textContent = 'Incorrect input.';
+                isValid = false;
+            }
+
+            // Validate hire date
+            if (hireDate) {
+                const selectedDate = new Date(hireDate);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (selectedDate > today) {
+                    document.getElementById('hireDateError').textContent = 'Hire date cannot be a future date.';
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+        </script>
+
+        <style>
+        .form-error-message {
+            color: red;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        </style>
+
+    <a href="<?php echo URLROOT; ?>/Admin/viewPrincipal" class="btn btn-secondary">Back to List</a>
 
 
 
-
-
-
-            <!-- <div class="form-group">
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($data['user']->dob); ?>" required>
-                </div> -->
-
-
-                <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
-                <a href="<?php echo URLROOT; ?>/Admin/viewPrincipal" class="btn btn-secondary">Back to List</a>
-
-
-
-            </form>
+           
         </div>
     </div>
 </body>

@@ -23,37 +23,80 @@
         <h1>Insert Parent Details</h1>
 
         <!-- Parent details form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitParent" method="POST">
+        <form id="parentForm" action="<?php echo URLROOT; ?>/Admin/submitParent" method="POST" novalidate>
 
-            <div class="form-group">
-                <label for="regNo">User Reg (Parent):</label>
-                <input type="number" name="regNo" id="regNo" required>
-                <!-- <small class="form-text">This should match an existing user in the Users table.</small> -->
-            </div>
+                <div class="form-group">
+                    <label for="regNo">User Reg (Parent):</label>
+                    <input type="number" name="regNo" id="regNo" required>
+                    <div class="error-message" id="regNoError"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="NIC">NIC :</label>
-                <input type="text" name="NIC" id="NIC" required>
-            </div>
+                <div class="form-group">
+                    <label for="NIC">NIC :</label>
+                    <input type="text" name="NIC" id="NIC" required>
+                    <div class="error-message" id="NICError"></div>
+                </div>
 
+                <div class="form-group">
+                    <label for="Relationship">Relationship:</label>
+                    <select name="Relationship" id="Relationship" required>
+                        <option value="">-- Select Relationship --</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Father">Father</option>
+                        <option value="Guardian">Guardian</option>
+                    </select>
+                    <div class="error-message" id="RelationshipError"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="Relationship">Relationship:</label>
-                <select name="Relationship" id="Relationship" required>
-                    <option value="">-- Select Relationship --</option>
-                    <option value="Mother">Mother</option>
-                    <option value="Father">Father</option>
-                    <option value="Guardian">Guardian</option>
-                </select>
-            </div>
+                <button type="submit" class="btn btn-primary">Submit Parent</button><br><br>
+                <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewParent'" class="btn btn-primary">View All Parents</button><br><br>
+                <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
+        </form>
 
+                <script>
+                // Client-side Validation
+                document.getElementById('parentForm').addEventListener('submit', function(event) {
+                let isValid = true;
 
-            <button type="submit" class="btn btn-primary">Submit Parent</button><br><br>
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
 
-            <button type="button" onclick="window.location.href='<?php echo URLROOT; ?>/Admin/viewParent'" class="btn btn-primary">View All Parents</button><br><br>
+                // regNo Validation
+                const regNo = document.getElementById('regNo').value.trim();
+                if (!regNo) {
+                    document.getElementById('regNoError').textContent = 'Registration number is required.';
+                    isValid = false;
+                }
 
-            <a href="<?php echo URLROOT; ?>/Dashboard/index" class="btn btn-secondary">Cancel</a>
-        </form><br><br>
+                // NIC Validation
+                const NIC = document.getElementById('NIC').value.trim();
+                if (!NIC || (NIC.length !== 10 && NIC.length !== 12)) {
+                    document.getElementById('NICError').textContent = 'Incorrect NIC.';
+                    isValid = false;
+                }
+
+                // Relationship Validation
+                const Relationship = document.getElementById('Relationship').value;
+                if (!Relationship) {
+                    document.getElementById('RelationshipError').textContent = 'Relationship is required.';
+                    isValid = false;
+                }
+
+                // If any validation fails, prevent form submission
+                if (!isValid) {
+                    event.preventDefault();
+                }
+                });
+                </script>
+
+                <style>
+                .error-message {
+                    color: red;
+                    font-size: 0.9rem;
+                    margin-top: 5px;
+                }
+                </style>
+<br><br>
 
                                         <!-- ################To get users ID ################ -->
 

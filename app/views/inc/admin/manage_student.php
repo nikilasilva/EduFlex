@@ -18,10 +18,17 @@
 
     <!-- Main content -->
     <div class="container">
+
+    <?php if (!empty($data['form_err'])): ?>
+        <div style="color: red; font-weight: bold; margin-bottom: 15px;">
+            <?php echo $data['form_err']; ?>
+        </div>
+    <?php endif; ?>
+
         <h1>Insert Student Details</h1>
 
         <!-- Student Form -->
-        <form action="<?php echo URLROOT; ?>/Admin/submitStudent" method="POST">
+        <form action="<?php echo URLROOT; ?>/Admin/submitStudent" method="POST" novalidate>
 
 
             <!-- Student ID -->

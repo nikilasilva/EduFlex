@@ -17,13 +17,10 @@
         <div class="container">
             <h1>Update Student Details</h1>
 
-            <form action="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $data['student']->regNo; ?>" method="POST">
+           <!-- Error message at the top -->
+        <div id="formError" class="form-error-message" style="display:none;"></div>
 
-
-            <!-- <div class="form-group">
-                    <label for="student_id">Student ID :</label>
-                    <input type="text" name="student_id" id="student_id" required value="<?php echo htmlspecialchars($data['student']->student_id); ?>">
-                </div> -->
+            <form id="editStudentForm" action="<?php echo URLROOT; ?>/Admin/editStudent/<?php echo $data['student']->regNo; ?>" method="POST" novalidate>
 
                 <div class="form-group">
                     <label for="student_id">Student ID :</label>
@@ -31,7 +28,6 @@
                     <input type="hidden" name="student_id" value="<?php echo htmlspecialchars($data['student']->student_id); ?>">
                 </div>
 
-                
                 <div class="form-group">
                     <label for="regNo">User Reg :</label>
                     <input type="text" name="regNo" id="regNo" required value="<?php echo htmlspecialchars($data['student']->regNo); ?>">
@@ -50,6 +46,7 @@
                 <div class="form-group">
                     <label for="mobileNo">Mobile Number :</label>
                     <input type="text" name="mobileNo" id="mobileNo" required value="<?php echo htmlspecialchars($data['user']->mobileNo); ?>">
+                    <div class="error-message" id="mobileNoError"></div>
                 </div>
 
                 <div class="form-group">
@@ -57,9 +54,6 @@
                     <textarea name="address" id="address" required><?php echo htmlspecialchars($data['user']->address); ?></textarea>
                 </div>
 
-
-
-              
                 <div class="form-group">
                     <label for="classId">Class Name :</label>
                     <select name="classId" id="classId" required>
@@ -73,14 +67,60 @@
                     </select>
                 </div>
 
-
-
-             
-
                 <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
                 <a href="<?php echo URLROOT; ?>/Admin/viewStudent" class="btn btn-secondary">Back to List</a>
 
             </form>
+
+    <!-- Validation Script -->
+    <script>
+    document.getElementById('editStudentForm').addEventListener('submit', function(event) {
+        let isValid = true;
+
+        // Clear previous errors
+        document.getElementById('formError').style.display = 'none';
+        document.getElementById('mobileNoError').textContent = '';
+
+        const regNo = document.getElementById('regNo').value.trim();
+        const fullName = document.getElementById('fullName').value.trim();
+        const nameWithInitial = document.getElementById('nameWithInitial').value.trim();
+        const mobileNo = document.getElementById('mobileNo').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const classId = document.getElementById('classId').value.trim();
+
+        // Check all fields filled
+        if (!regNo || !fullName || !nameWithInitial || !mobileNo || !address || !classId) {
+            document.getElementById('formError').style.display = 'block';
+            document.getElementById('formError').textContent = 'Required field is not filled, please check.';
+            isValid = false;
+        }
+
+        // Check mobile number
+        const mobilePattern = /^\d{10}$/;
+        if (mobileNo && !mobilePattern.test(mobileNo)) {
+            document.getElementById('mobileNoError').textContent = 'Mobile number must be exactly 10 digits.';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+    </script>
+
+    <style>
+    .form-error-message {
+        color: red;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    .error-message {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+    </style>
+
         </div>
     </div>
 </body>
