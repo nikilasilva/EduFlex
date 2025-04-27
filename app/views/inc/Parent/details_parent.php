@@ -78,14 +78,15 @@
             </div>
             <div class="profile-details">
                 <h2><?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></h2>
-                <p><span>ID Number  :</span> <?= htmlspecialchars($student->regNo) ?></p>
+                <!-- <p><span>ID Number  :</span> <?= htmlspecialchars($student->regNo) ?></p> -->
                 <p><span>Full Name  :</span> <?= htmlspecialchars($student->firstName . ' ' . $student->lastName) ?></p>
                 <p><span>Student ID :</span> <?= htmlspecialchars($student->student_id) ?></p>
+                <!-- <p><span>Admission Date:</span> <?= htmlspecialchars($student->dateOfAdmission) ?></p> -->
                 <!-- <p><span>Gender:</span> <?= htmlspecialchars($student->gender) ?></p>
                 <p><span>Date Of Birth:</span> <?= htmlspecialchars($student->dob) ?></p>
                 <p><span>E-mail:</span> <?= htmlspecialchars($student->email) ?></p>
                 <p><span>Admission Date:</span> <?= htmlspecialchars($student->admission_date) ?></p> -->
-                <p><span>Class  :</span> <?= htmlspecialchars($student->classId) ?></p>
+                <!-- <p><span>Class  :</span> <?= htmlspecialchars($student->classId) ?></p> -->
             </div>
         </div>
     <?php endforeach; ?>
