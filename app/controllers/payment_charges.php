@@ -25,6 +25,7 @@ class Payment_charges extends Controller {
     public function submit() {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
             $data = [
                 'payment_id' => $this->generateUniquePaymentId(),
                 'full_name' => trim($_POST['fullName']),
@@ -50,14 +51,14 @@ class Payment_charges extends Controller {
                     // Handle validation errors
                 if (!empty($validationErrors)) {                    
                     $data['errors'] = $validationErrors;
-                    $this->view('inc/student/F_S', $data);
+                    $this->view('inc/student/F_S', $data);                    
                     exit();
                 }
                 $data['payment_slip'] = $this->uploadFile($_FILES['paymentSlip']);
-
+                
                 // Insert data
                 $this->payment_chargesModel->insert($data);
-
+               
                 header("Location: " . URLROOT . "/payment_charges/submit");
                 exit();
                 // } else {

@@ -7,14 +7,14 @@
 
     <!-- Display custom error messages -->
     <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger">
+        <div id="flash-message" class="alert alert-danger">
             <?= $_SESSION['error'];
             unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger">
+        <div id="flash-message" class="alert alert-danger">
             <?= htmlspecialchars($_SESSION['error']) ?>
             <?php unset($_SESSION['error']); ?>
         </div>
@@ -76,6 +76,9 @@
 
         <button type="submit" name="submit_marks">Submit Marks</button>
     </form>
+    <a href="<?php echo URLROOT; ?>/teacher/selectClass" class="btn-back">
+    << Back
+</a>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

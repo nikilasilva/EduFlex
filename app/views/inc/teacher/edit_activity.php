@@ -26,13 +26,13 @@
 
             <!-- Alert messages -->
             <?php if (isset($data['error'])): ?>
-                <div class="alert alert-danger">
+                <div id="flas-message" class="alert alert-danger">
                     <?php echo $data['error']; ?>
                 </div>
             <?php endif; ?>
 
             <?php if (isset($data['success'])): ?>
-                <div class="alert alert-success">
+                <div id="flas-message" class="alert alert-success">
                     <?php echo $data['success']; ?>
                 </div>
             <?php endif; ?>

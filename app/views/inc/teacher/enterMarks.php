@@ -38,6 +38,10 @@
         </table>
         <button type="submit">Save Marks</button>
     </form>
+
+    <a href="<?php echo URLROOT; ?>/teacher/selectClass" class="btn-back">
+    << Back
+</a>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
