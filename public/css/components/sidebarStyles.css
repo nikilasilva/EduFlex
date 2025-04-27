@@ -146,6 +146,8 @@ ul {
     margin-top: 0;
 }
 
+
+
 /* Responsive design for smaller devices */
 @media (max-width: 768px) {
     .sidebar {

@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
-<div class="term-report-container">
+<div class="term-report-container container">
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <h1 class="form-title">View Term Report</h1>

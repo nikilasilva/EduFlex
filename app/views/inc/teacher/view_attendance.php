@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="attendance-container">
+<div class="attendance-container container">
     <h1>Attendance Records for <?php echo htmlspecialchars($data['date']); ?></h1>
     <h2>Class: <?php echo htmlspecialchars($data['className']); ?></h2>
 
