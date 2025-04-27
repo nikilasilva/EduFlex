@@ -10,7 +10,7 @@ class TeacherAttendanceModel
 
     protected $allowedColumns = [
         'attendanceId', // 'attendance_id' change to 'attendanceId',
-        'teacherRegNo',// 'teacher_id' to 'teacherRegNo',
+        'teacherRegNo',// 'teacher_id' to 'teacherRegNo', techers table this valuw save as 'teacher_id' techers tabale's primary key in teacher_id,
         'date', // 'attendance_date',
         'status	',  // 'status' to 'date',
         'recordedBy', // 'recordedBy' (New)
@@ -44,6 +44,12 @@ public function where($conditions)
 
     return $this->query($sql, $params);
 }
+
+public function findAll()
+{
+    return $this->query("SELECT * FROM teacherattendance");
+}
+
 
 
 
