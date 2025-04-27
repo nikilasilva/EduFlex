@@ -14,11 +14,11 @@ class TeacherModel {
         $limit = (int)$limit;
         $offset = (int)$offset;
 
-        $sql = "SELECT t.regNo, t.firstName, t.lastName, u.email, u.mobileNo,
+        $sql = "SELECT t.regNo, u.fullName, u.email, u.mobileNo,
                        GROUP_CONCAT(s.subjectName) as subjects, c.className
                 FROM teachers t
                 JOIN users u ON t.regNo = u.regNo
-                LEFT JOIN teacher_subjects ts ON t.regNo = ts.teacherRegNo
+                LEFT JOIN teacher_subjects ts ON t.teacher_id = ts.teacherRegNo
                 LEFT JOIN subjects s ON ts.subjectId = s.subjectId
                 LEFT JOIN class_teacher ct ON ct.teacher_id = t.teacher_id
                 LEFT JOIN classes c ON ct.classId = c.classId
@@ -130,5 +130,14 @@ class TeacherModel {
             error_log("Error assigning teacher: " . $e->getMessage());
             return false;
         }
+    }
+
+    public function getTeacherId($regNo) {
+        $sql = "SELECT t.teacher_id
+            FROM teachers t
+            INNER JOIN users u ON u.regNo = t.regNo
+            WHERE t.regNo = :regNo";
+        $result = $this->query($sql, ['regNo' => $regNo]);
+        return is_array($result) && !empty($result) ? $result[0]->teacher_id : "";
     }
 }
