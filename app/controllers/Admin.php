@@ -127,120 +127,29 @@ class Admin extends Controller
     // Edit User Details
     public function editUser($regNo) {
         $userModel = new manage_useraccountModel();
-    
+
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-            // Initialize data
             $data = [
                 'fullName' => trim($_POST['fullName']),
                 'nameWithInitial' => trim($_POST['nameWithInitial']),
                 'email' => trim($_POST['email']),
                 'mobileNo' => trim($_POST['mobileNo']),
                 'address' => trim($_POST['address']),
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // Hash password
                 'dob' => $_POST['dob'],
                 'gender' => $_POST['gender'],
                 'religion' => trim($_POST['religion']),
-                'role' => $_POST['role'],
-                'fullName_err' => '',
-                'nameWithInitial_err' => '',
-                'email_err' => '',
-                'mobileNo_err' => '',
-                'address_err' => '',
-                'dob_err' => '',
-                'gender_err' => '',
-                'religion_err' => '',
-                'role_err' => ''
+                'role' => $_POST['role']
             ];
-    
-            // Validate Full Name
-            if (empty($data['fullName'])) {
-                $data['fullName_err'] = 'Please enter the full name.';
-            }
-    
-            // Validate Name with Initials
-            if (empty($data['nameWithInitial'])) {
-                $data['nameWithInitial_err'] = 'Please enter name with initials.';
-            }
-    
-            // Validate Email
-            if (empty($data['email'])) {
-                $data['email_err'] = 'Please enter an email.';
-            } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $data['email_err'] = 'Invalid email format.';
-            }
-    
-            // Validate Mobile Number
-            if (empty($data['mobileNo'])) {
-                $data['mobileNo_err'] = 'Please enter a mobile number.';
-            } elseif (!preg_match('/^[0-9]{10}$/', $data['mobileNo'])) {
-                $data['mobileNo_err'] = 'Mobile number must be 10 digits.';
-            }
-    
-            // Validate Address
-            if (empty($data['address'])) {
-                $data['address_err'] = 'Please enter an address.';
-            }
-    
-            // Validate Date of Birth
-            if (empty($data['dob'])) {
-                $data['dob_err'] = 'Please select a date of birth.';
-            }
-    
-            // Validate Gender
-            if (empty($data['gender'])) {
-                $data['gender_err'] = 'Please select a gender.';
-            }
-    
-            // Validate Religion
-            if (empty($data['religion'])) {
-                $data['religion_err'] = 'Please enter religion.';
-            }
-    
-            // Validate Role
-            if (empty($data['role'])) {
-                $data['role_err'] = 'Please select a role.';
-            }
-    
-            // Check if there are no errors
-            if (
-                empty($data['fullName_err']) &&
-                empty($data['nameWithInitial_err']) &&
-                empty($data['email_err']) &&
-                empty($data['mobileNo_err']) &&
-                empty($data['address_err']) &&
-                empty($data['dob_err']) &&
-                empty($data['gender_err']) &&
-                empty($data['religion_err']) &&
-                empty($data['role_err'])
-            ) {
-                // No errors - Update user
-                $updateData = [
-                    'fullName' => $data['fullName'],
-                    'nameWithInitial' => $data['nameWithInitial'],
-                    'email' => $data['email'],
-                    'mobileNo' => $data['mobileNo'],
-                    'address' => $data['address'],
-                    'dob' => $data['dob'],
-                    'gender' => $data['gender'],
-                    'religion' => $data['religion'],
-                    'role' => $data['role']
-                ];
-    
-                $userModel->update($regNo, $updateData, 'regNo');
-    
-                // Redirect to view users page
-                header("Location: " . URLROOT . "/admin/viewUser");
-                exit();
-            } else {
-                // Load view with errors
-                $this->view('inc/admin/edit_user_by_admin', ['users' => (object)$data]);
-            }
+
+            $userModel->update($regNo, $data, 'regNo');
+
+            // Redirect to view users page
+            header("Location: " . URLROOT . "/admin/viewUser");
+            exit();
         } else {
-            // If GET request
             $users = $userModel->first(['regNo' => $regNo]);
-    
+
             if ($users) {
                 $this->view('inc/admin/edit_user_by_admin', ['users' => $users]);
             } else {
@@ -248,7 +157,6 @@ class Admin extends Controller
             }
         }
     }
-    
 
  
     // Delete User Details
