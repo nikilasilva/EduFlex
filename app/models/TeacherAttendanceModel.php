@@ -18,7 +18,7 @@ class TeacherAttendanceModel
 
     ];
 
-    protected $order_column = 'attendance_date';
+    protected $order_column = 'teacherRegNo';
 
     public function update($teacherId, $data)
 {
@@ -50,8 +50,27 @@ public function findAll()
     return $this->query("SELECT * FROM teacherattendance");
 }
 
+public function getAttendanceByDate($date)
+{
+    return $this->query('SELECT * FROM teacherattendance WHERE date = :date', ['date' => $date]);
+}
+
+
+
+
+// public function getAttendanceByTeacherAndDate($teacher_id, $date)
+// {
+//     $this->query('SELECT * FROM teacherattendance WHERE teacherRegNo = :teacher_id AND date = :date', [
+//         ':teacher_id' => $teacher_id,
+//         ':date' => $date
+//     ]);
+//     return $this->single();
+// }
+
 
 
 
 }
+
+?>
 

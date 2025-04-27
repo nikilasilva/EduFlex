@@ -137,7 +137,7 @@ class NonAcademic extends Controller
 public function ViewTeachersAttendance()
 {
     $teacherAttendanceModel = new TeacherAttendanceModel();
-    $teacherModel = new TeacherModel(); // You must have a TeacherModel class!
+    $teacherModel = new TeacherModeldev3(); // Correct model
 
     // Get selected date from URL, or use today's date
     $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
@@ -145,102 +145,112 @@ public function ViewTeachersAttendance()
     // Fetch all attendance records
     $attendanceRecords = $teacherAttendanceModel->findAll();
 
-    // Fetch all teachers (for getting teacher names)
+    // Fetch all teachers
     $teachers = $teacherModel->findAll();
 
-    // Reformat teachers array: [teacherRegNo => teacherObject]
+    // Reformat teachers array: [teacher_id => teacherObject]
     $teachersArray = [];
     foreach ($teachers as $teacher) {
-        $teachersArray[$teacher->regNo] = $teacher;
+        $teachersArray[$teacher->teacher_id] = $teacher;
     }
 
-    // Pass data to the view
+    // Prepare data to send to view
     $data = [
         'attendance' => [],
         'teachers' => $teachersArray,
         'selectedDate' => $selectedDate
     ];
 
-    // Fix for attendance records
+    // Fix attendance records
     foreach ($attendanceRecords as $record) {
         $data['attendance'][] = (object)[
-            'teacher_id' => $record->teacherRegNo,
+            'teacher_id' => $record->teacherRegNo,  // 'teacherRegNo' actually matches 'teacher_id'
             'attendance_date' => $record->date,
             'status' => $record->status
         ];
     }
 
+    // Load the view
     $this->view('inc/nonAcademic/view_teachers_attendance', $data);
 }
 
 
 
 
+
 public function UpdateTeachersAttendanceForm()
 {
-    $date = $_GET['date'] ?? date('Y-m-d');
+    $teacherAttendanceModel = new TeacherAttendanceModel();
     $teacherModel = new TeacherModeldev3();
-    $attendanceModel = new TeacherAttendanceModel();
 
+    // Get selected date from URL or today's date
+    $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+
+    // Fetch all teachers
     $teachers = $teacherModel->findAll();
-    $attendance = [];
 
-    foreach ($teachers as $teacher) {
-        $records = $attendanceModel->where([
-            'teacherRegNo' => $teacher->regNo,
-            'date' => $date
-        ]);
+    // Fetch attendance records for selected date
+    $attendanceRecords = $teacherAttendanceModel->getAttendanceByDate($selectedDate);
 
-        $status = !empty($records) ? $records[0]->status : null;
-        $attendance[$teacher->regNo] = $status;
+    // Reformat attendance records: [teacher_id => status]
+    $attendanceArray = [];
+    foreach ($attendanceRecords as $record) {
+        $attendanceArray[$record->teacherRegNo] = $record->status;
     }
 
-    $this->view('inc/nonAcademic/update_teachers_attendance', [
+    $data = [
         'teachers' => $teachers,
-        'attendance' => $attendance,
-        'date' => $date
-    ]);
+        'attendance' => $attendanceArray,
+        'date' => $selectedDate
+    ];
+
+    $this->view('inc/nonAcademic/update_teachers_attendance', $data);
 }
-
-
 
 
 public function SubmitUpdatedTeachersAttendance()
 {
-    $teacherIds = $_POST['teacher_ids'];
-    $statuses = $_POST['attendance'];
-    $date = $_POST['date'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $teacherAttendanceModel = new TeacherAttendanceModel();
 
-    $attendanceModel = new TeacherAttendanceModel();
+        $date = $_POST['date'];
+        $teacherIds = $_POST['teacher_ids'];
+        $attendance = $_POST['attendance'];
 
-    foreach ($teacherIds as $teacherRegNo) {
-        $data = [
-            'teacherRegNo' => $teacherRegNo,
-            'date' => $date,
-            'status' => $statuses[$teacherRegNo],
-            'recordedBy' => $_SESSION['user_id'] ?? 'system', // Adjust according to your login system
-            'recordedAt' => date('Y-m-d H:i:s')
-        ];
+        foreach ($teacherIds as $teacher_id) {
+            $status = isset($attendance[$teacher_id]) ? $attendance[$teacher_id] : null;
 
-        $existingRecords = $attendanceModel->where([
-            'teacherRegNo' => $teacherRegNo,
-            'date' => $date
-        ]);
+            if ($status !== null) {
+                // Check if record already exists
+                $existingRecords = $teacherAttendanceModel->where([
+                    'teacherRegNo' => $teacher_id,
+                    'date' => $date
+                ]);
 
-        if (!empty($existingRecords)) {
-            $attendanceModel->update($existingRecords[0]->attendanceId, $data);
-        } else {
-            $attendanceModel->insert($data);
+                $existingRecord = !empty($existingRecords) ? $existingRecords[0] : null;
+
+                if ($existingRecord) {
+                    // Update existing attendance record
+                    $teacherAttendanceModel->update($existingRecord->id, [
+                        'status' => $status
+                    ]);
+                } else {
+                    // Insert new attendance record
+                    $teacherAttendanceModel->insert([
+                        'teacherRegNo' => $teacher_id,
+                        'date' => $date,
+                        'status' => $status
+                    ]);
+                }
+            }
         }
+
+        // Redirect after successful update
+        redirect('nonAcademic/ViewTeachersAttendance?date=' . urlencode($date));
+    } else {
+        die('Invalid request method.');
     }
-
-    header('Location: ' . URLROOT . '/NonAcademic/ViewTeachersAttendance?date=' . $date);
-    exit();
 }
-
-
-
-
 
 
 
