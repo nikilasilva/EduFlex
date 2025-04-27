@@ -35,41 +35,44 @@ class Payment_charges extends Controller {
 
             try {
                 // File upload
-                $data['payment_slip'] = $this->uploadFile($_FILES['paymentSlip']);
                 
                 // Validate input
                 $validationErrors = $this->payment_chargesModel->validate($data);
-
+            
+                
                 // Check for duplicate entries
-                if ($this->payment_chargesModel->checkDuplicateEntry(
-                    $data['student_id'], 
-                    $data['year_of_payment']
-                )) {
-                    $validationErrors[] = "Payment for this student and year already exists.";
-                }
-
-                // Handle validation errors
-                if (!empty($validationErrors)) {
+                // if ($this->payment_chargesModel->checkDuplicateEntry(
+                //     $data['student_id'], 
+                //     $data['year_of_payment']
+                //     )) {                    
+                //     $validationErrors[] = "Payment for this student and year already exists.";
+                // }
+                    // Handle validation errors
+                if (!empty($validationErrors)) {                    
                     $data['errors'] = $validationErrors;
-                    $this->view('payment/facility_charges', $data);
+                    $this->view('inc/student/F_S', $data);
                     exit();
                 }
+                $data['payment_slip'] = $this->uploadFile($_FILES['paymentSlip']);
 
                 // Insert data
-                $insertResult = $this->payment_chargesModel->insert($data);
+                $this->payment_chargesModel->insert($data);
 
-                if ($insertResult) {
-                    header("Location: " . URLROOT . "/Student/f_s");
-                    exit();
-                } else {
-                    throw new Exception("Failed to insert data.");
-                }
+                header("Location: " . URLROOT . "/payment_charges/submit");
+                exit();
+                // } else {
+                //     throw new Exception("Failed to insert data.");
+                // }
             } catch (Exception $e) {
                 error_log($e->getMessage());
                 $data['errors'] = ["An unexpected error occurred. Please try again."];
-                $this->view('payment/facility_charges', $data);
+                $this->view('inc/student/F_S', $data);
                 exit();
             }
+        } else {
+            // If not a POST request, redirect or show an error
+            $this->view('inc/student/F_S');
+            exit();
         }
     }
 

@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start session handling
+
 require APPROOT.'/views/inc/header.php';
 require APPROOT.'/views/inc/components/topNavbar.php';
 require APPROOT.'/views/inc/components/sideBar.php';
@@ -25,55 +25,53 @@ require APPROOT.'/views/inc/components/sideBar.php';
 
     <div class="form-container container">
         <h2>Character Certificate Application</h2>
-        <form id="characterCertificateForm" method="post" action="<?= URLROOT ?>/CharacterCertificate/submit" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form id="characterCertificateForm" method="post" action="<?= URLROOT ?>/CharacterCertificate/submit" enctype="multipart/form-data" onsubmit="return validateForm()" >
             
             <!-- Full Name Field -->
-            <label for="fullName">1. Full Name</label>
-            <input type="text" 
-                   id="fullName" 
-                   name="fullName" 
-                   placeholder="Enter your full name" 
-                   value="<?php echo $data['full_name'] ?? ''; ?>" 
-                   required>
-            
+            <div class="form-group">
+      <label for="full-name">1. Full Name</label>
+      <input type="text" name="fullName" id="full-name" placeholder="Enter full name"
+             value="<?php echo htmlspecialchars($data['studentDetails']->fullName ?? ''); ?>" required>
+    </div>
+
             <!-- Student ID Field -->
-            <label for="studentId">2. Student ID</label>
-            <input type="text" 
-                   id="studentId" 
-                   name="studentId" 
-                   placeholder="Enter your student ID" 
-                   value="<?php echo $data['student_id'] ?? ''; ?>" 
-                   required>
+            <div class="form-group">
+      <label for="student-id">2. Student ID</label>
+      <input type="text" name="student_id" id="student-id" placeholder="Enter student ID"
+             value="<?php echo htmlspecialchars($data['studentDetails']->student_id ??''); ?>" required>
+    </div>
             
             <!-- Date of Birth Field -->
-            <label for="dob">3. Date of Birth</label>
-            <input type="date" 
-                   id="dob" 
-                   name="dob" 
-                   value="<?php echo $data['date_of_birth'] ?? ''; ?>" 
-                  
-                   required>
-
+            <div class="form-group">
+      <label for="dob">3. Date of Birth</label>
+      <input type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($data['studentDetails']->dob ?? ''); ?>"
+      max="<?php echo date('Y-m-d'); ?>"
+       required>
+    </div>
             
             
             <!-- Guardian Name Field -->
-            <label for="guardianName">4. Guardian Name</label>
+            <!-- <label for="guardianName">4. Guardian Name</label>
             <input type="text" 
                    id="guardianName" 
                    name="guardianName" 
                    placeholder="Enter guardian's name" 
                    value="<?php echo $data['guardian_name'] ?? ''; ?>" 
-                   required>
+                   required> -->
             
-            <!-- Address Field -->
-            <label for="address">5. Address</label>
+            
+             <div class="form-group">
+            <label for="reason">5. Reason for Request</label>
             <input type="text" 
-                   id="address" 
-                   name="address" 
-                   placeholder="Enter your address" 
-                   value="<?php echo $data['address'] ?? ''; ?>" 
+                   id="reason" 
+                   name="reason" 
+                   placeholder="Enter the reason for the certificate" 
+                   value="<?php echo $data['reason'] ?? ''; ?>" 
                    required>
-            
+                   <?php if (!empty($data['errors']['reason'])): ?>
+                        <span class="error"><?= htmlspecialchars($data['errors']['reason']) ?></span>
+                    <?php endif; ?></div>
+
             <!-- Payment Slip (File Upload) -->
             <!-- <label for="paymentSlip">6. ID Copy</label>
             <div class="file-upload">

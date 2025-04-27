@@ -7,16 +7,11 @@ class StudentModel {
         'firstName',
         'lastName',
         'classId',
-        'guardianRegN0'   
+       'dateOfAdmission',
+        
+        
     ];
     protected $order_column;
-
-        
-    //   public function __construct() {
-    //       if ($this->db === null) {
-    //           $this->connect(); // Ensure the connection is established here
-    //       }
-    //   }
 
       public function getUsers() {
           return $this->query('SELECT * FROM students');  // Using the query method from the trait
@@ -46,10 +41,6 @@ class StudentModel {
           return $stmt->fetch(PDO::FETCH_OBJ);
       }
         
-
-
-
-
 
     //Example method to get all students
     public function getAllStudents() {

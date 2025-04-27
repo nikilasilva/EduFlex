@@ -87,17 +87,17 @@
             $this->view('inc/student/libry_fine');
         }
 
-        public function f_s(){
-            $this->view('inc/student/F_S');
-        }
+        // public function f_s(){
+        //     $this->view('inc/student/F_S');
+        // }
 
         public function character(){
             $this->view('inc/student/character');
         }
 
-        public function leaving(){
-            $this->view('inc/student/leaving');
-        }
+        // public function leaving(){
+        //     $this->view('inc/student/leaving');
+        // }
 
         // public function attendance(){
             
