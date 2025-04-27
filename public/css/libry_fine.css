@@ -1,12 +1,12 @@
 
 .form-container {
-    margin-top: 30px;
-    width: 73%;
+    margin-top: 15px;
+    width: 73.75%;
     margin-left: 290px;
     padding: 50 px;
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     
 }
 
@@ -192,22 +192,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #fineForm .error {
     text-align: left;
+}
+#dob, #admission-date {
+margin-right: 108px;
+padding: 19px;
+}
+
+#fineForm .form-group {
+    width: 111%;
+}
+
+#fineForm .file-upload {
+    left: 0;
 }

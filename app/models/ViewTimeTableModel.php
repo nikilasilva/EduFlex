@@ -20,15 +20,21 @@ class ViewTimeTableModel {
     // }
 
 public function getStudentTimetable($studentId) {
-    $query ="
-        SELECT tt.periodId, s.subjectName, t.firstName, t.lastName, tt.day,p.startTime,p.endTime
+    $query ="SELECT 
+            tt.periodId, 
+            s.subjectName, 
+            t.firstName, 
+            t.lastName, 
+            tt.day,
+            p.startTime,
+            p.endTime
         FROM timetables tt
         JOIN students st ON tt.classId = st.classId
-        JOIN subjects s ON tt.subjectId = s.subject_id
-        JOIN teachers t ON tt.teacherRegNo = t.regNo
+        JOIN subjects s ON tt.subjectId = s.subjectId
+        JOIN teachers t ON tt.teacherRegNo = t.teacher_id
         JOIN periods p ON tt.periodId = p.periodId
         WHERE st.student_id = :student_id
-        ORDER BY tt.periodId ASC
+        ORDER BY tt.periodId ASC;
     ";
     $params = [
         'student_id' => $studentId

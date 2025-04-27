@@ -20,7 +20,7 @@ class ViewMarksModel {
     public function getStudentMarks($studentId) {
         $query = "SELECT s.subjectName, m.term, m.marks
                   FROM marks m
-                  JOIN subjects s ON m.subject_id = s.subject_id
+                  JOIN subjects s ON m.subject_id = s.subjectId
                   WHERE m.student_id = :student_id
                   ORDER BY m.term DESC";
     

@@ -42,7 +42,7 @@
         <?php endif; ?>
 
         <!-- Daily Activities form -->
-        <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST">
+        <form action="<?php echo URLROOT; ?>/teacher/submitActivities" method="POST" novalidate>
             <div class="form-group">
                 <label for="date">Date:</label>
                 <input type="date" name="date" id="date" required>

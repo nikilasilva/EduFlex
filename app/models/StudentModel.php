@@ -76,6 +76,7 @@ class StudentModel {
             u.dob,
             u.gender,
             u.religion,
+            u.profile_picture,
             s.student_id,
             c.className,
             c.academicYear,

@@ -5,7 +5,7 @@
 <div class="upload-users-container">
     <h1>Upload Users via CSV</h1>
     <div class="upload-form">
-        <p>Upload a CSV file with columns: <p class="users-csv-headings"> email, mobileNo, address, username, dob, gender, religion, role, studentId, classId, guardianRegNo, occupation, relationship</p>
+        <p>Upload a CSV file with columns: <p class="users-csv-headings"> email, mobileNo, address, fullName, nameWithInitial, dob, gender, religion, role, student_id, classId, guardianRegNo, occupation, relationship</p>
             <br> Passwords will be automatically generated as username + "123".
             <br>For students, include studentId, classId, guardianRegNo
             <br>For parents, include occupation and relationship (Father, Mother, or Guardian)</p>

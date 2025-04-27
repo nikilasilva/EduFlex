@@ -31,10 +31,10 @@ class ParentModel {
             $this->errors['regNo'] = 'A valid registration number is required.';
         }
 
-        // firstName validation
-        if (empty($data['firstName'])) {
-            $this->errors['firstName'] = 'First name is required.';
-        }
+        // // firstName validation
+        // if (empty($data['firstName'])) {
+        //     $this->errors['firstName'] = 'First name is required.';
+        // }
 
         // occupation validation
         if (empty($data['occupation'])) {

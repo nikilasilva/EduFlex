@@ -20,7 +20,8 @@ class TeacherModel {
                 JOIN users u ON t.regNo = u.regNo
                 LEFT JOIN teacher_subjects ts ON t.regNo = ts.teacherRegNo
                 LEFT JOIN subjects s ON ts.subjectId = s.subjectId
-                LEFT JOIN classes c ON c.classTeacherRegNo = t.regNo
+                LEFT JOIN class_teacher ct ON ct.teacher_id = t.teacher_id
+                LEFT JOIN classes c ON ct.classId = c.classId
                 WHERE u.role = 'teacher'
                 GROUP BY t.regNo, t.firstName, t.lastName, u.email, u.mobileNo
                 LIMIT $limit OFFSET $offset";

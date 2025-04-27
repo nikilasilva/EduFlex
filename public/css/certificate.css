@@ -1,15 +1,13 @@
 /* Container styling for certificate cards */
 .certificate-container {
     display: flex;
-    gap: 20px;
+    gap: 100px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     margin: 20px auto;
     padding: 10px;
     position: relative;
-    left: 40px;
-    top: 40px;
 }
 
 /* Individual certificate card styling */
@@ -22,6 +20,10 @@
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease;
+}
+
+.certificate-card a {
+    text-decoration: none;
 }
 
 .certificate-card:hover {
