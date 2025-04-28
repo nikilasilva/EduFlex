@@ -44,7 +44,7 @@
 
         </form>
 
-                <!-- Validation Script -->
+                <!-- Validation by JS -->
                 <script>
                 document.getElementById('vicePrincipalForm').addEventListener('submit', function(event) {
                 let isValid = true;

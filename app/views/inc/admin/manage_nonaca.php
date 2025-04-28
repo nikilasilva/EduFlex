@@ -128,6 +128,7 @@
                                             <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
                                             <td><?php echo htmlspecialchars($user->email); ?></td>
                                             <td><?php echo htmlspecialchars($user->role); ?></td>
+                                            
                                         </tr>
                                     <?php endif; ?>
                                 <?php endforeach; ?>

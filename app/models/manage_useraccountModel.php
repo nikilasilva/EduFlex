@@ -24,10 +24,10 @@ class manage_useraccountModel
 
      protected $order_column = 'regNo'; // Defined here
 
-     //update the full name and name with initials
+     //For update the full name and name with initials
      public function updateUserNameDetails($regNo, $data)
 {
-    $this->update($regNo, $data, 'regNo'); // <-- Pass 'regNo' as key column
+    $this->update($regNo, $data, 'regNo'); // Pass 'regNo' as key column
 }
 
 
