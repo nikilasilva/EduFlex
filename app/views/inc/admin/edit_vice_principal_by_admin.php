@@ -123,7 +123,7 @@
             }
             </style>
 
-                <a href="<?php echo URLROOT; ?>/Admin/viewPrincipal" class="btn btn-secondary">Back to List</a>
+               
 
 
 

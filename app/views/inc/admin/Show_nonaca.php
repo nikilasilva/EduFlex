@@ -27,10 +27,8 @@
                     <tr>
                         <th>Staff ID</th>
                         <th>User Reg</th>
-                       
                         <th>Name With Initial</th>
                         <th>Position</th>
-                        <th>Department</th>
                         <th>Hire Date</th>
                         <th>Operation</th>
                     </tr>
@@ -43,13 +41,10 @@
                             
                           
                             <td><?php echo $nonaca->nameWithInitial; ?></td>
-
-
                             <td><?php echo $nonaca->position; ?></td>
-                            <td><?php echo $nonaca->department; ?></td>
                             <td><?php echo $nonaca->hireDate; ?></td>
                             <td>
-                                <a href="<?php echo URLROOT; ?>/Admin/editNonaca/<?php echo $nonaca->staffId; ?>" class="btn btn-edit">Update</a>
+                                <a href="<?php echo URLROOT; ?>/Admin/editNonaca/<?php echo $nonaca->staffId; ?>" class="btn btn-edit">Update</a><br><br>
                                 <a href="<?php echo URLROOT; ?>/Admin/deleteNonaca/<?php echo $nonaca->staffId; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                             </td>
                         </tr>

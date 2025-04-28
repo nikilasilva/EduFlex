@@ -9,7 +9,7 @@ class manage_parentModel
     protected $allowedColumns = [
         'regNo',
         'NIC',
-        'Relationship'
+        'relationship'
         
     ];
 

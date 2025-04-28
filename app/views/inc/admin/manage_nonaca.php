@@ -38,11 +38,7 @@
                 </div>
 
                 <!-- Department -->
-                <div class="form-group">
-                    <label for="department">Department:</label>
-                    <input type="text" name="department" id="department" required>
-                </div>
-
+              
                 <!-- Hire Date -->
                 <div class="form-group">
                     <label for="hireDate">Hire Date:</label>

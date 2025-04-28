@@ -48,12 +48,12 @@
             </div>
 
             <div class="form-group">
-                <label for="Relationship">Relationship :</label>
-                <select name="Relationship" id="Relationship" required>
-                    <option value="">-- Select Relationship --</option>
-                    <option value="Mother" <?php echo ($data['parents']->Relationship === 'Mother') ? 'selected' : ''; ?>>Mother</option>
-                    <option value="Father" <?php echo ($data['parents']->Relationship === 'Father') ? 'selected' : ''; ?>>Father</option>
-                    <option value="Guardian" <?php echo ($data['parents']->Relationship === 'Guardian') ? 'selected' : ''; ?>>Guardian</option>
+                <label for="relationship">relationship :</label>
+                <select name="relationship" id="relationship" required>
+                    <option value="">-- Select relationship --</option>
+                    <option value="Mother" <?php echo ($data['parents']->relationship === 'Mother') ? 'selected' : ''; ?>>Mother</option>
+                    <option value="Father" <?php echo ($data['parents']->relationship === 'Father') ? 'selected' : ''; ?>>Father</option>
+                    <option value="Guardian" <?php echo ($data['parents']->relationship === 'Guardian') ? 'selected' : ''; ?>>Guardian</option>
                 </select>
             </div>
 
@@ -109,7 +109,7 @@
         }
         </style>
 
-                <a href="<?php echo URLROOT; ?>/Admin/viewParents" class="btn btn-secondary">Back to List</a>
+                
            
         </div>
     </div>
