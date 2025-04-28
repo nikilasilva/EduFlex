@@ -5,7 +5,7 @@
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <div class="attendance-container">
-        <h1>Student Character Certificates</h1>
+        <h1>Allocated Student Character Certificates</h1>
 
         <table border="1" cellpadding="10">
     <thead>
@@ -28,7 +28,7 @@
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="7">No Character certificates found.</td>
+                <td colspan="7" class="error-message">No allocated student character certificates found.</td>
             </tr>
         <?php endif; ?>
     </tbody>

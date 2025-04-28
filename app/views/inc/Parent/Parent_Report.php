@@ -45,11 +45,12 @@
     </style>
 </head>
 <body>
-    <div class="feedback-title">
+    <!-- <div class="feedback-title">
         <h1>Feedback & Attendance Report</h1>
-    </div>
-
+    </div> -->
+<div class = "container">	
     <div class="feedback-cards-container">
+       
         <div class="report-card">
             <a href="#" onclick="openModal('<?php echo URLROOT; ?>/Parents/feedback')">
                 <img src="../public/img/Library_fine.jpg" alt="Library Fine">
@@ -76,6 +77,7 @@
             <iframe id="modalIframe" src=""></iframe>
         </div>
     </div>
+</div>
 
     <script>
         function openModal(pageURL) {

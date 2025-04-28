@@ -2,7 +2,7 @@
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
-<div class="aca-container">
+<div class="aca-container container">
     <h1>Student Timetable</h1>
 
     <form action="<?= URLROOT ?>/ViewTimeTable/timetables" method="POST" class="attendance-form" style="margin-bottom: 20px;">

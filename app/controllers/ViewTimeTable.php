@@ -73,17 +73,20 @@ class ViewTimeTable extends Controller {
             // Fetch and show marks
             $timetableRaws = $this->ViewTimeTableModel->getStudentTimetable($studentId);
 
-            $timetables = [];
-
-            foreach ($timetableRaws as $row) {
-                $timeSlot = $row->startTime;
-                $day = $row->day;
-                $subject = $row->subjectName;
-    
-                $timetables[$timeSlot][$day] = [
-                    'subject' => $subject,
-                ];
+            $timetables = []; 
+            
+            if (!empty($timetables)) {
+                foreach ($timetableRaws as $row) {
+                    $timeSlot = $row->startTime;
+                    $day = $row->day;
+                    $subject = $row->subjectName;
+        
+                    $timetables[$timeSlot][$day] = [
+                        'subject' => $subject,
+                    ];
+                }
             }
+
            
             $this->view('inc/Parent/ViewTime_Table', [
                 'timetables' => $timetables,

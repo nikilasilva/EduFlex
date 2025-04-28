@@ -14,7 +14,7 @@ class StudentModel {
     protected $order_column;
 
       public function getUsers() {
-          return $this->query('SELECT * FROM students');  // Using the query method from the trait
+          return $this->query('SELECT * FROM students');  
       }
 
 

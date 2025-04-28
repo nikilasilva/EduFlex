@@ -31,7 +31,7 @@
 </nav>
 
 <!-- Main Content -->
-<div class="aca-container">
+<div class="aca-container container">
     <h1 style="text-align:center;">Student Marks</h1>
 
     <!-- Form to Enter Student ID -->

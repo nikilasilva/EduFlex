@@ -178,18 +178,6 @@ class TimetableModel {
             $this->errors['academic_year'] = 'Please select academic year.';
         }
 
-        // // File validation
-        // if ($file['timetable_csv']['error'] !== UPLOAD_ERR_OK) {
-        //     $this->errors['timetable_csv'] = 'File upload failed.';
-        // } else {
-        //     $fileType = mime_content_type($file['timetable_csv']['tmp_name']);
-        //     $fileExtension = pathinfo($file['timetable_csv']['name'], PATHINFO_EXTENSION);
-
-        //     if ($fileExtension !== 'csv' || $fileType !== 'text/plain') {
-        //         $this->errors['timetable_csv'] = 'Please upload a valid CSV file.';
-        //     }
-        // }
-
         return empty($this->errors);
     }
 }

@@ -17,7 +17,7 @@
 
         <!-- Main Content -->
         <div class="attendance-container">
-            <h1>Record Teachers Attendance</h1>
+            <h1>Update Teachers Attendance</h1>
 
             <!-- Display Current Date -->
             <div class="current-date">

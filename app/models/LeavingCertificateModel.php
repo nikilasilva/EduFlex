@@ -13,6 +13,16 @@ class LeavingCertificateModel {
     ];
     protected $order_column = 'certificate_id';
 
+
+    public function getAllLeavingCertificates($student_id) {
+        $query = "SELECT * FROM leaving_certificates WHERE student_id = :student_id";
+        return $this->query($query, ['student_id' => $student_id]);
+    }
+   
+    
+        
+    
+
     /**
      * Validate input data.
      */
@@ -37,10 +47,6 @@ class LeavingCertificateModel {
         } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $data['DOB'])) {
             $errors[] = "Date of Birth must be in YYYY-MM-DD format.";
         }
-
-        
-        
-
 
         return $errors;
     }

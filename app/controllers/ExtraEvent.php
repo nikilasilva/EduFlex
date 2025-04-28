@@ -17,8 +17,6 @@ class ExtraEvent extends Controller
         $this->view('inc/extra-events/createEvent');
     }
 
-
-
     // --------event funtino starrtt
 
     public function events()
@@ -59,50 +57,7 @@ class ExtraEvent extends Controller
     }
 
 
-
-
-
-
-    // public function events()
-    // {
-    //     // Example events array (replace with your actual data)
-    //     //-------------------------------------------------------------------------------
-
-    //     $eventModel = new createEvent();
-    //     $sheduledEvent = $eventModel->findAll();
-
-    //     // Load the view and pass data
-
-    //     $this->view('inc/extra-events/scheduled_events', $sheduledEvent);
-
-    //     //-----------------------------------------------------------------------------------
-
-
-    // //     $data = [
-    // //         'events' => [
-    // //             '2024-01-20' => 'Event 2',
-    // //         ],
-    // //         '2024-01-19' => 'Event 1',
-    // //         'upcomingEvents' => [
-    // //             ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
-    // //             ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
-    // //         ],
-    // //         'reminders' => [
-    // //             ['date' => '2024-01-18', 'description' => 'Reminder 1'],
-    // //             ['date' => '2024-01-19', 'description' => 'Reminder 2'],
-    // //         ]
-    // //     ];
-
-    // //     // Load the view and pass data
-    // //     $this->view('inc/extra-events/scheduled_events', $data);
-
-    // }
-
-
-    // -----------------------------event funtions
-
     // create Event 
-
     public function CreateEvent()
     {
         $this->view('inc/extra-events/createEvent');
@@ -149,11 +104,13 @@ class ExtraEvent extends Controller
 
             $activity = new createEvent();
             $activity->insert($activityData);
-
-            echo "<script>alert('Event has been created: " . htmlspecialchars($activityData['EventName']) . "');</script>";
+            header('Location: ' . URLROOT . '/ExtraEvent/events');
+            // echo "<script>alert('Event has been created: " . htmlspecialchars($activityData['EventName']) . "');</script>";
             // echo "Activity recorded successfully: " . htmlspecialchars($activityData['full_name']);
         } else {
             // If not a POST request, redirect or show form again
         }
+
+        
     }
 }

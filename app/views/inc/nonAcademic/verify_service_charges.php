@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Service Charges</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/attendance.css">
-    <style>
+    <!-- <style>
         .change-date {
             margin-bottom: 20px;
             display: flex;
@@ -49,7 +49,7 @@
         .submit-btn:hover {
             background-color: darkgreen;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>

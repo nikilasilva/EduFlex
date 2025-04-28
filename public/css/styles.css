@@ -165,3 +165,9 @@ h1, h2 {
     background-color: #f8d7da;
     color: var(--danger-color);
 }
+/* //     ALTER TABLE absences
+// ADD CONSTRAINT fk_parent_user
+// FOREIGN KEY (parentRegNo)
+// REFERENCES users(regNo)
+// ON DELETE CASCADE
+// ON UPDATE CASCADE; */
