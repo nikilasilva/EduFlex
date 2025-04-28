@@ -42,6 +42,16 @@ class AbsenceModel {
         return $this->query($query, ['parentRegNo' => $parentRegNo]);
     }
 
+    public function getlastId($status="APPROVED")
+    {
+        $sql = "SELECT COUNT(*) AS approved_count FROM $this->table WHERE status = :status";
+        $result = $this->query($sql, ['status' => $status]);
+
+        if (is_array($result) && isset($result[0])) {
+            return $result[0]->approved_count; 
+        }
+        return 0;
+    }
 
 
 }

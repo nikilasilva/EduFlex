@@ -38,19 +38,12 @@ class CharacterCertificateModel {
         }
 
         // Guardian Name Validation (Optional)
-        if (!empty($data['guardian_name']) && strlen($data['guardian_name']) > 255) {
-            $errors[] = "Guardian Name cannot exceed 255 characters.";
-        }
+        
 
         // Address Validation
-        if (empty($data['address'])) {
-            $errors[] = "Address is required.";
-        }
-
+       
         // Slip Validation
-        if (empty($data['slip'])) {
-            $errors[] = "Slip is required.";
-        }
+        
 
         if (empty($data['reason'])) {
             $errors[] = "Reason  is required.";
