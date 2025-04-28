@@ -10,7 +10,7 @@
 
         <!-- start calender -->
 
-        <div class="main-content">
+        <div class="main-content container">
 
             <!-- start calender -->
             <h1>Event Calendar</h1>
@@ -80,10 +80,9 @@
             
 
             <!-- end calender part -->
+            <h2>Upcoming Events</h2>
 
             <div class="upcoming-events">
-                <h2>Upcoming Events</h2>
-                <hr>
 
                 <?php if (!empty($data['upcomingEvents'])): ?>
                     <?php foreach ($data['upcomingEvents'] as $event): ?>

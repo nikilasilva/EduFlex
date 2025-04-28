@@ -30,21 +30,23 @@ class ExtraEvent extends Controller
         // Current date for filtering upcoming events
         $today = date('Y-m-d');
 
-        foreach ($allEvents as $event) {
-            $date = date('Y-m-d', strtotime($event->EventStartDateTime));
+        if (!empty($allEvents)){
+            foreach ($allEvents as $event) {
+                $date = date('Y-m-d', strtotime($event->EventStartDateTime));
 
-            // Append to date array
-            if (!isset($eventsByDate[$date])) {
-                $eventsByDate[$date] = [];
-            }
-            $eventsByDate[$date][] = $event->EventName;
+                // Append to date array
+                if (!isset($eventsByDate[$date])) {
+                    $eventsByDate[$date] = [];
+                }
+                $eventsByDate[$date][] = $event->EventName;
 
-            // Show upcoming events (today and future)
-            if ($date >= $today) {
-                $upcomingEvents[] = [
-                    'date' => $date,
-                    'description' => $event->EventName
-                ];
+                // Show upcoming events (today and future)
+                if ($date >= $today) {
+                    $upcomingEvents[] = [
+                        'date' => $date,
+                        'description' => $event->EventName
+                    ];
+                }
             }
         }
 

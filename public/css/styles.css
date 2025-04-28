@@ -171,3 +171,8 @@ h1, h2 {
 // REFERENCES users(regNo)
 // ON DELETE CASCADE
 // ON UPDATE CASCADE; */
+
+body > div.layout > div > div.calendar > div.calendar-header > a {
+    text-decoration: none;
+    margin: 0 10px;
+}

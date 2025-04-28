@@ -7,7 +7,7 @@
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/showAllTeachers"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Teachers</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/classTimetable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Class Timetable</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/teacherTimetable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Teacher Timetable</span></a></li>
-            <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
+            <li class="nav-links"><a href="<?php echo URLROOT ?>/ExtraEvent/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/ExtraEvent/index"><i class="fa-solid fa-calendar-plus icon"></i><span class="text nav-text">Create Event</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Timetable/uploadTimetable"><i class="fa-regular fa-calendar icon"></i><span class="text nav-text">Upload Timetable</span></a></li>
             <li class="nav-links"><a href="<?php echo URLROOT ?>/Teacher/assignClassTeacher"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Manage Class Teacher</span></a></li>
