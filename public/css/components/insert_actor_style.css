@@ -189,15 +189,15 @@
 }
 
 .btn-edit {
-    background-color: #007bff;
+    background-color: #001d3d;
 }
 
 .btn-edit:hover {
-    background-color: #0056b3;
+    background-color: #003366;
 }
 
 .btn-delete {
-    background-color: #dc3545;
+    background-color: #cc0000;
 }
 
 .btn-delete:hover {
