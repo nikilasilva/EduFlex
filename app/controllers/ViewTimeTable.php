@@ -74,7 +74,8 @@ class ViewTimeTable extends Controller {
             $timetableRaws = $this->ViewTimeTableModel->getStudentTimetable($studentId);
 
             $timetables = [];
-
+            if (!empty($timetableRaws)) {
+                // Structure: ['08:00-09:00' => ['Monday' => [...], 'Tuesday' => [...]]]
             foreach ($timetableRaws as $row) {
                 $timeSlot = $row->startTime;
                 $day = $row->day;
@@ -83,7 +84,7 @@ class ViewTimeTable extends Controller {
                 $timetables[$timeSlot][$day] = [
                     'subject' => $subject,
                 ];
-            }
+            }}
            
             $this->view('inc/Parent/ViewTime_Table', [
                 'timetables' => $timetables,
