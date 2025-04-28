@@ -26,14 +26,18 @@ class User {
         return $this->first(['email' => $email]);
     }
 
-    public function storeResetToken($userId, $token) {
+    public function storeResetToken($regNo, $token) {
         $expiry = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token valid for 1 hour
         $data = [
             'reset_token' => $token,
             'token_expiry' => $expiry,
         ];
+    
+        return $this->update(['regNo' => $regNo], $data);
+    }
 
-        return $this->update($userId, $data);
+    public function findByToken($token) {
+        return $this->first(['reset_token' => $token]);
     }
 
     public function updatePassword($regNo, $hashedPassword) {

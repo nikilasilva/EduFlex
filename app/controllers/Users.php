@@ -23,45 +23,48 @@ class Users extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $user = $this->userModel->findUserByEmail($email);
-
+    
             if ($user) {
                 // Generate a unique token
                 $token = bin2hex(random_bytes(50));
                 
                 // Save the token to the database
-                $this->userModel->storeResetToken($user->id, $token);
-
+                $this->userModel->storeResetToken($user->regNo, $token);
+    
                 // Send the reset email
                 if ($this->sendPasswordResetEmail($email, $token)) {
-                    echo "Reset link sent to your email.";
+                    $_SESSION['message'] = "Reset link sent to your email.";
+                    $this->view('forgotPassword', ['message' => "Reset link sent to your email."]);
                 } else {
-                    echo "Failed to send email. Try again later.";
+                    $this->view('forgotPassword', ['error' => "Failed to send email. Try again later."]);
                 }
             } else {
-                echo "No user found with that email.";
+                $this->view('forgotPassword', ['error' => "No user found with that email."]);
             }
+        } else {
+            $this->forgotPassword();
         }
     }
 
     // Send the password reset email using PHPMailer
     private function sendPasswordResetEmail($email, $token) {
         require '../vendor/autoload.php';
-
+    
         $mail = new PHPMailer(true);
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = SMTP_HOST;
             $mail->SMTPAuth = true;
-            $mail->Username = '';
-            $mail->Password = '';
+            $mail->Username = SMTP_USER; // Add your email here
+            $mail->Password = SMTP_PASSWORD; // Add your app password here
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
-
+    
             // Recipients
-            $mail->setFrom('nikilasilva@gmail.com', 'EduFlex');
+            $mail->setFrom(SMTP_USER, 'EduFlex');
             $mail->addAddress($email);
-
+    
             // Content
             $resetLink = URLROOT . "/users/resetPassword?token=" . $token;
             $mail->isHTML(true);
@@ -73,6 +76,80 @@ class Users extends Controller {
         } catch (Exception $e) {
             error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
             return false;
+        }
+    }
+    public function resetPassword() {
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            
+            // Fetch user by token
+            $user = $this->userModel->findByToken($token);
+            
+            if (!$user) {
+                $data = ['error' => 'Invalid or expired token'];
+                $this->view('resetPassword', $data);
+                return;
+            }
+            
+            // Check if token is expired
+            if (strtotime($user->token_expiry) < time()) {
+                $data = ['error' => 'Token has expired. Please request a new password reset.'];
+                $this->view('resetPassword', $data);
+                return;
+            }
+            
+            // Display reset form
+            $data = [
+                'token' => $token,
+                'regNo' => $user->regNo,
+                'errors' => []
+            ];
+            
+            $this->view('resetPassword', $data);
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Process the form submission
+            $token = $_POST['token'] ?? '';
+            $regNo = $_POST['regNo'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $confirmPassword = $_POST['confirm_password'] ?? '';
+            
+            $data = [
+                'token' => $token,
+                'regNo' => $regNo,
+                'errors' => []
+            ];
+            
+            // Validate passwords
+            if (empty($password)) {
+                $data['errors']['password'] = 'Password is required';
+            } elseif (strlen($password) < 8) {
+                $data['errors']['password'] = 'Password must be at least 8 characters';
+            }
+            
+            if ($password !== $confirmPassword) {
+                $data['errors']['confirm_password'] = 'Passwords do not match';
+            }
+            
+            // If there are errors, return to form
+            if (!empty($data['errors'])) {
+                $this->view('resetPassword', $data);
+                return;
+            }
+            
+            // Update password
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            if ($this->userModel->updatePassword($regNo, $hashedPassword)) {
+                // Clear the reset token
+                $this->userModel->update(['regNo' => $regNo], ['reset_token' => null, 'token_expiry' => null]);
+                
+                $_SESSION['message'] = 'Your password has been reset successfully. You can now login.';
+                header('Location: ' . URLROOT . '/login/login');
+            } else {
+                $data['errors']['general'] = 'Failed to update password';
+                $this->view('resetPassword', $data);
+            }
+        } else {
+            header('Location: ' . URLROOT . '/users/forgotPassword');
         }
     }
 

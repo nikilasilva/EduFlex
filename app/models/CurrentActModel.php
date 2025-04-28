@@ -35,7 +35,7 @@ class CurrentActModel {
 
     // Fetch available teachers for a specific free class
     public function getAvailableTeachers($subjectId, $periodId, $day) {
-        $sql = "SELECT DISTINCT t.teacher_id, u.fullName, u.mobileNo
+        $sql = "SELECT DISTINCT t.teacher_id, u.fullName, u.email, u.mobileNo
             FROM Teachers t
             JOIN Teacher_Subjects ts ON t.teacher_id = ts.teacherRegNo
             LEFT JOIN TeacherAttendance ta ON t.teacher_id = ta.teacherRegNo 

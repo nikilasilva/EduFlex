@@ -10,6 +10,20 @@
                 <input type="text" placeholder="Search by class" id="search-input">
                 <button id="search-button">SEARCH</button>
             </div> -->
+
+            <!-- Flash message -->
+            <?php if(isset($data['message']) && !empty($data['message'])): ?>
+            <div id="flash-message" class="alert alert-success">
+                <?php echo $data['message']; ?>
+            </div>
+            <?php endif; ?>
+            
+            <?php if(isset($data['errors']['general']) && !empty($data['errors']['general'])): ?>
+                <div id="flash-message" class="alert alert-danger">
+                    <?php echo $data['errors']['general']; ?>
+                </div>
+            <?php endif; ?>
+
             <?php if (isset($data['message'])): ?>
                 <p><?php echo $data['message']; ?></p>
             <?php elseif (empty($data['availableTeachers'])): ?>
@@ -31,7 +45,21 @@
                             <td><?= $teacher->fullName ?></td>
                             <td><?= $teacher->mobileNo ?></td>
                             <td>
-                                <button class="btn btn-edit" onclick="confirmAssignment(<?= $teacher->teacherId ?>)">Confirm</button>
+                                <form action="<?= URLROOT ?>/CurrentActivities/sendAssignmentEmail" method="POST">
+                                    <input type="hidden" name="teacherId" value="<?= $teacher->teacherId ?>">
+                                    <input type="hidden" name="teacherName" value="<?= $teacher->fullName ?>">
+                                    <input type="hidden" name="teacherEmail" value="<?= $teacher->email ?>">
+                                    <input type="hidden" name="subjectId" value="<?= $data['subjectId'] ?>">
+                                    <input type="hidden" name="periodId" value="<?= $data['periodId'] ?>">
+                                    <input type="hidden" name="day" value="<?= $data['day'] ?>">
+                                    <?php if(isset($data['classDetails'])): ?>
+                                    <input type="hidden" name="className" value="<?= $data['classDetails']->className ?>">
+                                    <input type="hidden" name="subjectName" value="<?= $data['classDetails']->subjectName ?>">
+                                    <input type="hidden" name="periodName" value="<?= $data['classDetails']->periodName ?>">
+                                    <input type="hidden" name="roomNumber" value="<?= $data['classDetails']->roomNumber ?>">
+                                    <?php endif; ?>
+                                    <button type="submit" class="btn btn-email">Send Email</button>
+                                </form>
                             </td>
                         </tr>
                         <?php endforeach; ?>

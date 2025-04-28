@@ -6,6 +6,15 @@
         </div>
         <div class="forgot-password-card">
             <h2>Forgot Password</h2>
+            
+            <?php if (isset($data['error'])): ?>
+                <div id="flash-message" class="alert alert-danger"><?php echo $data['error']; ?></div>
+            <?php endif; ?>
+            
+            <?php if (isset($data['message'])): ?>
+                <div id="flash-message" class="alert alert-success"><?php echo $data['message']; ?></div>
+            <?php endif; ?>
+            
             <form method="post" action="<?php echo URLROOT; ?>/users/sendResetLink">
                 <div class="forgotPassword-input-group">
                     <input type="email" name="email" placeholder="Enter your email" required>

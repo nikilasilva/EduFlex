@@ -2,6 +2,8 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+require APPROOT . '/../vendor/autoload.php';
 class CurrentActivities extends Controller {
     private $currentActModel;
 
@@ -76,10 +78,10 @@ class CurrentActivities extends Controller {
             $subjectId = $_POST['subjectId'];
             $periodId = $_POST['periodId'];
             $day = $_POST['day'];
-            $className = $_POST['className'];
-            $subjectName = $_POST['subjectName'];
-            $periodName = $_POST['periodName'];
-            $roomNumber = $_POST['roomNumber'];
+            // $className = $_POST['className'];
+            // $subjectName = $_POST['subjectName'];
+            // $periodName = $_POST['periodName'];
+            // $roomNumber = $_POST['roomNumber'];
 
             $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -104,10 +106,6 @@ class CurrentActivities extends Controller {
                     <p>Dear {$teacherName},</p>
                     <p>You have been assigned to the following class:</p>
                     <ul>
-                        <li><strong>Class:</strong> {$className}</li>
-                        <li><strong>Subject:</strong> {$subjectName}</li>
-                        <li><strong>Period:</strong> {$periodName}</li>
-                        <li><strong>Room Number:</strong> {$roomNumber}</li>
                         <li><strong>Day:</strong> {$day}</li>
                     </ul>
                     <p>Please make necessary arrangements to attend this class.</p>
@@ -120,6 +118,12 @@ class CurrentActivities extends Controller {
                     'type' => 'success',
                     'message' => 'Email sent successfully! Teacher has been notified of the assignment.'
                 ];
+                $data = [
+                    'message' => $_SESSION['flash_message']['message']
+                ];
+                // Redirect back to free classes page
+                header("Location: " . URLROOT . "/CurrentActivities/allFreeClasses");
+                exit();
             }
             catch (Exception $e) {
                 // Set error message
@@ -128,9 +132,12 @@ class CurrentActivities extends Controller {
                     'message' => 'Email could not be sent. Error: ' . $mail->ErrorInfo
                 ];
                 
-                // Return error response for AJAX
-                echo json_encode(['status' => 'error', 'message' => $mail->ErrorInfo]);
-                exit;
+                $data = [
+                    'message' => $_SESSION['flash_message']['message']
+                ];
+                // Redirect back with error
+                header("Location: " . URLROOT . "/CurrentActivities/showAvailableTeachers?subjectId=$subjectId&periodId=$periodId&day=$day");
+                exit();
             }
         } else {
             header("Location: " . URLROOT . "/CurrentActivities/showAvailableTeachers");
