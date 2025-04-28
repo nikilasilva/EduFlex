@@ -39,7 +39,7 @@
                             <td><?php echo $parent->regNo; ?></td>
                             <td><?php echo $parent->NIC; ?></td>
                             <td><?php echo $parent->nameWithInitial ?></td>
-                            <td><?php echo $parent->Relationship; ?></td>
+                            <td><?php echo $parent->relationship; ?></td>
                         
                     
                             <td>

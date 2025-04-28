@@ -41,10 +41,6 @@
                 <input type="text" name="position" id="position" value="<?php echo $data['nonaca']->position; ?>" required>
             </div>
 
-            <div class="form-group">
-                <label for="department">Department:</label>
-                <input type="text" name="department" id="department" value="<?php echo $data['nonaca']->department; ?>" required>
-            </div>
 
             <div class="form-group">
                 <label for="hireDate">Hire Date:</label>

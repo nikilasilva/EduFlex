@@ -38,11 +38,7 @@
                 </div>
 
                 <!-- Department -->
-                <div class="form-group">
-                    <label for="department">Department:</label>
-                    <input type="text" name="department" id="department" required>
-                </div>
-
+              
                 <!-- Hire Date -->
                 <div class="form-group">
                     <label for="hireDate">Hire Date:</label>
@@ -132,6 +128,7 @@
                                             <td><?php echo htmlspecialchars($user->nameWithInitial); ?></td>
                                             <td><?php echo htmlspecialchars($user->email); ?></td>
                                             <td><?php echo htmlspecialchars($user->role); ?></td>
+                                            
                                         </tr>
                                     <?php endif; ?>
                                 <?php endforeach; ?>

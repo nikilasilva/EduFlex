@@ -8,7 +8,6 @@ class manage_nonacaModel
         'staffId',
         'regNo',
         'position',
-        'department',
         'hireDate'
     ];
 

@@ -32,6 +32,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($data['backupusers'] as $user): ?>
+                    
                         <tr>
                             <td><?php echo htmlspecialchars($user->regNo); ?></td>
                             <td><?php echo htmlspecialchars($user->fullName); ?></td>

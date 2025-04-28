@@ -53,7 +53,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
-            <a href="<?php echo URLROOT; ?>/Admin/viewPrincipal" class="btn btn-secondary">Back to List</a>
+         
 
         </form>
 

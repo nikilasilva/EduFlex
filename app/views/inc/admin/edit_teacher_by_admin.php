@@ -128,7 +128,7 @@
         }
         </style>
 
-                <a href="<?php echo URLROOT; ?>/Admin/viewTeacher" class="btn btn-secondary">Back to List</a>
+               
 
 
 
