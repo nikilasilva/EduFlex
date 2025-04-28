@@ -8,9 +8,11 @@ class TeacherModeldev3
     protected $allowedColumns = [
         'teacher_id',
         'firstName',
-        'lastName	',
+        'lastName',
         'regNo'
     ];
 
     protected $order_column = 'teacher_id';
+    
 }
+?>

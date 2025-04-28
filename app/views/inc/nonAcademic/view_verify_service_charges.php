@@ -106,7 +106,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="4">No students found.</td>
+                                <td colspan="4" class="error-message">No erifyed service charges.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

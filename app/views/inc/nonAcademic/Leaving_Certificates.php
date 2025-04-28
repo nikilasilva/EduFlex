@@ -5,7 +5,7 @@
     <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
     <div class="attendance-container">
-        <h1>Student Leaving Certificates</h1>
+        <h1>Student Requested Leaving Certificates</h1>
 
         <table border="1" cellpadding="10">
             <thead>
@@ -68,7 +68,7 @@
         </table>
         <a href="<?php echo URLROOT; ?>/NonAcademic/allocatedleavingCertificatesView">
             <button class="byn btn-primary">
-            View Attendance Time
+            View Allocated Time
             </button>
         </a>
 

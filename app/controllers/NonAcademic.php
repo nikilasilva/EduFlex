@@ -1,209 +1,155 @@
 <!-- // all emty -->
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
 
 
 class NonAcademic extends Controller
 {
-    public function __construct() {}
-
-    // // View all NonAcademics.
-    // public function nonAcademics() {
-    //     $this->view('all_teachers');
-    // }
-    // // View all NonAcademics.
-    // public function nonAcademics() {
-    //     $this->view('all_teachers');
-    // }
-
-    // public function Issuance_books()
-    // {
-
-    //     $this->view('/inc/nonAcademic/Issuance_of_books');
-    // }
-
-    // public function Issuance_books_searched()
-    // {
-
-    //     // if (isset($_POST['search_student_id'])) {
-    //     //     $search = $conn->real_escape_string($_GET['search_student_id']);
-    //     //     $searchmodel=new issuance_of_booksModel;
-    //     //     $result=$searchmodel->search("student_id",search_student_id)
-
-    //     // }
-
-    //     $this->view('/inc/nonAcademic/Issuance_of_books');
-    // }
-
-    // public function submitActivities()
-    // {
-
-
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $activityData = [
-    //             'student_id' => $_POST['student_id'],
-    //             'book_id' => $_POST['book_id'],
-    //             'full_name' => $_POST['full_name'],
-    //             'book_name' => $_POST['book_name'],
-    //             'issue_date' => $_POST['issue_date'],
-
-    //         ];
-
-    //         $activity = new issuance_of_booksModel();
-    //         $activity->insert($activityData);
-    //         // Here, save the activity data to the database.
-    //         // Example: $this->activityModel->addActivity($activityData);
-
-    //         // Display a success message or redirect to a success page
-    //         echo "Activity recorded successfully: " . htmlspecialchars($activityData['full_name']);
-    //     } else {
-    //         // If not a POST request, reload the daily activities page
-    //         $this->view('Issuance_books');
-    //     }
-    // }
-
-
-    // public function viewActivities()
-    // {
-    //     $activityModel = new issuance_of_booksModel();
-    //     $activities = $activityModel->findAll();
-
-    //     $this->view('inc/nonAcademic/See_library_activity', ['activities' => $activities]);
-    // }
-
-    // public function editActivity($id)
-    // {
-    //     $activityModel = new issuance_of_booksModel();
-
-    //     // If the request is POST, update the activity
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $data = [
-    //             'book_id' => $_POST['book_id'],
-    //             'full_name' => $_POST['full_name'],
-    //             'book_name' => $_POST['book_name'],
-    //             'issue_date' => $_POST['issue_date']
-    //         ];
-
-    //         $activityModel->update($id, $data, 'student_id');
-
-    //         // Redirect to the view activities page
-    //         header("Location: " . URLROOT . "/NonAcademic/viewActivities");
-    //         exit();
-    //     } else {
-    //         // Get the activity details
-    //         $activity = $activityModel->first(['student_id' => $id]);
-
-    //         if ($activity) {
-    //             $this->view('inc/NonAcademic/edit_Issuance_of_books', ['activity' => $activity]);
-    //         } else {
-    //             die('Activity not found.');
-    //         }
-    //     }
-    // }
-
-    // public function deleteActivity($id)
-    // {
-    //     $activityModel = new issuance_of_booksModel();
-
-    //     // Delete the activity
-    //     $activityModel->delete($id, 'student_id');
-
-    //     // Redirect to the view activities page
-    //     header("Location: " . URLROOT . "/NonAcademic/viewActivities");
-    //     exit();
-    // }
+    public function __construct()
+    {
+        checkRole('non-academic'); // can not be log athers
+    }
 
     // Start Teachers Attendencee Funtions
 
     public function TeachersAttendenceeForm()
     {
-        $teacherModel = new TeacherModeldev3(); // Make sure this model exists
+        // Load Teacher model
+        $teacherModel = new TeacherModeldev3();
+
+        // Fetch all teachers
         $teachers = $teacherModel->findAll();
 
-        $this->view('inc/nonAcademic/record_teachers_attendance', ['teachers' => $teachers]);
-    }
-
-    public function ViewTeachersAttendance()
-    {
-        $attendanceModel = new TeacherAttendanceModel();
-        $records = $attendanceModel->findAll();
-        $teacherModel = new TeacherModeldev3();
-        $teachersList = $teacherModel->findAll();
-
-        $teachers = [];
-        foreach ($teachersList as $teacher) {
-            $teachers[$teacher->teacher_id] = $teacher;
-        }
-
-        $this->view('inc/nonAcademic/view_teachers_attendance', [
-            'attendance' => $records,
+        // Pass data to the view
+        $this->view('inc/nonAcademic/record_teachers_attendance', [
             'teachers' => $teachers
         ]);
     }
 
-    public function UpdateTeachersAttendanceForm()
+    public function ViewTeachersAttendance()
     {
-        $date = $_GET['date'] ?? date('Y-m-d');
-        $teacherModel = new TeacherModeldev3();
-        $attendanceModel = new TeacherAttendanceModel();
+        $teacherAttendanceModel = new TeacherAttendanceModel();
+        $teacherModel = new TeacherModeldev3(); // Correct model
 
+        // Get selected date from URL, or use today's date
+        $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+
+        // Fetch all attendance records
+        $attendanceRecords = $teacherAttendanceModel->findAll();
+
+        // Fetch all teachers
         $teachers = $teacherModel->findAll();
-        $attendance = [];
 
+        // Reformat teachers array: [teacher_id => teacherObject]
+        $teachersArray = [];
         foreach ($teachers as $teacher) {
-            $records = $attendanceModel->where([
-                'teacher_id' => $teacher->teacher_id,
-                'attendance_date' => $date
-            ]);
-
-            // Get the first record if exists
-            $status = !empty($records) ? $records[0]->status : null;
-            $attendance[$teacher->teacher_id] = $status;
+            $teachersArray[$teacher->teacher_id] = $teacher;
         }
 
-        $this->view('inc/nonAcademic/update_teachers_attendance', [
-            'teachers' => $teachers,
-            'attendance' => $attendance,
-            'date' => $date
-        ]);
-    }
-
-
-    public function SubmitUpdatedTeachersAttendance()
-{
-    $teacherIds = $_POST['teacher_ids'];
-    $statuses = $_POST['attendance'];
-    $date = $_POST['date'];
-
-    $attendanceModel = new TeacherAttendanceModel();
-
-    foreach ($teacherIds as $teacherId) {
+        // Prepare data to send to view
         $data = [
-            'teacher_id' => $teacherId,
-            'attendance_date' => $date,
-            'status' => $statuses[$teacherId]
+            'attendance' => [],
+            'teachers' => $teachersArray,
+            'selectedDate' => $selectedDate
         ];
 
-        // Check if the attendance record exists by teacher_id and attendance_date
-        $existingRecords = $attendanceModel->where([
-            'teacher_id' => $teacherId,
-            'attendance_date' => $date
-        ]);
+        // Fix attendance records
+        foreach ($attendanceRecords as $record) {
+            $data['attendance'][] = (object)[
+                'teacher_id' => $record->teacherRegNo,  // 'teacherRegNo' actually matches 'teacher_id'
+                'attendance_date' => $record->date,
+                'status' => $record->status
+            ];
+        }
 
-        if (!empty($existingRecords)) {
-            // If the record exists, update it
-            $attendanceModel->update($existingRecords[0]->teacher_id, $data);
-        } else {
-            // If the record does not exist, insert it
-            $attendanceModel->insert($data);
+        // Load the view
+        $this->view('inc/nonAcademic/view_teachers_attendance', $data);
+    }
+
+
+
+    public function UpdateTeachersAttendanceForm()
+{
+    $teacherAttendanceModel = new TeacherAttendanceModel();
+    $teacherModel = new TeacherModeldev3();
+
+    // Get selected date from URL or today's date
+    $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+
+    // Fetch all teachers
+    $teachers = $teacherModel->findAll();
+
+    // Fetch attendance records for selected date
+    $attendanceRecords = $teacherAttendanceModel->getAttendanceByDate($selectedDate);
+
+    // Check if the data returned is valid
+    $attendanceArray = [];
+    if ($attendanceRecords && is_array($attendanceRecords)) {
+        // Reformat attendance records: [teacher_id => status]
+        foreach ($attendanceRecords as $record) {
+            $attendanceArray[$record->teacherRegNo] = $record->status;
         }
     }
 
-    // Redirect after submission
-    header('Location: ' . URLROOT . '/NonAcademic/ViewTeachersAttendance?date=' . $date);
-    exit(); // Ensure that the script stops executing after the redirect
+    $data = [
+        'teachers' => $teachers,
+        'attendance' => $attendanceArray,
+        'date' => $selectedDate
+    ];
+
+    $this->view('inc/nonAcademic/update_teachers_attendance', $data);
+}
+
+
+
+public function SubmitUpdatedTeachersAttendance()
+{
+    // Assuming the staff ID is stored in the session (modify according to your actual session handling)
+    $staffId = $_SESSION['user']['regNo'];  // Adjust based on how you store staff information
+
+    // Instantiate the required models
+    $teacherAttendanceModel = new TeacherAttendanceModel();
+    $teacherModel = new TeacherModeldev3();
+
+    // Get the submitted form data
+    $teacherIds = $_POST['teacher_ids']; // Array of teacher IDs
+    $attendanceStatuses = $_POST['attendance']; // Array of attendance statuses
+    $date = $_POST['date']; // The selected date from the form
+
+    // Loop through each teacher and update their attendance
+    // Loop through each teacher and update their attendance
+foreach ($teacherIds as $teacherId) {
+    if (isset($attendanceStatuses[$teacherId])) {
+        // Prepare the data for updating
+        $data = [
+            'teacherRegNo' => $teacherId,
+            'date' => $date,  // Use the 'date' field here, not 'attendance_date'
+            'status' => $attendanceStatuses[$teacherId],
+            'recordedBy' => $staffId // Include the staffId here for the foreign key constraint
+        ];
+
+        // Check if the attendance for this teacher on this date already exists
+        $existingAttendance = $teacherAttendanceModel->where([
+            'teacherRegNo' => $teacherId,
+            'date' => $date  // Correct field used for checking
+        ]);
+
+        if ($existingAttendance) {
+            // Update existing attendance record
+            $teacherAttendanceModel->update($teacherId, $data);
+        } else {
+            // Insert new attendance record if not exists
+            $teacherAttendanceModel->insert($data);
+        }
+    }
+}
+
+
+    // Redirect to a page with a success message or a confirmation view
+    header('Location: ' . URLROOT . '/nonAcademic/UpdateTeachersAttendanceForm?date=' . urlencode($date));
+    exit();
 }
 
 
@@ -211,97 +157,44 @@ class NonAcademic extends Controller
 
 
 
-    public function SubmitTeachersAttendanceForm() // Submit the teachers attendance form
+
+    public function SubmitTeachersAttendanceForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $attendanceModel = new TeacherAttendanceModel();
+            $teacherAttendanceModel = new TeacherAttendanceModel();
 
-            $teacherIds = $_POST['teacher_ids'];
-            $attendance = $_POST['attendance'];
+            $teacher_ids = $_POST['teacher_ids'];
+            $attendance_status = $_POST['attendance'];
+
             $currentDate = date('Y-m-d');
+            $recordedBy = $_SESSION['user']['regNo']; // or something like that
 
-            $errors = [];
+            // $recordedBy = $_SESSION['USER']->user_id ?? 'system'; // or whatever your session user_id is
+            $recordedAt = date('Y-m-d H:i:s');
 
-            foreach ($teacherIds as $teacherId) {
-                if (isset($attendance[$teacherId])) {
-                    //  Check if attendance for this teacher on this date already exists
-                    $existing = $attendanceModel->where([
-                        'teacher_id' => $teacherId,
-                        'attendance_date' => $currentDate
-                    ]);
+            foreach ($teacher_ids as $teacher_id) {
+                if (isset($attendance_status[$teacher_id])) {
+                    $data = [
+                        'teacherRegNo' => $teacher_id,
+                        'date' => $currentDate,
+                        'status' => $attendance_status[$teacher_id],
+                        'recordedBy' => $recordedBy,
+                        'recordedAt' => $recordedAt
+                    ];
+                    // echo '<pre>'; print_r($data); echo '</pre>'; exit;
 
-                    if ($existing) {
-                        $errors[] = "Attendance already marked for Teacher ID $teacherId.";
-                        continue;
-                    }
-
-                    //  Otherwise, insert attendance
-                    $status = $attendance[$teacherId];
-
-                    $attendanceModel->insert([
-                        'teacher_id' => $teacherId,
-                        'status' => $status,
-                        'attendance_date' => $currentDate
-                    ]);
+                    $teacherAttendanceModel->insert($data);
                 }
             }
 
-
-            //  Pass error messages to the view (to show in a popup)
-            if (!empty($errors)) {
-                $_SESSION['attendance_errors'] = $errors;
-            } else {
-                $_SESSION['success_message'] = "Attendance submitted successfully!";
-            }
-
-
-            header("Location: " . URLROOT . "/NonAcademic/ViewTeachersAttendance");
-
+            // After inserting, redirect back to the ViewTeachersAttendance page
+            header('Location: ' . URLROOT . '/NonAcademic/ViewTeachersAttendance');
+        } else {
+            // If not a POST request, just redirect back
+            header('Location: ' . URLROOT . '/NonAcademic/ViewTeachersAttendance');
         }
     }
 
-    // public function updateAllTeachersAttendance() // Update all teachers attendance records
-    // {
-    //     $attendanceModel = new TeacherAttendanceModel();
-    //     $records = $attendanceModel->findAll();
-    //     $teacherModel = new TeacherModeldev3();
-
-    //     $teachersList = $teacherModel->findAll();
-
-    //     // Re-index teachers by teacher_id
-    //     $teachers = [];
-    //     foreach ($teachersList as $teacher) {
-    //         $teachers[$teacher->teacher_id] = $teacher;
-    //     }
-
-    //     $this->view('inc/nonAcademic/update_teachers_attendance', [
-    //         'attendance' => $records,
-    //         'teachers' => $teachers
-    //     ]);
-    // }
-
-
-
-
-    // public function ViewTeachersAttendance()  // View all teachers attendance records
-    // {
-    //     $attendanceModel = new TeacherAttendanceModel();
-    //     $records = $attendanceModel->findAll();
-    //     $teacherModel = new TeacherModeldev3();
-
-    //     $teachersList = $teacherModel->findAll();
-
-    //     // Re-index teachers by teacher_id
-    //     $teachers = [];
-    //     foreach ($teachersList as $teacher) {
-    //         $teachers[$teacher->teacher_id] = $teacher;
-    //     }
-
-    //     $this->view('inc/nonAcademic/view_teachers_attendance', [
-    //         'attendance' => $records,
-    //         'teachers' => $teachers
-    //     ]);
-    // }
     //====================+++++++++++++++++++++======================++++++++++++++++++====================
     // END All Teachers Attendencee Funtions
 
@@ -343,41 +236,41 @@ class NonAcademic extends Controller
     }
 
     public function SubmitServiceCharges()
-{
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $attendance = $_POST['attendance']; // attendance contains student_id => status pairs
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $attendance = $_POST['attendance']; // attendance contains student_id => status pairs
 
+            $serviceChargesModel = new payment_chargesModel_verryfy();
+
+            foreach ($attendance as $studentId => $status) {
+                // Update the status for each student
+                $serviceChargesModel->updateStatusByStudentId($studentId, $status);
+            }
+
+            // Redirect back with a success message (optional)
+            $_SESSION['success_message'] = "Service charges updated successfully.";
+            header('Location: ' . URLROOT . '/NonAcademic/submitted_verify_service_charges');
+            exit;
+        }
+    }
+
+    // Inside app/controllers/NonAcademic.php
+
+    public function viewVerifyServiceCharges()
+    {
+        // Load the model
         $serviceChargesModel = new payment_chargesModel_verryfy();
 
-        foreach ($attendance as $studentId => $status) {
-            // Update the status for each student
-            $serviceChargesModel->updateStatusByStudentId($studentId, $status);
-        }
+        // Fetch service charges data (you can adjust query conditions if needed)
+        $serviceCharges = $serviceChargesModel->findAll();
 
-        // Redirect back with a success message (optional)
-        $_SESSION['success_message'] = "Service charges updated successfully.";
-        header('Location: ' . URLROOT . '/NonAcademic/submitted_verify_service_charges');
-        exit;
+        // Send the data to the view
+        $this->view('inc/nonAcademic/view_verify_service_charges', [
+            'serviceCharges' => $serviceCharges
+        ]);
     }
-}
 
-// Inside app/controllers/NonAcademic.php
-
-public function viewVerifyServiceCharges()
-{
-    // Load the model
-    $serviceChargesModel = new payment_chargesModel_verryfy();
-
-    // Fetch service charges data (you can adjust query conditions if needed)
-    $serviceCharges = $serviceChargesModel->findAll();
-
-    // Send the data to the view
-    $this->view('inc/nonAcademic/view_verify_service_charges', [
-        'serviceCharges' => $serviceCharges
-    ]);
-}
-
-public function searchVerifiedServiceChargesByStudentId()  // Search service charges by student ID
+    public function searchVerifiedServiceChargesByStudentId()  // Search service charges by student ID
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $studentId = $_POST['student_id'];
@@ -400,11 +293,6 @@ public function searchVerifiedServiceChargesByStudentId()  // Search service cha
             $this->view('inc/nonAcademic/view_verify_service_charges', ['serviceCharges' => []]);
         }
     }
-
-
-
-    
-
 
 
     public function downloadFile($fileName)  // Download file function
@@ -446,7 +334,6 @@ public function searchVerifiedServiceChargesByStudentId()  // Search service cha
     {
         $this->view('inc/nonAcademic/allocatedTime');
     }
-
 
     public function RequestLeavingCertificatesView() // View all requested leaving certificates
     {
