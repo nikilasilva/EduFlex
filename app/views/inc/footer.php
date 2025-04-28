@@ -1,6 +1,5 @@
 <!-- Footer -->
 <footer class="footer">
-    <p>© Copyrights EduFlex 2024. All rights reserved</p>
 </footer>
 <script>
     window.URLROOT = '<?php echo URLROOT; ?>';

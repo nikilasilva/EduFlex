@@ -33,26 +33,7 @@ class Teacher extends Controller
         $this->view('all_teachers');
     }
 
-    public function events()
-    {
-        $data = [
-            'events' => [
-                '2024-01-19' => 'Event 1',
-                '2024-01-20' => 'Event 2',
-            ],
-            'upcomingEvents' => [
-                ['date' => '2024-01-19', 'description' => 'Event 1 Description'],
-                ['date' => '2024-01-20', 'description' => 'Event 2 Description'],
-            ],
-            'reminders' => [
-                ['date' => '2024-01-18', 'description' => 'Reminder 1'],
-                ['date' => '2024-01-19', 'description' => 'Reminder 2'],
-            ]
-        ];
-
-        $this->view('scheduled_events', $data);
-    }
-
+   
     public function timeTable()
     {
         

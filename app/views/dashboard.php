@@ -67,6 +67,8 @@
 <section class="school-contact">
         <h2>Contact Us</h2>
         <p>Email: rajasinghecollege@gmail.com | Phone: 011 123 4567</p>
+        <p>© Copyrights EduFlex 2024. All rights reserved</p>
+
     </section>
 <?php require APPROOT.'/views/inc/footer.php'; ?>
 
