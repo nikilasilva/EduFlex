@@ -89,7 +89,7 @@ $payments = $data['payments'] ?? [];
 </style>
 
 
-<div class="aca-container">
+<div class="aca-container container">
   <h1>Payment History</h1>
 
 <?php if (empty($payments)) : ?>

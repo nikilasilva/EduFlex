@@ -855,7 +855,7 @@ class Teacher extends Controller
         if (is_array($teachers) && !empty($teachers)) {
             $data['teachers'] = array_map(function ($teacher) {
                 return [
-                    'regNo' => $teacher->regNo,
+                    'teacher_id' => $teacher->teacher_id,
                     'fullName' => $teacher->fullName,
                     'email' => $teacher->email,
                     'mobileNo' => $teacher->mobileNo,

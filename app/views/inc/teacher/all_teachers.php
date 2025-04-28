@@ -59,7 +59,7 @@
             <tbody id="teachers-table-body">
                 <?php foreach ($data['teachers'] as $teacher): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($teacher['regNo']); ?></td>
+                        <td><?php echo htmlspecialchars($teacher['teacher_id']); ?></td>
                         <td><?php echo htmlspecialchars($teacher['fullName']); ?></td>
                         <td><?php echo htmlspecialchars($teacher['email']); ?></td>
                         <td><?php echo htmlspecialchars($teacher['mobileNo']); ?></td>

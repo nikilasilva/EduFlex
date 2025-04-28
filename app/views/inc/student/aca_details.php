@@ -40,7 +40,7 @@
 </nav>
 
 <!-- Main Content -->
-<div class="aca-container">
+<div class="aca-container container">
   
     <!-- <div class="search-bar">
         <input type="text" placeholder="Search by subject name..." id="searchInput">

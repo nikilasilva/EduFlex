@@ -14,7 +14,7 @@ class TeacherModel {
         $limit = (int)$limit;
         $offset = (int)$offset;
 
-        $sql = "SELECT t.regNo, u.fullName, u.email, u.mobileNo,
+        $sql = "SELECT t.regNo, t.teacher_id, u.fullName, u.email, u.mobileNo,
                        GROUP_CONCAT(s.subjectName) as subjects, c.className
                 FROM teachers t
                 JOIN users u ON t.regNo = u.regNo
@@ -23,7 +23,7 @@ class TeacherModel {
                 LEFT JOIN class_teacher ct ON ct.teacher_id = t.teacher_id
                 LEFT JOIN classes c ON ct.classId = c.classId
                 WHERE u.role = 'teacher'
-                GROUP BY t.regNo, t.firstName, t.lastName, u.email, u.mobileNo
+                GROUP BY t.teacher_id, t.firstName, t.lastName, u.email, u.mobileNo
                 LIMIT $limit OFFSET $offset";
 
         return $this->query($sql);

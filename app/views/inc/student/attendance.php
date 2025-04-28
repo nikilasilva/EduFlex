@@ -30,7 +30,7 @@
 
   </nav>
 
-  <div class="aca-container">
+  <div class="aca-container container">
         <h1>Your Attendance Details</h1>
 
         <!-- Month navigation buttons -->
