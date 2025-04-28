@@ -92,7 +92,7 @@
                     if (!$recordsFound):
                         ?>
                         <tr>
-                            <td colspan="3">No attendance records found for <?php echo $selectedDate; ?>.</td>
+                            <td colspan="3"class="error-message" > Attendance record not found. <?php echo $selectedDate; ?>.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

@@ -28,7 +28,7 @@
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="7">No Allocated Character certificates found.</td>
+                <td colspan="7" class="error-message">No allocated student character certificates found.</td>
             </tr>
         <?php endif; ?>
     </tbody>
