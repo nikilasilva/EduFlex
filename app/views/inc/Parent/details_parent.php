@@ -70,8 +70,11 @@
 </head>
 <body>
 
+<div class ="container">
+    
 <?php if (!empty($data['students'])): ?>
     <?php foreach ($data['students'] as $student): ?>
+        
         <div class="profile-card">
             <div class="profile-image">
                 <!-- <img src="<?php echo URLROOT ?>/public/img/Student.jpg" alt="Student Photo"> -->
@@ -107,6 +110,7 @@
         <p>No student data found for this parent.</p>
     </div>
 <?php endif; ?>
+</div>
 
 </body>
 </html>

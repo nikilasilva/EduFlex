@@ -42,11 +42,6 @@ class AbsenceModel {
         return $this->query($query, ['parentRegNo' => $parentRegNo]);
     }
 
-//     ALTER TABLE absences
-// ADD CONSTRAINT fk_parent_user
-// FOREIGN KEY (parentRegNo)
-// REFERENCES users(regNo)
-// ON DELETE CASCADE
-// ON UPDATE CASCADE;
+
 
 }

@@ -59,22 +59,7 @@ class CharacterCertificateModel {
         return $errors;
     }
 
-    /**
-     * Check for duplicate entries based on `student_id` and `date_of_birth`.
-     */
-    // public function checkDuplicateEntry($studentId, $dateOfBirth) {
-    //     $query = "SELECT COUNT(*) as count FROM $this->table 
-    //               WHERE student_id = :student_id AND date_of_birth = :date_of_birth";
-
-    //     $params = [
-    //         'student_id' => $studentId,
-    //         'date_of_birth' => $dateOfBirth
-    //     ];
-
-    //     $result = $this->query($query, $params);
-    //     return $result[0]->count > 0;
-    // }
-
+    
     public function findById($certificate_id) {
         $query = "SELECT * FROM character_certificates WHERE certificate_id = :id";
         return $this->query($query, ['certificate_id' => $certificate_id]);
