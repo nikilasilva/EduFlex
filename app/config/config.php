@@ -5,7 +5,7 @@
     define('DB_PASSWORD', '');
     define('SMTP_PASSWORD', 'nlsr pgna gryo bbrz');
     // define('DB_NAME', 'eduflex_db');
-    define('DB_NAME', 'eduflexfinal');
+    define('DB_NAME', 'eduflex2');
     
     define('SMTP_USER', 'nikilasilva@gmail.com');
     define('SMTP_HOST', 'smtp.gmail.com');
