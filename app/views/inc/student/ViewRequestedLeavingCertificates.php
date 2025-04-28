@@ -3,7 +3,7 @@
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
 <!-- <?php $edit_id = isset($_GET['edit_id']) ? $_GET['edit_id'] : null; ?> -->
-<div class="aca-container">
+<div class="aca-container container">
 <h1>Leaving Certificates</h1>
 
 <table border="1" cellpadding="10" cellspacing="0">
@@ -43,8 +43,9 @@
                         <td><?= htmlspecialchars($cert->Reason) ?></td>
                         
                         <td>
-                            <a href="<?= URLROOT ?>/LeavingCertificate/update/<?=htmlspecialchars($cert->certificate_id)?>">Edit</a>
-                            <a href="<?= URLROOT ?>/LeavingCertificate/delete/<?= $cert->certificate_id ?>" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            
+                            <a class="btn btn-edit" href="<?= URLROOT ?>/LeavingCertificate/update/<?=htmlspecialchars($cert->certificate_id)?>">Edit</a>
+                            <a class="btn btn-delete" href="<?= URLROOT ?>/LeavingCertificate/delete/<?= $cert->certificate_id ?>" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     <?php endif; ?>
                 </tr>

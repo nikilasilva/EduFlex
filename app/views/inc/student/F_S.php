@@ -63,35 +63,33 @@
                    placeholder="Enter the Year Of Payment" 
                    
                    required>
-
-                   <?php if (!empty($data['errors']['payment'])): ?>
-                        <span class="error"><?= htmlspecialchars($data['errors']['payment']) ?></span>
-                    <?php endif; ?></div>
-          </div>
-
-            
-            <div class="form-group">
-            <label for="paymentSlip">4. Payment Slip</label>
-            <div class="file-upload">
-                <input type="file" 
-                       class="fine-input" 
+            </div>
+            <?php if (!empty($data['errors']['payment'])): ?>
+                <span class="error"><?= htmlspecialchars($data['errors']['payment']) ?></span>
+            <?php endif; ?>
+                    
+                    
+                    <div class="form-group">
+                        <label for="paymentSlip">4. Payment Slip</label>
+                        <div class="file-upload">
+                            <input type="file" 
+                            class="fine-input" 
                        id="paymentSlip" 
                        name="paymentSlip" 
                        required 
                        onchange="updateLabel()">
                        
-                <label for="paymentSlip" 
+                       <label for="paymentSlip" 
                        id="uploadLabel" 
                        class="upload-label">
-                    Upload Slip <span class="upload-icon">📤</span>
-                </label>
-                <?php if (!empty($data['errors']['paymentSlip'])): ?>
+                       Upload Slip <span class="upload-icon">📤</span>
+                    </label>
+                    <?php if (!empty($data['errors']['paymentSlip'])): ?>
                         <span class="error"><?= htmlspecialchars($data['errors']['paymentSlip']) ?></span>
-                    <?php endif; ?></div>
-            </div>
-            </div>
-            
-            <button type="submit" class="charges-submit-button">Submit</button>
+                        <?php endif; ?></div>
+                    </div>
+                
+                <button type="submit" class="charges-submit-button">Submit</button>
         </form>
     </div>
 

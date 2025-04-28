@@ -77,7 +77,7 @@ class ViewTimeTable extends Controller {
 
             $timetables = []; 
             
-            if (!empty($timetables)) {
+            if (!empty($timetableRaws)) {
                 foreach ($timetableRaws as $row) {
                     $timeSlot = $row->startTime;
                     $day = $row->day;
