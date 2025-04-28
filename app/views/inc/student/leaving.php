@@ -83,7 +83,12 @@
     </div>
 
     <button type="submit" class="custom-submit-button">Submit</button>
+    
   </form>
+  <div class = "view-leaving-certificates">
+    <button class="btn btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>/LeavingCertificate/viewLeavingCertificates';">
+      View Certificate History
+    </button>
 </div>
 
 </body>
