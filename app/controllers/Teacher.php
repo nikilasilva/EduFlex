@@ -360,7 +360,7 @@ class Teacher extends Controller
     public function submitActivities()
     {
         checkRole('teacher');
-
+    
         // Initialize variables for form data and errors
         $data = [
             'subjects' => (new SubjectModel())->getAllSubjects(),
@@ -375,10 +375,10 @@ class Teacher extends Controller
                 'additional_note' => ''
             ]
         ];
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+    
             // Store form data to repopulate form if validation fails
             $data['form_data'] = [
                 'attendance_date' => trim($_POST['attendance_date'] ?? ''),
@@ -388,35 +388,41 @@ class Teacher extends Controller
                 'description' => trim($_POST['description'] ?? ''),
                 'additional_note' => trim($_POST['additional_note'] ?? '')
             ];
-
+    
             // Validate Date
             $today = date('Y-m-d');
             if (empty($data['form_data']['attendance_date'])) {
                 $data['form_errors']['attendance_date'] = 'Date is required.';
             } elseif ($data['form_data']['attendance_date'] > $today) {
                 $data['form_errors']['attendance_date'] = 'Date must be today or a previous date.';
+            } else {
+                // Check if selected date is a weekend
+                $dayOfWeek = date('N', strtotime($data['form_data']['attendance_date'])); // 1 (Mon) to 7 (Sun)
+                if ($dayOfWeek == 6 || $dayOfWeek == 7) {
+                    $data['form_errors']['attendance_date'] = 'Weekend dates are not allowed. Please select a weekday.';
+                }
             }
-
+    
             // Validate Period
             if (empty($data['form_data']['period'])) {
                 $data['form_errors']['period'] = 'Period is required.';
             }
-
+    
             // Validate Subject
             if (empty($data['form_data']['subject'])) {
                 $data['form_errors']['subject'] = 'Subject is required.';
             }
-
+    
             // Validate Class
             if (empty($data['form_data']['class'])) {
                 $data['form_errors']['class'] = 'Class is required.';
             }
-
+    
             // Validate Description
             if (empty($data['form_data']['description'])) {
                 $data['form_errors']['description'] = 'Description is required.';
             }
-
+    
             // If no errors, process form
             if (empty($data['form_errors'])) {
                 // Build activity record
@@ -429,10 +435,10 @@ class Teacher extends Controller
                     'description'     => $data['form_data']['description'],
                     'additional_note' => $data['form_data']['additional_note'],
                 ];
-
+    
                 $activityModel = new Current_activityModel();
                 $success = $activityModel->insert($activityData);
-
+    
                 if ($success) {
                     redirect('/teacher/viewActivities?success=Activity recorded successfully.');
                 } else {
@@ -449,7 +455,7 @@ class Teacher extends Controller
             $this->view('inc/teacher/daily_activities', $data);
         }
     }
-
+    
     // List only this teacher's activities
     public function viewActivities()
     {
