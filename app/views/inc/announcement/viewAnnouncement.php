@@ -2,7 +2,7 @@
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
-<div class="announcement-container">
+<div class="announcement-container container">
     <h1 class="page-title"><?php echo $data['title']; ?></h1>
     
     <!-- Flash message  -->

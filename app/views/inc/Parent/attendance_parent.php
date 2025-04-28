@@ -29,7 +29,7 @@
 
   </nav>
 
-  <div class="aca-container">
+  <div class="aca-container container">
     <h1>Student Attendance Details</h1>
 
     <form action="<?=URLROOT?>/ViewAttendance/attendanceParent" method="POST" class="attendance-form" style="margin-bottom: 20px;">
