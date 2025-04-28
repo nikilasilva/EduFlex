@@ -78,12 +78,4 @@ class Payment_chargesModel {
 }
 
 
-// CREATE TABLE facility_charges (
-//     payment_id INT AUTO_INCREMENT PRIMARY KEY,               
-//     full_name VARCHAR(255) NOT NULL,                 
-//     student_id VARCHAR(100) NOT NULL,                
-//     year_of_payment YEAR NOT NULL,                   
-//     payment_slip VARCHAR(255),                  
-//     
-//     UNIQUE (student_id, year_of_payment)            
-// );
+
