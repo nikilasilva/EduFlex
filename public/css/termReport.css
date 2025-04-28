@@ -10,7 +10,7 @@
 
 .term-report-container.full-width {
     margin-left: 95px;
-    width: 86.5%;
+    width: 100%;
     transition: var(--tran-04);
 
 }

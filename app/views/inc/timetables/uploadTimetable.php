@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="upload-timetable-container">
+<div class="upload-timetable-container container">
     <h1>Upload Timetable CSV</h1>
     <form action="<?php echo URLROOT; ?>/Timetable/uploadTimetableProcess" method="post" enctype="multipart/form-data" novalidate>
         <div class="form-group">

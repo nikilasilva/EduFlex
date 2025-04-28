@@ -140,7 +140,7 @@ h1, h2 {
 
 .container.full-width {
     margin-left: 95px;
-    width: 86.5%;
+    width: 72.5%;
     transition: var(--tran-04);
 }
 
@@ -175,4 +175,18 @@ h1, h2 {
 body > div.layout > div > div.calendar > div.calendar-header > a {
     text-decoration: none;
     margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .container.full-width{
+        width: 72.5%;
+    }
+
+    .background-container.full-width {
+        width: 72.5%;
+    }
+
+    .school-contact.full-width {
+        width: 80.5%;
+    }
 }

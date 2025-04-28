@@ -2,7 +2,7 @@
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
-<div class="class-timetable-container timetable-container">
+<div class="class-timetable-container timetable-container container">
     <h1>Class Timetable</h1>
     <div class="search-bar">
         <form class="class-timetable-form" action="<?= URLROOT ?>/Timetable/classTimetable" method="POST">

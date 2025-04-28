@@ -63,6 +63,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Function to check window size and close sidebar if under 768px
+    function checkWindowSize() {
+        if (window.innerWidth <= 768) {
+            if (!sidebar.classList.contains('close')) {
+                sidebar.classList.add('close');
+                containers.forEach(container => {
+                    if (container) {
+                        container.classList.add('full-width');
+                    }
+                });
+            }
+        } else {
+            if (sidebar.classList.contains('close')) {
+                sidebar.classList.remove('close');
+                containers.forEach(container => {
+                    if (container) {
+                        container.classList.remove('full-width');
+                    }
+                });
+            }
+        }
+    }
+
     // Initialize timetable search based on page type
     const timetableType = getTimetableType();
     if (timetableType === 'class') {
@@ -112,6 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector(".assign-class-teachers-container")) {
         initAssignClassTeacher();
     }
+
+    // Call checkWindowSize on page load
+    checkWindowSize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkWindowSize);
 });
 
 // Function to determine timetable type based on page content
