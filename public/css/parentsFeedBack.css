@@ -1,0 +1,12 @@
+.read-checkbox-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.read-checkbox-container label {
+    margin: 0;
+}
+
+.feedback-card .btn {
+    margin-bottom: 20px;
+}

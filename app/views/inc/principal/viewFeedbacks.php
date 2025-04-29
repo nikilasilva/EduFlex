@@ -8,7 +8,7 @@ require APPROOT . '/views/inc/components/sideBar.php';
 
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/feedbackStyles.css">
 
-<div class="feedback-set-container">
+<div class="feedback-set-container container">
     <h1>Parents Feedbacks</h1>
 
     <!-- Display Feedbacks for Principal -->
@@ -41,7 +41,7 @@ require APPROOT . '/views/inc/components/sideBar.php';
 
                 <!-- Delete Button -->
                 <button 
-                    class="btn btn-danger" 
+                    class="btn btn-edit btn-danger" 
                     onclick="window.location.href='<?php echo URLROOT; ?>/parents/deleteFeedback_Principal/<?php echo $feedback->feedback_id; ?>';"
                 >
                     Delete

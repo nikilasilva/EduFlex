@@ -2,7 +2,7 @@
 <?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
-<div class="all-teachers-container">
+<div class="all-teachers-container container">
     <h1>All Teachers</h1>
 
     <!-- Flash message -->

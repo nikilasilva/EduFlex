@@ -6,7 +6,7 @@ use Soap\Url;
 <?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 <?php require APPROOT . '/views/inc/components/sideBar.php'; ?>
 
-<div class="user-settings-container">
+<div class="user-settings-container container">
     <div class="user-settings-header">
         <h1>Account Settings</h1>
     </div>
