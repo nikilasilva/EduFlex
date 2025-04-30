@@ -1,11 +1,4 @@
-/* General layout styling */
-.layout {
-    display: flex;
-    min-height: 100vh; /* Ensures the layout takes full height */
-}
-
-/* Calendar section */
-.calendar {
+/* .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
@@ -19,9 +12,8 @@
 }
 
 .highlighted {
-    background-color: #ffc107;
-    color: white;
-}
+    background-color: rgb(255, 0, 0);
+} */
 
 /* Box styling for events */
 .box {
@@ -37,6 +29,69 @@
 
 .event-date {
     font-weight: bold;
+}
+
+
+.calendar-header {
+    grid-column: span 7;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+/* General layout for the page */
+
+
+layout {
+    display: flex;
+    min-height: 100vh; /* Ensures the layout takes full height */
+}
+
+/* Calendar section */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+
+}
+
+.calendar div {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 5px;
+
+
+}
+
+.highlighted {
+    background-color: #ffc107;
+    color: white;
+
+
+}
+
+/* Box styling for events */
+.box {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+.event-item {
+    margin-bottom: 15px;
+}
+
+.event-date {
+
+    font-weight: bold;
     color: #007bff;
 }
 
@@ -49,3 +104,46 @@ h1, h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+
+
+
+/* upcoming event popup */
+
+.event-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.event-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.event-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.event-modal-close:hover {
+    color: red;
+}
+

@@ -4,11 +4,17 @@ class Parents extends Controller {
 
     private $FeedbackModel;
     private $AbsenceModel;
+    private $studentModel;
+    
 
     public function __construct() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         // Load the FeedbackModel
         $this->FeedbackModel = $this->model('FeedbackModel');
         $this->AbsenceModel = $this->model('AbsenceModel');
+        $this->studentModel = $this->model('StudentModel');
     }
 
     // Default method for this controller
@@ -33,14 +39,14 @@ class Parents extends Controller {
     }
 
     // Display parent details
-    public function details() {
-        $this->view('inc/Parent/details_parent');
-    }
+    // public function details() {
+    //     $this->view('inc/Parent/details_parent');
+    // }
 
     // Display academic details
-    public function academic_details() {
-        $this->view('inc/Parent/aca_parent');
-    }
+    // public function academic_details() {
+    //     $this->view('inc/Parent/aca_parent');
+    // }
 
     // Display payment details
     public function pay_details() {
@@ -60,9 +66,9 @@ class Parents extends Controller {
         $this->view('inc/Parent/Parent_Report');
     }
 
-    public function attendance() {
-        $this->view('inc/Parent/attendance_parent');
-    }
+    // public function attendance() {
+    //     $this->view('inc/Parent/attendance_parent');
+    // }
 
     public function events() {
         // Example events array (replace with your actual data)
@@ -85,36 +91,44 @@ class Parents extends Controller {
         $this->view('scheduled_events', $data);
     }
 
-    public function timeTable() {
-        // Sample timetable data (you can retrieve this from a database in real use cases)
-        $data = [
-            'timeTable' => [
-                ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
-                ['time' => '09:30 - 10:30', 'monday' => 'Period 2', 'tuesday' => 'Period 2', 'wednesday' => 'Period 2', 'thursday' => 'Period 2', 'friday' => 'Period 2'],
-                ['time' => '10:30 - 11:00', 'monday' => 'Lunch 1', 'tuesday' => 'Lunch 1', 'wednesday' => 'Lunch 1', 'thursday' => 'Lunch 1', 'friday' => 'Lunch 1'],
-                ['time' => '11:00 - 12:00', 'monday' => 'Period 3', 'tuesday' => 'Period 3', 'wednesday' => 'Period 3', 'thursday' => 'Period 3', 'friday' => 'Period 3'],
-                ['time' => '12:00 - 1:00', 'monday' => 'Period 4', 'tuesday' => 'Period 4', 'wednesday' => 'Period 4', 'thursday' => 'Period 4', 'friday' => 'Period 4'],
-                ['time' => '1:00 - 1:30', 'monday' => 'Lunch 2', 'tuesday' => 'Lunch 2', 'wednesday' => 'CONNECT', 'thursday' => 'Lunch 2', 'friday' => 'Lunch 2'],
-                ['time' => '1:30 - 2:30', 'monday' => 'Period 5', 'tuesday' => 'Period 5', 'wednesday' => 'CONNECT', 'thursday' => 'Period 5', 'friday' => 'Period 5']
-            ]
-        ];
+    // public function timeTable() {
+    //     // Sample timetable data (you can retrieve this from a database in real use cases)
+    //     $data = [
+    //         'timeTable' => [
+    //             ['time' => '08:30 - 09:30', 'monday' => 'Period 1', 'tuesday' => 'Period 1', 'wednesday' => 'Period 1', 'thursday' => 'Period 1', 'friday' => 'Period 1'],
+    //             ['time' => '09:30 - 10:30', 'monday' => 'Period 2', 'tuesday' => 'Period 2', 'wednesday' => 'Period 2', 'thursday' => 'Period 2', 'friday' => 'Period 2'],
+    //             ['time' => '10:30 - 11:00', 'monday' => 'Lunch 1', 'tuesday' => 'Lunch 1', 'wednesday' => 'Lunch 1', 'thursday' => 'Lunch 1', 'friday' => 'Lunch 1'],
+    //             ['time' => '11:00 - 12:00', 'monday' => 'Period 3', 'tuesday' => 'Period 3', 'wednesday' => 'Period 3', 'thursday' => 'Period 3', 'friday' => 'Period 3'],
+    //             ['time' => '12:00 - 1:00', 'monday' => 'Period 4', 'tuesday' => 'Period 4', 'wednesday' => 'Period 4', 'thursday' => 'Period 4', 'friday' => 'Period 4'],
+    //             ['time' => '1:00 - 1:30', 'monday' => 'Lunch 2', 'tuesday' => 'Lunch 2', 'wednesday' => 'CONNECT', 'thursday' => 'Lunch 2', 'friday' => 'Lunch 2'],
+    //             ['time' => '1:30 - 2:30', 'monday' => 'Period 5', 'tuesday' => 'Period 5', 'wednesday' => 'CONNECT', 'thursday' => 'Period 5', 'friday' => 'Period 5']
+    //         ]
+    //     ];
 
-        // Load the view and pass the timetable data
-        $this->view('inc/student/time_table', $data);
-    }
+    //     // Load the view and pass the timetable data
+    //     $this->view('inc/student/time_table', $data);
+    // }
 
 
     public function submitFeedback() {
+
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $content = htmlspecialchars($_POST['content'] ?? '');
-            $recipient = htmlspecialchars(trim($_POST['recipient'] ?? ''));
+            $content = trim($_POST['content'] ?? '');
+            $recipient = trim($_POST['recipient'] ?? '');
             $date = date('Y-m-d');
+            $parentRegNo = $_SESSION['user']['regNo'];
 
             if (!empty($content)) {
                 $data = [
                     'content' => $content,
                     'recipient' => $recipient,
                     'date' => $date,
+                    'parentRegNo' => $parentRegNo,
                 
                 ];
                 try {
@@ -163,6 +177,9 @@ class Parents extends Controller {
         }
     }
 
+   
+    
+
     
     
 
@@ -188,17 +205,40 @@ class Parents extends Controller {
    
     
 
-    public function viewFeedbacks() {
-        // Get feedbacks from the database
-        $feedbacks = $this->FeedbackModel->findAll();
+//     public function viewFeedbacks() {
+//         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+//             header("Location: " . URLROOT . "/login");
+//             exit();
+//         }
+// -
+//         // Get feedbacks from the database
+//         $feedbacks = $this->FeedbackModel->findAll();
         
-        // Pass feedbacks to the view
-        $data = [
-            'feedbacks' => $feedbacks
-        ];
+//         // Pass feedbacks to the view
+//         $data = [
+//             'feedbacks' => $feedbacks
+//         ];
     
-        $this->view('inc/Parent/viewFeedback_parent', $data);
+//         $this->view('inc/Parent/viewFeedback_parent', $data);
+//     }
+
+    public function viewFeedbacks() {
+        // Ensure user is logged in and is a parent
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
+    
+        // Get parentRegNo from session
+        $parentRegNo = $_SESSION['user']['regNo'];
+    
+        // Load model and fetch only the parent's feedbacks
+        $feedbacks = $this->FeedbackModel->findByParentId($parentRegNo);
+    
+        // Load view with data
+        $this->view('inc/Parent/viewFeedback_parent', ['feedbacks' => $feedbacks]);
     }
+    
 
     
 
@@ -218,17 +258,27 @@ class Parents extends Controller {
 
 
     public function submitAbsence() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $student_id = htmlspecialchars($_POST['student_id'] ?? '');
-            $content = htmlspecialchars($_POST['content'] ?? '');
-            $date = date('Y-m-d');
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $student_id = trim($_POST['student_id'] ?? '');
+            $content = trim($_POST['content'] ?? '');
+            $date = date('Y-m-d');
+            $parentRegNo = $_SESSION['user']['regNo'];
+            $students = $this->AbsenceModel->getAbsenceByParentRegNo($parentRegNo);
+            $allowedStudentIds = array_map(fn($s) => $s->student_id, $students);
+
+            // Check if the student_id is vali
+            if (in_array($student_id, $allowedStudentIds)) {
             if (!empty($content)) {
                 $data = [
                     'student_id' => $student_id,
                     'content' => $content,
                     'date' => $date,
-
+                    'parentRegNo' => $parentRegNo, // Replace with actual parentRegNo from session	
                 
                 ];
                 try {
@@ -244,17 +294,39 @@ class Parents extends Controller {
             } else {
                 echo "content cannot be empty.";
             }
+            }else{
+                echo "Invalid student ID or access denied";
+            }
         }
     }
 
+    public function viewAbsences() {
+        // Ensure user is logged in and is a parent
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'parent') {
+            header("Location: " . URLROOT . "/login");
+            exit();
+        }
     
+        // Get parentRegNo from session
+        $parentRegNo = $_SESSION['user']['regNo'];
     
+        // Load model and fetch only the parent's feedbacks
+        $absences = $this->AbsenceModel->findByParentId($parentRegNo);
     
+        // Load view with data
+        $this->view('inc/Parent/viewAbsenceRecords', ['absences' => $absences]);
+       
+
+
 
     
     
     
 
+    
+    
+    
 
+    }
     
 }

@@ -1,8 +1,14 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require APPROOT . '/../vendor/autoload.php';
 class CurrentActivities extends Controller {
     private $currentActModel;
 
     public function __construct() {
+        checkRole('principal');
         // Load the currrentActModel
         $this->currentActModel = $this->model('CurrentActModel');
     }
@@ -61,6 +67,82 @@ class CurrentActivities extends Controller {
         }      
         
         $this->view('inc/principal/viewCurrentActivities/allFreeTeachers', $data);
+    }
+
+    public function sendAssignmentEmail() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get data from POST
+            $teacherId = $_POST['teacherId'];
+            $teacherName = $_POST['teacherName'];
+            $teacherEmail = $_POST['teacherEmail'];
+            $subjectId = $_POST['subjectId'];
+            $periodId = $_POST['periodId'];
+            $day = $_POST['day'];
+            // $className = $_POST['className'];
+            // $subjectName = $_POST['subjectName'];
+            // $periodName = $_POST['periodName'];
+            // $roomNumber = $_POST['roomNumber'];
+
+            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+            try {
+            $mail->isSMTP();
+                $mail->Host = SMTP_HOST;
+                $mail->SMTPAuth = true;
+                $mail->Username = SMTP_USER;
+                $mail->Password = SMTP_PASSWORD;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = SMTP_PORT;
+                
+                // Recipients
+                $mail->setFrom(SMTP_USER, 'School Administration');
+                $mail->addAddress($teacherEmail, $teacherName);
+                
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Class Assignment Notification';
+                $mail->Body = "
+                    <h2>Class Assignment Notification</h2>
+                    <p>Dear {$teacherName},</p>
+                    <p>You have been assigned to the following class:</p>
+                    <ul>
+                        <li><strong>Day:</strong> {$day}</li>
+                    </ul>
+                    <p>Please make necessary arrangements to attend this class.</p>
+                    <p>Thank you,<br>School Administration</p>
+                ";
+                
+                $mail->send();
+
+                $_SESSION['flash_message'] = [
+                    'type' => 'success',
+                    'message' => 'Email sent successfully! Teacher has been notified of the assignment.'
+                ];
+                $data = [
+                    'message' => $_SESSION['flash_message']['message']
+                ];
+                // Redirect back to free classes page
+                header("Location: " . URLROOT . "/CurrentActivities/allFreeClasses");
+                exit();
+            }
+            catch (Exception $e) {
+                // Set error message
+                $_SESSION['flash_message'] = [
+                    'type' => 'error',
+                    'message' => 'Email could not be sent. Error: ' . $mail->ErrorInfo
+                ];
+                
+                $data = [
+                    'message' => $_SESSION['flash_message']['message']
+                ];
+                // Redirect back with error
+                header("Location: " . URLROOT . "/CurrentActivities/showAvailableTeachers?subjectId=$subjectId&periodId=$periodId&day=$day");
+                exit();
+            }
+        } else {
+            header("Location: " . URLROOT . "/CurrentActivities/showAvailableTeachers");
+            exit();
+        }
     }
 }
 

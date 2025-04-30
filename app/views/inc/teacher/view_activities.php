@@ -16,20 +16,23 @@
     <?php require APPROOT.'/views/inc/components/sideBar.php'; ?>
 
     <!-- Main content -->
-    <div class="view-activities-container">
+    <div class="view-activities-container container">
         <h1>All Recorded Activities</h1>
 
         <!-- Activities table -->
         <table class="activities-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Record No.</th>
                     <th>Date</th>
                     <th>Period</th>
                     <th>Subject</th>
                     <th>Class</th>
                     <th>Description</th>
                     <th>Additional Note</th>
+
+                    
+
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -42,11 +45,12 @@
                             <td><?php echo $activity->date; ?></td>
                             <td><?php echo $activity->period; ?></td>
                             <td><?php echo $activity->subject; ?></td>
-                            <td><?php echo $activity->class; ?></td>
+                            <td><?php echo $activity->className; ?></td>
                             <td><?php echo $activity->description; ?></td>
                             <td><?php echo $activity->additional_note; ?></td>
+                            
                             <td>
-                                <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Update</a>
+                                <a href="<?php echo URLROOT; ?>/teacher/editActivity/<?php echo $activity->activity_id; ?>" class="btn btn-edit">Update</a><br></br>
                                 <a href="<?php echo URLROOT; ?>/teacher/deleteActivity/<?php echo $activity->activity_id; ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this activity?');">Delete</a>
                             </td>
                         </tr>
@@ -59,11 +63,25 @@
                 <?php endif; ?>
             </tbody>
         </table>
+
+        <a href="<?php echo URLROOT; ?>/Teacher/dailyActivities" class="btn-back">
+    << Back
+    </a>
     </div>
+
+    
 </div>
 </body>
 </html>
 
 <?php require APPROOT.'/views/inc/footer.php'; ?>
+
+
+
+
+
+
+
+
 
 

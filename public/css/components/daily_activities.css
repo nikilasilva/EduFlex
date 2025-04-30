@@ -1,12 +1,21 @@
 .record-container {
-    margin-top: 30px;
-    width: 73%;
-    margin-left: 290px;
-    height: 800px;
+
+    margin: 20px 0 20px 290px;
+    width: 73.75%;
+    height: 100%;
     padding: 50px;
-    background-color: #f9f9f9;
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--tran-05);
+
+
+}
+
+.record-container.full-width {
+    margin-left: 95px;
+    width: 86.5%;
+    transition: var(--tran-04);
 }
 
 h1 {
@@ -24,14 +33,27 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="date"], textarea {
+input[type="date"],
+textarea {
     width: 100%;
-    padding: 10px;
+    height: 30px;
+    /* Minimized height for textarea */
+    padding: 5px;
+    /* Adjusted padding for alignment */
     border: 1px solid #ddd;
     border-radius: 5px;
+    resize: none;
+    /* Disable resizing of textarea */
+    font-size: 14px;
+    /* Adjust font size for better readability */
+    box-sizing: border-box;
+    /* Include padding and border in dimensions */
 }
 
-button[type="submit"],.btn-primary {
+
+
+button[type="submit"],
+.btn-primary {
     width: 100%;
     padding: 10px;
     background-color: #001d3d;
@@ -41,7 +63,8 @@ button[type="submit"],.btn-primary {
     cursor: pointer;
 }
 
-button[type="button"],.btn-primary {
+button[type="button"],
+.btn-primary {
     width: 100%;
     padding: 10px;
     background-color: #001d3d;
@@ -58,5 +81,3 @@ button[type="submit"]:hover {
 button[type="button"]:hover {
     background-color: #003366;
 }
-
-

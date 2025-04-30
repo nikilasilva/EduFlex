@@ -37,7 +37,7 @@ ul {
 
 .sidebar.close .text {
     opacity: 0; /* Hide text in collapsed state */
-    transition: var(--tran-04);
+    transition: var(--tran-03);
 }
 
 .sidebar li {
@@ -145,6 +145,8 @@ ul {
 .menu-links {
     margin-top: 0;
 }
+
+
 
 /* Responsive design for smaller devices */
 @media (max-width: 768px) {

@@ -1,0 +1,23 @@
+.assign-class-teachers-container {
+    margin: 20px 0 20px 290px;
+    width: 73.5%;
+    padding: 50px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--tran-05);
+}
+
+.assign-class-teachers-container.full-width {
+    margin-left: 95px;
+    width: 86.5%;
+    transition: var(--tran-04);
+}
+
+.save-btn {
+    background-color: var(--secondary-btn-color);
+}
+
+.save-btn {
+    background-color: var(--secondary-btn-hover-color);
+}

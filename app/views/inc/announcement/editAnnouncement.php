@@ -60,6 +60,11 @@
                         <?= in_array('non-academic staff', $targetAudience) ? 'checked' : '' ?>>
                     Non-Academic Staff
                 </label>
+                <label>
+                    <input type="checkbox" name="target_audience[]" value="vice-principals" 
+                        <?= in_array('vice-principals', $targetAudience) ? 'checked' : '' ?>>
+                    Vice-principals
+                </label>
             </div>
         </div>
 
@@ -91,9 +96,9 @@
             </div>
         </div>
 
-        <div class="button-group">
+        <div class="button-group-announcement">
             <button type="submit">Update Announcement</button>
-            <button type="reset">Clear</button>
+            <button class="cancel-ann-btn" type="reset">Cancel</button>
         </div>
     </form>
 </div>

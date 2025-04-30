@@ -51,7 +51,7 @@ body, html {
 }
 
 .hero-text img.logo {
-    max-width: 250px; /* Logo size */
+    max-width: 400px; /* Logo size */
     margin-bottom: 15px; /* Space between logo and text */
     opacity: 0; /* Initially hidden */
     transform: scale(0.5); /* Start smaller */

@@ -24,7 +24,7 @@ class CurrentActModel {
                 FROM Timetables t
                 JOIN Classes c ON t.classId = c.classId
                 JOIN Subjects s ON t.subjectId = s.subjectId
-                JOIN Teachers te ON t.teacherRegNo = te.regNo
+                JOIN Teachers te ON t.teacherRegNo = te.teacher_id
                 JOIN Periods p ON t.periodId = p.periodId
                 LEFT JOIN TeacherAttendance ta ON t.teacherRegNo = ta.teacherRegNo 
                     --    AND ta.date = CURDATE()
@@ -35,12 +35,12 @@ class CurrentActModel {
 
     // Fetch available teachers for a specific free class
     public function getAvailableTeachers($subjectId, $periodId, $day) {
-        $sql = "SELECT DISTINCT t.regNo, t.firstName, t.lastName, u.mobileNo
+        $sql = "SELECT DISTINCT t.teacher_id, u.fullName, u.email, u.mobileNo
             FROM Teachers t
-            JOIN Teacher_Subjects ts ON t.regNo = ts.teacherRegNo
-            LEFT JOIN TeacherAttendance ta ON t.regNo = ta.teacherRegNo 
+            JOIN Teacher_Subjects ts ON t.teacher_id = ts.teacherRegNo
+            LEFT JOIN TeacherAttendance ta ON t.teacher_id = ta.teacherRegNo 
                 -- AND ta.date = CURDATE()
-            LEFT JOIN Timetables tt ON t.regNo = tt.teacherRegNo 
+            LEFT JOIN Timetables tt ON t.teacher_id = tt.teacherRegNo 
                 AND tt.periodId = :periodId 
                 AND tt.day = :day
             LEFT JOIN users u ON t.regNo = u.regNo  -- Joining users table to get mobileNo

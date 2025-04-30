@@ -10,7 +10,7 @@
         <!-- <label for="recipient" class="label-feedback">Select Recipient</label> -->
         <select id="recipient" name="recipient" required class="form-control-feedback">
             <option value="">Choose Recipient</option>
-            <option value="teacher">Teacher</option> 
+            <!-- <option value="teacher">Teacher</option>  -->
             <option value="principal">Principal</option>
             <!-- <option value="both">Both</option> -->
         </select>

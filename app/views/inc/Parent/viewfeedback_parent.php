@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Feedback Display Container -->
-<div class="feedback-set-container">
+<div class="feedback-set-container container">
     <h1>Parents Feedbacks</h1>
 
     <!-- Check if there are feedbacks to display -->

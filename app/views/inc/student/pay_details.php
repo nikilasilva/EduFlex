@@ -1,72 +1,136 @@
-<?php require APPROOT.'/views/inc/header.php'; ?>
-<?php require APPROOT.'/views/inc/components/topNavbar.php'; ?>
+<?php
+// Make sure $payments is available
+$payments = $data['payments'] ?? [];
+?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Status Table</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/payment.css">
-</head>
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/components/topNavbar.php'; ?>
 
-<nav class="sidebar">
+<div class="content-wrapper">
+  <nav class="sidebar">
     <header>
-        <div class="image-text">
-            <span class="image">
-                <img src="<?php echo URLROOT; ?>/public/img/logo_noBG1.png" alt="Logo">
-            </span>
-            <div class="text header-text">
-            <span class="name">EduFlex</span>
-            </div>
-            <i class="fa-solid fa-bars toggle"></i>
+      <div class="image-text">
+        <span class="image">
+          <img src="<?php echo URLROOT; ?>/public/img/logo_noBG1.png" alt="Logo">
+        </span>
+        <div class="text header-text">
+          <span class="name">EduFlex</span>
         </div>
-    </header>
-
+        <i class="fa-solid fa-bars toggle"></i>
+      </div>
+    </header> 
+    
     <ul>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/attendance"><i class="fa-solid fa-clipboard-user icon"></i><span class="text nav-text">Attendance Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/payment"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/certificate"><i class="fa-solid fa-certificate icon"></i><span class="text nav-text">Certificates</span></a></li>
-        <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/form"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Charges Form</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Dashboard/index"><i class="fa-solid fa-house icon"></i><span class="text nav-text">Home</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/details"><i class="fa-solid fa-user-graduate icon"></i><span class="text nav-text">Details</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Academic/academic"><i class="fa-solid fa-chalkboard-user icon"></i><span class="text nav-text">Academic Details</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/ViewAttendance/attendance" class="active"><i class="fa-solid fa-clipboard-user icon"></i><span class="text nav-text">Attendance Details</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Payment_charges/payment"><i class="fa-solid fa-credit-card icon"></i><span class="text nav-text">Payment Details</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/ViewTimeTable/timeTable"><i class="fa-solid fa-table icon"></i><span class="text nav-text">Timetable</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/events"><i class="fa-solid fa-calendar-days icon"></i><span class="text nav-text">Scheduled Events</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/certificate"><i class="fa-solid fa-certificate icon"></i><span class="text nav-text">Certificates</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Student/form"><i class="fa-solid fa-file icon"></i><span class="text nav-text">Charges Form</span></a></li>
+      <li class="nav-links"><a href="<?php echo URLROOT ?>/Users/settings"><i class="fa-solid fa-gear icon"></i><span class="text nav-text">Settings</span></a></li>
     </ul>
-</nav>
 
-<body>
-    <div class="table-container">
-         <h1>Facility & Service Charges</h1>
-      
-        <div class="status-table">
-            <!-- Headers -->
-            <div class="table-header">Year</div>
-            <div class="table-header">Status</div>
+  </nav>
 
-            <!-- Year and Status Cells -->
-            <div class="year-cell">2021</div>
-            <div class="status-paid">Paid</div>
+  <style>
+  /* .table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    height: 400px;
+    width: 70%;
+    border-radius: 10px;
+    position: relative;
+    left: 350px;
+    
+  }
 
-            <div class="year-cell">2022</div>
-            <div class="status-paid">Paid</div>
+  table {
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 70%;
+    position: relative;
+    left:-30px;
+    top:-100px;
+   
+  }
 
-            <div class="year-cell">2023</div>
-            <div class="status-paid">Paid</div>
+  table th, table td {
+    padding: 12px 20px;
+    text-align: left;
+  }
 
-            <div class="year-cell">2024</div>
-            <div class="status-paid">Paid</div>
+  table th {
+    background-color: #003366;
+    color: #fff;
+    font-weight: 600;
+  }
 
-            <div class="year-cell">2025</div>
-            <div class="status-non-paid">Non Paid</div>
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
 
-            <div class="year-cell">2026</div>
-            <div class="status-non-paid">Non Paid</div>
-        </div>
+  table tr:hover {
+    background-color: #e6f0ff;
+    transition: 0.3s ease;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+    color: #003366;
+  } */
+</style>
+
+
+<div class="aca-container container">
+  <h1>Payment History</h1>
+
+<?php if (empty($payments)) : ?>
+    <p>No payment records found.</p>
+<?php else : ?>
+    <table>
+        <thead class="academic-table-header">
+            <tr>
+                <!-- <th>Payment ID</th>
+                <th>Full Name</th> -->
+                <th>Student ID</th>
+                <th>Year of Payment</th>
+                <th>Status</th>
+                <!-- <th>Payment Slip</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($payments as $payment) : ?>
+                <tr>
+                    <!-- <td><?= htmlspecialchars($payment->payment_id) ?></td>
+                    <td><?= htmlspecialchars($payment->full_name) ?></td> -->
+                    <td><?= htmlspecialchars($payment->student_id) ?></td>
+                    <td><?= htmlspecialchars($payment->year_of_payment) ?></td>
+                   
+                <!-- <td>
+                         <?php if (!empty($payment->payment_slip)) : ?>
+                            <a href="<?= URLROOT ?>/uploads/<?= htmlspecialchars($payment->payment_slip) ?>" target="_blank">View</a>
+                        <?php else : ?> 
+                            No file
+                        <?php endif; ?>
+                    </td>  -->
+                    <td>
+                        <span style="color: green; font-weight: bold;">Paid</span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
     </div>
-</body>
-</html>
+                        </div>
+<?php endif; ?>
 
-<?php require APPROOT.'/views/inc/footer.php'; ?>
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>
